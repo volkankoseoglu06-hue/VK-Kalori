@@ -3,26 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-
 <title>VK Kalori</title>
 
 <style>
-
 body{
 margin:0;
 font-family:Arial,sans-serif;
-background:#f3f3f3;
+background:#efefef;
 }
 
 .header{
 background:#c62828;
+padding:28px;
 color:white;
-padding:25px;
-border-radius:0 0 30px 30px;
+border-bottom-left-radius:30px;
+border-bottom-right-radius:30px;
 }
 
 .logo{
-font-size:52px;
+font-size:58px;
 font-weight:bold;
 }
 
@@ -35,18 +34,18 @@ margin-top:15px;
 
 .menu button{
 border:none;
-background:white;
 padding:10px 14px;
 border-radius:14px;
+background:white;
 font-weight:bold;
 }
 
 .page{
 display:none;
-padding:15px;
+padding:16px;
 }
 
-.active{
+.page.active{
 display:block;
 }
 
@@ -54,14 +53,15 @@ display:block;
 background:white;
 padding:18px;
 border-radius:20px;
-margin-bottom:15px;
+margin-bottom:14px;
 }
 
 .summary{
-background:#fafafa;
-padding:12px;
-border-radius:12px;
-margin-top:8px;
+background:#111;
+color:white;
+padding:14px;
+border-radius:14px;
+margin-bottom:10px;
 }
 
 input,select{
@@ -69,37 +69,42 @@ width:100%;
 box-sizing:border-box;
 padding:12px;
 margin-top:8px;
-border:1px solid #ddd;
+border:1px solid #ccc;
 border-radius:12px;
 }
 
 .action{
 width:100%;
+border:none;
 padding:12px;
 margin-top:10px;
-border:none;
 border-radius:12px;
 background:#c62828;
 color:white;
-font-size:16px;
 font-weight:bold;
 }
 
-.food-btn{
-width:100%;
-margin-top:6px;
+.foodItem{
 padding:10px;
+background:#fafafa;
+border-radius:12px;
+margin-top:6px;
+}
+
+.deleteBtn{
+float:right;
 border:none;
+border-radius:8px;
+padding:4px 8px;
+}
+
+.suggest{
+width:100%;
+border:none;
+padding:10px;
+margin-top:5px;
 border-radius:10px;
 }
-
-.delete{
-margin-left:10px;
-border:none;
-padding:4px 8px;
-border-radius:8px;
-}
-
 </style>
 </head>
 
@@ -109,15 +114,17 @@ border-radius:8px;
 
 <div class="logo">VK</div>
 
-<div>Kalori • Beslenme</div>
+<div>Kalori • Beslenme • Takip</div>
 
 <div class="menu">
 
-<button onclick="showPage('home')">🏠</button>
+<button onclick="openPage('home')">🏠</button>
 
-<button onclick="showPage('food')">🍽️</button>
+<button onclick="openPage('food')">🍽️</button>
 
-<button onclick="showPage('profile')">👤</button>
+<button onclick="openPage('history')">📅</button>
+
+<button onclick="openPage('profile')">👤</button>
 
 </div>
 
@@ -125,37 +132,28 @@ border-radius:8px;
 
 <div id="home" class="page active">
 
-<div class="card">
-
-<h2>Bugünkü Özet</h2>
-
 <div class="summary">
-🔥 <span id="totalCal">0</span> /
-<span id="goal">1900</span> kcal
+🔥 <span id="calorieTotal">0</span> /
+<span id="goalText">1900</span> kcal
 </div>
 
 <div class="summary">
-🥩 Protein:
-<span id="totalProtein">0</span> g
+🥩 Protein: <span id="proteinTotal">0</span> g
 </div>
 
 <div class="summary">
-🥑 Yağ:
-<span id="totalFat">0</span> g
+🥑 Yağ: <span id="fatTotal">0</span> g
 </div>
 
 <div class="summary">
-🍞 Karbonhidrat:
-<span id="totalCarb">0</span> g
-</div>
-
+🍞 Karbonhidrat: <span id="carbTotal">0</span> g
 </div>
 
 <div class="card">
 
 <h3>Bugünkü Öğünler</h3>
 
-<ul id="mealList"></ul>
+<div id="todayMeals"></div>
 
 </div>
 
@@ -164,8 +162,6 @@ border-radius:8px;
 <div id="food" class="page">
 
 <div class="card">
-
-<h2>Beslenme</h2>
 
 <select id="mealType">
 
@@ -180,11 +176,25 @@ border-radius:8px;
 </select>
 
 <input
-id="foodSearch"
-placeholder="Besin ara"
-onkeyup="searchFood()">
+id="search"
+placeholder="Peynir, tavuk, protein tozu..."
+onkeyup="findFood()">
 
 <div id="suggestions"></div>
+
+</div>
+
+</div>
+
+<div id="history" class="page">
+
+<div class="card">
+
+<h3>Geçmiş</h3>
+
+<p>Bugünkü kayıtlar saklanır.</p>
+
+<div id="historyArea"></div>
 
 </div>
 
@@ -194,13 +204,13 @@ onkeyup="searchFood()">
 
 <div class="card">
 
-<h2>Profil</h2>
-
-<input id="dailyGoal"
+<input
+id="goalInput"
 type="number"
 placeholder="Günlük kalori hedefi">
 
-<button class="action"
+<button
+class="action"
 onclick="saveGoal()">
 
 Kaydet
@@ -224,50 +234,52 @@ const foods=[
 {name:"süt",k:61,p:3.3,f:3,c:5},
 {name:"tavuk",k:165,p:31,f:4,c:0},
 {name:"ton balığı",k:132,p:29,f:1,c:0},
-{name:"pirinç pilavı",k:130,p:2.7,f:0.3,c:28},
-{name:"makarna",k:157,p:5.8,f:1,c:31},
+{name:"pilav",k:130,p:3,f:0.3,c:28},
+{name:"makarna",k:157,p:6,f:1,c:31},
 {name:"kuru fasulye",k:127,p:9,f:0.5,c:23},
 {name:"nohut",k:164,p:9,f:2.6,c:27},
 {name:"muz",k:89,p:1.1,f:0.3,c:23},
-{name:"elma",k:52,p:0.3,f:0.2,c:14},
+{name:"karpuz",k:30,p:0.6,f:0.2,c:8},
 {name:"protein tozu",k:120,p:20,f:2,c:3},
+{name:"whey",k:120,p:20,f:2,c:3},
 {name:"protein bar",k:200,p:20,f:7,c:18},
 {name:"fit browni",k:180,p:15,f:6,c:18}
 
 ];
 
-let meals=
-JSON.parse(localStorage.getItem("vkMeals"))||[];
+let meals=JSON.parse(localStorage.getItem("vkMeals"))||[];
 
-let goal=
-localStorage.getItem("vkGoal")||1900;
+let goal=localStorage.getItem("vkGoal")||1900;
 
-function showPage(id){
+function openPage(id){
 
 document.querySelectorAll(".page")
-.forEach(x=>x.classList.remove("active"));
+.forEach(p=>p.classList.remove("active"));
 
 document.getElementById(id)
 .classList.add("active");
 
+refresh();
+
 }
 
-function searchFood(){
+function findFood(){
 
-let value=
-document.getElementById("foodSearch")
-.value.toLowerCase();
+const text=document
+.getElementById("search")
+.value
+.toLowerCase();
 
-let result=
-foods.filter(x=>
-x.name.includes(value));
+const result=foods.filter(
+f=>f.name.includes(text)
+);
 
 let html="";
 
-result.forEach(food=>{
+result.forEach((f,i)=>{
 
 html+=
-'<button class="food-btn" onclick="addFood('+foods.indexOf(food)+')">'+food.name+'</button>';
+'<button class="suggest" onclick="addFood('+foods.indexOf(f)+')">'+f.name+'</button>';
 
 });
 
@@ -277,12 +289,12 @@ document.getElementById(
 
 }
 
-function addFood(i){
+function addFood(index){
 
-let food=foods[i];
+const food=foods[index];
 
-let meal=
-document.getElementById("mealType")
+const meal=document
+.getElementById("mealType")
 .value;
 
 meals.push({
@@ -306,11 +318,11 @@ localStorage.setItem(
 JSON.stringify(meals)
 );
 
-update();
+refresh();
 
 }
 
-function removeMeal(i){
+function deleteFood(i){
 
 meals.splice(i,1);
 
@@ -319,18 +331,33 @@ localStorage.setItem(
 JSON.stringify(meals)
 );
 
-update();
+refresh();
 
 }
 
-function update(){
+function saveGoal(){
+
+goal=document
+.getElementById("goalInput")
+.value;
+
+localStorage.setItem(
+"vkGoal",
+goal
+);
+
+refresh();
+
+}
+
+function refresh(){
 
 let cal=0;
 let protein=0;
 let fat=0;
 let carb=0;
 
-let html="";
+let mealHTML="";
 
 meals.forEach((m,i)=>{
 
@@ -339,56 +366,46 @@ protein+=m.p;
 fat+=m.f;
 carb+=m.c;
 
-html+=
-"<li>"+m.meal+
-" - "+m.name+
-"<button class='delete' onclick='removeMeal("+i+")'>❌</button></li>";
+mealHTML+=
+'<div class="foodItem">'+
+m.meal+
+' - '+
+m.name+
+'<button class="deleteBtn" onclick="deleteFood('+i+')">❌</button></div>';
 
 });
 
 document.getElementById(
-"mealList"
-).innerHTML=html;
+"todayMeals"
+).innerHTML=mealHTML;
 
 document.getElementById(
-"totalCal"
+"historyArea"
+).innerHTML=mealHTML;
+
+document.getElementById(
+"calorieTotal"
 ).innerText=Math.round(cal);
 
 document.getElementById(
-"totalProtein"
+"proteinTotal"
 ).innerText=Math.round(protein);
 
 document.getElementById(
-"totalFat"
+"fatTotal"
 ).innerText=Math.round(fat);
 
 document.getElementById(
-"totalCarb"
+"carbTotal"
 ).innerText=Math.round(carb);
 
 document.getElementById(
-"goal"
+"goalText"
 ).innerText=goal;
 
 }
 
-function saveGoal(){
-
-goal=
-document.getElementById(
-"dailyGoal"
-).value;
-
-localStorage.setItem(
-"vkGoal",
-goal
-);
-
-update();
-
-}
-
-update();
+refresh();
 
 </script>
 
