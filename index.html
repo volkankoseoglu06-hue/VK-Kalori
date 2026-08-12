@@ -1,194 +1,44 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>VK Kalori</title>
-
-<style>
-
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f5f5f5;
-}
-
-.header{
-background:#c62828;
-color:white;
-padding:30px;
-border-bottom-left-radius:35px;
-border-bottom-right-radius:35px;
-}
-
-.logo{
-font-size:60px;
-font-weight:bold;
-}
-
-.menu{
-display:flex;
-gap:10px;
-overflow:auto;
-margin-top:20px;
-}
-
-.menu button{
-border:none;
-padding:12px 20px;
-border-radius:20px;
-background:white;
-font-size:18px;
-}
-
-.card{
-background:white;
-margin:20px;
-padding:20px;
-border-radius:25px;
-}
-
-.calorie{
-background:#111;
-color:white;
-}
-
-.progress{
-height:15px;
-background:#444;
-border-radius:20px;
-overflow:hidden;
-margin:20px 0;
-}
-
-.bar{
-height:100%;
-width:0%;
-background:#c62828;
-}
-
-.macros{
-display:flex;
-gap:10px;
-}
-
-.macro{
-flex:1;
-background:white;
-color:black;
-padding:20px;
-border-radius:20px;
-text-align:center;
-}
-
-.food{
-display:flex;
-flex-direction:column;
-gap:10px;
-}
-
-input,select{
-padding:15px;
-border-radius:15px;
-border:1px solid #ccc;
-font-size:16px;
-}
-
-.action{
-background:#c62828;
-color:white;
-border:none;
-padding:15px;
-border-radius:15px;
-font-size:18px;
-}
-
-.recipe{
-padding:15px;
-background:#fafafa;
-border-radius:15px;
-margin-top:10px;
-}
-
-</style>
-</head>
-
-<body>
-
-<div class="header">
-
-<div class="logo">VK</div>
-
-<div>Kalori • Beslenme • Fit Yaşam</div>
+<!-- body etiketinin içine -->
 
 <div class="menu">
 
-<button>Ana Sayfa</button>
+<button onclick="showPage('home')">🏠 Ana Sayfa</button>
 
-<button>Beslenme</button>
+<button onclick="showPage('food')">🍽️ Beslenme</button>
 
-<button>Fit Menü</button>
+<button onclick="showPage('workout')">🏋️ Antreman</button>
 
-<button>Antreman</button>
+<button onclick="showPage('history')">📅 Geçmiş</button>
 
-<button>Geçmiş</button>
-
-<button>Profil</button>
+<button onclick="showPage('profile')">👤 Profil</button>
 
 </div>
 
-</div>
-
-<div class="card calorie">
-
-<h2>Bugünün Kalori Hedefi</h2>
-
-<h1 id="kalori">0 / 1900 kcal</h1>
-
-<div class="progress">
-<div class="bar" id="bar"></div>
-</div>
-
-<button class="action" onclick="spor()">
-🏋️ Spor Günü
-</button>
-
-<button class="action" onclick="dinlenme()">
-🛌 Dinlenme Günü
-</button>
-
-<div class="macros">
-
-<div class="macro">
-Protein
-<br>
-<span id="protein">0 g</span>
-</div>
-
-<div class="macro">
-Karbonhidrat
-<br>
-0 g
-</div>
-
-<div class="macro">
-Yağ
-<br>
-0 g
-</div>
-
-</div>
-
-</div>
+<div id="home" class="page active">
 
 <div class="card">
 
-<h2>🍽️ Yemek Ekle</h2>
+<h2>🔥 Günlük Özet</h2>
 
-<div class="food">
+<p>Kalori: <span id="todayCalories">0</span></p>
 
-<select>
+<p>Protein: <span id="todayProtein">0</span> g</p>
+
+<p>Antreman: <span id="todayWorkout">0</span> dk</p>
+
+<h3>🍽️ Bugünkü Öğünler</h3>
+
+<ul id="todayMeals"></ul>
+
+</div>
+
+</div><div id="food" class="page">
+
+<div class="card">
+
+<h2>🍽️ Beslenme</h2>
+
+<select id="mealType">
 
 <option>Kahvaltı</option>
 
@@ -201,190 +51,83 @@ Yağ
 </select>
 
 <input
-id="yemek"
-placeholder="2 yumurta, 50 gr peynir">
+id="foodSearch"
+placeholder="Besin ara"
+onkeyup="suggestFood()"
+>
 
-<button
-class="action"
-onclick="hesapla()">
+<div id="suggestions"></div>
 
-Hesapla
+<select id="unit">
+
+<option>Gram</option>
+
+<option>Adet</option>
+
+<option>Dilim</option>
+
+<option>Porsiyon</option>
+
+<option>ml</option>
+
+<option>Ölçek</option>
+
+</select>
+
+<input
+id="amount"
+type="number"
+placeholder="Miktar"
+>
+
+<button onclick="addFood()">
+
+Hesapla ve Kaydet
 
 </button>
 
-<button
-class="action"
-onclick="kaydet()">
-
-Kaydet
-
-</button>
-
 </div>
 
-</div>
+</div>const foods={
 
-<div class="card">
+"yumurta":{k:78,p:6.5},
 
-<h2>🥗 Fit Tarifler</h2>
+"beyaz peynir":{k:330,p:24},
 
-<div class="recipe">
+"kaşar":{k:404,p:25},
 
-<b>Fit Browni</b>
+"lor":{k:98,p:18},
 
-<p>
+"yoğurt":{k:61,p:3.5},
 
-1 porsiyon:
+"ayran":{k:35,p:2},
 
-180 kcal
+"süt":{k:61,p:3.3},
 
-15 g protein
+"tavuk":{k:165,p:31},
 
-</p>
+"hindi":{k:135,p:29},
 
-</div>
+"ton balığı":{k:132,p:29},
 
-<div class="recipe">
+"kuru fasulye":{k:127,p:9},
 
-<b>Proteinli Kek</b>
+"nohut":{k:164,p:9},
 
-<p>
+"pilav":{k:130,p:2.7},
 
-1 porsiyon:
+"makarna":{k:157,p:5.8},
 
-220 kcal
+"muz":{k:89,p:1.1},
 
-18 g protein
+"karpuz":{k:30,p:0.6},
 
-</p>
+"kavun":{k:34,p:0.8},
 
-</div>
+"whey":{k:120,p:20},
 
-<div class="recipe">
+"protein tozu":{k:120,p:20},
 
-<b>Yulaflı Kurabiye</b>
+"protein bar":{k:200,p:20}
 
-<p>
-
-1 porsiyon:
-
-140 kcal
-
-8 g protein
-
-</p>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h2>📈 Geçmiş</h2>
-
-<p>12.08.2026 → 108,2 kg</p>
-
-</div>
-
-<script>
-
-let toplam=0;
-let protein=0;
-let hedef=1900;
-
-function hesapla(){
-
-let y=document
-.getElementById("yemek")
-.value
-.toLowerCase();
-
-let k=0;
-let p=0;
-
-if(y.includes("yumurta")){
-
-k=156;
-p=13;
-
-}
-
-else if(y.includes("peynir")){
-
-k=165;
-p=12;
-
-}
-
-else if(y.includes("protein tozu")){
-
-k=120;
-p=20;
-
-}
-
-else{
-
-alert("Besin bulunamadı.");
-
-return;
-
-}
-
-toplam+=k;
-protein+=p;
-
-document.getElementById(
-"kalori"
-).innerHTML=
-
-toplam+" / "+hedef+" kcal";
-
-document.getElementById(
-"protein"
-).innerHTML=
-
-protein+" g";
-
-document.getElementById(
-"bar"
-).style.width=
-
-(toplam/hedef*100)+"%";
-
-}
-
-function kaydet(){
-
-alert("Öğün kaydedildi.");
-
-}
-
-function spor(){
-
-hedef=2100;
-
-document.getElementById(
-"kalori"
-).innerHTML=
-
-toplam+" / "+hedef+" kcal";
-
-}
-
-function dinlenme(){
-
-hedef=1900;
-
-document.getElementById(
-"kalori"
-).innerHTML=
-
-toplam+" / "+hedef+" kcal";
-
-}
-
-</script>
-
-</body>
-</html>
+};
