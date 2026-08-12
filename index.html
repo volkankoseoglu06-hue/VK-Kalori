@@ -1,441 +1,156 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>VK Kalori</title>
+<!-- MENÜ -->
+
+<nav class="menu">
+
+<button onclick="page('home')">🏠 Ana Sayfa</button>
+
+<button onclick="page('food')">🍽️ Beslenme</button>
+
+<button onclick="page('recipes')">🍫 Fit Menü</button>
+
+<button onclick="page('workout')">🏋️ Antrenman</button>
+
+<button onclick="page('measure')">⚖️ Ölçümler</button>
+
+<button onclick="page('profile')">👤 Profil</button>
+
+</nav>
 
 <style>
-*{box-sizing:border-box}
 
-body{
-margin:0;
-background:#f4f4f4;
-color:#111;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif
-}
-
-header{
-background:#d71920;
-color:#fff;
-padding:16px;
-border-radius:0 0 22px 22px;
-position:sticky;
-top:0;
-z-index:20
-}
-
-.logo{
-font-size:36px;
-font-weight:900;
-letter-spacing:-3px
-}
-
-.sub{
-font-size:12px;
-opacity:.85
-}
-
-nav{
+.menu{
 display:flex;
-gap:6px;
+gap:8px;
 overflow:auto;
-margin-top:12px
+padding:10px;
 }
 
-nav button{
+.menu button{
 border:0;
-background:#fff;
-padding:9px 12px;
-border-radius:11px;
-font-weight:800;
-white-space:nowrap
-}
-
-main{
-max-width:820px;
-margin:auto;
-padding:12px
+padding:10px 14px;
+border-radius:12px;
+background:#111;
+color:#fff;
+font-weight:700;
+white-space:nowrap;
 }
 
 .card{
 background:#fff;
-border-radius:20px;
 padding:16px;
-margin-bottom:12px;
-box-shadow:0 2px 12px #00000012
-}
-
-.hidden{display:none}
-
-.hero{
-background:#111;
-color:#fff
-}
-
-.muted{color:#777}
-.hero .muted{color:#aaa}
-
-.big{
-font-size:42px;
-font-weight:900
-}
-
-.bar{
-height:11px;
-background:#444;
 border-radius:20px;
-overflow:hidden;
-margin:10px 0
-}
-
-.fill{
-height:100%;
-width:0;
-background:#d71920
-}
-
-.mode{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:8px
-}
-
-.mode button{
-border:2px solid #444;
-background:#222;
-color:#ddd;
-padding:11px;
-border-radius:12px;
-font-weight:bold
-}
-
-.mode .on{
-background:#d71920;
-border-color:#d71920;
-color:white
-}
-
-.macro{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:7px;
-margin-top:12px
-}
-
-.macro div{
-background:#eee;
-color:#111;
-padding:9px;
-border-radius:10px;
-text-align:center;
-font-size:13px
-}
-
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:8px
-}
-
-.quick{
-border:0;
-background:#fff;
-padding:15px;
-border-radius:15px;
-font-weight:850;
-box-shadow:0 2px 10px #0001
-}
-
-.btn{
-border:0;
-border-radius:11px;
-padding:11px 14px;
-font-weight:800;
-background:#111;
-color:#fff
-}
-
-.red{background:#d71920}
-.gray{background:#eee;color:#111}
-.danger{background:#ffe0e0;color:#a00000}
-
-.actions{
-display:flex;
-gap:7px;
-flex-wrap:wrap
-}
-
-.row{
-border:1px solid #eee;
-border-radius:14px;
-padding:10px;
-margin:8px 0
-}
-
-.rowtop{
-display:grid;
-grid-template-columns:1fr 38px;
-gap:7px
-}
-
-.rowgrid{
-display:grid;
-grid-template-columns:1.4fr .8fr .8fr;
-gap:7px;
-margin-top:7px
-}
-
-input,select{
-width:100%;
-padding:10px;
-border:1px solid #ddd;
-border-radius:10px;
-background:white;
-font-size:14px
-}
-
-.suggestions{
-display:flex;
-gap:5px;
-flex-wrap:wrap;
-margin-top:7px
-}
-
-.suggestions button{
-border:1px solid #ddd;
-background:#f7f7f7;
-padding:6px 9px;
-border-radius:9px;
-font-size:12px
-}
-
-.lineResult{
-margin-top:7px;
-font-size:13px;
-font-weight:800
-}
-
-.unknown{
-color:#a00000
+margin:12px;
+box-shadow:0 2px 10px rgba(0,0,0,.1);
 }
 
 .recipe{
 border:1px solid #eee;
-border-radius:15px;
-padding:13px;
-margin:8px 0
-}
-
-.recipe h3{
-margin:7px 0
-}
-
-.tag{
-display:inline-block;
-background:#eee;
-border-radius:7px;
-padding:4px 7px;
-font-size:11px;
-font-weight:bold
-}
-
-.recipegrid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:6px
-}
-
-.recipegrid div{
-background:#f0f0f0;
-border-radius:9px;
-text-align:center;
-padding:7px;
-font-size:12px
-}
-
-.filter{
-display:flex;
-gap:6px;
-overflow:auto;
-margin:10px 0
-}
-
-.filter button{
-border:0;
-background:#eee;
-padding:8px 10px;
-border-radius:9px;
-white-space:nowrap;
-font-weight:bold
-}
-
-.filter .active{
-background:#d71920;
-color:white
-}
-
-.notice{
-background:#fff4f4;
-padding:10px;
-border-radius:10px;
+padding:14px;
+border-radius:14px;
 margin-top:10px;
-font-size:13px
 }
 
-.historyitem{
-border-bottom:1px solid #eee;
-padding:10px 0
+.hidden{
+display:none;
 }
+
+input,
+select{
+width:100%;
+padding:10px;
+border:1px solid #ddd;
+border-radius:10px;
+margin-top:8px;
+margin-bottom:8px;
+}
+
+button.action{
+border:0;
+padding:12px;
+border-radius:10px;
+background:#c00000;
+color:#fff;
+font-weight:700;
+}
+
 </style>
-</head>
-
-<body>
-
-<header>
-
-<div class="logo">VK</div>
-<div class="sub">KALORİ • BESLENME • FIT YAŞAM</div>
-
-<nav>
-<button onclick="page('home')">Ana Sayfa</button>
-<button onclick="page('food')">🍽️ Beslenme</button>
-<button onclick="page('recipes')">🥗 Fit Menü</button>
-<button onclick="page('history')">📅 Geçmiş</button>
-</nav>
-
-</header>
-
-<main>
 
 <!-- ANA SAYFA -->
 
 <section id="home">
 
-<div class="grid">
+<div class="card">
 
-<button class="quick" onclick="page('food');addRow()">
-🍽️ Yemek Ekle
-</button>
+<h2>🔥 Günlük Durum</h2>
 
-<button class="quick" onclick="page('recipes')">
-🥗 Fit Menü
-</button>
+<p>Kalori: <b id="dailyCalorie">0</b> / <span id="dailyTarget">2300</span></p>
 
-<button class="quick" onclick="finishDay()">
-🏁 Günü Bitir
-</button>
+<p>Protein: <b id="dailyProtein">0</b> g</p>
 
-<button class="quick" onclick="resetToday()">
-🔄 Bugünü Sıfırla
-</button>
-
-</div>
-
-<div class="card hero">
-
-<div class="muted">
-BUGÜNÜN KALORİ HEDEFİ
-</div>
-
-<div>
-<span class="big" id="total">0</span>
-/
-<span id="target">2100</span>
-kcal
-</div>
-
-<div class="bar">
-<div class="fill" id="fill"></div>
-</div>
-
-<div class="mode">
-
-<button id="restBtn"
-onclick="setSport(false)">
-🛋️ Dinlenme Günü
-</button>
-
-<button id="sportBtn"
-onclick="setSport(true)">
-🏋️ Spor Günü
-</button>
-
-</div>
-
-<div class="macro">
-
-<div>
-Protein<br>
-<b id="protein">0</b> g
-</div>
-
-<div>
-Karbonhidrat<br>
-<b id="carb">0</b> g
-</div>
-
-<div>
-Yağ<br>
-<b id="fat">0</b> g
-</div>
-
-</div>
+<p>Kilo: <b id="weightText">109</b> kg</p>
 
 </div>
 
 <div class="card">
 
-<b>Bugünkü durum</b>
+<h2>🍽️ Bugün Yediklerim</h2>
 
-<p id="status" class="muted">
-Bugün henüz kayıt yok.
-</p>
+<ul id="todayMeals">
+
+<li>Henüz kayıt yok.</li>
+
+</ul>
 
 </div>
 
 </section>
 
+<!-- ANTRENMAN -->
 
-<!-- BESLENME -->
-
-<section id="food" class="hidden">
+<section id="workout" class="hidden">
 
 <div class="card">
 
-<h2>🍽️ Beslenme Kaydı</h2>
+<h2>🏋️ Antrenman</h2>
 
-<p class="muted">
-Yediğin şeyi yaz. Benzer seçeneklerden seç ve ölçünü belirle.
+<select id="exercise">
+
+<option>Koşu bandı</option>
+
+<option>Bisiklet</option>
+
+<option>Ağırlık antrenmanı</option>
+
+<option>Yürüyüş</option>
+
+</select>
+
+<input
+type="number"
+id="exerciseTime"
+placeholder="Süre (dakika)"
+>
+
+<button
+class="action"
+onclick="addWorkout()"
+>
+
+Antrenmanı Ekle
+
+</button>
+
+<p>
+
+Yakılan kalori:
+
+<b id="burnedCalories">0</b>
+
 </p>
-
-<div id="mealRows"></div>
-
-<div class="actions">
-
-<button class="btn gray"
-onclick="addRow()">
-＋ Satır Ekle
-</button>
-
-<button class="btn red"
-onclick="calculate()">
-Hesapla
-</button>
-
-<button class="btn"
-onclick="saveMeals()">
-Kaydet
-</button>
-
-</div>
-
-<div id="calc"></div>
 
 </div>
 
 </section>
-
 
 <!-- FIT MENÜ -->
 
@@ -443,1369 +158,158 @@ Kaydet
 
 <div class="card">
 
-<h2>🥗 Fit Menü</h2>
+<h2>🍫 Fit Tarifler</h2>
 
-<p class="muted">
-Kahvaltıdan fit brownie'ye kadar porsiyon kontrollü tarifler.
+<div class="recipe">
+
+<h3>🍫 Fit Brownie</h3>
+
+<p>180 kcal</p>
+
+<p>12 g protein</p>
+
+<p>
+
+Yulaf, kakao, yumurta ve yoğurt içerir.
+
 </p>
 
-<input
-id="recipeSearch"
-placeholder="Brownie, tavuk, protein..."
-oninput="renderRecipes()"
->
+</div>
 
-<div class="filter" id="filters"></div>
+<div class="recipe">
 
-<div id="recipeList"></div>
+<h3>🥞 Proteinli Pankek</h3>
+
+<p>320 kcal</p>
+
+<p>27 g protein</p>
+
+</div>
+
+<div class="recipe">
+
+<h3>🍕 Fit Pizza</h3>
+
+<p>430 kcal</p>
+
+<p>36 g protein</p>
+
+</div>
 
 </div>
 
 </section>
 
+<!-- ÖLÇÜMLER -->
 
-<!-- GEÇMİŞ -->
-
-<section id="history" class="hidden">
+<section id="measure" class="hidden">
 
 <div class="card">
 
-<h2>📅 Geçmiş</h2>
+<h2>⚖️ Vücut Analizi</h2>
 
-<div id="historyList"></div>
+<input type="file">
+
+<p>
+
+Tartı sonuçlarını yükleyerek karşılaştırabilirsin.
+
+</p>
 
 </div>
 
 </section>
 
-</main>
+<!-- PROFİL -->
 
+<section id="profile" class="hidden">
+
+<div class="card">
+
+<h2>👤 Profil</h2>
+
+<input id="age" placeholder="Yaş">
+
+<input id="height" placeholder="Boy">
+
+<input id="weight" placeholder="Kilo">
+
+<input id="targetWeight" placeholder="Hedef kilo">
+
+<button
+class="action"
+onclick="saveProfile()"
+>
+
+Kaydet
+
+</button>
+
+</div>
+
+</section>
 
 <script>
 
-/* =========================
-   YEMEK VERİ TABANI
-========================= */
-
-const foods={
-
-"yumurta":{
-k:78,p:6.3,c:.6,f:5.3,u:"adet"
-},
-
-"beyaz peynir":{
-k:264,p:14,c:4,f:21,u:"100g"
-},
-
-"lor peyniri":{
-k:98,p:11,c:3,f:4,u:"100g"
-},
-
-"krem peynir":{
-k:250,p:6,c:6,f:23,u:"100g"
-},
-
-"kaşar peyniri":{
-k:350,p:25,c:2,f:27,u:"100g"
-},
-
-"dana kaburga füme":{
-k:180,p:25,c:1,f:8,u:"100g"
-},
-
-"dana füme":{
-k:180,p:25,c:1,f:8,u:"100g"
-},
-
-"tam buğday ekmek":{
-k:247,p:13,c:41,f:4,u:"100g"
-},
-
-"ekmek":{
-k:265,p:9,c:49,f:3,u:"100g"
-},
-
-"tavuk göğsü":{
-k:165,p:31,c:0,f:3.6,u:"100g"
-},
-
-"tavuk":{
-k:165,p:31,c:0,f:3.6,u:"100g"
-},
-
-"pirinç pilavı":{
-k:130,p:2.7,c:28,f:.3,u:"100g"
-},
-
-"pilav":{
-k:130,p:2.7,c:28,f:.3,u:"100g"
-},
-
-"bulgur pilavı":{
-k:120,p:3.1,c:26,f:.4,u:"100g"
-},
-
-"kuru fasulye":{
-k:127,p:8.7,c:22,f:.5,u:"100g"
-},
-
-"nohut":{
-k:164,p:8.9,c:27,f:2.6,u:"100g"
-},
-
-"mercimek":{
-k:116,p:9,c:20,f:.4,u:"100g"
-},
-
-"yoğurt":{
-k:61,p:3.5,c:4.7,f:3.3,u:"100g"
-},
-
-"ayran":{
-k:35,p:2,c:2.5,f:1.5,u:"100ml"
-},
-
-"süt":{
-k:61,p:3.2,c:4.8,f:3.3,u:"100ml"
-},
-
-"muz":{
-k:89,p:1.1,c:23,f:.3,u:"100g"
-},
-
-"elma":{
-k:52,p:.3,c:14,f:.2,u:"100g"
-},
-
-"yulaf":{
-k:389,p:16.9,c:66.3,f:6.9,u:"100g"
-},
-
-/*
-PROTEİN TOZU REVİZE:
-
-25 gram = 20 gram protein
-*/
-
-"protein tozu":{
-k:100,
-p:20,
-c:3,
-f:1.5,
-u:"25g"
-},
-
-"whey protein":{
-k:100,
-p:20,
-c:3,
-f:1.5,
-u:"25g"
-},
-
-"protein bar":{
-k:200,
-p:20,
-c:18,
-f:7,
-u:"adet"
-},
-
-"ton balığı":{
-k:116,p:26,c:0,f:1,u:"100g"
-},
-
-"zeytinyağı":{
-k:884,p:0,c:0,f:100,u:"100g"
-},
-
-"patates":{
-k:77,p:2,c:17,f:.1,u:"100g"
-},
-
-"makarna":{
-k:157,p:5.8,c:31,f:.9,u:"100g"
-},
-
-"ceviz":{
-k:654,p:15,c:14,f:65,u:"100g"
-},
-
-"badem":{
-k:579,p:21,c:22,f:50,u:"100g"
-},
-
-"sucuk":{
-k:450,p:20,c:2,f:40,u:"100g"
-},
-
-"köfte":{
-k:250,p:20,c:5,f:18,u:"100g"
-},
-
-"somon":{
-k:208,p:20,c:0,f:13,u:"100g"
-},
-
-"pizza":{
-k:266,p:11,c:33,f:10,u:"100g"
-},
-
-"çikolata":{
-k:535,p:7,c:59,f:30,u:"100g"
-},
-
-"fıstık ezmesi":{
-k:588,p:25,c:20,f:50,u:"100g"
-},
-
-"mercimek çorbası":{
-k:180,p:9,c:25,f:5,u:"porsiyon"
-},
-
-"tarhana çorbası":{
-k:150,p:5,c:22,f:4,u:"porsiyon"
-}
-
-};
-
-
-/* =========================
-   FIT TARİFLER
-========================= */
-
-const recipes=[
-
-["Fit Brownie","Tatlı",180,12,20,6],
-["Protein Brownie","Tatlı",165,16,18,5],
-["Fit Cheesecake","Tatlı",190,15,20,7],
-["Fit Tiramisu","Tatlı",220,15,24,7],
-["Fit Magnolia","Tatlı",210,13,27,6],
-["Fit Sütlaç","Tatlı",175,8,27,4],
-
-["Proteinli Waffle","Kahvaltı",310,27,34,9],
-["Proteinli Pankek","Kahvaltı",320,27,35,9],
-["Muzlu Yulaf Pankek","Kahvaltı",290,11,42,8],
-["Lor Peynirli Tost","Kahvaltı",270,24,30,7],
-["Hindi Füme Sandviç","Kahvaltı",310,25,32,9],
-
-["Tavuklu Wrap","Öğle",420,43,38,10],
-["Ton Balıklı Wrap","Öğle",390,39,35,9],
-["Tavuklu Pilav","Öğle",520,49,56,10],
-["Tavuklu Bulgur","Öğle",480,47,52,8],
-["Etli Bulgur Kasesi","Öğle",510,42,48,15],
-["Yoğurtlu Tavuk Kasesi","Öğle",450,52,35,10],
-["Kuru Fasulye + Pirinç","Öğle",520,22,75,12],
-["Nohutlu Bulgur","Öğle",460,20,70,9],
-
-["Tavuklu Sebze Sote","Akşam",360,45,20,11],
-["Köfte + Yoğurt","Akşam",430,42,10,25],
-["Izgara Köfte + Bulgur","Akşam",540,43,45,21],
-["Izgara Tavuk + Yoğurt","Akşam",360,55,10,10],
-["Fırında Tavuk Patates","Akşam",470,47,40,13],
-
-["Mercimek Çorbası","Çorba",210,12,30,5],
-["Tarhana Çorbası","Çorba",170,7,25,5],
-
-["Proteinli Yoğurt Kasesi","Ara Öğün",280,30,27,5],
-["Muzlu Protein Shake","Ara Öğün",300,28,32,7],
-["Çilekli Protein Shake","Ara Öğün",240,29,20,5],
-["Kakaolu Protein Shake","Ara Öğün",250,30,18,7],
-["Proteinli Chia Puding","Ara Öğün",290,25,20,11],
-["Overnight Oats","Kahvaltı",360,18,50,10],
-
-["Tavuklu Makarna","Öğle",530,48,62,11],
-["Proteinli Makarna","Öğle",520,55,55,10],
-
-["Fit Pizza","Akşam",430,36,42,14],
-["Lavaş Pizza","Akşam",350,20,38,13],
-["Fit Tost","Ara Öğün",300,24,30,10],
-["Protein Bar Ev Yapımı","Ara Öğün",220,15,20,9],
-
-["Yulaflı Kurabiye","Tatlı",150,5,23,5],
-["Fit Elmalı Crumble","Tatlı",180,4,30,6],
-["Muzlu Fit Dondurma","Tatlı",160,8,28,2],
-
-["Fit Kısır","Öğle",280,7,45,7],
-["Cacık","Akşam",120,8,9,5],
-["Süzme Yoğurt + Ceviz","Ara Öğün",240,16,10,15],
-["Etli Dürüm Fit","Öğle",470,39,42,17],
-["Fit Burger","Akşam",480,38,42,19],
-["Tavuk Şiş","Akşam",330,52,10,9],
-["Et Şiş","Akşam",400,42,9,23],
-["Somon + Bulgur","Akşam",560,39,45,25],
-["Ton Balıklı Pirinç Kasesi","Öğle",480,38,58,9]
-
-];
-
-
-/* =========================
-   VERİ
-========================= */
-
-let data=JSON.parse(
-localStorage.getItem("VK_KALORI_DATA") ||
-'{"meals":[],"sport":false,"history":[]}'
-);
-
-let filter="Tümü";
-
-
-function save(){
-localStorage.setItem(
-"VK_KALORI_DATA",
-JSON.stringify(data)
-);
-}
-
-
-/* =========================
-   SAYFALAR
-========================= */
-
 function page(id){
 
-document
-.querySelectorAll("main section")
+document.querySelectorAll("section")
 .forEach(x=>x.classList.add("hidden"));
 
 document
 .getElementById(id)
-.classList.remove("hidden");
-
-if(id==="food")renderRows();
-if(id==="recipes")renderRecipes();
-if(id==="history")renderHistory();
+.classList
+.remove("hidden");
 
 }
 
+let burned=0;
 
-/* =========================
-   SPOR / DİNLENME
-========================= */
+function addWorkout(){
 
-function setSport(value){
+const type=
+document
+.getElementById("exercise")
+.value;
 
-data.sport=value;
+const time=
+Number(
+document
+.getElementById("exerciseTime")
+.value
+);
 
-save();
+let calorie=0;
 
-update();
+if(type==="Koşu bandı")
+calorie=time*10;
 
-}
+if(type==="Bisiklet")
+calorie=time*8;
 
+if(type==="Yürüyüş")
+calorie=time*5;
 
-/* =========================
-   YEMEK SATIRI
-========================= */
+if(type==="Ağırlık antrenmanı")
+calorie=time*6;
 
-function addRow(
-meal="Kahvaltı",
-name="",
-qty="",
-unit=""
-){
-
-const row=document.createElement("div");
-
-row.className="row";
-
-row.innerHTML=`
-
-<div class="rowtop">
-
-<select class="meal">
-
-<option ${meal==="Kahvaltı"?"selected":""}>
-Kahvaltı
-</option>
-
-<option ${meal==="Ara Öğün"?"selected":""}>
-Ara Öğün
-</option>
-
-<option ${meal==="Öğle"?"selected":""}>
-Öğle
-</option>
-
-<option ${meal==="İkindi"?"selected":""}>
-İkindi
-</option>
-
-<option ${meal==="Akşam"?"selected":""}>
-Akşam
-</option>
-
-<option ${meal==="Gece"?"selected":""}>
-Gece
-</option>
-
-</select>
-
-<button
-class="btn danger"
-onclick="this.closest('.row').remove()">
-×
-</button>
-
-</div>
-
-
-<div class="rowgrid">
-
-<input
-class="name"
-placeholder="Yemek / ürün"
-value="${name}"
-oninput="suggest(this)"
->
-
-
-<select
-class="unit"
-onchange="lineCalc(this.closest('.row'))">
-
-<option value="">
-Ölçü
-</option>
-
-<option value="gram"
-${unit==="gram"?"selected":""}>
-gram
-</option>
-
-<option value="adet"
-${unit==="adet"?"selected":""}>
-adet
-</option>
-
-<option value="ml"
-${unit==="ml"?"selected":""}>
-ml
-</option>
-
-<option value="porsiyon"
-${unit==="porsiyon"?"selected":""}>
-porsiyon
-</option>
-
-<option value="dilim"
-${unit==="dilim"?"selected":""}>
-dilim
-</option>
-
-<option value="kaşık"
-${unit==="kaşık"?"selected":""}>
-kaşık
-</option>
-
-<option value="ölçek"
-${unit==="ölçek"?"selected":""}>
-ölçek
-</option>
-
-</select>
-
-
-<input
-class="qty"
-type="number"
-step=".1"
-placeholder="Miktar"
-value="${qty}"
-oninput="lineCalc(this.closest('.row'))"
->
-
-</div>
-
-
-<div class="suggestions"></div>
-
-<div class="lineResult muted">
-Önce yemek seç ve miktarı gir.
-</div>
-
-`;
+burned+=calorie;
 
 document
-.getElementById("mealRows")
-.appendChild(row);
-
-if(name){
-
-suggest(row.querySelector(".name"));
+.getElementById("burnedCalories")
+.textContent=burned;
 
 }
 
-}
+function saveProfile(){
 
-
-function renderRows(){
-
-const box=document.getElementById("mealRows");
-
-box.innerHTML="";
-
-if(!data.meals.length){
-
-addRow();
-
-}else{
-
-data.meals.forEach(x=>{
-
-addRow(
-x.meal,
-x.name,
-x.qty,
-x.unit
+localStorage.setItem(
+"weight",
+document.getElementById("weight").value
 );
 
-});
+alert("Profil kaydedildi.");
 
 }
-
-}
-
-
-/* =========================
-   YEMEK ARAMA
-========================= */
-
-function findFood(name){
-
-name=name
-.toLowerCase()
-.trim();
-
-if(foods[name])return name;
-
-return Object.keys(foods)
-.find(k=>
-name.includes(k) ||
-k.includes(name)
-);
-
-}
-
-
-function suggest(input){
-
-const box=
-input
-.closest(".row")
-.querySelector(".suggestions");
-
-const q=input.value
-.toLowerCase()
-.trim();
-
-if(!q){
-
-box.innerHTML="";
-
-return;
-
-}
-
-const results=
-Object.keys(foods)
-.filter(k=>
-k.includes(q) ||
-q.split(" ").some(w=>
-w && k.includes(w)
-)
-)
-.slice(0,8);
-
-box.innerHTML=
-results
-.map(k=>`
-
-<button
-onclick="chooseFood(this,${JSON.stringify(k)})">
-${k}
-</button>
-
-`)
-.join("");
-
-}
-
-
-function chooseFood(btn,key){
-
-const row=btn.closest(".row");
-
-row.querySelector(".name").value=key;
-
-const f=foods[key];
-
-let unit="gram";
-
-if(f.u==="adet")unit="adet";
-if(f.u==="100ml")unit="ml";
-if(f.u==="porsiyon")unit="porsiyon";
-if(f.u==="25g")unit="gram";
-
-row.querySelector(".unit").value=unit;
-
-row.querySelector(".suggestions").innerHTML="";
-
-lineCalc(row);
-
-}
-
-
-/* =========================
-   HESAPLAMA
-========================= */
-
-function factorFor(
-food,
-unit,
-qty
-){
-
-if(!food || !qty)return 0;
-
-
-/* 100 gram */
-
-if(unit==="gram")
-return qty/100;
-
-
-/* 100 ml */
-
-if(unit==="ml")
-return qty/100;
-
-
-/* adet */
-
-if(unit==="adet")
-return qty;
-
-
-/* porsiyon */
-
-if(unit==="porsiyon")
-return qty;
-
-
-/* dilim */
-
-if(unit==="dilim")
-return qty;
-
-
-/* kaşık yaklaşık */
-
-if(unit==="kaşık")
-return qty;
-
-
-/* protein tozu
-1 ölçek = 25 g */
-
-if(unit==="ölçek")
-return qty;
-
-return 0;
-
-}
-
-
-function lineCalc(row){
-
-const name=
-row.querySelector(".name")
-.value;
-
-const key=findFood(name);
-
-const food=
-key ? foods[key] : null;
-
-const unit=
-row.querySelector(".unit")
-.value;
-
-const qty=
-Number(
-row.querySelector(".qty").value
-) || 0;
-
-
-if(!food){
-
-row.querySelector(".lineResult").innerHTML=
-name
-?
-"<span class='unknown'>⚠️ Bu ürün veri tabanında yok.</span>"
-:
-"Önce yemek seç ve miktarı gir.";
-
-return;
-
-}
-
-
-let factor=
-factorFor(
-food,
-unit,
-qty
-);
-
-
-/*
-Protein tozu:
-
-25 g = 20 g protein
-*/
-
-if(
-(unit==="gram") &&
-(
-key==="protein tozu" ||
-key==="whey protein"
-)
-){
-
-factor=qty/25;
-
-}
-
-
-const kcal=
-food.k*factor;
-
-const protein=
-food.p*factor;
-
-const carb=
-food.c*factor;
-
-const fat=
-food.f*factor;
-
-
-row.querySelector(
-".lineResult"
-).innerHTML=
-
-`🔥 ${kcal.toFixed(0)} kcal
-•
-🥩 ${protein.toFixed(1)} g protein
-•
-KH ${carb.toFixed(1)} g
-•
-Yağ ${fat.toFixed(1)} g`;
-
-}
-
-
-/* =========================
-   TÜM YEMEKLER
-========================= */
-
-function readMeals(){
-
-return [
-
-...document.querySelectorAll(".row")
-
-]
-
-.map(row=>{
-
-const name=
-row.querySelector(".name").value.trim();
-
-const key=
-findFood(name);
-
-const food=
-key ? foods[key] : null;
-
-const unit=
-row.querySelector(".unit").value;
-
-const qty=
-Number(
-row.querySelector(".qty").value
-) || 0;
-
-let factor=
-factorFor(
-food,
-unit,
-qty
-);
-
-
-/* protein tozu */
-
-if(
-food &&
-(unit==="gram") &&
-(
-key==="protein tozu" ||
-key==="whey protein"
-)
-){
-
-factor=qty/25;
-
-}
-
-
-return{
-
-meal:
-row.querySelector(".meal").value,
-
-name,
-
-unit,
-
-qty,
-
-kcal:
-food ? food.k*factor : 0,
-
-protein:
-food ? food.p*factor : 0,
-
-carb:
-food ? food.c*factor : 0,
-
-fat:
-food ? food.f*factor : 0,
-
-unknown:
-!food
-
-};
-
-})
-
-.filter(x=>x.name);
-
-}
-
-
-function sum(meals){
-
-return meals.reduce(
-(total,x)=>({
-
-k:total.k+x.kcal,
-
-p:total.p+x.protein,
-
-c:total.c+x.carb,
-
-f:total.f+x.fat
-
-}),
-{
-k:0,
-p:0,
-c:0,
-f:0
-}
-);
-
-}
-
-
-/* =========================
-   HESAPLA
-========================= */
-
-function calculate(){
-
-const meals=
-readMeals();
-
-const total=
-sum(meals);
-
-const unknown=
-meals.filter(x=>x.unknown);
-
-document.getElementById(
-"calc"
-).innerHTML=`
-
-<div class="card">
-
-<h3>Hesaplama Sonucu</h3>
-
-<div class="big" style="font-size:30px">
-${total.k.toFixed(0)} kcal
-</div>
-
-<b>
-🥩 ${total.p.toFixed(1)} g protein
-</b>
-
-<br>
-
-🍚 ${total.c.toFixed(1)} g karbonhidrat
-
-<br>
-
-🥑 ${total.f.toFixed(1)} g yağ
-
-${unknown.length ?
-
-`
-<div class="notice">
-
-⚠️ Veri tabanında bulunamayan:
-
-<b>
-${unknown
-.map(x=>x.name)
-.join(", ")}
-</b>
-
-<br><br>
-
-Ürünün etiketindeki kalori ve protein değerini verirsen daha doğru kayıt oluşturabiliriz.
-
-</div>
-`
-
-:""}
-
-</div>
-
-`;
-
-}
-
-
-/* =========================
-   KAYDET
-========================= */
-
-function saveMeals(){
-
-data.meals=
-readMeals();
-
-save();
-
-calculate();
-
-update();
-
-alert(
-"Beslenme kaydedildi."
-);
-
-}
-
-
-/* =========================
-   ANA EKRAN
-========================= */
-
-function update(){
-
-const total=
-sum(data.meals);
-
-const target=
-data.sport
-?2300
-:2100;
-
-
-document.getElementById(
-"total"
-).textContent=
-Math.round(total.k);
-
-
-document.getElementById(
-"target"
-).textContent=
-target;
-
-
-document.getElementById(
-"protein"
-).textContent=
-total.p.toFixed(0);
-
-
-document.getElementById(
-"carb"
-).textContent=
-total.c.toFixed(0);
-
-
-document.getElementById(
-"fat"
-).textContent=
-total.f.toFixed(0);
-
-
-document.getElementById(
-"fill"
-).style.width=
-Math.min(
-100,
-total.k/target*100
-)+"%";
-
-
-document.getElementById(
-"sportBtn"
-).classList.toggle(
-"on",
-data.sport
-);
-
-
-document.getElementById(
-"restBtn"
-).classList.toggle(
-"on",
-!data.sport
-);
-
-
-document.getElementById(
-"status"
-).textContent=
-total.k
-?
-`${Math.round(total.k)} kcal • ${total.p.toFixed(0)} g protein kaydedildi.`
-:
-"Bugün henüz kayıt yok.";
-
-}
-
-
-/* =========================
-   GÜNÜ BİTİR
-========================= */
-
-function finishDay(){
-
-const total=
-sum(data.meals);
-
-data.history.unshift({
-
-date:
-new Date()
-.toLocaleDateString("tr-TR"),
-
-kcal:
-Math.round(total.k),
-
-protein:
-Math.round(total.p),
-
-sport:
-data.sport
-
-});
-
-data.meals=[];
-
-data.sport=false;
-
-save();
-
-update();
-
-renderRows();
-
-alert(
-
-`Gün tamamlandı!
-
-🔥 ${Math.round(total.k)} kcal
-
-🥩 ${Math.round(total.p)} g protein
-
-Yeni gün sıfırdan başladı.`
-
-);
-
-}
-
-
-/* =========================
-   SIFIRLA
-========================= */
-
-function resetToday(){
-
-if(
-confirm(
-"Bugünkü tüm yemek kayıtları silinsin mi?"
-)
-){
-
-data.meals=[];
-
-data.sport=false;
-
-save();
-
-update();
-
-renderRows();
-
-}
-
-}
-
-
-/* =========================
-   FIT MENÜ FİLTRE
-========================= */
-
-function renderFilters(){
-
-const cats=[
-"Tümü",
-"Kahvaltı",
-"Öğle",
-"Akşam",
-"Ara Öğün",
-"Tatlı",
-"Çorba"
-];
-
-document.getElementById(
-"filters"
-).innerHTML=
-
-cats.map(c=>`
-
-<button
-class="${filter===c?"active":""}"
-onclick="filter='${c}';renderFilters();renderRecipes()">
-
-${c}
-
-</button>
-
-`).join("");
-
-}
-
-
-function renderRecipes(){
-
-renderFilters();
-
-const q=
-(
-document.getElementById(
-"recipeSearch"
-)?.value || ""
-)
-.toLowerCase();
-
-
-const list=
-recipes.filter(r=>
-
-(
-filter==="Tümü" ||
-r[1]===filter
-)
-
-&&
-
-r.join(" ")
-.toLowerCase()
-.includes(q)
-
-);
-
-
-document.getElementById(
-"recipeList"
-).innerHTML=
-
-list.map(r=>`
-
-<div class="recipe">
-
-<span class="tag">
-${r[1]}
-</span>
-
-<h3>
-${r[0]}
-</h3>
-
-<div class="recipegrid">
-
-<div>
-🔥<br>
-<b>${r[2]}</b><br>
-kcal
-</div>
-
-<div>
-🥩<br>
-<b>${r[3]}g</b><br>
-protein
-</div>
-
-<div>
-🍚<br>
-<b>${r[4]}g</b><br>
-KH
-</div>
-
-<div>
-🥑<br>
-<b>${r[5]}g</b><br>
-yağ
-</div>
-
-</div>
-
-<br>
-
-<button
-class="btn red"
-onclick='addRecipe(${JSON.stringify(r)})'>
-
-＋ Bugünkü Beslenmeme Ekle
-
-</button>
-
-</div>
-
-`).join("");
-
-}
-
-
-/* =========================
-   TARİFİ GÜNE EKLE
-========================= */
-
-function addRecipe(recipe){
-
-data.meals.push({
-
-meal:"Akşam",
-
-name:
-recipe[0]+" (fit tarif)",
-
-unit:"porsiyon",
-
-qty:1,
-
-kcal:recipe[2],
-
-protein:recipe[3],
-
-carb:recipe[4],
-
-fat:recipe[5],
-
-unknown:false
-
-});
-
-save();
-
-update();
-
-alert(
-recipe[0]+
-" 1 porsiyon olarak bugüne eklendi."
-);
-
-}
-
-
-/* =========================
-   GEÇMİŞ
-========================= */
-
-function renderHistory(){
-
-const box=
-document.getElementById(
-"historyList"
-);
-
-if(
-!data.history ||
-!data.history.length
-){
-
-box.innerHTML=
-"Henüz tamamlanan gün yok.";
-
-return;
-
-}
-
-
-box.innerHTML=
-data.history.map(x=>`
-
-<div class="historyitem">
-
-<b>
-${x.date}
-</b>
-
-<br><br>
-
-🔥 ${x.kcal} kcal
-
-<br>
-
-🥩 ${x.protein} g protein
-
-<br>
-
-${x.sport
-?"🏋️ Spor Günü"
-:"🛋️ Dinlenme Günü"}
-
-</div>
-
-`).join("");
-
-}
-
-
-/* =========================
-   BAŞLANGIÇ
-========================= */
-
-renderRows();
-
-renderRecipes();
-
-renderHistory();
-
-update();
 
 </script>
-
-</body>
-</html>
