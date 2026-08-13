@@ -11,17 +11,13 @@ function openPage(pageId) {
         .querySelectorAll(".page")
         .forEach(page => {
 
-            page.classList.remove(
-                "active"
-            );
+            page.classList.remove("active");
 
         });
 
     document
         .getElementById(pageId)
-        .classList.add(
-            "active"
-        );
+        .classList.add("active");
 
 }
 
@@ -103,51 +99,53 @@ function searchFoods() {
         "";
 
     foods.forEach(
-        (food,index) => {
+        (food, index) => {
 
-        if (
-            food.name
-            .toLowerCase()
-            .includes(text)
-        ) {
+            if (
+                food.name
+                .toLowerCase()
+                .includes(text)
+            ) {
 
-            results.innerHTML += `
+                results.innerHTML += `
 
-            <div class="food-item">
+<div class="food-item">
 
-            <strong>
+<strong>
 
-            ${food.name}
+${food.name}
 
-            </strong>
+</strong>
 
-            <br>
+<br>
 
-            ${food.unit}
+${food.unit}
 
-            <br>
+<br>
 
-            🔥 ${food.calorie} kcal
+🔥 ${food.calorie} kcal
 
-            <br>
+<br>
 
-            🥩 ${food.protein} g protein
+🥩 ${food.protein} g protein
 
-            <br>
+<br>
 
-            <button onclick="addFood(${index})">
+<button onclick="addFood(${index})">
 
-            ➕ Öğüne Ekle
+➕ Öğüne Ekle
 
-            </button>
+</button>
 
-            </div>
+</div>
 
-            `;
+`;
+
+            }
 
         }
 
-    });
+    );
 
 }
 
@@ -158,6 +156,8 @@ document.addEventListener(
     () => {
 
         updateTotals();
+
+        searchFoods();
 
     }
 
