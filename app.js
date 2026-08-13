@@ -5,19 +5,25 @@ let totals = {
     fat: 0
 };
 
+let currentMeal = "Kahvaltı";
+
 function openPage(pageId) {
 
     document
         .querySelectorAll(".page")
         .forEach(page => {
 
-            page.classList.remove("active");
+            page.classList.remove(
+                "active"
+            );
 
         });
 
     document
         .getElementById(pageId)
-        .classList.add("active");
+        .classList.add(
+            "active"
+        );
 
 }
 
@@ -58,53 +64,100 @@ function addFood(index) {
     const food =
         foods[index];
 
-    totals.calorie +=
-        food.calorie;
+    const gramSelect =
+        document.querySelectorAll(
+            "#foods select"
+        )[0];
 
-    totals.protein +=
-        food.protein;
+    const mealSelect =
+        document.querySelectorAll(
+            "#foods select"
+        )[1];
 
-    totals.carb +=
-        food.carb;
+    const gram =
+        parseInt(
+            gramSelect.value
+        );
 
-    totals.fat +=
-        food.fat;
+    currentMeal =
+        mealSelect.value;
+
+    const ratio =
+        gram / 100;
+
+    const calorie =
+        food.calorie *
+        ratio;
+
+    const protein =
+        food.protein *
+        ratio;
+
+    const carb =
+        food.carb *
+        ratio;
+
+    const fat =
+        food.fat *
+        ratio;
+
+    totals.calorie += calorie;
+
+    totals.protein += protein;
+
+    totals.carb += carb;
+
+    totals.fat += fat;
 
     updateTotals();
 
     alert(
+
         food.name +
-        " eklendi."
+
+        "\n\n" +
+
+        currentMeal +
+
+        " öğününe eklendi."
+
     );
 
 }
 
 function searchFoods() {
 
-    const text =
-        document
-        .getElementById(
+    const input =
+        document.getElementById(
             "foodSearch"
-        )
-        .value
-        .toLowerCase();
+        );
 
     const results =
-        document
-        .getElementById(
+        document.getElementById(
             "foodResults"
         );
+
+    const text =
+        input.value
+        .toLowerCase();
 
     results.innerHTML =
         "";
 
     foods.forEach(
-        (food, index) => {
+        (
+            food,
+            index
+        ) => {
 
             if (
+
                 food.name
                 .toLowerCase()
-                .includes(text)
+                .includes(
+                    text
+                )
+
             ) {
 
                 results.innerHTML += `
@@ -129,7 +182,7 @@ ${food.unit}
 
 🥩 ${food.protein} g protein
 
-<br>
+<br><br>
 
 <button onclick="addFood(${index})">
 
@@ -156,6 +209,23 @@ document.addEventListener(
     () => {
 
         updateTotals();
+
+        const input =
+            document.getElementById(
+                "foodSearch"
+            );
+
+        if (input) {
+
+            input.addEventListener(
+
+                "keyup",
+
+                searchFoods
+
+            );
+
+        }
 
         searchFoods();
 
