@@ -11,7 +11,56 @@ content="width=device-width,initial-scale=1">
 <title>VK Kalori</title>
 
 <style>
+.bottom-nav{
 
+position:fixed;
+
+bottom:0;
+
+left:0;
+
+right:0;
+
+max-width:430px;
+
+margin:auto;
+
+display:flex;
+
+justify-content:space-around;
+
+align-items:center;
+
+padding:15px 0;
+
+background:#111;
+
+color:#fff;
+
+border-top:3px solid #d71920;
+
+z-index:999;
+
+}
+
+.bottom-nav div{
+
+text-align:center;
+
+font-size:12px;
+
+cursor:pointer;
+
+padding:5px;
+
+}
+
+.bottom-nav div:hover{
+
+color:#d71920;
+
+}
+  
 *{
 margin:0;
 padding:0;
@@ -20,7 +69,7 @@ box-sizing:border-box;
 
 body{
 font-family:Arial,sans-serif;
-background:#f2f4f7;
+background:#f3f4f6;
 max-width:430px;
 margin:auto;
 padding-bottom:100px;
@@ -28,100 +77,73 @@ padding-bottom:100px;
 
 .header{
 background:#d71920;
-color:white;
-padding:18px;
+color:#fff;
+padding:20px;
 display:flex;
 justify-content:space-between;
 align-items:center;
 }
 
 .header h1{
-font-size:26px;
+font-size:28px;
 }
 
-.summary,
 .card{
-background:white;
+background:#fff;
 margin:15px;
 padding:20px;
-border-radius:25px;
-box-shadow:0 3px 10px rgba(0,0,0,.1);
+border-radius:24px;
+box-shadow:0 3px 12px rgba(0,0,0,.1);
 }
 
-.summary-grid{
-display:flex;
-gap:15px;
-}
-
-.calorie-side{
-width:45%;
-text-align:center;
+.summary{
+display:grid;
+grid-template-columns:1fr;
+gap:20px;
 }
 
 .big-circle{
-width:160px;
-height:160px;
+width:180px;
+height:180px;
+margin:auto;
 border:12px solid #d71920;
 border-radius:50%;
 display:flex;
 justify-content:center;
 align-items:center;
-margin:auto;
+text-align:center;
 }
 
 .big-circle h2{
-font-size:42px;
+font-size:48px;
 }
 
-.day-buttons{
-margin-top:15px;
-display:flex;
-flex-direction:column;
-gap:10px;
-}
-
-.day-buttons button{
-padding:12px;
-border:none;
-border-radius:12px;
-font-weight:bold;
-cursor:pointer;
-}
-
-.sport{
-background:#d71920;
-color:white;
-}
-
-.normal{
-background:#111;
-color:white;
-}
-
-.macro-side{
-width:55%;
+.macros{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:10px;
+gap:12px;
 }
 
-.macro-card{
+.macro{
 background:#f8f8f8;
 padding:15px;
 border-radius:18px;
 text-align:center;
 }
 
-.macro-circle{
-width:55px;
-height:55px;
-border:5px solid #d71920;
-border-radius:50%;
+.macro h3{
+font-size:24px;
+margin-bottom:5px;
+}
+
+.day-buttons{
 display:flex;
-justify-content:center;
-align-items:center;
-margin:auto auto 10px;
-font-weight:bold;
+gap:10px;
+margin-top:20px;
+}
+
+.day-buttons button{
+flex:1;
 }
 
 .meal{
@@ -132,478 +154,448 @@ padding:15px 0;
 border-bottom:1px solid #eee;
 }
 
+.meal:last-child{
+border-bottom:none;
+}
+
 .meal button{
-width:40px;
-height:40px;
-border:none;
+width:42px;
+height:42px;
 border-radius:50%;
-background:#d71920;
-color:white;
-font-size:22px;
-cursor:pointer;
+}
+
+input,
+select,
+button{
+width:100%;
+padding:14px;
+margin-top:10px;
+font-size:16px;
+border-radius:12px;
 }
 
 input,
 select{
-width:100%;
-padding:14px;
-margin-top:10px;
 border:1px solid #ddd;
-border-radius:12px;
-font-size:16px;
 }
 
-.action{
-width:100%;
-padding:14px;
-margin-top:10px;
+button{
 border:none;
-border-radius:12px;
 background:#d71920;
 color:white;
 cursor:pointer;
+}
+
+.history-item{
+padding:10px 0;
+border-bottom:1px solid #eee;
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+max-width:430px;
+margin:auto;
+background:#000;
+color:#fff;
+display:flex;
+justify-content:space-around;
+padding:15px 0;
+}
+
+.bottom-nav div{
+text-align:center;
+font-size:12px;
 }
 
 </style>
 
 </head>
+<script>
+function showPage(page){
 
-<body>
+alert(
 
-<div class="header">
+page +
 
-<h1>VK KALORİ</h1>
+" sayfası seçildi."
 
-<div>👤</div>
+);
+
+}
+let targetCalories = 1900;
+
+let totalCalories = 0;
+let totalProtein = 0;
+let totalCarbs = 0;
+let totalFat = 0;
+
+let activeMeal = "";
+
+function setSportDay() {
+
+    targetCalories = 1900;
+
+    document.getElementById("goal").innerText =
+    "/ 1900 kcal";
+
+}
+
+function setNormalDay() {
+
+    targetCalories = 1700;
+
+    document.getElementById("goal").innerText =
+    "/ 1700 kcal";
+
+}
+
+function selectMeal(meal) {
+
+    activeMeal = meal;
+
+    document.getElementById("selectedMeal").innerText =
+    "Seçili öğün: " + meal;
+
+}
+
+function addFood() {
+
+    if (activeMeal === "") {
+
+        alert("Önce bir öğün seç.");
+
+        return;
+
+    }
+
+    const gram =
+    parseFloat(
+    document.getElementById("gram").value
+    );
+
+    if (!gram) {
+
+        alert("Gram gir.");
+
+        return;
+
+    }
+
+    const values =
+    document.getElementById("food")
+    .value
+    .split(",");
+
+    const kcal =
+    parseFloat(values[0]);
+
+    const protein =
+    parseFloat(values[1]);
+
+    const carbs =
+    parseFloat(values[2]);
+
+    const fat =
+    parseFloat(values[3]);
+
+    const addedCalories =
+    kcal * gram / 100;
+
+    const addedProtein =
+    protein * gram / 100;
+
+    const addedCarbs =
+    carbs * gram / 100;
+
+    const addedFat =
+    fat * gram / 100;
+
+    totalCalories += addedCalories;
+    totalProtein += addedProtein;
+    totalCarbs += addedCarbs;
+    totalFat += addedFat;
+
+    document.getElementById("calories").innerText =
+    Math.round(totalCalories);
+
+    document.getElementById("protein").innerText =
+    Math.round(totalProtein);
+
+    document.getElementById("carbs").innerText =
+    Math.round(totalCarbs);
+
+    document.getElementById("fat").innerText =
+    Math.round(totalFat);
+
+    const foodName =
+    document.getElementById("food")
+    .options[
+    document.getElementById("food").selectedIndex
+    ].text;
+
+    const item =
+    document.createElement("div");
+
+    item.className = "history-item";
+
+    item.innerText =
+    foodName +
+    " - " +
+    gram +
+    " g - " +
+    Math.round(addedCalories) +
+    " kcal";
+
+    document.getElementById(
+    activeMeal + "List"
+    ).appendChild(item);
+
+}
+function saveData() {
+
+localStorage.setItem(
+"vk_totalCalories",
+totalCalories
+);
+
+localStorage.setItem(
+"vk_totalProtein",
+totalProtein
+);
+
+localStorage.setItem(
+"vk_totalCarbs",
+totalCarbs
+);
+
+localStorage.setItem(
+"vk_totalFat",
+totalFat
+);
+
+}
+
+function loadData() {
+
+const savedCalories =
+localStorage.getItem(
+"vk_totalCalories"
+);
+
+if(savedCalories === null){
+
+return;
+
+}
+
+totalCalories =
+parseFloat(
+savedCalories
+);
+
+totalProtein =
+parseFloat(
+localStorage.getItem(
+"vk_totalProtein"
+)
+);
+
+totalCarbs =
+parseFloat(
+localStorage.getItem(
+"vk_totalCarbs"
+)
+);
+
+totalFat =
+parseFloat(
+localStorage.getItem(
+"vk_totalFat"
+)
+);
+
+document.getElementById(
+"calories"
+).innerText =
+Math.round(
+totalCalories
+);
+
+document.getElementById(
+"protein"
+).innerText =
+Math.round(
+totalProtein
+);
+
+document.getElementById(
+"carbs"
+).innerText =
+Math.round(
+totalCarbs
+);
+
+document.getElementById(
+"fat"
+).innerText =
+Math.round(
+totalFat
+);
+
+}
+
+const oldAddFood =
+addFood;
+
+addFood =
+function(){
+
+oldAddFood();
+
+saveData();
+
+};
+
+window.onload =
+function(){
+
+loadData();
+
+};
+</script>
+<div class="bottom-nav">
+
+<div onclick="showPage('home')">
+
+🏠
+
+<br>
+
+Ana
 
 </div>
-<div class="summary">
 
-<div class="summary-grid">
+<div onclick="showPage('meals')">
 
-<div class="calorie-side">
+🍽️
 
-<div class="big-circle">
+<br>
 
-<div>
-
-<h2 id="calorie">
-
-0
-
-</h2>
-
-<p id="goalText">
-
-/1900 kcal
-
-</p>
+Öğünler
 
 </div>
 
-</div>
+<div onclick="showPage('foods')">
 
-<div class="day-buttons">
+🥗
 
-<button
-class="sport"
-onclick="setSportDay()">
+<br>
 
-🏋️ Spor Günü
-
-</button>
-
-<button
-class="normal"
-onclick="setNormalDay()">
-
-☀️ Normal Gün
-
-</button>
+Besinler
 
 </div>
 
-</div>
+<div onclick="showPage('report')">
 
-<div class="macro-side">
+📊
 
-<div class="macro-card">
+<br>
 
-<div
-class="macro-circle"
-id="protein">
-
-0
+Rapor
 
 </div>
 
-<h4>
+<div onclick="showPage('profile')">
 
-PROTEİN
+👤
 
-</h4>
+<br>
 
-<p>
-
-/150 g
-
-</p>
+Profil
 
 </div>
 
-<div class="macro-card">
-
-<div
-class="macro-circle"
-id="carb">
-
-0
-
-</div>
-
-<h4>
-
-KARBONHİDRAT
-
-</h4>
-
-<p>
-
-/180 g
-
-</p>
-
-</div>
-
-<div class="macro-card">
-
-<div
-class="macro-circle"
-id="fat">
-
-0
-
-</div>
-
-<h4>
-
-YAĞ
-
-</h4>
-
-<p>
-
-/65 g
-
-</p>
-
-</div>
-
-<div class="macro-card">
-
-<div
-class="macro-circle">
-
-2.5
-
-</div>
-
-<h4>
-
-SU
-
-</h4>
-
-<p>
-
-/3 L
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
+</div>  
 <div class="card">
 
 <h2>
 
-🍳 ÖĞÜNLER
+📊 GÜNLÜK RAPOR
 
 </h2>
-
-<div class="meal">
-
-<span>
-
-🍳 Kahvaltı
-
-</span>
-
-<button>
-
-+
-
-</button>
-
-</div>
-
-<div class="meal">
-
-<span>
-
-☀️ Öğle Yemeği
-
-</span>
-
-<button>
-
-+
-
-</button>
-
-</div>
-
-<div class="meal">
-
-<span>
-
-🌙 Akşam Yemeği
-
-</span>
-
-<button>
-
-+
-
-</button>
-
-</div>
-
-<div class="meal">
-
-<span>
-
-🍎 Ara Öğün
-
-</span>
-
-<button>
-
-+
-
-</button>
-
-</div>
-
-</div>
-<div class="card">
-
-<h2>
-
-🍽️ BESİN EKLE
-
-</h2>
-
-<select id="food">
-
-<option value="165,31,0,4">
-
-🍗 Tavuk göğsü
-
-</option>
-
-<option value="135,29,0,1">
-
-🦃 Hindi göğsü
-
-</option>
-
-<option value="250,26,0,18">
-
-🥩 Köfte
-
-</option>
-
-<option value="250,26,0,15">
-
-🥩 Dana eti
-
-</option>
-
-<option value="132,29,0,1">
-
-🐟 Ton balığı
-
-</option>
-
-<option value="208,20,0,13">
-
-🐟 Somon
-
-</option>
-
-<option value="155,13,1,11">
-
-🥚 Yumurta
-
-</option>
-
-<option value="61,3.5,4.7,3.3">
-
-🥛 Yoğurt
-
-</option>
-
-<option value="42,3.4,5,1">
-
-🥛 Süt
-
-</option>
-
-<option value="37,1.8,2.7,1">
-
-🥤 Ayran
-
-</option>
-
-<option value="130,3,28,0">
-
-🍚 Pirinç pilavı
-
-</option>
-
-<option value="123,4.5,26,0.5">
-
-🌾 Bulgur pilavı
-
-</option>
-
-<option value="158,6,31,1">
-
-🍝 Makarna
-
-</option>
-
-<option value="127,9,23,0.5">
-
-🫘 Kuru fasulye
-
-</option>
-
-<option value="164,9,27,2.5">
-
-🫘 Nohut
-
-</option>
-
-<option value="116,9,20,0.4">
-
-🫘 Mercimek
-
-</option>
-
-<option value="77,2,17,0.1">
-
-🥔 Patates
-
-</option>
-
-<option value="89,1,23,0.3">
-
-🍌 Muz
-
-</option>
-
-<option value="52,0.3,14,0.2">
-
-🍎 Elma
-
-</option>
-
-<option value="120,24,3,2">
-
-🥤 Protein tozu
-
-</option>
-
-</select>
-
-<input
-type="number"
-id="gram"
-placeholder="Gram gir (örn. 200)">
-
-<button
-class="action"
-onclick="addFood()">
-
-Besini Ekle
-
-</button>
-
-<div
-id="foodList">
-
-</div>
-
-</div>
-<div class="card">
-
-<h2>
-
-📷 FOTOĞRAF ANALİZİ
-
-</h2>
-
-<input
-type="file"
-accept="image/*">
-
-<button class="action">
-
-Fotoğrafı Analiz Et
-
-</button>
 
 <p>
 
-Henüz analiz yapılmadı.
+🔥 Toplam Kalori:
+
+<span id="reportCalories">
+
+0
+
+</span>
+
+kcal
 
 </p>
 
-</div>
+<p>
 
-<div class="card">
+🥩 Toplam Protein:
 
-<h2>
+<span id="reportProtein">
 
-🤖 VK AI
+0
 
-</h2>
+</span>
 
-<input
-id="question"
-placeholder="Sorunu yaz...">
+g
 
-<button
-class="action"
-onclick="askAI()">
+</p>
 
-Sor
+<p>
 
-</button>
+🌾 Toplam Karbonhidrat:
 
-<div
-id="answer">
+<span id="reportCarbs">
 
-Merhaba 👋
+0
 
-</div>
+</span>
+
+g
+
+</p>
+
+<p>
+
+🥑 Toplam Yağ:
+
+<span id="reportFat">
+
+0
+
+</span>
+
+g
+
+</p>
+
+<p>
+
+🎯 Kalan Kalori:
+
+<span id="remainingCalories">
+
+1900
+
+</span>
+
+kcal
+
+</p>
 
 </div>
 
@@ -641,9 +633,268 @@ Hedef Kilo: 85 kg
 
 <p>
 
+Spor Günü: 1900 kcal
+
+</p>
+
+<p>
+
+Normal Gün: 1700 kcal
+
+</p>
+
+<p>
+
 Protein Hedefi: 150 g
 
 </p>
+
+</div>
+<body>
+
+<div class="header">
+
+<h1>VK KALORİ</h1>
+
+<div>👤</div>
+
+</div>
+<div class="card">
+
+<div class="summary">
+
+<div>
+
+<div class="big-circle">
+
+<div>
+
+<h2 id="calories">
+
+0
+
+</h2>
+
+<p id="goal">
+
+/ 1900 kcal
+
+</p>
+
+</div>
+
+</div>
+
+<div class="day-buttons">
+
+<button
+onclick="setSportDay()">
+
+🏋️ Spor Günü
+
+</button>
+
+<button
+onclick="setNormalDay()">
+
+☀️ Normal Gün
+
+</button>
+
+</div>
+
+</div>
+
+<div class="macros">
+
+<div class="macro">
+
+<h3 id="protein">
+
+0
+
+</h3>
+
+<p>
+
+🥩 Protein
+
+</p>
+
+<small>
+
+150 g
+
+</small>
+
+</div>
+
+<div class="macro">
+
+<h3 id="carbs">
+
+0
+
+</h3>
+
+<p>
+
+🌾 Karbonhidrat
+
+</p>
+
+<small>
+
+180 g
+
+</small>
+
+</div>
+
+<div class="macro">
+
+<h3 id="fat">
+
+0
+
+</h3>
+
+<p>
+
+🥑 Yağ
+
+</p>
+
+<small>
+
+65 g
+
+</small>
+
+</div>
+
+<div class="macro">
+
+<h3 id="water">
+
+2.5
+
+</h3>
+
+<p>
+
+💧 Su
+
+</p>
+
+<small>
+
+3 L
+
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="card">
+
+<h2>
+
+🍳 ÖĞÜNLER
+
+</h2>
+
+<div class="meal">
+
+<span>
+
+🍳 Kahvaltı
+
+</span>
+
+<button
+onclick="selectMeal('Kahvaltı')">
+
++
+
+</button>
+
+</div>
+
+<div
+id="KahvaltıList">
+
+</div>
+
+<div class="meal">
+
+<span>
+
+☀️ Öğle Yemeği
+
+</span>
+
+<button
+onclick="selectMeal('Öğle')">
+
++
+
+</button>
+
+</div>
+
+<div
+id="ÖğleList">
+
+</div>
+
+<div class="meal">
+
+<span>
+
+🌙 Akşam Yemeği
+
+</span>
+
+<button
+onclick="selectMeal('Akşam')">
+
++
+
+</button>
+
+</div>
+
+<div
+id="AkşamList">
+
+</div>
+
+<div class="meal">
+
+<span>
+
+🍎 Ara Öğün
+
+</span>
+
+<button
+onclick="selectMeal('Ara')">
+
++
+
+</button>
+
+</div>
+
+<div
+id="AraList">
+
+</div>
 
 </div>
 
@@ -651,360 +902,130 @@ Protein Hedefi: 150 g
 
 <h2>
 
-📋 EKLENEN BESİNLER
+🍽️ BESİN EKLE
 
 </h2>
 
-<div
-id="history">
+<p
+id="selectedMeal">
 
-Henüz besin eklenmedi.
+Seçili öğün:
 
-</div>
+Yok
 
-</div>
-<div class="bottom-nav">
+</p>
 
-<div>
+<select
+id="food">
 
-🏠
+<option value="165,31,0,4">🍗 Tavuk göğsü</option>
 
-<br>
+<option value="135,29,0,1">🦃 Hindi göğsü</option>
 
-Ana
+<option value="250,26,0,18">🥩 Köfte</option>
 
-</div>
+<option value="250,26,0,15">🥩 Dana eti</option>
 
-<div>
+<option value="208,20,0,13">🐟 Somon</option>
 
-🍽️
+<option value="132,29,0,1">🐟 Ton balığı</option>
 
-<br>
+<option value="155,13,1,11">🥚 Yumurta</option>
 
-Besin
+<option value="61,3.5,4.7,3.3">🥛 Yoğurt</option>
 
-</div>
+<option value="42,3.4,5,1">🥛 Süt</option>
 
-<div>
+<option value="37,1.8,2.7,1">🥤 Ayran</option>
 
-📷
+<option value="130,3,28,0">🍚 Pirinç pilavı</option>
 
-<br>
+<option value="123,4.5,26,0.5">🌾 Bulgur pilavı</option>
 
-Analiz
+<option value="158,6,31,1">🍝 Makarna</option>
 
-</div>
+<option value="127,9,23,0.5">🫘 Kuru fasulye</option>
 
-<div>
+<option value="164,9,27,2.5">🫘 Nohut</option>
 
-🤖
+<option value="116,9,20,0.4">🫘 Mercimek</option>
 
-<br>
+<option value="77,2,17,0.1">🥔 Patates</option>
 
-AI
+<option value="89,1,23,0.3">🍌 Muz</option>
 
-</div>
+<option value="52,0.3,14,0.2">🍎 Elma</option>
 
-<div>
+<option value="47,0.9,12,0.1">🍊 Portakal</option>
 
-👤
+<option value="57,0.7,15,0.3">🍐 Armut</option>
 
-<br>
+<option value="160,2,9,15">🥑 Avokado</option>
 
-Profil
+<option value="579,21,22,50">🥜 Badem</option>
 
-</div>
+<option value="654,15,14,65">🥜 Ceviz</option>
 
-</div>
+<option value="884,0,0,100">🫒 Zeytinyağı</option>
 
-<script>
+<option value="266,9,49,3">🍞 Tam buğday ekmeği</option>
 
-let targetCalories=1900;
+<option value="265,9,51,3">🍞 Ekmek</option>
 
-let totalCalories=0;
+<option value="120,24,3,2">🥤 Protein tozu</option>
 
-let totalProtein=0;
+<option value="490,30,58,7">🥣 Yulaf</option>
 
-let totalCarb=0;
+<option value="350,25,35,10">🍫 Fit brownie</option>
+</select>
 
-let totalFat=0;
+<input
+id="gram"
+type="number"
+placeholder="Gram gir">
 
-function setSportDay(){
-
-targetCalories=1900;
-
+<button
+onclick="addFood()">
 document.getElementById(
-"goalText"
-).innerText=
-"/1900 kcal";
-
-}
-
-function setNormalDay(){
-
-targetCalories=1700;
-
-document.getElementById(
-"goalText"
-).innerText=
-"/1700 kcal";
-
-}
-
-function addFood(){
-
-const gram=
-parseFloat(
-document.getElementById(
-"gram"
-).value
-);
-
-if(!gram){
-
-return;
-
-}
-
-const selected=
-document.getElementById(
-"food"
-).value
-.split(",");
-
-const calories=
-parseFloat(selected[0]);
-
-const protein=
-parseFloat(selected[1]);
-
-const carb=
-parseFloat(selected[2]);
-
-const fat=
-parseFloat(selected[3]);
-
-const addedCalories=
-calories*gram/100;
-
-const addedProtein=
-protein*gram/100;
-
-const addedCarb=
-carb*gram/100;
-
-const addedFat=
-fat*gram/100;
-
-totalCalories+=
-addedCalories;
-
-totalProtein+=
-addedProtein;
-
-totalCarb+=
-addedCarb;
-
-totalFat+=
-addedFat;
-
-document.getElementById(
-"calorie"
-).innerText=
+"reportCalories"
+).innerText =
 Math.round(
 totalCalories
 );
 
 document.getElementById(
-"protein"
-).innerText=
+"reportProtein"
+).innerText =
 Math.round(
 totalProtein
 );
 
 document.getElementById(
-"carb"
-).innerText=
+"reportCarbs"
+).innerText =
 Math.round(
-totalCarb
+totalCarbs
 );
 
 document.getElementById(
-"fat"
-).innerText=
+"reportFat"
+).innerText =
 Math.round(
 totalFat
 );
 
-const foodName=
 document.getElementById(
-"food"
-).options[
-document.getElementById(
-"food"
-).selectedIndex
-].text;
-document.getElementById(
-"history"
-).innerHTML +=
-
-"<p>" +
-
-foodName +
-
-" - " +
-
-gram +
-
-" g (" +
-
-Math.round(
-addedCalories
-) +
-
-" kcal)</p>";
-
-localStorage.setItem(
-"vkCalories",
-totalCalories
-);
-
-localStorage.setItem(
-"vkProtein",
-totalProtein
-);
-
-localStorage.setItem(
-"vkCarb",
-totalCarb
-);
-
-localStorage.setItem(
-"vkFat",
-totalFat
-);
-
-}
-
-function askAI(){
-
-const question=
-
-document.getElementById(
-"question"
-).value
-.toLowerCase();
-
-let answer=
-
-"Protein, kalori veya spor hakkında soru sorabilirsin.";
-
-if(question.includes("protein")){
-
-answer=
-
-"Günlük protein hedefin 150 gramdır.";
-
-}
-
-if(question.includes("kalori")){
-
-answer=
-
-"Spor günü 1900 kcal, normal gün 1700 kcal hedefleniyor.";
-
-}
-
-if(question.includes("kilo")){
-
-answer=
-
-"Hedef kilon 85 kg olarak ayarlanmış.";
-
-}
-
-document.getElementById(
-"answer"
-).innerText=
-
-answer;
-
-}
-
-window.onload=function(){
-
-if(localStorage.getItem("vkCalories")){
-
-totalCalories=
-
-parseFloat(
-localStorage.getItem(
-"vkCalories"
-)
-);
-
-totalProtein=
-
-parseFloat(
-localStorage.getItem(
-"vkProtein"
-)
-);
-
-totalCarb=
-
-parseFloat(
-localStorage.getItem(
-"vkCarb"
-)
-);
-
-totalFat=
-
-parseFloat(
-localStorage.getItem(
-"vkFat"
-)
-);
-
-document.getElementById(
-"calorie"
-).innerText=
-
+"remainingCalories"
+).innerText =
+Math.max(
+0,
+targetCalories -
 Math.round(
 totalCalories
+)
 );
+Besini Ekle
 
-document.getElementById(
-"protein"
-).innerText=
+</button>
 
-Math.round(
-totalProtein
-);
-
-document.getElementById(
-"carb"
-).innerText=
-
-Math.round(
-totalCarb
-);
-
-document.getElementById(
-"fat"
-).innerText=
-
-Math.round(
-totalFat
-);
-
-}
-
-};
-
-</script>
-
-</body>
-
-</html>
+</div>
