@@ -1,77 +1,143 @@
-const aiReplies = {
+const aiAnswers = {
 
 protein:
-"Günlük protein hedefin yaklaşık 150 gram olabilir.",
+"Günlük protein hedefini tamamlamak için tavuk, yumurta, yoğurt ve protein tozu tüketebilirsin.",
 
 kalori:
-"Günlük kalori hedefin 1900 kcal olarak ayarlandı.",
+"Günlük kalori hedefini takip ederek ilerleyebilirsin.",
 
 spor:
-"Antrenmandan sonra protein tüketmen toparlanmanı destekleyebilir.",
+"Antrenmandan sonraki 1-2 saat içinde protein tüketmek toparlanmayı destekleyebilir.",
 
-kilo:
-"Düzenli kalori takibi kilo verme sürecini kolaylaştırır.",
+kahvaltı:
+"Kahvaltıda yumurta, peynir ve süt iyi bir tercih olabilir.",
 
-karbonhidrat:
-"Karbonhidrat miktarını antrenman yoğunluğuna göre ayarlayabilirsin."
+öğle:
+"Öğle yemeğinde tavuk, pilav ve yoğurt tercih edebilirsin.",
+
+akşam:
+"Akşam yemeğinde protein ağırlıklı beslenebilirsin.",
+
+fotoğraf:
+"Fotoğraf analizinde tespit edilen besinleri kontrol edip gramajları düzenleyebilirsin."
 
 };
 
+const aiHistory = [];
+
 function askAI() {
 
-const input =
+const questionInput =
 document.getElementById(
 "aiQuestion"
 );
 
-const answer =
+const answerBox =
 document.getElementById(
 "aiAnswer"
 );
 
 const question =
-input.value
+questionInput.value
 .toLowerCase()
 .trim();
 
 if (!question) {
 
-answer.innerHTML =
-"Bir soru yaz.";
-
 return;
 
 }
 
-let response =
-"Sorunu anlayamadım. Beslenme, spor veya kalori hakkında soru sorabilirsin.";
+let answer =
+"Beslenme, spor ve kalori hakkında soru sorabilirsin.";
 
-Object.keys(aiReplies)
-.forEach(key => {
+for (const key in aiAnswers) {
 
 if (
 question.includes(key)
 ) {
 
-response =
-aiReplies[key];
+answer =
+aiAnswers[key];
+
+break;
 
 }
 
+}
+
+aiHistory.push({
+
+question:
+questionInput.value,
+
+answer:
+answer
+
 });
 
-answer.innerHTML =
+let html = "";
 
-"<strong>Sen:</strong><br>" +
+aiHistory.forEach(item => {
 
-input.value +
+html += `
 
-"<br><br>" +
+<div
+style="
+padding:12px;
+margin-bottom:12px;
+background:#f5f5f5;
+border-radius:14px;
+">
 
-"<strong>VK AI:</strong><br>" +
+<strong>
 
-response;
+Sen:
 
-input.value = "";
+</strong>
+
+<br>
+
+${item.question}
+
+<br><br>
+
+<strong>
+
+VK AI:
+
+</strong>
+
+<br>
+
+${item.answer}
+
+</div>
+
+`;
+
+});
+
+answerBox.innerHTML = html;
+
+questionInput.value = "";
+
+}
+
+function suggestFoods(text) {
+
+const matches =
+foods.filter(food =>
+
+food.name
+.toLowerCase()
+.includes(
+text.toLowerCase()
+)
+
+);
+
+return matches
+.slice(0,5);
 
 }
