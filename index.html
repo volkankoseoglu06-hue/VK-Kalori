@@ -3,646 +3,260 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>VK Takip</title>
 
-<style>
-*{box-sizing:border-box}
+<title>VK Yaşam Koçu</title>
 
-body{
-margin:0;
-background:#f3f4f6;
-font-family:-apple-system,Arial,sans-serif;
-color:#111;
-}
-
-.app{
-max-width:430px;
-margin:auto;
-padding:10px;
-}
-
-.card{
-background:#fff;
-border-radius:18px;
-padding:12px;
-margin-bottom:10px;
-box-shadow:0 3px 12px rgba(0,0,0,.08);
-}
-
-.top{
-background:linear-gradient(90deg,#111,#d71920);
-color:#fff;
-}
-
-.title{
-font-size:22px;
-font-weight:900;
-}
-
-.sub{
-font-size:12px;
-color:#ddd;
-}
-
-.summary{
-font-size:32px;
-font-weight:900;
-}
-
-.progress{
-height:8px;
-background:#eee;
-border-radius:20px;
-overflow:hidden;
-margin-top:8px;
-}
-
-.fill{
-height:100%;
-width:0;
-background:#d71920;
-}
-
-.row{
-display:flex;
-gap:8px;
-}
-
-.row>*{
-flex:1;
-}
-
-button,input,select{
-width:100%;
-padding:10px;
-border-radius:12px;
-border:1px solid #ddd;
-margin-top:6px;
-}
-
-button{
-border:0;
-font-weight:700;
-}
-
-.black{
-background:#111;
-color:#fff;
-}
-
-.red{
-background:#d71920;
-color:#fff;
-}
-
-.gray{
-background:#eee;
-}
-
-.circles{
-display:flex;
-justify-content:space-between;
-margin-top:12px;
-}
-
-.circle{
-width:72px;
-height:72px;
-border:4px solid #eee;
-border-radius:50%;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-font-size:10px;
-}
-
-.circle b{
-font-size:18px;
-}
-
-.item{
-display:flex;
-justify-content:space-between;
-align-items:center;
-background:#f8f8f8;
-padding:10px;
-border-radius:12px;
-margin-top:6px;
-}
-
-.del{
-width:34px;
-height:34px;
-background:#ffe5e5;
-color:#c00;
-margin:0;
-padding:0;
-}
-
-.small{
-font-size:12px;
-color:#666;
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <div class="app">
 
-<div class="card top">
+<header>
 
-<div class="title">
-VK Takip
+<div>
+<h1>VK Yaşam Koçu</h1>
+<p>Bugün</p>
 </div>
 
-<div class="sub">
-Kalori • Protein • Spor
+<button class="settings-btn" onclick="toggleSettings()">
+⚙️
+</button>
+
+</header>
+
+<section class="dashboard">
+
+<div class="circle-card">
+
+<div class="progress-ring">
+<span id="kcalValue">1450</span>
 </div>
 
+<p>🔥 Kalori</p>
+
 </div>
+
+<div class="circle-card">
+
+<div class="progress-ring">
+<span id="proteinValue">112</span>
+</div>
+
+<p>🥩 Protein</p>
+
+</div>
+
+<div class="circle-card">
+
+<div class="progress-ring">
+<span id="waterValue">2.1</span>
+</div>
+
+<p>💧 Su</p>
+
+</div>
+
+<div class="circle-card">
+
+<div class="progress-ring">
+<span id="carbValue">120</span>
+</div>
+
+<p>🍞 Karbonhidrat</p>
+
+</div>
+
+</section>
+
+<section class="mode">
+
+<button class="active">
+🏋️ Spor Günü
+</button>
+
+<button>
+🌙 Dinlenme
+</button>
+
+</section>
+
+<section class="screen" id="homeScreen">
 
 <div class="card">
 
-<div class="row">
+<h2>📋 Bugünün Özeti</h2>
 
-<button id="normalBtn"
-class="black"
-onclick="setMode(false)">
+<ul>
 
-🛋️ Normal
+<li>🍽️ Öğün: 4</li>
 
-</button>
+<li>👣 Adım: 8.200</li>
 
-<button id="sportBtn"
-class="gray"
-onclick="setMode(true)">
+<li>🔥 Yakılan: 620 kcal</li>
 
-🏋️ Spor
-
-</button>
+</ul>
 
 </div>
 
-<div class="summary">
+</section>
 
-<span id="total">0</span> /
-
-<span id="target">1800</span>
-
-</div>
-
-<div class="progress">
-
-<div class="fill" id="fill"></div>
-
-</div>
-
-<div class="circles">
-
-<div class="circle">
-
-<b id="protein">0</b>
-
-Protein
-
-</div>
-
-<div class="circle">
-
-<b id="burn">0</b>
-
-Spor
-
-</div>
-
-<div class="circle">
-
-<b id="count">0</b>
-
-Besin
-
-</div>
-
-</div>
-
-</div>
+<section class="screen hidden" id="foodScreen">
 
 <div class="card">
 
-<b>🍽️ Yemek</b>
+<h2>🍽️ Yemekler</h2>
 
 <input
-id="food"
-placeholder="yumurta, tavuk, pilav..."
+id="foodSearch"
+placeholder="Peynir, zeytin, tavuk..."
+onkeyup="searchFood()"
 >
 
-<input
-id="qty"
-type="number"
-placeholder="gram / adet"
->
+<div id="foodResults"></div>
 
-<button
-class="black"
-onclick="calcFood()"
->
+<select>
 
-Hesapla
+<option>Gram</option>
 
-</button>
+<option>Adet</option>
 
-<div id="calc"></div>
+<option>Porsiyon</option>
 
-<button
-id="addBtn"
-class="red"
-style="display:none"
-onclick="addFood()"
->
+<option>ml</option>
 
-Yemeği Ekle
-
-</button>
-
-</div>
-
-<div class="card">
-
-<b>🏃 Egzersiz</b>
-
-<select id="exercise">
-
-<option>Yürüyüş</option>
-
-<option>Koşu</option>
-
-<option>Bisiklet</option>
-
-<option>Ağırlık</option>
+<option>Ölçek</option>
 
 </select>
 
+<input type="number" value="100">
+
+<button onclick="addFood()">
+
+➕ Günlüğe Ekle
+
+</button>
+
+</div>
+
+</section>
+
+<section class="screen hidden" id="sportScreen">
+
+<div class="card">
+
+<h2>💪 Spor</h2>
+
+<label>Süre</label>
+
 <input
-id="minute"
-type="number"
-placeholder="dakika"
+type="range"
+min="5"
+max="180"
+value="45"
 >
 
-<button
-class="black"
-onclick="addExercise()"
+<label>Hız</label>
+
+<input
+type="range"
+min="1"
+max="10"
+value="5"
 >
 
-Egzersizi Ekle
+<label>Eğim</label>
+
+<input
+type="range"
+min="0"
+max="15"
+value="8"
+>
+
+<button>
+
+🏃 Sporu Ekle
 
 </button>
 
 </div>
 
-<div class="card">
+</section>
 
-<b>📋 Bugün</b>
-
-<div id="foods">
-</div>
-
-</div>
+<section class="screen hidden" id="historyScreen">
 
 <div class="card">
 
-<b>📅 Geçmiş</b>
+<h2>📈 Geçmiş</h2>
 
-<div id="history">
+<p>Son 7 gün</p>
+
 </div>
 
-<button
-class="gray"
-onclick="finishDay()"
+</section>
+
+<section
+class="settings-panel hidden"
+id="settingsPanel"
 >
 
-Günü Bitir
+<div class="card">
 
+<h2>⚙️ Profil</h2>
+
+<select>
+
+<option>Erkek</option>
+
+<option>Kadın</option>
+
+</select>
+
+<input placeholder="Yaş">
+
+<input placeholder="Boy">
+
+<input placeholder="Kilo">
+
+<input placeholder="Hedef kilo">
+
+<input placeholder="Kalori hedefi">
+
+<input placeholder="Protein hedefi">
+
+<input placeholder="Su hedefi">
+
+</div>
+
+</section>
+
+<nav>
+
+<button onclick="showScreen('homeScreen')">
+🏠
 </button>
 
-</div>
+<button onclick="showScreen('foodScreen')">
+🍽️
+</button>
+
+<button onclick="showScreen('sportScreen')">
+💪
+</button>
+
+<button onclick="showScreen('historyScreen')">
+📈
+</button>
+
+</nav>
 
 </div>
 
-<script>
+<script src="foods.js"></script>
 
-const db={
-
-"yumurta":[78,6.3,1],
-"füme peynir":[225,16,100],
-"beyaz peynir":[264,14,100],
-"ekmek":[265,9,100],
-"tavuk":[165,31,100],
-"pilav":[130,2.7,100],
-"bulgur":[120,3.1,100],
-"kuru fasulye":[127,8.7,100],
-"nohut":[164,8.9,100],
-"yoğurt":[61,3.5,100],
-"köfte":[250,20,100],
-"protein tozu":[100,20,25]
-
-};
-
-const ex={
-
-"Yürüyüş":5,
-"Koşu":12,
-"Bisiklet":9,
-"Ağırlık":7
-
-};
-
-let state=JSON.parse(
-
-localStorage.getItem("vkTakip")
-
-||
-
-'{"foods":[],"burn":0,"history":[],"target":1800}'
-
-);
-
-let temp=null;
-
-function save(){
-
-localStorage.setItem(
-
-"vkTakip",
-
-JSON.stringify(state)
-
-);
-
-}
-
-function find(n){
-
-n=n.toLowerCase();
-
-return Object.keys(db)
-
-.find(x=>n.includes(x));
-
-}
-
-function setMode(s){
-
-state.target=s?2000:1800;
-
-target.textContent=state.target;
-
-normalBtn.className=s?"gray":"black";
-
-sportBtn.className=s?"red":"gray";
-
-save();
-
-render();
-
-}
-
-function calcFood(){
-
-let k=find(food.value||"");
-
-if(!k){
-
-calc.innerHTML="Besin bulunamadı.";
-
-return;
-
-}
-
-let q=Number(qty.value)||0;
-
-if(!q){
-
-calc.innerHTML="Miktar gir.";
-
-return;
-
-}
-
-let f=q/db[k][2];
-
-temp={
-
-name:k,
-
-qty:q,
-
-kcal:Math.round(db[k][0]*f),
-
-protein:Math.round(db[k][1]*f)
-
-};
-
-calc.innerHTML=
-
-"<div class='item'>"
-
-+
-
-temp.kcal
-
-+
-
-" kcal • "
-
-+
-
-temp.protein
-
-+
-
-" g protein</div>";
-
-addBtn.style.display="block";
-
-}
-
-function addFood(){
-
-if(!temp)return;
-
-state.foods.push(temp);
-
-temp=null;
-
-food.value="";
-
-qty.value="";
-
-calc.innerHTML="";
-
-addBtn.style.display="none";
-
-save();
-
-render();
-
-}
-
-function addExercise(){
-
-let m=Number(minute.value)||0;
-
-state.burn+=
-
-(ex[exercise.value]||0)
-
-*
-
-m;
-
-minute.value="";
-
-save();
-
-render();
-
-}
-
-function del(i){
-
-state.foods.splice(i,1);
-
-save();
-
-render();
-
-}
-
-function totalK(){
-
-let t=
-
-state.foods.reduce(
-
-(a,b)=>a+b.kcal,
-
-0
-
-)
-
--
-
-state.burn;
-
-return Math.max(0,t);
-
-}
-
-function finishDay(){
-
-state.history.unshift(
-
-new Date()
-
-.toLocaleDateString("tr-TR")
-
-+
-
-" • "
-
-+
-
-totalK()
-
-+
-
-" kcal"
-
-);
-
-state.foods=[];
-
-state.burn=0;
-
-save();
-
-render();
-
-}
-
-function render(){
-
-let p=0;
-
-foods.innerHTML=
-
-state.foods.map((x,i)=>{
-
-p+=x.protein;
-
-return "<div class='item'><div><b>"
-
-+x.name+
-
-"</b><div class='small'>"
-
-+x.qty+
-
-" • "
-
-+x.kcal+
-
-" kcal</div></div><button class='del' onclick='del("
-
-+i+
-
-")'>✕</button></div>";
-
-}).join("")
-
-||
-
-"Kayıt yok";
-
-history.innerHTML=
-
-state.history.join("<br>")
-
-||
-
-"Geçmiş yok";
-
-protein.textContent=Math.round(p);
-
-burn.textContent=state.burn;
-
-count.textContent=state.foods.length;
-
-target.textContent=state.target;
-
-total.textContent=totalK();
-
-fill.style.width=
-
-Math.min(
-
-100,
-
-totalK()/state.target*100
-
-)
-
-+
-
-"%";
-
-}
-
-render();
-
-</script>
+<script src="app.js"></script>
 
 </body>
 </html>
