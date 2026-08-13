@@ -1,477 +1,215 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
 <title>VK Kalori</title>
 
-<style>
-*{box-sizing:border-box}
+<link rel="manifest" href="manifest.json">
 
-body{
-margin:0;
-font-family:-apple-system,Arial,sans-serif;
-background:#f3f4f6;
-padding-bottom:40px;
-}
+<link rel="stylesheet" href="style.css">
 
-header{
-background:#d71920;
-color:white;
-padding:22px;
-border-radius:0 0 25px 25px;
-}
-
-h1{
-margin:0;
-font-size:40px;
-}
-
-nav{
-display:flex;
-gap:8px;
-overflow:auto;
-margin-top:15px;
-}
-
-nav button{
-border:0;
-background:white;
-padding:12px;
-border-radius:14px;
-font-weight:bold;
-white-space:nowrap;
-}
-
-main{
-max-width:420px;
-margin:auto;
-padding:12px;
-}
-
-.card{
-background:white;
-padding:18px;
-border-radius:22px;
-margin-bottom:12px;
-}
-
-.hero{
-background:#111;
-color:white;
-}
-
-.big{
-font-size:44px;
-font-weight:900;
-}
-
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-}
-
-.box{
-background:#eee;
-padding:12px;
-border-radius:14px;
-text-align:center;
-}
-
-input,select{
-width:100%;
-padding:15px;
-border:1px solid #ddd;
-border-radius:14px;
-margin-top:10px;
-font-size:16px;
-}
-
-.btn{
-width:100%;
-padding:15px;
-border:0;
-border-radius:14px;
-margin-top:10px;
-font-weight:bold;
-}
-
-.red{
-background:#d71920;
-color:white;
-}
-
-.black{
-background:#111;
-color:white;
-}
-
-.hidden{
-display:none;
-}
-</style>
 </head>
 
 <body>
 
 <header>
 
-<h1>VK</h1>
-
-<div>Kalori • Beslenme • Spor</div>
-
-<nav>
-
-<button onclick="showPage('home')">🏠 Ana Sayfa</button>
-
-<button onclick="showPage('food')">🍽️ Beslenme</button>
-
-<button onclick="showPage('sport')">🏃 Spor</button>
-
-<button onclick="showPage('profile')">👤 Profil</button>
-
-</nav>
+VK KALORİ
 
 </header>
 
-<main>
+<div class="container">
 
-<section id="home">
+<div class="page active" id="home">
 
-<div class="card hero">
+<div class="card">
 
-<div>Bugünkü Kalori</div>
+<h2>🔥 Günlük Takip</h2>
 
-<div>
+<div class="stat">
 
-<span class="big" id="totalKcal">0</span>
+<span>Kalori</span>
 
-/
-
-<span id="targetKcal">1900</span>
-
-kcal
-
-</div>
-
-<div class="grid">
-
-<button class="btn" onclick="setMode(false)">
-🛌 Normal
-</button>
-
-<button class="btn red" onclick="setMode(true)">
-🏋️ Spor
-</button>
+<span>
+<b id="totalCalories">0</b>
+/ 1900
+</span>
 
 </div>
 
-<div class="grid">
+<div class="stat">
 
-<div class="box">
+<span>Protein</span>
 
-Protein
+<span>
+<b id="totalProtein">0</b>
+/ 150 g
+</span>
+
+</div>
+
+<div class="stat">
+
+<span>Karbonhidrat</span>
+
+<span>
+<b id="totalCarb">0</b>
+/ 180 g
+</span>
+
+</div>
+
+<div class="stat">
+
+<span>Yağ</span>
+
+<span>
+<b id="totalFat">0</b>
+/ 65 g
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="page" id="foods">
+
+<div class="card">
+
+<h2>🍽️ Besin Ara</h2>
+
+<input
+id="foodSearch"
+placeholder="Tavuk, pilav, protein tozu..."
+onkeyup="searchFoods()">
+
+<div id="foodResults">
+
+</div>
+
+</div>
+
+</div>
+
+<div class="page" id="photo">
+
+<div class="card">
+
+<h2>📷 Fotoğraf Analizi</h2>
+
+<div class="photo-box">
+
+📷
+
+<br><br>
+
+<input type="file">
+
+</div>
+
+</div>
+
+</div>
+
+<div class="page" id="ai">
+
+<div class="card">
+
+<h2>🤖 VK AI</h2>
+
+<input
+id="aiQuestion"
+placeholder="Sorunu yaz...">
+
+<button
+onclick="askAI()">
+
+Sor
+
+</button>
+
+<div
+class="ai-response"
+id="aiAnswer">
+
+Bugün sana nasıl yardımcı olabilirim?
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="bottom-nav">
+
+<div
+class="nav-item"
+onclick="openPage('home')">
+
+🏠
 
 <br>
 
-<b id="protein">0</b> g
+Ana
 
 </div>
 
-<div class="box">
+<div
+class="nav-item"
+onclick="openPage('foods')">
 
-Yakılan
+🍽️
 
 <br>
 
-<b id="burned">0</b> kcal
+Besin
+
+</div>
+
+<div
+class="nav-item"
+onclick="openPage('photo')">
+
+📷
+
+<br>
+
+Analiz
+
+</div>
+
+<div
+class="nav-item"
+onclick="openPage('ai')">
+
+🤖
+
+<br>
+
+AI
 
 </div>
 
 </div>
 
-</div>
+<script src="foods.js"></script>
 
-<div class="card">
+<script src="app.js"></script>
 
-<h2>📋 Günün Özeti</h2>
+<script src="ai.js"></script>
 
-<div id="summary">
-
-Henüz kayıt yok.
-
-</div>
-
-</div>
-
-</section>
-
-<section id="food" class="hidden">
-
-<div class="card">
-
-<h2>🍽️ Beslenme</h2>
-
-<select id="meal">
-
-<option>Kahvaltı</option>
-
-<option>Öğle</option>
-
-<option>Akşam</option>
-
-<option>Ara Öğün</option>
-
-</select>
-
-<input id="foodName" placeholder="Protein tozu">
-
-<input id="foodAmount" type="number" placeholder="Gram / adet">
-
-<button class="btn red" onclick="addFood()">
-
-Güne Ekle
-
-</button>
-
-<div id="foodInfo"></div>
-
-</div>
-
-</section>
-
-<section id="sport" class="hidden">
-
-<div class="card">
-
-<h2>🏃 Spor</h2>
-
-<input id="walk" type="number" placeholder="Yürüyüş (dakika)">
-
-<input id="weights" type="number" placeholder="Ağırlık (dakika)">
-
-<button class="btn black" onclick="saveSport()">
-
-Sporu Kaydet
-
-</button>
-
-</div>
-
-</section>
-
-<section id="profile" class="hidden">
-
-<div class="card">
-
-<h2>👤 Profil</h2>
-
-<input id="height" placeholder="Boy (cm)">
-
-<input id="weight" placeholder="Kilo (kg)">
-
-<input id="normalTarget" placeholder="Normal gün kalorisi">
-
-<input id="sportTarget" placeholder="Spor günü kalorisi">
-
-<button class="btn red" onclick="saveProfile()">
-
-Kaydet
-
-</button>
-
-</div>
-
-</section>
-
-</main>
-
-<script>
-
-const foods={
-
-"protein tozu":[100,20,25],
-
-"protein bar":[200,20,1],
-
-"yumurta":[78,6,1],
-
-"tavuk":[165,31,100],
-
-"tavuk göğsü":[165,31,100],
-
-"yoğurt":[61,4,100],
-
-"süt":[61,3,100],
-
-"pilav":[130,3,100],
-
-"bulgur":[120,3,100],
-
-"makarna":[157,6,100],
-
-"yulaf":[389,17,100],
-
-"muz":[89,1,100],
-
-"elma":[52,0,100],
-
-"ton balığı":[116,26,100],
-
-"köfte":[250,20,100],
-
-"kuru fasulye":[127,9,100],
-
-"mercimek":[116,9,100],
-
-"nohut":[164,9,100]
-
-};
-
-let data={
-
-foods:[],
-
-burn:0,
-
-sport:false,
-
-normal:1900,
-
-sportGoal:2100
-
-};
-
-function showPage(id){
-
-document.querySelectorAll("section")
-
-.forEach(x=>x.classList.add("hidden"));
-
-document.getElementById(id)
-
-.classList.remove("hidden");
-
-}
-
-function setMode(v){
-
-data.sport=v;
-
-update();
-
-}
-
-function addFood(){
-
-let name=foodName.value.toLowerCase();
-
-let amount=Number(foodAmount.value);
-
-if(!foods[name]){
-
-foodInfo.innerHTML="Besin bulunamadı.";
-
-return;
-
-}
-
-let f=foods[name];
-
-let factor=amount/f[2];
-
-let kcal=f[0]*factor;
-
-let proteinValue=f[1]*factor;
-
-data.foods.push({
-
-name:name,
-
-kcal:kcal,
-
-protein:proteinValue
-
-});
-
-foodInfo.innerHTML=
-
-Math.round(kcal)
-
-+" kcal - "
-
-+proteinValue.toFixed(1)
-
-+" g protein";
-
-update();
-
-}
-
-function saveSport(){
-
-data.burn=
-
-(Number(walk.value)||0)*5+
-
-(Number(weights.value)||0)*6;
-
-update();
-
-}
-
-function saveProfile(){
-
-data.normal=
-
-Number(normalTarget.value)||1900;
-
-data.sportGoal=
-
-Number(sportTarget.value)||2100;
-
-}
-
-function update(){
-
-let kcal=
-
-data.foods.reduce((a,b)=>a+b.kcal,0)
-
--data.burn;
-
-let p=
-
-data.foods.reduce((a,b)=>a+b.protein,0);
-
-totalKcal.innerText=Math.round(kcal);
-
-protein.innerText=Math.round(p);
-
-burned.innerText=data.burn;
-
-targetKcal.innerText=
-
-data.sport
-
-?data.sportGoal
-
-:data.normal;
-
-summary.innerHTML=
-
-data.foods.length
-
-?data.foods.map(x=>"• "+x.name).join("<br>")
-
-:"Henüz kayıt yok.";
-
-}
-
-update();
-
-</script>
+<script src="camera.js"></script>
 
 </body>
+
 </html>
