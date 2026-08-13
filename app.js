@@ -5,8 +5,6 @@ let totals = {
     fat: 0
 };
 
-let currentMeal = "Kahvaltı";
-
 function openPage(pageId) {
 
     document
@@ -19,43 +17,93 @@ function openPage(pageId) {
 
         });
 
-    document
-        .getElementById(pageId)
-        .classList.add(
+    const selectedPage =
+        document.getElementById(
+            pageId
+        );
+
+    if (selectedPage) {
+
+        selectedPage.classList.add(
             "active"
         );
 
+    }
+
 }
 
-function updateTotals() {
+function updateDashboard() {
 
-    document.getElementById(
-        "totalCalories"
-    ).textContent =
-        Math.round(
-            totals.calorie
+    const calorie =
+        document.getElementById(
+            "calorieValue"
         );
 
-    document.getElementById(
-        "totalProtein"
-    ).textContent =
-        Math.round(
-            totals.protein
+    const protein =
+        document.getElementById(
+            "proteinValue"
         );
 
-    document.getElementById(
-        "totalCarb"
-    ).textContent =
-        Math.round(
-            totals.carb
+    const carb =
+        document.getElementById(
+            "carbValue"
         );
 
-    document.getElementById(
-        "totalFat"
-    ).textContent =
-        Math.round(
-            totals.fat
+    const fat =
+        document.getElementById(
+            "fatValue"
         );
+
+    const remaining =
+        document.getElementById(
+            "remainingCalories"
+        );
+
+    if (calorie) {
+
+        calorie.textContent =
+            Math.round(
+                totals.calorie
+            );
+
+    }
+
+    if (protein) {
+
+        protein.textContent =
+            Math.round(
+                totals.protein
+            );
+
+    }
+
+    if (carb) {
+
+        carb.textContent =
+            Math.round(
+                totals.carb
+            );
+
+    }
+
+    if (fat) {
+
+        fat.textContent =
+            Math.round(
+                totals.fat
+            );
+
+    }
+
+    if (remaining) {
+
+        remaining.textContent =
+            1900 -
+            Math.round(
+                totals.calorie
+            ) + " kcal";
+
+    }
 
 }
 
@@ -64,82 +112,50 @@ function addFood(index) {
     const food =
         foods[index];
 
-    const gramSelect =
-        document.querySelectorAll(
-            "#foods select"
-        )[0];
+    totals.calorie +=
+        food.calorie;
 
-    const mealSelect =
-        document.querySelectorAll(
-            "#foods select"
-        )[1];
+    totals.protein +=
+        food.protein;
 
-    const gram =
-        parseInt(
-            gramSelect.value
-        );
+    totals.carb +=
+        food.carb;
 
-    currentMeal =
-        mealSelect.value;
+    totals.fat +=
+        food.fat;
 
-    const ratio =
-        gram / 100;
-
-    const calorie =
-        food.calorie *
-        ratio;
-
-    const protein =
-        food.protein *
-        ratio;
-
-    const carb =
-        food.carb *
-        ratio;
-
-    const fat =
-        food.fat *
-        ratio;
-
-    totals.calorie += calorie;
-
-    totals.protein += protein;
-
-    totals.carb += carb;
-
-    totals.fat += fat;
-
-    updateTotals();
+    updateDashboard();
 
     alert(
-
         food.name +
-
-        "\n\n" +
-
-        currentMeal +
-
-        " öğününe eklendi."
-
+        " eklendi."
     );
 
 }
 
 function searchFoods() {
 
-    const input =
-        document.getElementById(
+    const search =
+        document
+        .getElementById(
             "foodSearch"
         );
 
-    const results =
-        document.getElementById(
-            "foodResults"
-        );
+    if (!search) {
+
+        return;
+
+    }
 
     const text =
-        input.value
+        search.value
         .toLowerCase();
+
+    const results =
+        document
+        .getElementById(
+            "foodResults"
+        );
 
     results.innerHTML =
         "";
@@ -151,18 +167,18 @@ function searchFoods() {
         ) => {
 
             if (
-
                 food.name
                 .toLowerCase()
                 .includes(
                     text
                 )
-
             ) {
 
                 results.innerHTML += `
 
-<div class="food-item">
+<div class="meal-item">
+
+<div>
 
 <strong>
 
@@ -178,15 +194,11 @@ ${food.unit}
 
 🔥 ${food.calorie} kcal
 
-<br>
-
-🥩 ${food.protein} g protein
-
-<br><br>
+</div>
 
 <button onclick="addFood(${index})">
 
-➕ Öğüne Ekle
++
 
 </button>
 
@@ -197,38 +209,11 @@ ${food.unit}
             }
 
         }
-
     );
 
 }
 
 document.addEventListener(
-
     "DOMContentLoaded",
-
-    () => {
-
-        updateTotals();
-
-        const input =
-            document.getElementById(
-                "foodSearch"
-            );
-
-        if (input) {
-
-            input.addEventListener(
-
-                "keyup",
-
-                searchFoods
-
-            );
-
-        }
-
-        searchFoods();
-
-    }
-
+    updateDashboard
 );
