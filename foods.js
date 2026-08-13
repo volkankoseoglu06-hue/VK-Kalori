@@ -1,84 +1,46 @@
 const foods = [
 
-/* ET VE TAVUK */
-
 {name:"Tavuk göğsü",unit:"100 g",calorie:165,protein:31,carb:0,fat:3.6},
 {name:"Hindi göğsü",unit:"100 g",calorie:135,protein:29,carb:0,fat:1},
 {name:"Köfte",unit:"100 g",calorie:250,protein:26,carb:5,fat:15},
 {name:"Dana eti",unit:"100 g",calorie:250,protein:26,carb:0,fat:15},
-{name:"Kuzu eti",unit:"100 g",calorie:294,protein:25,carb:0,fat:21},
-{name:"Tavuk but",unit:"100 g",calorie:209,protein:26,carb:0,fat:11},
-
-/* BALIK */
-
 {name:"Ton balığı",unit:"100 g",calorie:132,protein:29,carb:0,fat:1},
 {name:"Somon",unit:"100 g",calorie:208,protein:20,carb:0,fat:13},
-{name:"Levrek",unit:"100 g",calorie:124,protein:23,carb:0,fat:2},
-{name:"Hamsi",unit:"100 g",calorie:131,protein:20,carb:0,fat:5},
-
-/* SÜT ÜRÜNLERİ */
-
-{name:"Süt",unit:"200 ml",calorie:103,protein:8,carb:12,fat:2},
-{name:"Yoğurt",unit:"100 g",calorie:61,protein:3.5,carb:4.7,fat:3.3},
-{name:"Ayran",unit:"200 ml",calorie:68,protein:4,carb:5,fat:3},
-{name:"Kaşar peyniri",unit:"100 g",calorie:404,protein:25,carb:1,fat:33},
-{name:"Lor peyniri",unit:"100 g",calorie:98,protein:18,carb:3,fat:1},
-{name:"Beyaz peynir",unit:"100 g",calorie:264,protein:14,carb:4,fat:21},
-
-/* YUMURTA */
 
 {name:"Yumurta",unit:"1 adet",calorie:78,protein:6,carb:0.6,fat:5},
 {name:"Yumurta beyazı",unit:"1 adet",calorie:17,protein:4,carb:0,fat:0},
 
-/* BAKLİYAT */
+{name:"Yoğurt",unit:"100 g",calorie:61,protein:3.5,carb:4.7,fat:3.3},
+{name:"Ayran",unit:"200 ml",calorie:68,protein:4,carb:5,fat:3},
+{name:"Süt",unit:"200 ml",calorie:103,protein:8,carb:12,fat:2},
 
-{name:"Kuru fasulye",unit:"100 g",calorie:127,protein:9,carb:23,fat:0.5},
-{name:"Nohut",unit:"100 g",calorie:164,protein:9,carb:27,fat:2.6},
-{name:"Mercimek",unit:"100 g",calorie:116,protein:9,carb:20,fat:0.4},
-{name:"Bezelye",unit:"100 g",calorie:84,protein:5,carb:15,fat:0.4},
-
-/* TAHILLAR */
+{name:"Kaşar peyniri",unit:"100 g",calorie:404,protein:25,carb:1,fat:33},
+{name:"Lor peyniri",unit:"100 g",calorie:98,protein:18,carb:3,fat:1},
 
 {name:"Pirinç pilavı",unit:"100 g",calorie:130,protein:2.7,carb:28,fat:0.3},
 {name:"Bulgur pilavı",unit:"100 g",calorie:83,protein:3,carb:18,fat:0.2},
 {name:"Makarna",unit:"100 g",calorie:157,protein:5.8,carb:31,fat:1},
-{name:"Yulaf",unit:"100 g",calorie:389,protein:17,carb:66,fat:7},
-{name:"Tam buğday ekmeği",unit:"1 dilim",calorie:69,protein:3.6,carb:12,fat:1},
-{name:"Beyaz ekmek",unit:"1 dilim",calorie:79,protein:2.6,carb:15,fat:1},
 
-/* SEBZELER */
+{name:"Kuru fasulye",unit:"100 g",calorie:127,protein:9,carb:23,fat:0.5},
+{name:"Nohut",unit:"100 g",calorie:164,protein:9,carb:27,fat:2.6},
+{name:"Mercimek",unit:"100 g",calorie:116,protein:9,carb:20,fat:0.4},
 
 {name:"Patates",unit:"100 g",calorie:77,protein:2,carb:17,fat:0.1},
 {name:"Yeşil fasulye",unit:"100 g",calorie:31,protein:2,carb:7,fat:0.1},
-{name:"Brokoli",unit:"100 g",calorie:34,protein:3,carb:7,fat:0.4},
-{name:"Havuç",unit:"100 g",calorie:41,protein:1,carb:10,fat:0.2},
-{name:"Biber",unit:"100 g",calorie:31,protein:1,carb:6,fat:0.3},
-
-/* MEYVELER */
 
 {name:"Muz",unit:"1 adet",calorie:105,protein:1.3,carb:27,fat:0.4},
 {name:"Elma",unit:"1 adet",calorie:95,protein:0.5,carb:25,fat:0.3},
 {name:"Portakal",unit:"1 adet",calorie:62,protein:1.2,carb:15,fat:0.2},
 {name:"Karpuz",unit:"100 g",calorie:30,protein:0.6,carb:8,fat:0.2},
-{name:"Kavun",unit:"100 g",calorie:34,protein:0.8,carb:8,fat:0.2},
-
-/* KURUYEMİŞ */
 
 {name:"Badem",unit:"100 g",calorie:579,protein:21,carb:22,fat:50},
 {name:"Ceviz",unit:"100 g",calorie:654,protein:15,carb:14,fat:65},
-{name:"Fındık",unit:"100 g",calorie:628,protein:15,carb:17,fat:61},
-
-/* İÇECEKLER */
-
-{name:"Türk kahvesi",unit:"1 fincan",calorie:7,protein:0,carb:1,fat:0},
-{name:"Americano",unit:"1 bardak",calorie:10,protein:0,carb:2,fat:0},
-{name:"Kola",unit:"330 ml",calorie:139,protein:0,carb:35,fat:0},
-
-/* SPORCU BESİNLERİ */
 
 {name:"Protein tozu",unit:"25 g",calorie:110,protein:20,carb:2,fat:1},
 {name:"Whey isolate",unit:"25 g",calorie:105,protein:22,carb:1,fat:0.5},
 {name:"Protein bar",unit:"1 adet",calorie:220,protein:20,carb:22,fat:8},
-{name:"Kreatin",unit:"5 g",calorie:0,protein:0,carb:0,fat:0}
+
+{name:"Türk kahvesi",unit:"1 fincan",calorie:7,protein:0,carb:1,fat:0},
+{name:"Americano",unit:"1 bardak",calorie:10,protein:0,carb:2,fat:0}
 
 ];
