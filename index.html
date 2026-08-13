@@ -2,114 +2,106 @@
 <html lang="tr">
 
 <head>
-
 <meta charset="UTF-8">
 
 <meta name="viewport"
-content="width=device-width,initial-scale=1">
+content="width=device-width,initial-scale=1,maximum-scale=1">
 
 <title>VK Kalori</title>
 
-<link rel="stylesheet"
-href="style.css">
-
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
+<header class="header">
 
-<div>
+<div class="menu-icon">☰</div>
+
+<div class="logo">
 
 <h1>VK KALORİ</h1>
 
-<p>Beslenme ve Spor Takibi</p>
-
 </div>
 
-<div class="profile-icon">
+<div class="remaining-box">
 
-👤
+🔥
+
+<div>
+
+<span>Hedefe kalan</span>
+
+<b id="remainingCalories">1900 kcal</b>
+
+</div>
 
 </div>
 
 </header>
 
-<div class="top-menu">
+<nav class="top-nav">
 
-<div class="top-item active">
+<div class="top-nav-item active">
 
-📅 Bugün
+🏠
 
-</div>
-
-<div class="top-item">
-
-📊 Raporlar
+<span>Ana Sayfa</span>
 
 </div>
 
-<div class="top-item">
+<div class="top-nav-item"
+onclick="openPage('foods')">
 
-⚙️ Ayarlar
+🍽️
+
+<span>Besinler</span>
 
 </div>
 
+<div class="top-nav-item"
+onclick="openPage('photo')">
+
+📷
+
+<span>Fotoğraf</span>
+
 </div>
+
+<div class="top-nav-item"
+onclick="openPage('ai')">
+
+🧠
+
+<span>Yapay Zeka</span>
+
+</div>
+
+<div class="top-nav-item">
+
+📊
+
+<span>Raporlar</span>
+
+</div>
+
+</nav>
 
 <main>
 
 <section class="page active" id="home">
 
-<div class="summary-card">
+<div class="card">
 
-<div class="summary-left">
+<div class="summary-header">
 
-<div class="big-circle">
-
-<div>
-
-<h2 id="calorieValue">
-
-0
-
-</h2>
-
-<p>
-
-kcal
-
-</p>
-
-<span>
-
-/ 1900 kcal
-
-</span>
-
-</div>
-
-</div>
-
-<div class="remaining">
-
-KALAN
-
-<b id="remainingCalories">
-
-1900
-
-</b>
-
-kcal
-
-</div>
+<h2>GÜNLÜK ÖZET</h2>
 
 <div class="day-buttons">
 
 <button id="sportDay">
 
-🏆 Spor Günü
+🏋️ Spor Günü
 
 </button>
 
@@ -123,60 +115,52 @@ kcal
 
 </div>
 
-<div class="summary-right">
+<div class="summary-grid">
+
+<div class="calorie-area">
+
+<div class="big-circle">
+
+<div>
+
+<h1 id="calorieValue">0</h1>
+
+<p>/ 1900 kcal</p>
+
+</div>
+
+</div>
+
+<h3>KALORİ</h3>
+
+</div>
+
+<div class="macro-area">
 
 <div class="mini-card">
 
 <div class="mini-circle">
 
-🥩
+<span id="proteinValue">0</span>
 
 </div>
 
-<h3>
+<p>PROTEİN</p>
 
-PROTEİN
-
-</h3>
-
-<p>
-
-<span id="proteinValue">
-
-0
-
-</span>
-
-/150 g
-
-</p>
+<span>/150 g</span>
 
 </div>
 <div class="mini-card">
 
 <div class="mini-circle">
 
-🌾
+<span id="carbValue">0</span>
 
 </div>
 
-<h3>
+<p>KARBONHİDRAT</p>
 
-KARBONHİDRAT
-
-</h3>
-
-<p>
-
-<span id="carbValue">
-
-0
-
-</span>
-
-/180 g
-
-</p>
+<span>/180 g</span>
 
 </div>
 
@@ -184,27 +168,13 @@ KARBONHİDRAT
 
 <div class="mini-circle">
 
-🥑
+<span id="fatValue">0</span>
 
 </div>
 
-<h3>
+<p>YAĞ</p>
 
-YAĞ
-
-</h3>
-
-<p>
-
-<span id="fatValue">
-
-0
-
-</span>
-
-/65 g
-
-</p>
+<span>/65 g</span>
 
 </div>
 
@@ -212,21 +182,13 @@ YAĞ
 
 <div class="mini-circle">
 
-💧
+2.5
 
 </div>
 
-<h3>
+<p>SU</p>
 
-SU
-
-</h3>
-
-<p>
-
-2.5/3 L
-
-</p>
+<span>/3 L</span>
 
 </div>
 
@@ -234,127 +196,79 @@ SU
 
 </div>
 
-<div class="meal-section">
+</div>
 
-<div class="meal-box">
+<section class="meal-card">
 
-<div>
+<h2>ÖĞÜNLER</h2>
 
-🍳 Kahvaltı
+<div class="meal-item">
+
+<span>🍳 Kahvaltı</span>
+
+<button>+</button>
 
 </div>
 
-<button>
+<div class="meal-item">
 
-+
+<span>☀️ Öğle Yemeği</span>
 
-</button>
-
-</div>
-
-<div class="meal-box">
-
-<div>
-
-☀️ Öğle
+<button>+</button>
 
 </div>
 
-<button>
+<div class="meal-item">
 
-+
+<span>🌙 Akşam Yemeği</span>
 
-</button>
-
-</div>
-
-<div class="meal-box">
-
-<div>
-
-🌙 Akşam
+<button>+</button>
 
 </div>
 
-<button>
+<div class="meal-item">
 
-+
+<span>🍎 Ara Öğün</span>
 
-</button>
-
-</div>
-
-<div class="meal-box">
-
-<div>
-
-🍎 Ara Öğün
-
-</div>
-
-<button>
-
-+
-
-</button>
-
-</div>
+<button>+</button>
 
 </div>
 
 </section>
-
-<section class="page"
-
-id="foods">
+<section class="page" id="foods">
 
 <div class="card">
 
-<h2>
-
-🍽️ Besin Ara
-
-</h2>
+<h2>BESİN ARA / EKLE</h2>
 
 <input
-
 id="foodSearch"
+placeholder="Tavuk, pilav, protein tozu..."
+onkeyup="searchFoods()">
 
-placeholder="Besin ara...">
-
-<div
-
-id="foodResults">
-
-</div>
+<div id="foodResults"></div>
 
 </div>
 
 </section>
-<section class="page"
-id="photo">
+
+<section class="page" id="photo">
 
 <div class="card">
 
-<h2>
-
-📷 Fotoğraf Analizi
-
-</h2>
+<h2>📷 FOTOĞRAF ANALİZİ</h2>
 
 <input
 type="file"
 accept="image/*">
 
-<button
-onclick="analyzePhoto()">
+<button onclick="analyzePhoto()">
 
 Fotoğrafı Analiz Et
 
 </button>
 
-<div
-id="analysisResults">
+<div id="analysisResults">
 
 Henüz analiz yapılmadı.
 
@@ -364,30 +278,23 @@ Henüz analiz yapılmadı.
 
 </section>
 
-<section class="page"
-id="ai">
+<section class="page" id="ai">
 
 <div class="card">
 
-<h2>
-
-🤖 VK AI
-
-</h2>
+<h2>🤖 VK AI</h2>
 
 <input
 id="aiQuestion"
 placeholder="Sorunu yaz...">
 
-<button
-onclick="askAI()">
+<button onclick="askAI()">
 
 Sor
 
 </button>
 
-<div
-id="aiAnswer">
+<div id="aiAnswer">
 
 Merhaba 👋
 
@@ -397,8 +304,21 @@ Merhaba 👋
 
 </section>
 
-<section class="page"
-id="profile">
+<section class="page" id="profile">
+
+<div class="card">
+
+<h2>👤 PROFİL</h2>
+
+<p>Yaş: 32</p>
+
+<p>Boy: 175 cm</p>
+
+<p>Kilo: 109 kg</p>
+
+<p>Hedef: 85 kg</p>
+
+</div>
 
 </section>
 
@@ -406,55 +326,15 @@ id="profile">
 
 <nav class="bottom-nav">
 
-<div onclick="openPage('home')">
+<div onclick="openPage('home')">🏠<br>Ana</div>
 
-🏠
+<div onclick="openPage('foods')">🍽️<br>Besin</div>
 
-<br>
+<div onclick="openPage('photo')">📷<br>Analiz</div>
 
-Ana
+<div onclick="openPage('ai')">🤖<br>AI</div>
 
-</div>
-
-<div onclick="openPage('foods')">
-
-🍽️
-
-<br>
-
-Besin
-
-</div>
-
-<div onclick="openPage('photo')">
-
-📷
-
-<br>
-
-Analiz
-
-</div>
-
-<div onclick="openPage('ai')">
-
-🤖
-
-<br>
-
-AI
-
-</div>
-
-<div onclick="openPage('profile')">
-
-👤
-
-<br>
-
-Profil
-
-</div>
+<div onclick="openPage('profile')">👤<br>Profil</div>
 
 </nav>
 
