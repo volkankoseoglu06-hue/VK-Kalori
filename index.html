@@ -42,81 +42,195 @@ VK KALORİ
 
 <div class="card summary-card">
 
-<div class="summary-title">
+<h2 class="summary-title">
 
-🔥 Bugünkü Özet
+🔥 Günlük Kalori
 
-</div>
-
-<div class="stat">
-
-<span>Kalori</span>
-
-<span>
-
-<b id="totalCalories">0</b>
-
-/
-
-1900
-
-</span>
-
-</div>
+</h2>
 
 <div class="progress">
 
-<div class="progress-fill">
+<div class="progress-text">
+
+<b id="totalCalories">
+
+0
+
+</b>
+
+1900 kcal
 
 </div>
 
 </div>
 
-<div class="stat">
+<div class="macro-grid">
 
-<span>Protein</span>
+<div class="macro-card">
 
-<span>
+<div class="macro-circle">
 
-<b id="totalProtein">0</b>
+<div>
 
-/
+🥩
+
+<br>
+
+<b id="totalProtein">
+
+0
+
+</b>
+
+<br>
 
 150 g
 
-</span>
+</div>
 
 </div>
 
-<div class="stat">
+<p>
 
-<span>Karbonhidrat</span>
+Protein
 
-<span>
+</p>
 
-<b id="totalCarb">0</b>
+</div>
 
-/
+<div class="macro-card">
+
+<div class="macro-circle">
+
+<div>
+
+🌾
+
+<br>
+
+<b id="totalCarb">
+
+0
+
+</b>
+
+<br>
 
 180 g
 
-</span>
+</div>
 
 </div>
 
-<div class="stat">
+<p>
 
-<span>Yağ</span>
+Karbonhidrat
 
-<span>
+</p>
 
-<b id="totalFat">0</b>
+</div>
 
-/
+<div class="macro-card">
+
+<div class="macro-circle">
+
+<div>
+
+🥑
+
+<br>
+
+<b id="totalFat">
+
+0
+
+</b>
+
+<br>
 
 65 g
 
-</span>
+</div>
+
+</div>
+
+<p>
+
+Yağ
+
+</p>
+
+</div>
+
+<div class="macro-card">
+
+<div class="macro-circle">
+
+<div>
+
+💧
+
+<br>
+
+2.5
+
+<br>
+
+3 L
+
+</div>
+
+</div>
+
+<p>
+
+Su
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>
+
+🍳 Öğünler
+
+</h2>
+
+<div class="profile-row">
+
+<span>🍳 Kahvaltı</span>
+
+<span>0 kcal</span>
+
+</div>
+
+<div class="profile-row">
+
+<span>☀️ Öğle</span>
+
+<span>0 kcal</span>
+
+</div>
+
+<div class="profile-row">
+
+<span>🌙 Akşam</span>
+
+<span>0 kcal</span>
+
+</div>
+
+<div class="profile-row">
+
+<span>🍎 Ara Öğün</span>
+
+<span>0 kcal</span>
 
 </div>
 
@@ -130,8 +244,6 @@ VK KALORİ
 
 </h2>
 
-<br>
-
 <div class="quick-grid">
 
 <div class="quick-item"
@@ -141,7 +253,7 @@ onclick="openPage('foods')">
 
 <br>
 
-Besin
+Besinler
 
 </div>
 
@@ -179,36 +291,6 @@ Profil
 </div>
 
 </div>
-
-</div>
-
-<div class="card water-card">
-
-💧
-
-<br><br>
-
-Su Takibi
-
-<br><br>
-
-2.5 / 3 L
-
-</div>
-
-<div class="card weight-card">
-
-📈
-
-<br><br>
-
-<div class="weight-value">
-
-109 kg
-
-</div>
-
-🎯 Hedef: 85 kg
 
 </div>
 
@@ -420,8 +502,7 @@ Merhaba 👋
 
 <div class="bottom-nav">
 
-<div
-class="nav-item"
+<div class="nav-item"
 onclick="openPage('home')">
 
 🏠
@@ -432,8 +513,7 @@ Ana
 
 </div>
 
-<div
-class="nav-item"
+<div class="nav-item"
 onclick="openPage('foods')">
 
 🍽️
@@ -444,8 +524,7 @@ Besin
 
 </div>
 
-<div
-class="nav-item"
+<div class="nav-item"
 onclick="openPage('photo')">
 
 📷
@@ -456,8 +535,7 @@ Analiz
 
 </div>
 
-<div
-class="nav-item"
+<div class="nav-item"
 onclick="openPage('ai')">
 
 🤖
@@ -468,8 +546,7 @@ AI
 
 </div>
 
-<div
-class="nav-item"
+<div class="nav-item"
 onclick="openPage('profile')">
 
 👤
