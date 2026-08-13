@@ -1,22 +1,10 @@
 {
   "name": "VK Kalori",
   "short_name": "VK Kalori",
-  "description": "Kalori, beslenme ve spor takip uygulaması",
+  "description": "Kalori ve beslenme takip uygulaması",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#111111",
   "theme_color": "#d71920",
-  "orientation": "portrait",
-  "icons": [
-    {
-      "src": "icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
+  "orientation": "portrait"
 }
