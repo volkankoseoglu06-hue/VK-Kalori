@@ -1,1 +1,1010 @@
-<!DOCTYPE html><html lang="tr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VK Kalori</title><style>*{box-sizing:border-box}body{font-family:Arial;background:#f2f4f7;max-width:430px;margin:auto;padding-bottom:80px}.h{background:#d71920;color:#fff;padding:15px} .card{background:#fff;margin:10px;padding:15px;border-radius:20px}.row{display:flex;gap:10px}.left{width:45%;text-align:center}.circle{width:150px;height:150px;border:10px solid #d71920;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:auto}.right{width:55%;display:grid;grid-template-columns:1fr 1fr;gap:8px}.m{background:#f7f7f7;padding:10px;border-radius:12px;text-align:center}button,input,select{width:100%;padding:10px;margin-top:8px}nav{position:fixed;bottom:0;left:0;right:0;max-width:430px;margin:auto;display:flex;justify-content:space-around;background:#000;color:#fff;padding:10px}</style></head><body><div class="h"><h2>VK KALORİ</h2></div><div class="card"><div class="row"><div class="left"><div class="circle"><div><h2 id=c>0</h2><small id=g>/1900</small></div></div><button onclick="goal=1900;updg()">Spor</button><button onclick="goal=1700;updg()">Normal</button></div><div class="right"><div class=m>P <div id=p>0</div></div><div class=m>K <div id=cr>0</div></div><div class=m>Y <div id=f>0</div></div><div class=m>SU<div>2.5</div></div></div></div></div><div class=card><h3>Besin Ekle</h3><select id=s><option value="165,31,0,4">Tavuk</option><option value="130,3,28,1">Pilav</option><option value="155,13,1,11">Yumurta</option><option value="61,3.5,4.7,3.3">Yoğurt</option><option value="120,24,3,2">Whey</option></select><input id=gr type=number placeholder="Gram"><button onclick="add()">Ekle</button><div id=log></div></div><nav><div>Ana</div><div>Besin</div><div>AI</div><div>Profil</div></nav><script>let goal=1900,t=[0,0,0,0];function updg(){g.innerText='/'+goal}function add(){let a=s.value.split(',').map(Number),grm=+gr.value||0;t[0]+=a[0]*grm/100;t[1]+=a[1]*grm/100;t[2]+=a[2]*grm/100;t[3]+=a[3]*grm/100;c.innerText=Math.round(t[0]);p.innerText=Math.round(t[1]);cr.innerText=Math.round(t[2]);f.innerText=Math.round(t[3]);log.innerHTML+='✓ '+s.options[s.selectedIndex].text+' '+grm+'g<br>'}</script></body></html>
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>VK Kalori</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Arial,sans-serif;
+background:#f2f4f7;
+max-width:430px;
+margin:auto;
+padding-bottom:100px;
+}
+
+.header{
+background:#d71920;
+color:white;
+padding:18px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.header h1{
+font-size:26px;
+}
+
+.summary,
+.card{
+background:white;
+margin:15px;
+padding:20px;
+border-radius:25px;
+box-shadow:0 3px 10px rgba(0,0,0,.1);
+}
+
+.summary-grid{
+display:flex;
+gap:15px;
+}
+
+.calorie-side{
+width:45%;
+text-align:center;
+}
+
+.big-circle{
+width:160px;
+height:160px;
+border:12px solid #d71920;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+margin:auto;
+}
+
+.big-circle h2{
+font-size:42px;
+}
+
+.day-buttons{
+margin-top:15px;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.day-buttons button{
+padding:12px;
+border:none;
+border-radius:12px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.sport{
+background:#d71920;
+color:white;
+}
+
+.normal{
+background:#111;
+color:white;
+}
+
+.macro-side{
+width:55%;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.macro-card{
+background:#f8f8f8;
+padding:15px;
+border-radius:18px;
+text-align:center;
+}
+
+.macro-circle{
+width:55px;
+height:55px;
+border:5px solid #d71920;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+margin:auto auto 10px;
+font-weight:bold;
+}
+
+.meal{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 0;
+border-bottom:1px solid #eee;
+}
+
+.meal button{
+width:40px;
+height:40px;
+border:none;
+border-radius:50%;
+background:#d71920;
+color:white;
+font-size:22px;
+cursor:pointer;
+}
+
+input,
+select{
+width:100%;
+padding:14px;
+margin-top:10px;
+border:1px solid #ddd;
+border-radius:12px;
+font-size:16px;
+}
+
+.action{
+width:100%;
+padding:14px;
+margin-top:10px;
+border:none;
+border-radius:12px;
+background:#d71920;
+color:white;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<h1>VK KALORİ</h1>
+
+<div>👤</div>
+
+</div>
+<div class="summary">
+
+<div class="summary-grid">
+
+<div class="calorie-side">
+
+<div class="big-circle">
+
+<div>
+
+<h2 id="calorie">
+
+0
+
+</h2>
+
+<p id="goalText">
+
+/1900 kcal
+
+</p>
+
+</div>
+
+</div>
+
+<div class="day-buttons">
+
+<button
+class="sport"
+onclick="setSportDay()">
+
+🏋️ Spor Günü
+
+</button>
+
+<button
+class="normal"
+onclick="setNormalDay()">
+
+☀️ Normal Gün
+
+</button>
+
+</div>
+
+</div>
+
+<div class="macro-side">
+
+<div class="macro-card">
+
+<div
+class="macro-circle"
+id="protein">
+
+0
+
+</div>
+
+<h4>
+
+PROTEİN
+
+</h4>
+
+<p>
+
+/150 g
+
+</p>
+
+</div>
+
+<div class="macro-card">
+
+<div
+class="macro-circle"
+id="carb">
+
+0
+
+</div>
+
+<h4>
+
+KARBONHİDRAT
+
+</h4>
+
+<p>
+
+/180 g
+
+</p>
+
+</div>
+
+<div class="macro-card">
+
+<div
+class="macro-circle"
+id="fat">
+
+0
+
+</div>
+
+<h4>
+
+YAĞ
+
+</h4>
+
+<p>
+
+/65 g
+
+</p>
+
+</div>
+
+<div class="macro-card">
+
+<div
+class="macro-circle">
+
+2.5
+
+</div>
+
+<h4>
+
+SU
+
+</h4>
+
+<p>
+
+/3 L
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>
+
+🍳 ÖĞÜNLER
+
+</h2>
+
+<div class="meal">
+
+<span>
+
+🍳 Kahvaltı
+
+</span>
+
+<button>
+
++
+
+</button>
+
+</div>
+
+<div class="meal">
+
+<span>
+
+☀️ Öğle Yemeği
+
+</span>
+
+<button>
+
++
+
+</button>
+
+</div>
+
+<div class="meal">
+
+<span>
+
+🌙 Akşam Yemeği
+
+</span>
+
+<button>
+
++
+
+</button>
+
+</div>
+
+<div class="meal">
+
+<span>
+
+🍎 Ara Öğün
+
+</span>
+
+<button>
+
++
+
+</button>
+
+</div>
+
+</div>
+<div class="card">
+
+<h2>
+
+🍽️ BESİN EKLE
+
+</h2>
+
+<select id="food">
+
+<option value="165,31,0,4">
+
+🍗 Tavuk göğsü
+
+</option>
+
+<option value="135,29,0,1">
+
+🦃 Hindi göğsü
+
+</option>
+
+<option value="250,26,0,18">
+
+🥩 Köfte
+
+</option>
+
+<option value="250,26,0,15">
+
+🥩 Dana eti
+
+</option>
+
+<option value="132,29,0,1">
+
+🐟 Ton balığı
+
+</option>
+
+<option value="208,20,0,13">
+
+🐟 Somon
+
+</option>
+
+<option value="155,13,1,11">
+
+🥚 Yumurta
+
+</option>
+
+<option value="61,3.5,4.7,3.3">
+
+🥛 Yoğurt
+
+</option>
+
+<option value="42,3.4,5,1">
+
+🥛 Süt
+
+</option>
+
+<option value="37,1.8,2.7,1">
+
+🥤 Ayran
+
+</option>
+
+<option value="130,3,28,0">
+
+🍚 Pirinç pilavı
+
+</option>
+
+<option value="123,4.5,26,0.5">
+
+🌾 Bulgur pilavı
+
+</option>
+
+<option value="158,6,31,1">
+
+🍝 Makarna
+
+</option>
+
+<option value="127,9,23,0.5">
+
+🫘 Kuru fasulye
+
+</option>
+
+<option value="164,9,27,2.5">
+
+🫘 Nohut
+
+</option>
+
+<option value="116,9,20,0.4">
+
+🫘 Mercimek
+
+</option>
+
+<option value="77,2,17,0.1">
+
+🥔 Patates
+
+</option>
+
+<option value="89,1,23,0.3">
+
+🍌 Muz
+
+</option>
+
+<option value="52,0.3,14,0.2">
+
+🍎 Elma
+
+</option>
+
+<option value="120,24,3,2">
+
+🥤 Protein tozu
+
+</option>
+
+</select>
+
+<input
+type="number"
+id="gram"
+placeholder="Gram gir (örn. 200)">
+
+<button
+class="action"
+onclick="addFood()">
+
+Besini Ekle
+
+</button>
+
+<div
+id="foodList">
+
+</div>
+
+</div>
+<div class="card">
+
+<h2>
+
+📷 FOTOĞRAF ANALİZİ
+
+</h2>
+
+<input
+type="file"
+accept="image/*">
+
+<button class="action">
+
+Fotoğrafı Analiz Et
+
+</button>
+
+<p>
+
+Henüz analiz yapılmadı.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>
+
+🤖 VK AI
+
+</h2>
+
+<input
+id="question"
+placeholder="Sorunu yaz...">
+
+<button
+class="action"
+onclick="askAI()">
+
+Sor
+
+</button>
+
+<div
+id="answer">
+
+Merhaba 👋
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>
+
+👤 PROFİL
+
+</h2>
+
+<p>
+
+Yaş: 32
+
+</p>
+
+<p>
+
+Boy: 175 cm
+
+</p>
+
+<p>
+
+Kilo: 109 kg
+
+</p>
+
+<p>
+
+Hedef Kilo: 85 kg
+
+</p>
+
+<p>
+
+Protein Hedefi: 150 g
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>
+
+📋 EKLENEN BESİNLER
+
+</h2>
+
+<div
+id="history">
+
+Henüz besin eklenmedi.
+
+</div>
+
+</div>
+<div class="bottom-nav">
+
+<div>
+
+🏠
+
+<br>
+
+Ana
+
+</div>
+
+<div>
+
+🍽️
+
+<br>
+
+Besin
+
+</div>
+
+<div>
+
+📷
+
+<br>
+
+Analiz
+
+</div>
+
+<div>
+
+🤖
+
+<br>
+
+AI
+
+</div>
+
+<div>
+
+👤
+
+<br>
+
+Profil
+
+</div>
+
+</div>
+
+<script>
+
+let targetCalories=1900;
+
+let totalCalories=0;
+
+let totalProtein=0;
+
+let totalCarb=0;
+
+let totalFat=0;
+
+function setSportDay(){
+
+targetCalories=1900;
+
+document.getElementById(
+"goalText"
+).innerText=
+"/1900 kcal";
+
+}
+
+function setNormalDay(){
+
+targetCalories=1700;
+
+document.getElementById(
+"goalText"
+).innerText=
+"/1700 kcal";
+
+}
+
+function addFood(){
+
+const gram=
+parseFloat(
+document.getElementById(
+"gram"
+).value
+);
+
+if(!gram){
+
+return;
+
+}
+
+const selected=
+document.getElementById(
+"food"
+).value
+.split(",");
+
+const calories=
+parseFloat(selected[0]);
+
+const protein=
+parseFloat(selected[1]);
+
+const carb=
+parseFloat(selected[2]);
+
+const fat=
+parseFloat(selected[3]);
+
+const addedCalories=
+calories*gram/100;
+
+const addedProtein=
+protein*gram/100;
+
+const addedCarb=
+carb*gram/100;
+
+const addedFat=
+fat*gram/100;
+
+totalCalories+=
+addedCalories;
+
+totalProtein+=
+addedProtein;
+
+totalCarb+=
+addedCarb;
+
+totalFat+=
+addedFat;
+
+document.getElementById(
+"calorie"
+).innerText=
+Math.round(
+totalCalories
+);
+
+document.getElementById(
+"protein"
+).innerText=
+Math.round(
+totalProtein
+);
+
+document.getElementById(
+"carb"
+).innerText=
+Math.round(
+totalCarb
+);
+
+document.getElementById(
+"fat"
+).innerText=
+Math.round(
+totalFat
+);
+
+const foodName=
+document.getElementById(
+"food"
+).options[
+document.getElementById(
+"food"
+).selectedIndex
+].text;
+document.getElementById(
+"history"
+).innerHTML +=
+
+"<p>" +
+
+foodName +
+
+" - " +
+
+gram +
+
+" g (" +
+
+Math.round(
+addedCalories
+) +
+
+" kcal)</p>";
+
+localStorage.setItem(
+"vkCalories",
+totalCalories
+);
+
+localStorage.setItem(
+"vkProtein",
+totalProtein
+);
+
+localStorage.setItem(
+"vkCarb",
+totalCarb
+);
+
+localStorage.setItem(
+"vkFat",
+totalFat
+);
+
+}
+
+function askAI(){
+
+const question=
+
+document.getElementById(
+"question"
+).value
+.toLowerCase();
+
+let answer=
+
+"Protein, kalori veya spor hakkında soru sorabilirsin.";
+
+if(question.includes("protein")){
+
+answer=
+
+"Günlük protein hedefin 150 gramdır.";
+
+}
+
+if(question.includes("kalori")){
+
+answer=
+
+"Spor günü 1900 kcal, normal gün 1700 kcal hedefleniyor.";
+
+}
+
+if(question.includes("kilo")){
+
+answer=
+
+"Hedef kilon 85 kg olarak ayarlanmış.";
+
+}
+
+document.getElementById(
+"answer"
+).innerText=
+
+answer;
+
+}
+
+window.onload=function(){
+
+if(localStorage.getItem("vkCalories")){
+
+totalCalories=
+
+parseFloat(
+localStorage.getItem(
+"vkCalories"
+)
+);
+
+totalProtein=
+
+parseFloat(
+localStorage.getItem(
+"vkProtein"
+)
+);
+
+totalCarb=
+
+parseFloat(
+localStorage.getItem(
+"vkCarb"
+)
+);
+
+totalFat=
+
+parseFloat(
+localStorage.getItem(
+"vkFat"
+)
+);
+
+document.getElementById(
+"calorie"
+).innerText=
+
+Math.round(
+totalCalories
+);
+
+document.getElementById(
+"protein"
+).innerText=
+
+Math.round(
+totalProtein
+);
+
+document.getElementById(
+"carb"
+).innerText=
+
+Math.round(
+totalCarb
+);
+
+document.getElementById(
+"fat"
+).innerText=
+
+Math.round(
+totalFat
+);
+
+}
+
+};
+
+</script>
+
+</body>
+
+</html>
