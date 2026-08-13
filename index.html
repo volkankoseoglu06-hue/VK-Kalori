@@ -20,13 +20,19 @@ content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 
 <header>
 
-<div class="header-title">
+<div class="header-left">
 
-VK KALORİ
+<h1>VK KALORİ</h1>
+
+<p>
+
+Beslenme ve Spor Takibi
+
+</p>
 
 </div>
 
-<div>
+<div class="header-user">
 
 👤
 
@@ -34,29 +40,47 @@ VK KALORİ
 
 </header>
 
+<div class="day-selector">
+
+<button class="day-btn active">
+
+🏋️ Spor Günü
+
+</button>
+
+<button class="day-btn">
+
+☀️ Normal Gün
+
+</button>
+
+</div>
+
+<div class="date-bar">
+
+📅 Bugün
+
+</div>
+
 <div class="container">
 
-<!-- ANA SAYFA -->
+<section class="page active"
+id="home">
 
-<div class="page active" id="home">
+<div class="card ring-card">
 
-<div class="card summary-card">
+<div class="big-ring">
 
-<h2 class="summary-title">
+<div>
 
-🔥 Günlük Kalori
-
-</h2>
-
-<div class="progress">
-
-<div class="progress-text">
-
-<b id="totalCalories">
+<div class="ring-number"
+id="totalCalories">
 
 0
 
-</b>
+</div>
+
+<div>
 
 1900 kcal
 
@@ -64,11 +88,13 @@ VK KALORİ
 
 </div>
 
+</div>
+
 <div class="macro-grid">
 
-<div class="macro-card">
+<div class="macro-item">
 
-<div class="macro-circle">
+<div class="small-ring">
 
 <div>
 
@@ -76,31 +102,23 @@ VK KALORİ
 
 <br>
 
-<b id="totalProtein">
+<span id="totalProtein">
 
 0
 
-</b>
-
-<br>
-
-150 g
+</span>
 
 </div>
 
 </div>
-
-<p>
 
 Protein
 
-</p>
-
 </div>
 
-<div class="macro-card">
+<div class="macro-item">
 
-<div class="macro-circle">
+<div class="small-ring">
 
 <div>
 
@@ -108,31 +126,23 @@ Protein
 
 <br>
 
-<b id="totalCarb">
+<span id="totalCarb">
 
 0
 
-</b>
-
-<br>
-
-180 g
+</span>
 
 </div>
 
 </div>
-
-<p>
 
 Karbonhidrat
 
-</p>
-
 </div>
 
-<div class="macro-card">
+<div class="macro-item">
 
-<div class="macro-circle">
+<div class="small-ring">
 
 <div>
 
@@ -140,31 +150,23 @@ Karbonhidrat
 
 <br>
 
-<b id="totalFat">
+<span id="totalFat">
 
 0
 
-</b>
-
-<br>
-
-65 g
+</span>
 
 </div>
 
 </div>
-
-<p>
 
 Yağ
 
-</p>
-
 </div>
 
-<div class="macro-card">
+<div class="macro-item">
 
-<div class="macro-circle">
+<div class="small-ring">
 
 <div>
 
@@ -174,19 +176,11 @@ Yağ
 
 2.5
 
-<br>
-
-3 L
-
 </div>
 
 </div>
-
-<p>
 
 Su
-
-</p>
 
 </div>
 
@@ -202,103 +196,60 @@ Su
 
 </h2>
 
-<div class="profile-row">
+<div class="meal-card">
 
-<span>🍳 Kahvaltı</span>
+🍳 Kahvaltı
 
-<span>0 kcal</span>
+<button>
 
-</div>
++
 
-<div class="profile-row">
-
-<span>☀️ Öğle</span>
-
-<span>0 kcal</span>
+</button>
 
 </div>
 
-<div class="profile-row">
+<div class="meal-card">
 
-<span>🌙 Akşam</span>
+☀️ Öğle
 
-<span>0 kcal</span>
+<button>
 
-</div>
++
 
-<div class="profile-row">
-
-<span>🍎 Ara Öğün</span>
-
-<span>0 kcal</span>
+</button>
 
 </div>
 
-</div>
+<div class="meal-card">
 
-<div class="card">
+🌙 Akşam
 
-<h2>
+<button>
 
-⚡ Hızlı İşlemler
++
 
-</h2>
-
-<div class="quick-grid">
-
-<div class="quick-item"
-onclick="openPage('foods')">
-
-🍽️
-
-<br>
-
-Besinler
+</button>
 
 </div>
 
-<div class="quick-item"
-onclick="openPage('photo')">
+<div class="meal-card">
 
-📷
+🍎 Ara Öğün
 
-<br>
+<button>
 
-Analiz
++
 
-</div>
-
-<div class="quick-item"
-onclick="openPage('ai')">
-
-🤖
-
-<br>
-
-VK AI
-
-</div>
-
-<div class="quick-item"
-onclick="openPage('profile')">
-
-👤
-
-<br>
-
-Profil
+</button>
 
 </div>
 
 </div>
 
-</div>
+</section>
 
-</div>
-
-<!-- BESİNLER -->
-
-<div class="page" id="foods">
+<section class="page"
+id="foods">
 
 <div class="card">
 
@@ -310,8 +261,63 @@ Profil
 
 <input
 id="foodSearch"
-placeholder="Besin ara..."
-onkeyup="searchFoods()">
+placeholder="Besin ara...">
+
+<select>
+
+<option>
+
+100 g
+
+</option>
+
+<option>
+
+150 g
+
+</option>
+
+<option>
+
+200 g
+
+</option>
+
+<option>
+
+250 g
+
+</option>
+
+</select>
+
+<select>
+
+<option>
+
+Kahvaltı
+
+</option>
+
+<option>
+
+Öğle
+
+</option>
+
+<option>
+
+Akşam
+
+</option>
+
+<option>
+
+Ara Öğün
+
+</option>
+
+</select>
 
 <div id="foodResults">
 
@@ -319,11 +325,10 @@ onkeyup="searchFoods()">
 
 </div>
 
-</div>
+</section>
 
-<!-- FOTOĞRAF -->
-
-<div class="page" id="photo">
+<section class="page"
+id="photo">
 
 <div class="card">
 
@@ -333,25 +338,16 @@ onkeyup="searchFoods()">
 
 </h2>
 
-<div class="photo-box">
-
 <input
 type="file"
 accept="image/*"
 capture="environment">
 
-<button
-onclick="analyzePhoto()">
+<button>
 
 Fotoğrafı Analiz Et
 
 </button>
-
-</div>
-
-</div>
-
-<div class="card">
 
 <div id="analysisResults">
 
@@ -361,11 +357,10 @@ Henüz analiz yapılmadı.
 
 </div>
 
-</div>
+</section>
 
-<!-- YAPAY ZEKA -->
-
-<div class="page" id="ai">
+<section class="page"
+id="ai">
 
 <div class="card">
 
@@ -376,19 +371,15 @@ Henüz analiz yapılmadı.
 </h2>
 
 <input
-id="aiQuestion"
 placeholder="Sorunu yaz...">
 
-<button
-onclick="askAI()">
+<button>
 
 Sor
 
 </button>
 
-<div
-class="ai-response"
-id="aiAnswer">
+<div>
 
 Merhaba 👋
 
@@ -396,11 +387,10 @@ Merhaba 👋
 
 </div>
 
-</div>
+</section>
 
-<!-- PROFİL -->
-
-<div class="page" id="profile">
+<section class="page"
+id="profile">
 
 <div class="card">
 
@@ -410,100 +400,39 @@ Merhaba 👋
 
 </h2>
 
-<div class="profile-row">
+<p>
 
-<span>Yaş</span>
+Yaş: 32
 
-<span id="profileAge">
+</p>
 
-32
+<p>
 
-</span>
+Boy: 175 cm
 
-</div>
+</p>
 
-<div class="profile-row">
+<p>
 
-<span>Boy</span>
+Kilo: 109 kg
 
-<span id="profileHeight">
+</p>
 
-175 cm
+<p>
 
-</span>
+Hedef: 85 kg
 
-</div>
-
-<div class="profile-row">
-
-<span>Kilo</span>
-
-<span id="profileWeight">
-
-109 kg
-
-</span>
+</p>
 
 </div>
 
-<div class="profile-row">
-
-<span>Hedef</span>
-
-<span id="profileTargetWeight">
-
-85 kg
-
-</span>
+</section>
 
 </div>
 
-<div class="profile-row">
+<nav class="bottom-nav">
 
-<span>Kalori</span>
-
-<span id="profileCalories">
-
-1900 kcal
-
-</span>
-
-</div>
-
-<div class="profile-row">
-
-<span>Protein</span>
-
-<span id="profileProtein">
-
-150 g
-
-</span>
-
-</div>
-
-<div class="profile-row">
-
-<span>Antrenman</span>
-
-<span id="profileWorkouts">
-
-3 gün
-
-</span>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="bottom-nav">
-
-<div class="nav-item"
-onclick="openPage('home')">
+<div>
 
 🏠
 
@@ -513,8 +442,7 @@ Ana
 
 </div>
 
-<div class="nav-item"
-onclick="openPage('foods')">
+<div>
 
 🍽️
 
@@ -524,8 +452,7 @@ Besin
 
 </div>
 
-<div class="nav-item"
-onclick="openPage('photo')">
+<div>
 
 📷
 
@@ -535,8 +462,7 @@ Analiz
 
 </div>
 
-<div class="nav-item"
-onclick="openPage('ai')">
+<div>
 
 🤖
 
@@ -546,8 +472,7 @@ AI
 
 </div>
 
-<div class="nav-item"
-onclick="openPage('profile')">
+<div>
 
 👤
 
@@ -557,7 +482,7 @@ Profil
 
 </div>
 
-</div>
+</nav>
 
 <script src="foods.js"></script>
 
