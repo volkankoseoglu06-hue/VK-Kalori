@@ -1,34 +1,25 @@
 const answers = {
 
-protein:
-"Günlük protein hedefin 150 gramdır. Tavuk, yumurta, yoğurt ve whey tüketebilirsin.",
+    protein:
+    "Protein hedefini tamamlamak için tavuk, yumurta, yoğurt ve whey tüketebilirsin.",
 
-kalori:
-"Spor günlerinde 1900 kcal, normal günlerde 1700 kcal hedefleyebilirsin.",
+    kalori:
+    "Spor gününde 1900 kcal, normal günde 1700 kcal hedefleyebilirsin.",
 
-spor:
-"Haftada 3 gün düzenli antrenman hedefin için yeterlidir.",
+    spor:
+    "Antrenmandan sonraki 1 saat içinde protein almak toparlanmayı destekler.",
 
-kilo:
-"109 kg'dan 85 kg'a ulaşmak için kalori açığını korumalısın.",
+    kilo:
+    "Kalori açığını koruyarak kilo vermeye devam edebilirsin.",
 
-kahvaltı:
-"Kahvaltıda yumurta, peynir, süt ve yoğurt iyi tercihlerdir.",
+    kahvaltı:
+    "Yumurta, peynir ve süt iyi bir kahvaltı seçeneğidir.",
 
-öğle:
-"Öğle öğününde protein ve kompleks karbonhidrat birlikte tüketebilirsin.",
+    su:
+    "Günlük 3 litre su tüketmeye çalış.",
 
-akşam:
-"Akşam öğününde daha hafif beslenmeyi tercih edebilirsin.",
-
-su:
-"Günlük 3 litre su tüketmeyi hedefleyebilirsin.",
-
-proteintozu:
-"Antrenmandan sonra whey kullanabilirsin.",
-
-mounjaro:
-"Mounjaro kullanırken yeterli protein alımına dikkat etmelisin."
+    mounjaro:
+    "Mounjaro kullanırken yeterli protein almak önemlidir."
 
 };
 
@@ -46,12 +37,6 @@ function askAI() {
             "aiAnswer"
         );
 
-    if (!input || !output) {
-
-        return;
-
-    }
-
     const question =
         input.value.trim();
 
@@ -62,16 +47,14 @@ function askAI() {
     }
 
     let response =
-        "Beslenme ve spor hakkında soru sorabilirsin.";
+        "Beslenme veya spor hakkında soru sorabilirsin.";
 
     for (const key in answers) {
 
         if (
-
             question
             .toLowerCase()
             .includes(key)
-
         ) {
 
             response =
@@ -97,33 +80,29 @@ function askAI() {
 
         html += `
 
-<div class="food-item">
+        <div class="meal-item">
 
-<strong>
+        <div>
 
-👤 Sen
+        <strong>👤 Sen</strong>
 
-</strong>
+        <br>
 
-<br>
+        ${item.question}
 
-${item.question}
+        <br><br>
 
-<br><br>
+        <strong>🤖 VK AI</strong>
 
-<strong>
+        <br>
 
-🤖 VK AI
+        ${item.response}
 
-</strong>
+        </div>
 
-<br>
+        </div>
 
-${item.response}
-
-</div>
-
-`;
+        `;
 
     });
 
@@ -133,30 +112,3 @@ ${item.response}
     input.value = "";
 
 }
-
-document.addEventListener(
-
-    "DOMContentLoaded",
-
-    () => {
-
-        const button =
-            document.querySelector(
-                "#ai button"
-            );
-
-        if (button) {
-
-            button.addEventListener(
-
-                "click",
-
-                askAI
-
-            );
-
-        }
-
-    }
-
-);
