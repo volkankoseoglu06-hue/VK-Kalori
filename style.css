@@ -13,110 +13,131 @@ margin:auto;
 padding-bottom:90px;
 }
 
-header{
+.header{
 background:#d71920;
 color:#fff;
-padding:20px;
+padding:18px;
 display:flex;
 justify-content:space-between;
 align-items:center;
 }
 
-header h1{
-font-size:26px;
+.menu-icon{
+font-size:28px;
 }
 
-header p{
-font-size:14px;
-margin-top:4px;
+.logo h1{
+font-size:24px;
 }
 
-.profile-icon{
-font-size:30px;
-}
-
-.top-menu{
+.remaining-box{
 display:flex;
+align-items:center;
+gap:10px;
+font-size:14px;
+}
+
+.top-nav{
+display:flex;
+overflow-x:auto;
 background:#111;
 color:#fff;
 }
 
-.top-item{
-flex:1;
-padding:14px;
+.top-nav-item{
+min-width:90px;
+padding:14px 10px;
 text-align:center;
+font-size:13px;
+cursor:pointer;
 }
 
-.top-item.active{
+.top-nav-item.active{
 background:#d71920;
 }
 
-.summary-card{
-display:flex;
-gap:15px;
-padding:20px;
+.page{
+display:none;
+padding:15px;
+}
+
+.page.active{
+display:block;
+}
+
+.card{
 background:#fff;
 border-radius:24px;
-margin:15px;
+padding:20px;
 box-shadow:0 3px 12px rgba(0,0,0,.08);
+margin-bottom:15px;
 }
 
-.summary-left{
-flex:1;
-}
-
-.summary-right{
-flex:1;
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-}
-
-.big-circle{
-width:150px;
-height:150px;
-border:12px solid #d71920;
-border-radius:50%;
+.summary-header{
 display:flex;
-justify-content:center;
+justify-content:space-between;
 align-items:center;
-text-align:center;
-margin:auto;
-}
-
-.big-circle h2{
-font-size:42px;
-}
-
-.remaining{
-text-align:center;
-margin-top:10px;
-font-weight:700;
+margin-bottom:20px;
 }
 
 .day-buttons{
 display:flex;
 gap:10px;
-margin-top:15px;
 }
 
 .day-buttons button{
-flex:1;
+padding:10px 14px;
 border:none;
-padding:12px;
-border-radius:14px;
-background:#111;
-color:#fff;
+border-radius:12px;
 font-weight:700;
+cursor:pointer;
 }
 
 #sportDay{
 background:#d71920;
+color:#fff;
+}
+
+#normalDay{
+background:#111;
+color:#fff;
+}
+
+.summary-grid{
+display:flex;
+gap:15px;
+}
+
+.calorie-area{
+width:45%;
+text-align:center;
+}
+
+.big-circle{
+width:160px;
+height:160px;
+border:12px solid #d71920;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#fff;
+margin:auto;
+}
+
+.big-circle h1{
+font-size:42px;
+}
+
+.macro-area{
+width:55%;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
 }
 
 .mini-card{
-background:#fff;
-border:1px solid #eee;
+background:#fafafa;
 border-radius:18px;
 padding:12px;
 text-align:center;
@@ -130,53 +151,54 @@ border-radius:50%;
 display:flex;
 justify-content:center;
 align-items:center;
-margin:auto;
-margin-bottom:10px;
+margin:auto auto 10px;
+font-weight:700;
 }
 
-.meal-section{
-padding:0 15px;
-}
-
-.meal-box{
+.meal-card{
 background:#fff;
-padding:18px;
-border-radius:20px;
-margin-bottom:12px;
-display:flex;
-justify-content:space-between;
-align-items:center;
+border-radius:24px;
+padding:20px;
+margin-top:15px;
 box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
 
-.meal-box button{
+.meal-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 0;
+border-bottom:1px solid #eee;
+}
+
+.meal-item:last-child{
+border-bottom:none;
+}
+
+.meal-item button{
 width:40px;
 height:40px;
 border:none;
 border-radius:50%;
 background:#d71920;
 color:#fff;
-font-size:24px;
-}
-
-.page{
-padding:15px;
-display:none;
-}
-
-.card{
-background:#fff;
-padding:20px;
-border-radius:24px;
-box-shadow:0 3px 12px rgba(0,0,0,.08);
+font-size:22px;
+cursor:pointer;
 }
 
 input{
 width:100%;
 padding:15px;
+margin-top:15px;
 border:1px solid #ddd;
 border-radius:14px;
-margin-top:12px;
+font-size:16px;
+}
+
+button{
+padding:14px;
+border:none;
+border-radius:14px;
 }
 
 .bottom-nav{
@@ -197,4 +219,5 @@ border-top:3px solid #d71920;
 .bottom-nav div{
 text-align:center;
 font-size:12px;
+cursor:pointer;
 }
