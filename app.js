@@ -1,176 +1,293 @@
 let totals = {
-  calorie: 0,
-  protein: 0,
-  carb: 0,
-  fat: 0
+    calorie: 0,
+    protein: 0,
+    carb: 0,
+    fat: 0
+};
+
+let meals = {
+    breakfast: [],
+    lunch: [],
+    dinner: [],
+    snack: []
 };
 
 function openPage(pageId) {
 
-  document.querySelectorAll(".page").forEach(page => {
-    page.classList.remove("active");
-  });
+    document
+        .querySelectorAll(".page")
+        .forEach(page => {
 
-  document.getElementById(pageId).classList.add("active");
+            page.classList.remove("active");
+
+        });
+
+    document
+        .getElementById(pageId)
+        .classList.add("active");
+
 }
 
 function searchFoods() {
 
-  const input =
-    document.getElementById("foodSearch")
-      .value
-      .toLowerCase()
-      .trim();
+    const searchText =
+        document
+            .getElementById("foodSearch")
+            .value
+            .toLowerCase()
+            .trim();
 
-  const results =
-    document.getElementById("foodResults");
+    const results =
+        document
+            .getElementById("foodResults");
 
-  results.innerHTML = "";
+    results.innerHTML = "";
 
-  if (!input) {
-    return;
-  }
+    if (!searchText) {
 
-  const filtered =
-    foods.filter(food =>
-      food.name.toLowerCase().includes(input)
-    );
+        return;
 
-  if (filtered.length === 0) {
+    }
 
-    results.innerHTML = `
-      <div class="food-item">
-        Bunu mu demek istediniz?
+    const filteredFoods =
+        foods.filter(food =>
 
-        <div class="suggestion">
-          Tavuk göğsü
-        </div>
+            food.name
+                .toLowerCase()
+                .includes(searchText)
 
-        <div class="suggestion">
-          Protein tozu
-        </div>
+        );
 
-        <div class="suggestion">
-          Yumurta
-        </div>
-      </div>
-    `;
+    if (filteredFoods.length === 0) {
 
-    return;
-  }
+        results.innerHTML = `
 
-  filtered.forEach(food => {
+            <div class="food-item">
 
-    results.innerHTML += `
+                🤔 Bunu mu demek istediniz?
 
-      <div class="food-item">
+            </div>
 
-        <strong>${food.name}</strong>
+            <div class="food-item">
 
-        <br>
+                🥩 Tavuk göğsü
 
-        ${food.unit}
+            </div>
 
-        <br>
+            <div class="food-item">
 
-        ${food.calorie} kcal
+                🥚 Yumurta
 
-        <br>
+            </div>
 
-        Protein: ${food.protein} g
+            <div class="food-item">
 
-        <br>
+                🥤 Protein tozu
 
-        <button onclick="addFood('${food.name}')">
+            </div>
 
-          Öğüne ekle
+        `;
 
-        </button>
+        return;
 
-      </div>
+    }
 
-    `;
-  });
+    filteredFoods.forEach(food => {
+
+        results.innerHTML += `
+
+            <div class="food-item">
+
+                <h3>
+
+                    ${food.name}
+
+                </h3>
+
+                <p>
+
+                    ${food.unit}
+
+                </p>
+
+                <p>
+
+                    🔥 ${food.calorie} kcal
+
+                </p>
+
+                <p>
+
+                    🥩 ${food.protein} g protein
+
+                </p>
+
+                <button
+                    onclick="addFood('${food.name}')">
+
+                    ➕ Öğüne Ekle
+
+                </button>
+
+            </div>
+
+        `;
+
+    });
+
 }
 
 function addFood(foodName) {
 
-  const food =
-    foods.find(
-      item => item.name === foodName
+    const selectedFood =
+        foods.find(
+
+            food =>
+                food.name === foodName
+
+        );
+
+    if (!selectedFood) {
+
+        return;
+
+    }
+
+    totals.calorie += selectedFood.calorie;
+
+    totals.protein += selectedFood.protein;
+
+    totals.carb += selectedFood.carb;
+
+    totals.fat += selectedFood.fat;
+
+    updateTotals();
+
+    alert(
+
+        selectedFood.name +
+
+        " eklendi."
+
     );
 
-  if (!food) {
-    return;
-  }
-
-  totals.calorie += food.calorie;
-  totals.protein += food.protein;
-  totals.carb += food.carb;
-  totals.fat += food.fat;
-
-  updateTotals();
-
-  alert(
-    food.name +
-    " eklendi."
-  );
 }
 
 function updateTotals() {
 
-  document.getElementById(
-    "totalCalories"
-  ).textContent =
-    Math.round(
-      totals.calorie
-    );
+    document
+        .getElementById("totalCalories")
+        .textContent =
+        Math.round(
+            totals.calorie
+        );
 
-  document.getElementById(
-    "totalProtein"
-  ).textContent =
-    Math.round(
-      totals.protein
-    );
+    document
+        .getElementById("totalProtein")
+        .textContent =
+        Math.round(
+            totals.protein
+        );
 
-  document.getElementById(
-    "totalCarb"
-  ).textContent =
-    Math.round(
-      totals.carb
-    );
+    document
+        .getElementById("totalCarb")
+        .textContent =
+        Math.round(
+            totals.carb
+        );
 
-  document.getElementById(
-    "totalFat"
-  ).textContent =
-    Math.round(
-      totals.fat
-    );
+    document
+        .getElementById("totalFat")
+        .textContent =
+        Math.round(
+            totals.fat
+        );
+
+}
+
+function analyzePhoto() {
+
+    const analysis =
+        document
+            .getElementById(
+                "analysisResults"
+            );
+
+    analysis.innerHTML = `
+
+        <div class="food-item">
+
+            🍗 Tavuk göğsü
+            - 200 g
+
+        </div>
+
+        <div class="food-item">
+
+            🍚 Pirinç pilavı
+            - 150 g
+
+        </div>
+
+        <div class="food-item">
+
+            🥛 Ayran
+            - 200 ml
+
+        </div>
+
+        <div class="food-item">
+
+            🔥 Toplam:
+
+            740 kcal
+
+        </div>
+
+    `;
+
 }
 
 function askAI() {
 
-  const question =
-    document.getElementById(
-      "aiQuestion"
-    ).value;
+    const question =
+        document
+            .getElementById(
+                "aiQuestion"
+            )
+            .value;
 
-  const answer =
-    document.getElementById(
-      "aiAnswer"
-    );
+    const answer =
+        document
+            .getElementById(
+                "aiAnswer"
+            );
 
-  if (!question) {
-    return;
-  }
+    if (!question) {
 
-  answer.innerHTML =
-    `
-      Günlük protein hedefin
-      150 g olabilir.
+        return;
 
-      Daha ayrıntılı yapay zeka
-      entegrasyonu sonraki
-      sürümde eklenecek.
+    }
+
+    answer.innerHTML = `
+
+        <strong>
+
+            VK AI
+
+        </strong>
+
+        <br><br>
+
+        Sorun:
+
+        ${question}
+
+        <br><br>
+
+        Günlük protein
+        hedefin 150 g.
+
     `;
+
 }
