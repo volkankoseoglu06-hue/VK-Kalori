@@ -72,10 +72,10 @@ header{
 .progress{
     width:100%;
     height:10px;
-    background:#2f2f2f;
+    background:#333;
     border-radius:20px;
-    margin-top:10px;
     overflow:hidden;
+    margin-top:10px;
 }
 
 .progress-fill{
@@ -96,10 +96,9 @@ header{
     padding:22px;
     text-align:center;
     font-size:18px;
-    font-weight:600;
+    font-weight:700;
     cursor:pointer;
     box-shadow:0 2px 10px rgba(0,0,0,.08);
-    transition:.2s;
 }
 
 .quick-item:active{
@@ -127,6 +126,7 @@ button{
     font-size:17px;
     font-weight:700;
     margin-top:12px;
+    cursor:pointer;
 }
 
 .food-item{
@@ -155,14 +155,28 @@ button{
     border-bottom:1px solid #eee;
 }
 
+.water-card{
+    text-align:center;
+}
+
+.weight-card{
+    text-align:center;
+}
+
+.weight-value{
+    font-size:36px;
+    font-weight:700;
+    margin:15px 0;
+}
+
 .bottom-nav{
     position:fixed;
     bottom:0;
     left:0;
     right:0;
     max-width:414px;
-    height:75px;
     margin:auto;
+    height:75px;
     background:#000;
     display:flex;
     justify-content:space-around;
@@ -174,7 +188,7 @@ button{
     color:#fff;
     text-align:center;
     font-size:12px;
-    font-weight:600;
+    font-weight:700;
     cursor:pointer;
 }
 
@@ -182,26 +196,10 @@ button{
     color:#d71920;
 }
 
-.meal-chip{
-    display:inline-block;
-    background:#d71920;
-    color:#fff;
-    padding:8px 14px;
-    border-radius:20px;
-    margin:5px;
-}
+@media(max-width:414px){
 
-.water-card{
-    text-align:center;
-    font-size:18px;
-}
+    body{
+        max-width:100%;
+    }
 
-.weight-card{
-    text-align:center;
-}
-
-.weight-value{
-    font-size:34px;
-    font-weight:700;
-    margin:15px 0;
 }
