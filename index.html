@@ -66,7 +66,9 @@ VK KALORİ
 
 <div class="progress">
 
-<div class="progress-fill"></div>
+<div class="progress-fill">
+
+</div>
 
 </div>
 
@@ -128,6 +130,8 @@ VK KALORİ
 
 </h2>
 
+<br>
+
 <div class="quick-grid">
 
 <div class="quick-item"
@@ -137,7 +141,7 @@ onclick="openPage('foods')">
 
 <br>
 
-Besin Ara
+Besin
 
 </div>
 
@@ -148,7 +152,7 @@ onclick="openPage('photo')">
 
 <br>
 
-Fotoğraf
+Analiz
 
 </div>
 
@@ -188,11 +192,7 @@ Su Takibi
 
 <br><br>
 
-<b>
-
 2.5 / 3 L
-
-</b>
 
 </div>
 
@@ -201,8 +201,6 @@ Su Takibi
 📈
 
 <br><br>
-
-Kilo Takibi
 
 <div class="weight-value">
 
@@ -230,8 +228,7 @@ Kilo Takibi
 
 <input
 id="foodSearch"
-placeholder="Tavuk, pilav, whey..."
-
+placeholder="Besin ara..."
 onkeyup="searchFoods()">
 
 <div id="foodResults">
@@ -264,7 +261,7 @@ capture="environment">
 <button
 onclick="analyzePhoto()">
 
-Analiz Et
+Fotoğrafı Analiz Et
 
 </button>
 
@@ -274,51 +271,11 @@ Analiz Et
 
 <div class="card">
 
-<h2>
-
-🍽️ Analiz Sonucu
-
-</h2>
-
 <div id="analysisResults">
 
 Henüz analiz yapılmadı.
 
 </div>
-
-<select>
-
-<option>
-
-Kahvaltı
-
-</option>
-
-<option>
-
-Öğle Yemeği
-
-</option>
-
-<option>
-
-Akşam Yemeği
-
-</option>
-
-<option>
-
-Ara Öğün
-
-</option>
-
-</select>
-
-<button>
-
-➕ Öğüne Ekle
-
-</button>
 
 </div>
 
@@ -338,7 +295,7 @@ Ara Öğün
 
 <input
 id="aiQuestion"
-placeholder="Bugün ne yemeliyim?">
+placeholder="Sorunu yaz...">
 
 <button
 onclick="askAI()">
@@ -351,7 +308,7 @@ Sor
 class="ai-response"
 id="aiAnswer">
 
-Merhaba.
+Merhaba 👋
 
 </div>
 
@@ -373,9 +330,25 @@ Merhaba.
 
 <div class="profile-row">
 
+<span>Yaş</span>
+
+<span id="profileAge">
+
+32
+
+</span>
+
+</div>
+
+<div class="profile-row">
+
 <span>Boy</span>
 
-<span>175 cm</span>
+<span id="profileHeight">
+
+175 cm
+
+</span>
 
 </div>
 
@@ -383,7 +356,11 @@ Merhaba.
 
 <span>Kilo</span>
 
-<span>109 kg</span>
+<span id="profileWeight">
+
+109 kg
+
+</span>
 
 </div>
 
@@ -391,7 +368,35 @@ Merhaba.
 
 <span>Hedef</span>
 
-<span>85 kg</span>
+<span id="profileTargetWeight">
+
+85 kg
+
+</span>
+
+</div>
+
+<div class="profile-row">
+
+<span>Kalori</span>
+
+<span id="profileCalories">
+
+1900 kcal
+
+</span>
+
+</div>
+
+<div class="profile-row">
+
+<span>Protein</span>
+
+<span id="profileProtein">
+
+150 g
+
+</span>
 
 </div>
 
@@ -399,7 +404,11 @@ Merhaba.
 
 <span>Antrenman</span>
 
-<span>Haftada 3 gün</span>
+<span id="profileWorkouts">
+
+3 gün
+
+</span>
 
 </div>
 
@@ -408,8 +417,6 @@ Merhaba.
 </div>
 
 </div>
-
-<!-- ALT MENÜ -->
 
 <div class="bottom-nav">
 
@@ -482,6 +489,8 @@ Profil
 <script src="ai.js"></script>
 
 <script src="camera.js"></script>
+
+<script src="profile.js"></script>
 
 </body>
 
