@@ -1,139 +1,84 @@
-document.addEventListener("DOMContentLoaded", () => {
-
-    const photoInput = document.querySelector(
-        'input[type="file"]'
-    );
-
-    const analyzeButton = document.querySelector(
-        "#photo button"
-    );
-
-    if (!photoInput || !analyzeButton) {
-        return;
-    }
-
-    analyzeButton.addEventListener(
-        "click",
-        analyzePhoto
-    );
-
-});
-
 function analyzePhoto() {
 
-    const fileInput =
-        document.querySelector(
-            'input[type="file"]'
-        );
+const results =
+document.getElementById(
+"analysisResults"
+);
 
-    const results =
-        document.getElementById(
-            "analysisResults"
-        );
+results.innerHTML =
 
-    if (!fileInput.files.length) {
+`
+<div class="food-item">
 
-        alert(
-            "Önce bir fotoğraf seç."
-        );
+🤖 Fotoğraf analiz ediliyor...
 
-        return;
-    }
+</div>
+`;
 
-    results.innerHTML = `
+setTimeout(() => {
 
-        <div class="food-item">
+results.innerHTML =
 
-            🤖 Analiz ediliyor...
+`
+<div class="food-item">
 
-        </div>
+🍗 Tavuk göğsü
 
-    `;
+<br>
 
-    setTimeout(() => {
+⚖️ 200 g
 
-        const detectedFoods = [
+<br>
 
-            {
-                name: "Tavuk göğsü",
-                amount: "220 g",
-                calorie: 363
-            },
+🔥 330 kcal
 
-            {
-                name: "Pirinç pilavı",
-                amount: "180 g",
-                calorie: 234
-            },
+</div>
 
-            {
-                name: "Ayran",
-                amount: "200 ml",
-                calorie: 68
-            }
+<div class="food-item">
 
-        ];
+🍚 Pirinç pilavı
 
-        let totalCalories = 0;
+<br>
 
-        let html = "";
+⚖️ 150 g
 
-        detectedFoods.forEach(food => {
+<br>
 
-            totalCalories += food.calorie;
+🔥 195 kcal
 
-            html += `
+</div>
 
-                <div class="food-item">
+<div class="food-item">
 
-                    <strong>
+🥛 Ayran
 
-                        ${food.name}
+<br>
 
-                    </strong>
+⚖️ 200 ml
 
-                    <br>
+<br>
 
-                    ⚖️ ${food.amount}
+🔥 68 kcal
 
-                    <br>
+</div>
 
-                    🔥 ${food.calorie} kcal
+<button onclick="addPhotoMeal()">
 
-                </div>
+➕ Öğüne Ekle
 
-            `;
+</button>
+`;
 
-        });
-
-        html += `
-
-            <div class="food-item">
-
-                <strong>
-
-                    🔥 Toplam:
-
-                    ${totalCalories} kcal
-
-                </strong>
-
-            </div>
-
-        `;
-
-        results.innerHTML = html;
-
-    }, 1500);
+},1500);
 
 }
 
-function addAnalyzedMeal() {
+function addPhotoMeal() {
 
-    alert(
+alert(
 
-        "Öğün kaydedildi."
+"Öğün eklendi."
 
-    );
+);
 
 }
