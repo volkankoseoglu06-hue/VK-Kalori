@@ -1,84 +1,138 @@
 function analyzePhoto() {
 
-const results =
-document.getElementById(
-"analysisResults"
-);
+    const results =
+        document.getElementById(
+            "analysisResults"
+        );
 
-results.innerHTML =
+    if (!results) {
 
-`
+        return;
+
+    }
+
+    results.innerHTML = `
+
 <div class="food-item">
 
 🤖 Fotoğraf analiz ediliyor...
 
 </div>
+
 `;
 
-setTimeout(() => {
+    setTimeout(() => {
 
-results.innerHTML =
+        const detectedFoods = [
 
-`
-<div class="food-item">
+            {
+                name: "Tavuk göğsü",
+                amount: "200 g",
+                calorie: 330
+            },
 
-🍗 Tavuk göğsü
+            {
+                name: "Pirinç pilavı",
+                amount: "150 g",
+                calorie: 195
+            },
 
-<br>
+            {
+                name: "Ayran",
+                amount: "200 ml",
+                calorie: 68
+            }
 
-⚖️ 200 g
+        ];
 
-<br>
+        let html = "";
 
-🔥 330 kcal
+        detectedFoods.forEach(food => {
 
-</div>
-
-<div class="food-item">
-
-🍚 Pirinç pilavı
-
-<br>
-
-⚖️ 150 g
-
-<br>
-
-🔥 195 kcal
-
-</div>
+            html += `
 
 <div class="food-item">
 
-🥛 Ayran
+<strong>
+
+🍽️ ${food.name}
+
+</strong>
 
 <br>
 
-⚖️ 200 ml
+⚖️ ${food.amount}
 
 <br>
 
-🔥 68 kcal
+🔥 ${food.calorie} kcal
 
 </div>
+
+`;
+
+        });
+
+        html += `
 
 <button onclick="addPhotoMeal()">
 
 ➕ Öğüne Ekle
 
 </button>
+
 `;
 
-},1500);
+        results.innerHTML =
+            html;
+
+    }, 1500);
 
 }
 
 function addPhotoMeal() {
 
-alert(
+    totals.calorie += 593;
 
-"Öğün eklendi."
+    totals.protein += 68;
 
-);
+    totals.carb += 47;
+
+    totals.fat += 10;
+
+    updateTotals();
+
+    alert(
+
+        "Fotoğraftaki öğün eklendi."
+
+    );
 
 }
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    () => {
+
+        const button =
+            document.querySelector(
+                "#photo button"
+            );
+
+        if (button) {
+
+            button.addEventListener(
+
+                "click",
+
+                analyzePhoto
+
+            );
+
+        }
+
+    }
+
+);
