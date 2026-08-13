@@ -1,22 +1,34 @@
 const answers = {
 
 protein:
-"Günlük protein hedefini tamamlamak için tavuk, yumurta, yoğurt ve protein tozu tüketebilirsin.",
+"Günlük protein hedefin 150 gramdır. Tavuk, yumurta, yoğurt ve whey tüketebilirsin.",
 
 kalori:
-"Günlük kalori hedefin 1900 kaloridir.",
+"Spor günlerinde 1900 kcal, normal günlerde 1700 kcal hedefleyebilirsin.",
 
 spor:
-"Antrenmandan sonra protein tüketmek toparlanmayı destekler.",
+"Haftada 3 gün düzenli antrenman hedefin için yeterlidir.",
 
 kilo:
-"Kalori açığı oluşturarak kilo vermeye devam edebilirsin.",
+"109 kg'dan 85 kg'a ulaşmak için kalori açığını korumalısın.",
 
 kahvaltı:
-"Kahvaltıda yumurta, peynir ve süt iyi bir tercih olabilir.",
+"Kahvaltıda yumurta, peynir, süt ve yoğurt iyi tercihlerdir.",
 
-fotoğraf:
-"Fotoğraf analizini kullanarak besinleri otomatik olarak ekleyebilirsin."
+öğle:
+"Öğle öğününde protein ve kompleks karbonhidrat birlikte tüketebilirsin.",
+
+akşam:
+"Akşam öğününde daha hafif beslenmeyi tercih edebilirsin.",
+
+su:
+"Günlük 3 litre su tüketmeyi hedefleyebilirsin.",
+
+proteintozu:
+"Antrenmandan sonra whey kullanabilirsin.",
+
+mounjaro:
+"Mounjaro kullanırken yeterli protein alımına dikkat etmelisin."
 
 };
 
@@ -24,60 +36,66 @@ const history = [];
 
 function askAI() {
 
-const input =
-document.getElementById(
-"aiQuestion"
-);
+    const input =
+        document.getElementById(
+            "aiQuestion"
+        );
 
-const output =
-document.getElementById(
-"aiAnswer"
-);
+    const output =
+        document.getElementById(
+            "aiAnswer"
+        );
 
-const question =
-input.value
-.trim();
+    if (!input || !output) {
 
-if (!question) {
+        return;
 
-return;
+    }
 
-}
+    const question =
+        input.value.trim();
 
-let response =
-"Beslenme veya spor hakkında soru sorabilirsin.";
+    if (!question) {
 
-for (const key in answers) {
+        return;
 
-if (
-question
-.toLowerCase()
-.includes(key)
-) {
+    }
 
-response =
-answers[key];
+    let response =
+        "Beslenme ve spor hakkında soru sorabilirsin.";
 
-break;
+    for (const key in answers) {
 
-}
+        if (
 
-}
+            question
+            .toLowerCase()
+            .includes(key)
 
-history.push({
+        ) {
 
-question,
+            response =
+                answers[key];
 
-response
+            break;
 
-});
+        }
 
-let html =
-"";
+    }
 
-history.forEach(item => {
+    history.push({
 
-html += `
+        question,
+
+        response
+
+    });
+
+    let html = "";
+
+    history.forEach(item => {
+
+        html += `
 
 <div class="food-item">
 
@@ -107,12 +125,38 @@ ${item.response}
 
 `;
 
-});
+    });
 
-output.innerHTML =
-html;
+    output.innerHTML =
+        html;
 
-input.value =
-"";
+    input.value = "";
 
 }
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    () => {
+
+        const button =
+            document.querySelector(
+                "#ai button"
+            );
+
+        if (button) {
+
+            button.addEventListener(
+
+                "click",
+
+                askAI
+
+            );
+
+        }
+
+    }
+
+);
