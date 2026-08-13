@@ -1,617 +1,72 @@
 <!DOCTYPE html>
 <html lang="tr">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width,initial-scale=1">
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>VK Kalori</title>
-
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-body{
-font-family:Arial,sans-serif;
-background:#f3f4f6;
-max-width:430px;
-margin:auto;
-padding-bottom:90px;
-}
-
-.header{
-background:#d71920;
-color:#fff;
-padding:18px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.header h1{
-font-size:26px;
-}
-
-.remaining{
-font-size:14px;
-text-align:right;
-}
-
-.card{
-background:#fff;
-margin:15px;
-padding:20px;
-border-radius:25px;
-box-shadow:0 3px 12px rgba(0,0,0,.08);
-}
-
-.summary-grid{
-display:flex;
-gap:15px;
-}
-
-.calorie-box{
-width:45%;
-text-align:center;
-}
-
-.big-circle{
-width:160px;
-height:160px;
-border:12px solid #d71920;
-border-radius:50%;
-display:flex;
-justify-content:center;
-align-items:center;
-margin:auto;
-}
-
-.big-circle h2{
-font-size:42px;
-}
-
-.day-buttons{
-margin-top:15px;
-display:flex;
-flex-direction:column;
-gap:10px;
-}
-
-.day-buttons button{
-padding:12px;
-border:none;
-border-radius:12px;
-font-weight:700;
-cursor:pointer;
-}
-
-.sport{
-background:#d71920;
-color:#fff;
-}
-
-.normal{
-background:#111;
-color:#fff;
-}
-
-.macro-box{
-width:55%;
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-}
-
-.macro-card{
-background:#fafafa;
-padding:12px;
-border-radius:18px;
-text-align:center;
-}
-
-.macro-circle{
-width:55px;
-height:55px;
-border:5px solid #d71920;
-border-radius:50%;
-display:flex;
-justify-content:center;
-align-items:center;
-margin:auto auto 10px;
-font-weight:700;
-}
-
-.meal-row{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 0;
-border-bottom:1px solid #eee;
-}
-
-.meal-row:last-child{
-border-bottom:none;
-}
-
-.meal-row button{
-width:40px;
-height:40px;
-border:none;
-border-radius:50%;
-background:#d71920;
-color:#fff;
-font-size:22px;
-cursor:pointer;
-}
-
-input,
-select{
-width:100%;
-padding:14px;
-margin-top:10px;
-border:1px solid #ddd;
-border-radius:12px;
-font-size:16px;
-}
-
-.action{
-width:100%;
-margin-top:10px;
-padding:14px;
-border:none;
-border-radius:12px;
-background:#d71920;
-color:#fff;
-font-size:16px;
-cursor:pointer;
-}
-
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-max-width:430px;
-margin:auto;
-display:flex;
-justify-content:space-around;
-background:#000;
-color:#fff;
-padding:15px 0;
-}
-
-.bottom-nav div{
-text-align:center;
-font-size:12px;
-}
-
-</style>
-
-</head>
-
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#f2f4f7;max-width:430px;margin:auto;padding-bottom:100px}
+.header{background:#d71920;color:#fff;padding:18px;display:flex;justify-content:space-between;align-items:center}
+.summary,.card{background:#fff;margin:15px;padding:20px;border-radius:25px;box-shadow:0 3px 10px rgba(0,0,0,.1)}
+.summary-grid{display:flex;gap:15px}
+.calorie-side{width:45%;text-align:center}
+.big-circle{width:160px;height:160px;border:12px solid #d71920;border-radius:50%;display:flex;justify-content:center;align-items:center;margin:auto}
+.day-buttons{margin-top:15px;display:flex;flex-direction:column;gap:10px}
+.day-buttons button,.action,.meal button{border:none;border-radius:12px;cursor:pointer}
+.sport{background:#d71920;color:#fff;padding:12px}.normal{background:#111;color:#fff;padding:12px}
+.macro-side{width:55%;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.macro-card{background:#f8f8f8;padding:15px;border-radius:18px;text-align:center}
+.macro-circle{width:55px;height:55px;border:5px solid #d71920;border-radius:50%;display:flex;justify-content:center;align-items:center;margin:auto auto 10px;font-weight:bold}
+.meal{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #eee}
+.meal button{width:40px;height:40px;background:#d71920;color:#fff;font-size:22px}
+input,select{width:100%;padding:12px;margin-top:10px;border:1px solid #ddd;border-radius:12px}
+.action{width:100%;padding:12px;background:#d71920;color:#fff;margin-top:10px}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;max-width:430px;margin:auto;display:flex;justify-content:space-around;background:#000;color:#fff;padding:15px}
+</style></head>
 <body>
-
-<div class="header">
-
-<div>
-
-<h1>VK KALORİ</h1>
-
+<div class="header"><h1>VK KALORİ</h1><div>👤</div></div>
+<div class="summary"><div class="summary-grid">
+<div class="calorie-side">
+<div class="big-circle"><div><h2 id="cal">0</h2><p id="goal">/1900 kcal</p></div></div>
+<div class="day-buttons"><button class="sport" onclick="setGoal(1900)">🏋️ Spor Günü</button><button class="normal" onclick="setGoal(1700)">☀️ Normal Gün</button></div>
 </div>
-
-<div class="remaining">
-
-Kalan
-
-<br>
-
-<b id="remainingCalories">
-
-1900 kcal
-
-</b>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="summary-grid">
-
-<div class="calorie-box">
-
-<div class="big-circle">
-
-<div>
-
-<h2 id="calorieValue">
-
-0
-
-</h2>
-
-<p>
-
-/1900 kcal
-
-</p>
-
-</div>
-
-</div>
-
-<div class="day-buttons">
-
-<button class="sport">
-
-🏋️ Spor Günü
-
-</button>
-
-<button class="normal">
-
-☀️ Normal Gün
-
-</button>
-
-</div>
-
-</div>
-<div class="macro-box">
-
-<div class="macro-card">
-
-<div class="macro-circle">
-
-<span id="proteinValue">
-
-0
-
-</span>
-
-</div>
-
-<h4>PROTEİN</h4>
-
-<p>/150 g</p>
-
-</div>
-
-<div class="macro-card">
-
-<div class="macro-circle">
-
-<span id="carbValue">
-
-0
-
-</span>
-
-</div>
-
-<h4>KARBONHİDRAT</h4>
-
-<p>/180 g</p>
-
-</div>
-
-<div class="macro-card">
-
-<div class="macro-circle">
-
-<span id="fatValue">
-
-0
-
-</span>
-
-</div>
-
-<h4>YAĞ</h4>
-
-<p>/65 g</p>
-
-</div>
-
-<div class="macro-card">
-
-<div class="macro-circle">
-
-<span id="waterValue">
-
-2.5
-
-</span>
-
-</div>
-
-<h4>SU</h4>
-
-<p>/3 L</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h2>🍳 ÖĞÜNLER</h2>
-
-<div class="meal-row">
-
-<span>🍳 Kahvaltı</span>
-
-<button>+</button>
-
-</div>
-
-<div class="meal-row">
-
-<span>☀️ Öğle Yemeği</span>
-
-<button>+</button>
-
-</div>
-
-<div class="meal-row">
-
-<span>🌙 Akşam Yemeği</span>
-
-<button>+</button>
-
-</div>
-
-<div class="meal-row">
-
-<span>🍎 Ara Öğün</span>
-
-<button>+</button>
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h2>🍽️ BESİN EKLE</h2>
-
-<select id="foodSelect">
-
-<option>Tavuk göğsü</option>
-
-<option>Hindi göğsü</option>
-
-<option>Köfte</option>
-
-<option>Dana eti</option>
-
-<option>Ton balığı</option>
-
-<option>Somon</option>
-
-<option>Yumurta</option>
-
-<option>Yoğurt</option>
-
-<option>Süt</option>
-
-<option>Ayran</option>
-
-<option>Pirinç pilavı</option>
-
-<option>Bulgur pilavı</option>
-
-<option>Makarna</option>
-
-<option>Kuru fasulye</option>
-
-<option>Nohut</option>
-
-<option>Mercimek</option>
-
-<option>Patates</option>
-
-<option>Muz</option>
-
-<option>Elma</option>
-
-<option>Protein tozu</option>
-
-<option>Whey</option>
-
+<div class="macro-side">
+<div class="macro-card"><div class="macro-circle" id="prot">0</div><h4>PROTEİN</h4><p>/150 g</p></div>
+<div class="macro-card"><div class="macro-circle" id="carb">0</div><h4>KARBONHİDRAT</h4><p>/180 g</p></div>
+<div class="macro-card"><div class="macro-circle" id="fat">0</div><h4>YAĞ</h4><p>/65 g</p></div>
+<div class="macro-card"><div class="macro-circle">2.5</div><h4>SU</h4><p>/3 L</p></div>
+</div></div></div>
+<div class="card"><h2>🍽️ BESİN EKLE</h2>
+<select id="food">
+<option value="165,31,0,4">Tavuk göğsü</option>
+<option value="130,3,28,0">Pirinç pilavı</option>
+<option value="155,13,1,11">Yumurta</option>
+<option value="61,3.5,4.7,3.3">Yoğurt</option>
+<option value="120,24,3,2">Protein tozu</option>
 </select>
-
-<input
-type="number"
-id="foodGram"
-placeholder="Gram gir (örn. 200)">
-
-<button class="action">
-
-Öğüne Ekle
-
-</button>
-
+<input type="number" id="gram" placeholder="Gram gir">
+<button class="action" onclick="addFood()">Öğüne Ekle</button>
+<p id="msg"></p>
 </div>
-<div class="card">
-
-<h2>📷 FOTOĞRAF ANALİZİ</h2>
-
-<input
-type="file"
-accept="image/*">
-
-<button class="action">
-
-Fotoğrafı Analiz Et
-
-</button>
-
-<p id="photoResult">
-
-Henüz analiz yapılmadı.
-
-</p>
-
-</div>
-
-<div class="card">
-
-<h2>🤖 VK AI</h2>
-
-<input
-id="aiQuestion"
-placeholder="Sorunu yaz...">
-
-<button
-class="action"
-onclick="askAI()">
-
-Sor
-
-</button>
-
-<div id="aiAnswer">
-
-Merhaba 👋
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h2>👤 PROFİL</h2>
-
-<p>Yaş: 32</p>
-
-<p>Boy: 175 cm</p>
-
-<p>Kilo: 109 kg</p>
-
-<p>Hedef Kilo: 85 kg</p>
-
-<p>Spor Günü: 1900 kcal</p>
-
-<p>Normal Gün: 1700 kcal</p>
-
-<p>Protein Hedefi: 150 g</p>
-
-</div>
-<div class="bottom-nav">
-
-<div>
-
-🏠
-
-<br>
-
-Ana
-
-</div>
-
-<div>
-
-🍽️
-
-<br>
-
-Besin
-
-</div>
-
-<div>
-
-📷
-
-<br>
-
-Analiz
-
-</div>
-
-<div>
-
-🤖
-
-<br>
-
-AI
-
-</div>
-
-<div>
-
-👤
-
-<br>
-
-Profil
-
-</div>
-
-</div>
-
+<div class="bottom-nav"><div>🏠<br>Ana</div><div>🍽️<br>Besin</div><div>📷<br>Analiz</div><div>🤖<br>AI</div><div>👤<br>Profil</div></div>
 <script>
-
-const aiAnswers = {
-
-protein:
-"Protein hedefini tamamlamak için tavuk, yumurta, yoğurt ve whey tüketebilirsin.",
-
-kalori:
-"Spor gününde 1900 kcal, normal günde 1700 kcal hedeflenebilir.",
-
-spor:
-"Antrenman sonrası protein tüketmek toparlanmayı destekler.",
-
-kilo:
-"Kalori açığını koruyarak kilo vermeye devam edebilirsin."
-
-};
-
-function askAI(){
-
-const question =
-document.getElementById(
-"aiQuestion"
-).value.toLowerCase();
-
-let answer =
-"Beslenme veya spor hakkında soru sorabilirsin.";
-
-for(const key in aiAnswers){
-
-if(question.includes(key)){
-
-answer =
-aiAnswers[key];
-
+let goal=1900,total={k:0,p:0,c:0,f:0};
+function setGoal(g){goal=g;document.getElementById('goal').innerText='/'+g+' kcal';update();}
+function addFood(){
+let g=parseFloat(document.getElementById('gram').value)||0;
+let v=document.getElementById('food').value.split(',');
+total.k+=parseFloat(v[0])*g/100;
+total.p+=parseFloat(v[1])*g/100;
+total.c+=parseFloat(v[2])*g/100;
+total.f+=parseFloat(v[3])*g/100;
+update();
+document.getElementById('msg').innerText='Besin eklendi.';
 }
-
+function update(){
+document.getElementById('cal').innerText=Math.round(total.k);
+document.getElementById('prot').innerText=Math.round(total.p);
+document.getElementById('carb').innerText=Math.round(total.c);
+document.getElementById('fat').innerText=Math.round(total.f);
 }
-
-document.getElementById(
-"aiAnswer"
-).innerHTML =
-answer;
-
-}
-
-</script>
-
-</body>
-
-</html>
+</script></body></html>
