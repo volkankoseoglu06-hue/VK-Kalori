@@ -8,231 +8,193 @@ const profile = {
 
     targetWeight: 85,
 
-    caloriesSport: 1900,
+    sportCalories: 1900,
 
-    caloriesNormal: 1700,
+    normalCalories: 1700,
 
-    protein: 150,
+    proteinTarget: 150,
 
-    carb: 180,
+    waterTarget: 3,
 
-    fat: 65,
-
-    water: 3,
-
-    workouts: 3
+    workoutDays: 3
 
 };
-
-function loadProfile() {
-
-    const profilePage =
-        document.getElementById(
-            "profile"
-        );
-
-    if (!profilePage) {
-
-        return;
-
-    }
-
-    profilePage.innerHTML = `
-
-<div class="card">
-
-<h2>
-
-👤 Profil
-
-</h2>
-
-<div class="profile-row">
-
-<span>
-
-Yaş
-
-</span>
-
-<span>
-
-${profile.age}
-
-</span>
-
-</div>
-
-<div class="profile-row">
-
-<span>
-
-Boy
-
-</span>
-
-<span>
-
-${profile.height} cm
-
-</span>
-
-</div>
-
-<div class="profile-row">
-
-<span>
-
-Kilo
-
-</span>
-
-<span>
-
-${profile.weight} kg
-
-</span>
-
-</div>
-
-<div class="profile-row">
-
-<span>
-
-Hedef Kilo
-
-</span>
-
-<span>
-
-${profile.targetWeight} kg
-
-</span>
-
-</div>
-
-<div class="profile-row">
-
-<span>
-
-Spor Günü
-
-</span>
-
-<span>
-
-${profile.caloriesSport} kcal
-
-</span>
-
-</div>
-
-<div class="profile-row">
-
-<span>
-
-Normal Gün
-
-</span>
-
-<span>
-
-${profile.caloriesNormal} kcal
-
-</span>
-
-</div>
-
-<div class="profile-row">
-
-<span>
-
-Protein
-
-</span>
-
-<span>
-
-${profile.protein} g
-
-</span>
-
-</div>
-
-<div class="profile-row">
-
-<span>
-
-Karbonhidrat
-
-</span>
-
-<span>
-
-${profile.carb} g
-
-</span>
-
-</div>
-
-<div class="profile-row">
-
-<span>
-
-Yağ
-
-</span>
-
-<span>
-
-${profile.fat} g
-
-</span>
-
-</div>
-
-<div class="profile-row">
-
-<span>
-
-Su
-
-</span>
-
-<span>
-
-${profile.water} L
-
-</span>
-
-</div>
-
-<div class="profile-row">
-
-<span>
-
-Antrenman
-
-</span>
-
-<span>
-
-Haftada ${profile.workouts} gün
-
-</span>
-
-</div>
-
-</div>
-
-`;
-
-}
 
 document.addEventListener(
 
     "DOMContentLoaded",
 
-    loadProfile
+    () => {
+
+        const profilePage =
+            document.getElementById(
+                "profile"
+            );
+
+        if (!profilePage) {
+
+            return;
+
+        }
+
+        profilePage.innerHTML = `
+
+        <div class="card">
+
+        <h2>
+
+        👤 PROFİL
+
+        </h2>
+
+        <div class="meal-item">
+
+        <span>
+
+        Yaş
+
+        </span>
+
+        <strong>
+
+        ${profile.age}
+
+        </strong>
+
+        </div>
+
+        <div class="meal-item">
+
+        <span>
+
+        Boy
+
+        </span>
+
+        <strong>
+
+        ${profile.height} cm
+
+        </strong>
+
+        </div>
+
+        <div class="meal-item">
+
+        <span>
+
+        Kilo
+
+        </span>
+
+        <strong>
+
+        ${profile.weight} kg
+
+        </strong>
+
+        </div>
+
+        <div class="meal-item">
+
+        <span>
+
+        Hedef Kilo
+
+        </span>
+
+        <strong>
+
+        ${profile.targetWeight} kg
+
+        </strong>
+
+        </div>
+
+        <div class="meal-item">
+
+        <span>
+
+        Spor Günü
+
+        </span>
+
+        <strong>
+
+        ${profile.sportCalories} kcal
+
+        </strong>
+
+        </div>
+
+        <div class="meal-item">
+
+        <span>
+
+        Normal Gün
+
+        </span>
+
+        <strong>
+
+        ${profile.normalCalories} kcal
+
+        </strong>
+
+        </div>
+
+        <div class="meal-item">
+
+        <span>
+
+        Protein Hedefi
+
+        </span>
+
+        <strong>
+
+        ${profile.proteinTarget} g
+
+        </strong>
+
+        </div>
+
+        <div class="meal-item">
+
+        <span>
+
+        Su Hedefi
+
+        </span>
+
+        <strong>
+
+        ${profile.waterTarget} L
+
+        </strong>
+
+        </div>
+
+        <div class="meal-item">
+
+        <span>
+
+        Antrenman
+
+        </span>
+
+        <strong>
+
+        Haftada ${profile.workoutDays} gün
+
+        </strong>
+
+        </div>
+
+        </div>
+
+        `;
+
+    }
 
 );
