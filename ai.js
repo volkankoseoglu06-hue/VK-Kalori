@@ -1,45 +1,41 @@
-const aiAnswers = {
+const answers = {
 
 protein:
 "Günlük protein hedefini tamamlamak için tavuk, yumurta, yoğurt ve protein tozu tüketebilirsin.",
 
 kalori:
-"Günlük kalori hedefini takip ederek ilerleyebilirsin.",
+"Günlük kalori hedefin 1900 kaloridir.",
 
 spor:
-"Antrenmandan sonraki 1-2 saat içinde protein tüketmek toparlanmayı destekleyebilir.",
+"Antrenmandan sonra protein tüketmek toparlanmayı destekler.",
+
+kilo:
+"Kalori açığı oluşturarak kilo vermeye devam edebilirsin.",
 
 kahvaltı:
 "Kahvaltıda yumurta, peynir ve süt iyi bir tercih olabilir.",
 
-öğle:
-"Öğle yemeğinde tavuk, pilav ve yoğurt tercih edebilirsin.",
-
-akşam:
-"Akşam yemeğinde protein ağırlıklı beslenebilirsin.",
-
 fotoğraf:
-"Fotoğraf analizinde tespit edilen besinleri kontrol edip gramajları düzenleyebilirsin."
+"Fotoğraf analizini kullanarak besinleri otomatik olarak ekleyebilirsin."
 
 };
 
-const aiHistory = [];
+const history = [];
 
 function askAI() {
 
-const questionInput =
+const input =
 document.getElementById(
 "aiQuestion"
 );
 
-const answerBox =
+const output =
 document.getElementById(
 "aiAnswer"
 );
 
 const question =
-questionInput.value
-.toLowerCase()
+input.value
 .trim();
 
 if (!question) {
@@ -48,17 +44,19 @@ return;
 
 }
 
-let answer =
-"Beslenme, spor ve kalori hakkında soru sorabilirsin.";
+let response =
+"Beslenme veya spor hakkında soru sorabilirsin.";
 
-for (const key in aiAnswers) {
+for (const key in answers) {
 
 if (
-question.includes(key)
+question
+.toLowerCase()
+.includes(key)
 ) {
 
-answer =
-aiAnswers[key];
+response =
+answers[key];
 
 break;
 
@@ -66,33 +64,26 @@ break;
 
 }
 
-aiHistory.push({
+history.push({
 
-question:
-questionInput.value,
+question,
 
-answer:
-answer
+response
 
 });
 
-let html = "";
+let html =
+"";
 
-aiHistory.forEach(item => {
+history.forEach(item => {
 
 html += `
 
-<div
-style="
-padding:12px;
-margin-bottom:12px;
-background:#f5f5f5;
-border-radius:14px;
-">
+<div class="food-item">
 
 <strong>
 
-Sen:
+👤 Sen
 
 </strong>
 
@@ -104,13 +95,13 @@ ${item.question}
 
 <strong>
 
-VK AI:
+🤖 VK AI
 
 </strong>
 
 <br>
 
-${item.answer}
+${item.response}
 
 </div>
 
@@ -118,26 +109,10 @@ ${item.answer}
 
 });
 
-answerBox.innerHTML = html;
+output.innerHTML =
+html;
 
-questionInput.value = "";
-
-}
-
-function suggestFoods(text) {
-
-const matches =
-foods.filter(food =>
-
-food.name
-.toLowerCase()
-.includes(
-text.toLowerCase()
-)
-
-);
-
-return matches
-.slice(0,5);
+input.value =
+"";
 
 }
