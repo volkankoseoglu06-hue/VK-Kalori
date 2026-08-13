@@ -7,264 +7,199 @@
 
 <style>
 *{box-sizing:border-box}
-
 body{
 margin:0;
-font-family:-apple-system,Arial,sans-serif;
-background:#f2f2f7;
-color:#111;
-}
-
-.app{
-max-width:390px;
-margin:auto;
 padding:10px;
+font-family:-apple-system,Arial,sans-serif;
+background:#f3f4f6;
+color:#111;
+max-width:430px;
+margin:auto
 }
-
-.top{
-background:linear-gradient(90deg,#111,#d71920);
-color:#fff;
-padding:12px 16px;
-border-radius:18px;
-margin-bottom:10px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.logo{
-font-size:22px;
-font-weight:900;
-}
-
-.sub{
-font-size:11px;
-opacity:.9;
-}
-
 .card{
 background:#fff;
 padding:12px;
-border-radius:18px;
 margin-bottom:10px;
-box-shadow:0 4px 12px rgba(0,0,0,.08);
+border-radius:18px;
+box-shadow:0 3px 12px rgba(0,0,0,.08)
 }
-
-.total{
+.top{
+background:linear-gradient(90deg,#111,#d71920);
+color:#fff
+}
+.title{
+font-size:22px;
+font-weight:900
+}
+.small{
+font-size:12px;
+color:#666
+}
+.top .small{color:#ddd}
+.summary{
 font-size:30px;
-font-weight:900;
+font-weight:900
 }
-
 .progress{
 height:8px;
 background:#eee;
 border-radius:20px;
 overflow:hidden;
-margin-top:8px;
+margin-top:8px
 }
-
 .fill{
 height:100%;
-width:0;
 background:#d71920;
+width:0
 }
-
-.rings{
+.circles{
 display:flex;
 justify-content:space-between;
-margin-top:12px;
+margin-top:12px
 }
-
-.ring{
+.circle{
 width:70px;
 height:70px;
-border-radius:50%;
-background:#fafafa;
 border:4px solid #eee;
+border-radius:50%;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-font-size:10px;
-font-weight:700;
+font-size:10px
 }
-
-.ring b{
-font-size:18px;
+.circle b{
+font-size:18px
 }
-
-input,select{
+input,select,button{
 width:100%;
 padding:10px;
-border:1px solid #ddd;
-border-radius:12px;
-font-size:14px;
 margin-top:6px;
+border-radius:12px;
+border:1px solid #ddd
 }
-
 button{
-width:100%;
 border:0;
-padding:11px;
-border-radius:12px;
-font-weight:700;
-margin-top:6px;
+font-weight:700
 }
-
 .red{
 background:#d71920;
-color:#fff;
+color:#fff
 }
-
 .black{
 background:#111;
-color:#fff;
+color:#fff
 }
-
 .gray{
-background:#ececec;
+background:#eee
 }
-
 .item{
 background:#f8f8f8;
 padding:10px;
 border-radius:12px;
+margin-top:6px;
 display:flex;
 justify-content:space-between;
-align-items:center;
-margin-top:6px;
-font-size:13px;
+align-items:center
 }
-
 .del{
 width:34px;
 height:34px;
 padding:0;
 margin:0;
-background:#ffe3e3;
-color:#d71920;
-}
-
-.small{
-font-size:11px;
-color:#666;
+background:#ffe5e5;
+color:#c00
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
-
-<div class="top">
-
-<div>
-
-<div class="logo">VK Takip</div>
-
-<div class="sub">Kalori • Protein • Spor</div>
-
-</div>
-
-<div>🔥🥩🏃</div>
-
+<div class="card top">
+<div class="title">VK Takip</div>
+<div class="small">Kalori • Protein • Spor</div>
 </div>
 
 <div class="card">
-
-<div class="total">
-
-<span id="kcal">0</span> / 2100
-
+<div class="summary">
+<span id="total">0</span>/<span id="targetText">1700</span>
 </div>
 
 <div class="progress">
-
 <div class="fill" id="fill"></div>
-
 </div>
 
-<div class="rings">
+<div class="circles">
 
-<div class="ring">
-
+<div class="circle">
 <b id="protein">0</b>
-
 Protein
-
 </div>
 
-<div class="ring">
-
+<div class="circle">
 <b id="sport">0</b>
-
 Spor
-
 </div>
 
-<div class="ring">
-
+<div class="circle">
 <b id="count">0</b>
-
 Besin
-
 </div>
 
 </div>
+</div>
+
+<div class="card">
+
+<b>⚙️ Ayarlar</b>
+
+<input id="height" placeholder="Boy (cm)" value="175">
+
+<input id="weight" placeholder="Kilo (kg)" value="109">
+
+<select id="mode" onchange="changeMode()">
+<option value="1700">🛋️ Normal Gün</option>
+<option value="1900">🏋️ Spor Günü</option>
+</select>
 
 </div>
 
 <div class="card">
 
-<b>🍽️ Yemek Hesapla</b>
+<b>🍽️ Yemek</b>
 
-<input id="food" placeholder="Örn: tavuk">
+<input id="food" placeholder="Tavuk, yumurta, pilav...">
 
 <input id="qty" type="number" placeholder="Gram / adet">
 
 <button class="black" onclick="calculateFood()">
-
 Hesapla
-
 </button>
 
-<div id="result"></div>
+<div id="calc"></div>
 
-<button class="red" id="addBtn" style="display:none" onclick="addFood()">
-
+<button id="addBtn" class="red" style="display:none" onclick="addFood()">
 Yemeği Ekle
-
 </button>
 
 </div>
 
 <div class="card">
 
-<b>🔥 Egzersiz</b>
+<b>🏃 Egzersiz</b>
 
 <select id="exercise">
-
 <option>Yürüyüş</option>
-
 <option>Koşu</option>
-
 <option>Bisiklet</option>
-
 <option>Ağırlık</option>
-
-<option>Koşu Bandı</option>
-
 </select>
 
 <input id="minute" type="number" placeholder="Dakika">
 
-<button class="black" onclick="calculateExercise()">
-
-Egzersizi Hesapla
-
+<button class="black" onclick="addExercise()">
+Egzersizi Ekle
 </button>
-
-<div id="exerciseResult"></div>
 
 </div>
 
@@ -283,9 +218,7 @@ Egzersizi Hesapla
 <div id="history"></div>
 
 <button class="gray" onclick="finishDay()">
-
 Günü Bitir
-
 </button>
 
 </div>
@@ -293,195 +226,121 @@ Günü Bitir
 <script>
 
 const db={
-
 "yumurta":[78,6.3,1],
-
 "füme peynir":[225,16,100],
-
 "beyaz peynir":[264,14,100],
-
 "lor":[98,11,100],
-
 "ekmek":[265,9,100],
-
 "tam buğday ekmek":[247,13,100],
-
 "tavuk":[165,31,100],
-
 "pilav":[130,2.7,100],
-
 "bulgur":[120,3.1,100],
-
 "kuru fasulye":[127,8.7,100],
-
 "nohut":[164,8.9,100],
-
 "yoğurt":[61,3.5,100],
-
-"muz":[89,1.1,100],
-
-"ton balığı":[116,26,100],
-
 "köfte":[250,20,100],
-
-"protein tozu":[100,20,25],
-
-"whey protein":[100,20,25]
-
+"protein tozu":[100,20,25]
 };
 
 const exerciseDb={
-
 "Yürüyüş":5,
-
 "Koşu":12,
-
 "Bisiklet":9,
-
-"Ağırlık":7,
-
-"Koşu Bandı":10
-
+"Ağırlık":7
 };
 
 let data=JSON.parse(localStorage.getItem("vk")||
-
 '{"foods":[],"sport":0,"history":[]}');
 
-let tempFood=null;
+let temp=null;
+
+function save(){
+localStorage.setItem("vk",JSON.stringify(data));
+}
 
 function findFood(n){
-
 n=n.toLowerCase();
-
 return Object.keys(db).find(x=>n.includes(x));
+}
 
+function changeMode(){
+targetText.innerText=mode.value;
+render();
 }
 
 function calculateFood(){
 
-let name=food.value;
-
-let amount=Number(qty.value);
-
-let key=findFood(name);
+let key=findFood(food.value);
 
 if(!key){
-
-result.innerHTML="Besin bulunamadı.";
-
+calc.innerHTML="Besin bulunamadı.";
 return;
-
 }
 
-let factor=amount/db[key][2];
+let q=Number(qty.value);
 
-tempFood={
+let f=q/db[key][2];
 
+temp={
 name:key,
-
-qty:amount,
-
-kcal:Math.round(db[key][0]*factor),
-
-protein:Math.round(db[key][1]*factor)
-
+qty:q,
+kcal:Math.round(db[key][0]*f),
+protein:Math.round(db[key][1]*f)
 };
 
-result.innerHTML=
-
+calc.innerHTML=
 "<div class='item'>"+
-
-tempFood.kcal+
-
+temp.kcal+
 " kcal • "+
-
-tempFood.protein+
-
+temp.protein+
 " g protein</div>";
 
 addBtn.style.display="block";
-
 }
 
 function addFood(){
 
-data.foods.push(tempFood);
-
-tempFood=null;
+data.foods.push(temp);
 
 food.value="";
-
 qty.value="";
-
-result.innerHTML="";
-
+calc.innerHTML="";
 addBtn.style.display="none";
 
 save();
 
 render();
-
 }
 
-function calculateExercise(){
+function addExercise(){
 
 let ex=exercise.value;
 
-let min=Number(minute.value);
+let m=Number(minute.value);
 
-let kcal=exerciseDb[ex]*min;
-
-exerciseResult.innerHTML=
-
-"<div class='item'>"+
-
-kcal+
-
-" kcal yakılacak</div>";
-
-data.sport+=kcal;
+data.sport+=exerciseDb[ex]*m;
 
 save();
 
 render();
-
 }
 
-function deleteFood(i){
+function del(i){
 
 data.foods.splice(i,1);
 
 save();
 
 render();
-
-}
-
-function save(){
-
-localStorage.setItem(
-
-"vk",
-
-JSON.stringify(data)
-
-);
-
 }
 
 function finishDay(){
 
-let total=getTotal();
-
-let today=new Date()
-
-.toLocaleDateString("tr-TR");
-
 data.history.unshift(
-
-today+" • "+total+" kcal"
-
+new Date().toLocaleDateString("tr-TR")+
+" • "+
+getTotal()+
+" kcal"
 );
 
 data.foods=[];
@@ -491,7 +350,6 @@ data.sport=0;
 save();
 
 render();
-
 }
 
 function getTotal(){
@@ -503,50 +361,28 @@ data.foods.forEach(x=>t+=x.kcal);
 t-=data.sport;
 
 return Math.max(0,t);
-
 }
 
 function render(){
 
-let html="";
-
 let p=0;
 
-data.foods.forEach((x,i)=>{
+foods.innerHTML=data.foods.map((x,i)=>{
 
 p+=x.protein;
 
-html+=
-
-"<div class='item'><div><b>"+
-
-x.name+
-
+return "<div class='item'><div><b>"+x.name+
 "</b><div class='small'>"+
-
-x.qty+
-
-" • "+
-
 x.kcal+
+" kcal • "+
+x.protein+
+" g</div></div><button class='del' onclick='del("+i+")'>✕</button></div>";
 
-" kcal</div></div><button class='del' onclick='deleteFood("+i+")'>✕</button></div>";
+}).join("")||"Kayıt yok.";
 
-});
+history.innerHTML=data.history.join("<br>");
 
-foods.innerHTML=html||"Kayıt yok.";
-
-history.innerHTML=
-
-data.history.map(
-
-x=>"<div class='small'>"+x+"</div>"
-
-).join("")||
-
-"Geçmiş yok.";
-
-kcal.innerText=getTotal();
+total.innerText=getTotal();
 
 protein.innerText=p;
 
@@ -555,15 +391,7 @@ sport.innerText=data.sport;
 count.innerText=data.foods.length;
 
 fill.style.width=
-
-Math.min(
-
-100,
-
-getTotal()/2100*100
-
-)+"%";
-
+Math.min(100,getTotal()/mode.value*100)+"%";
 }
 
 render();
