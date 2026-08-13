@@ -5,86 +5,83 @@ function analyzePhoto() {
             "analysisResults"
         );
 
-    if (!results) {
+    results.innerHTML =
 
-        return;
+    `
+    <p>
 
-    }
+    🤖 Fotoğraf analiz ediliyor...
 
-    results.innerHTML = `
-
-<div class="food-item">
-
-🤖 Fotoğraf analiz ediliyor...
-
-</div>
-
-`;
+    </p>
+    `;
 
     setTimeout(() => {
 
-        const detectedFoods = [
-
-            {
-                name: "Tavuk göğsü",
-                amount: "200 g",
-                calorie: 330
-            },
-
-            {
-                name: "Pirinç pilavı",
-                amount: "150 g",
-                calorie: 195
-            },
-
-            {
-                name: "Ayran",
-                amount: "200 ml",
-                calorie: 68
-            }
-
-        ];
-
-        let html = "";
-
-        detectedFoods.forEach(food => {
-
-            html += `
-
-<div class="food-item">
-
-<strong>
-
-🍽️ ${food.name}
-
-</strong>
-
-<br>
-
-⚖️ ${food.amount}
-
-<br>
-
-🔥 ${food.calorie} kcal
-
-</div>
-
-`;
-
-        });
-
-        html += `
-
-<button onclick="addPhotoMeal()">
-
-➕ Öğüne Ekle
-
-</button>
-
-`;
-
         results.innerHTML =
-            html;
+
+        `
+
+        <div class="meal-item">
+
+        <div>
+
+        🍗 Tavuk göğsü
+
+        <br>
+
+        200 g
+
+        <br>
+
+        🔥 330 kcal
+
+        </div>
+
+        </div>
+
+        <div class="meal-item">
+
+        <div>
+
+        🍚 Pirinç pilavı
+
+        <br>
+
+        150 g
+
+        <br>
+
+        🔥 195 kcal
+
+        </div>
+
+        </div>
+
+        <div class="meal-item">
+
+        <div>
+
+        🥛 Ayran
+
+        <br>
+
+        200 ml
+
+        <br>
+
+        🔥 68 kcal
+
+        </div>
+
+        </div>
+
+        <button onclick="addPhotoMeal()">
+
+        ➕ Öğüne Ekle
+
+        </button>
+
+        `;
 
     }, 1500);
 
@@ -98,41 +95,12 @@ function addPhotoMeal() {
 
     totals.carb += 47;
 
-    totals.fat += 10;
+    totals.fat += 11;
 
-    updateTotals();
+    updateDashboard();
 
     alert(
-
-        "Fotoğraftaki öğün eklendi."
-
+        "Öğün eklendi."
     );
 
 }
-
-document.addEventListener(
-
-    "DOMContentLoaded",
-
-    () => {
-
-        const button =
-            document.querySelector(
-                "#photo button"
-            );
-
-        if (button) {
-
-            button.addEventListener(
-
-                "click",
-
-                analyzePhoto
-
-            );
-
-        }
-
-    }
-
-);
