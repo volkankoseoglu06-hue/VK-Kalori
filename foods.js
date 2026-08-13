@@ -64,30 +64,12 @@ fat:5
 },
 
 {
-name:"Yoğurt",
-unit:"100 g",
-calorie:61,
-protein:3.5,
-carb:4.7,
-fat:3.3
-},
-
-{
-name:"Ayran",
-unit:"1 bardak",
-calorie:68,
+name:"Yumurta beyazı",
+unit:"1 adet",
+calorie:17,
 protein:4,
-carb:5,
-fat:3
-},
-
-{
-name:"Süt",
-unit:"1 bardak",
-calorie:103,
-protein:8,
-carb:12,
-fat:2
+carb:0,
+fat:0
 },
 
 {
@@ -106,6 +88,33 @@ calorie:98,
 protein:18,
 carb:3,
 fat:1
+},
+
+{
+name:"Yoğurt",
+unit:"100 g",
+calorie:61,
+protein:3.5,
+carb:4.7,
+fat:3.3
+},
+
+{
+name:"Ayran",
+unit:"200 ml",
+calorie:68,
+protein:4,
+carb:5,
+fat:3
+},
+
+{
+name:"Süt",
+unit:"200 ml",
+calorie:103,
+protein:8,
+carb:12,
+fat:2
 },
 
 {
@@ -208,6 +217,33 @@ fat:0.2
 },
 
 {
+name:"Yulaf",
+unit:"100 g",
+calorie:389,
+protein:17,
+carb:66,
+fat:7
+},
+
+{
+name:"Badem",
+unit:"100 g",
+calorie:579,
+protein:21,
+carb:22,
+fat:50
+},
+
+{
+name:"Ceviz",
+unit:"100 g",
+calorie:654,
+protein:15,
+carb:14,
+fat:65
+},
+
+{
 name:"Protein tozu",
 unit:"25 g",
 calorie:110,
@@ -223,15 +259,6 @@ calorie:105,
 protein:22,
 carb:1,
 fat:0.5
-},
-
-{
-name:"Kreatin",
-unit:"5 g",
-calorie:0,
-protein:0,
-carb:0,
-fat:0
 },
 
 {
