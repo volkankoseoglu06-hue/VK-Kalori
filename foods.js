@@ -33,30 +33,55 @@ const foods = [
 {name:"Ispanak",kcal:23,protein:3,unit:"100 g"},
 {name:"Kabak",kcal:17,protein:1,unit:"100 g"},
 {name:"Patlıcan",kcal:25,protein:1,unit:"100 g"},
+{name:"Beyaz pirinç",kcal:130,protein:3,unit:"100 g"},
+{name:"Bulgur",kcal:120,protein:4,unit:"100 g"},
+  
+/* MAKARNALAR */
+
+{name:"Makarna (180 g)",kcal:220,protein:8,unit:"porsiyon"},
+{name:"Tam buğday makarna (180 g)",kcal:190,protein:8,unit:"porsiyon"},
+{name:"Kaşarlı makarna (200 g)",kcal:340,protein:12,unit:"porsiyon"},
+
+{name:"Patates püresi",kcal:180,protein:4,unit:"porsiyon"},
+{name:"Kaşarlı patates püresi",kcal:260,protein:8,unit:"porsiyon"},
+{name:"Et sote",kcal:320,protein:30,unit:"porsiyon"},
+{name:"Tas kebabı",kcal:340,protein:28,unit:"porsiyon"},
+{name:"Izgara köfte",kcal:300,protein:26,unit:"porsiyon"},
+{name:"Tavuk sote",kcal:280,protein:32,unit:"porsiyon"},
+{name:"Fırında tavuk",kcal:260,protein:34,unit:"porsiyon"},
+{name:"Tavuk kanat",kcal:320,protein:24,unit:"100 g"},
+{name:"Patates salatası",kcal:220,protein:5,unit:"porsiyon"},
+{name:"Patates kroket",kcal:280,protein:6,unit:"100 g"},
+{name:"Kaşarlı patates",kcal:310,protein:8,unit:"porsiyon"},
 
 /* ÇORBALAR */
 
-{name:"Mercimek çorbası",kcal:150,protein:8,unit:"kase"},
-{name:"Ezogelin çorbası",kcal:140,protein:6,unit:"kase"},
-{name:"Yayla çorbası",kcal:120,protein:5,unit:"kase"},
-{name:"Tarhana çorbası",kcal:130,protein:4,unit:"kase"},
-{name:"Domates çorbası",kcal:110,protein:3,unit:"kase"},
-{name:"Tavuk suyu çorba",kcal:100,protein:8,unit:"kase"},
-{name:"İşkembe çorbası",kcal:180,protein:12,unit:"kase"},
-{name:"Sebze çorbası",kcal:90,protein:3,unit:"kase"},
+{name:"Mercimek çorbası (250 ml)",kcal:150,protein:8,unit:"kase"},
+{name:"Ezogelin çorbası (250 ml)",kcal:140,protein:6,unit:"kase"},
+{name:"Yayla çorbası (250 ml)",kcal:120,protein:5,unit:"kase"},
+{name:"Tarhana çorbası (250 ml)",kcal:130,protein:4,unit:"kase"},
+{name:"Domates çorbası (250 ml)",kcal:110,protein:3,unit:"kase"},
+{name:"Tavuk suyu çorba (250 ml)",kcal:100,protein:8,unit:"kase"},
+{name:"İşkembe çorbası (250 ml)",kcal:180,protein:12,unit:"kase"},
+{name:"Sebze çorbası (250 ml)",kcal:90,protein:3,unit:"kase"},
 
 /* EV YEMEKLERİ */
 
-{name:"Patates yemeği",kcal:220,protein:5,unit:"porsiyon"},
-{name:"Köfteli patates yemeği",kcal:380,protein:22,unit:"porsiyon"},
-{name:"Etli patates yemeği",kcal:420,protein:28,unit:"porsiyon"},
-{name:"Taze fasulye",kcal:170,protein:5,unit:"porsiyon"},
-{name:"Bezelye yemeği",kcal:220,protein:8,unit:"porsiyon"},
-{name:"Etli nohut",kcal:280,protein:18,unit:"porsiyon"},
-{name:"Etli kuru fasulye",kcal:280,protein:18,unit:"porsiyon"},
-{name:"Türlü",kcal:180,protein:6,unit:"porsiyon"},
-{name:"Bamya yemeği",kcal:160,protein:5,unit:"porsiyon"},
-{name:"Karnabahar yemeği",kcal:140,protein:6,unit:"porsiyon"},
+{name:"Patates yemeği (250 g)",kcal:220,protein:5,unit:"porsiyon"},
+{name:"Köfteli patates yemeği (300 g)",kcal:380,protein:22,unit:"porsiyon"},
+{name:"Etli patates yemeği (300 g)",kcal:420,protein:28,unit:"porsiyon"},
+{name:"Patates püresi (200 g)",kcal:180,protein:4,unit:"porsiyon"},
+{name:"Kaşarlı patates püresi (200 g)",kcal:260,protein:8,unit:"porsiyon"},
+{name:"Taze fasulye (250 g)",kcal:170,protein:5,unit:"porsiyon"},
+{name:"Bezelye yemeği (250 g)",kcal:220,protein:8,unit:"porsiyon"},
+{name:"Türlü (250 g)",kcal:180,protein:6,unit:"porsiyon"},
+{name:"Bamya yemeği (250 g)",kcal:160,protein:5,unit:"porsiyon"},
+{name:"Karnabahar yemeği (250 g)",kcal:140,protein:6,unit:"porsiyon"},
+{name:"Karnıyarık (1 adet)",kcal:300,protein:16,unit:"porsiyon"},
+{name:"Musakka (250 g)",kcal:280,protein:18,unit:"porsiyon"},
+{name:"Mantı (250 g)",kcal:350,protein:14,unit:"porsiyon"},
+{name:"Dolma (7 adet)",kcal:220,protein:8,unit:"porsiyon"},
+{name:"Sarma (10 adet)",kcal:180,protein:6,unit:"porsiyon"},
 
 /* ŞARKÜTERİ */
 
