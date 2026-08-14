@@ -260,6 +260,9 @@ const foods = [
 {name:"Protein Ocean Kreatin (5 g)",kcal:0,protein:0,unit:"ölçek"},
 {name:"Protein Ocean Elektrolit (2 g)",kcal:0,protein:0,unit:"ölçek"},
 {name:"Protein Ocean Energy Gel (60 ml)",kcal:121,protein:0,unit:"adet"},
+{name:"Magnimore Plus",kcal:0,protein:0,unit:"tablet"},
+{name:"D3 + K2",kcal:0,protein:0,unit:"damla"},
+{name:"B12",kcal:0,protein:0,unit:"tablet"},
 
 /* İÇECEKLER */
 
