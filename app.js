@@ -1,266 +1,569 @@
 const $ = (id) => document.getElementById(id);
 
-let s = JSON.parse(localStorage.getItem("vk")) || {
-  cal: 0,
-  pro: 0,
+const storage = JSON.parse(localStorage.getItem("vkLife"));
+
+const state = storage || {
+  calories: 0,
+  protein: 0,
   water: 0,
   sport: 0,
 
   goals: {
-    cal: 2200,
-    pro: 160,
+    calories: 2500,
+    protein: 165,
     water: 3
   },
 
-  daily: [],
-  history: [],
-  custom: []
+  dailyFoods: [],
+  dailySports: [],
+  customFoods: [],
+  history: []
 };
 
-function save() {
-  localStorage.setItem("vk", JSON.stringify(s));
+function saveState() {
+  localStorage.setItem(
+    "vkLife",
+    JSON.stringify(state)
+  );
 }
 
-function updateHome() {
-  $("cCal").textContent = s.cal;
-  $("cPro").textContent = s.pro;
-  $("cWater").textContent = s.water.toFixed(1);
+function updateDashboard() {
+  $("currentCalories").textContent =
+    state.calories;
 
-  $("tCal").textContent = s.goals.cal;
-  $("tPro").textContent = s.goals.pro;
-  $("tWater").textContent = s.goals.water;
+  $("targetCalories").textContent =
+    state.goals.calories;
 
-  renderDaily();
-  renderHistory();
+  $("currentProtein").textContent =
+    state.protein;
+
+  $("targetProtein").textContent =
+    state.goals.protein;
+
+  $("currentWater").textContent =
+    state.water.toFixed(1);
+
+  $("targetWater").textContent =
+    state.goals.water;
+
+  $("currentSport").textContent =
+    state.sport;
 }
 
-function renderDaily() {
-  const daily = $("daily");
+function renderDailyFoods() {
+  const container =
+    $("dailyFoods");
 
-  daily.innerHTML = "";
+  container.innerHTML = "";
 
-  if (s.daily.length === 0) {
-    daily.innerHTML = "<div>Bugün henüz kayıt yok.</div>";
+  if (
+    state.dailyFoods.length === 0
+  ) {
+    container.innerHTML =
+      "<p>Henüz besin eklenmedi.</p>";
+
     return;
   }
 
-  s.daily.forEach((item, index) => {
-    const div = document.createElement("div");
+  state.dailyFoods.forEach(
+    (food, index) => {
+      const item =
+        document.createElement("div");
 
-    div.className = "daily-item";
+      item.className =
+        "food-item";
 
-    div.innerHTML = `
-      ${item.text}
-      <button onclick="deleteDaily(${index})">
-        ❌ Sil
-      </button>
-    `;
+      item.innerHTML = `
+        <strong>${food.name}</strong><br>
+        🔥 ${food.kcal} kcal<br>
+        🥩 ${food.protein} g
 
-    daily.appendChild(div);
-  });
+        <div class="food-actions">
+          <button
+            class="small-btn"
+            onclick="removeFood(${index})">
+            ❌ Sil
+          </button>
+        </div>
+      `;
+
+      container.appendChild(
+        item
+      );
+    }
+  );
 }
 
-window.deleteDaily = function (index) {
-  s.daily.splice(index, 1);
+window.removeFood =
+  function (index) {
+    const food =
+      state.dailyFoods[index];
 
-  save();
-  updateHome();
-};
+    state.calories -=
+      food.kcal;
 
-function renderHistory() {
-  const history = $("historyList");
+    state.protein -=
+      food.protein;
 
-  history.innerHTML = "";
+    state.dailyFoods.splice(
+      index,
+      1
+    );
 
-  if (s.history.length === 0) {
-    history.innerHTML = "Henüz kayıt yok.";
-    return;
-  }
+    saveState();
 
-  s.history.forEach((item) => {
-    const div = document.createElement("div");
-
-    div.className = "history-item";
-
-    div.innerHTML = item;
-
-    history.appendChild(div);
-  });
-}
-
-document.querySelectorAll("[data-tab]").forEach((button) => {
-  button.onclick = () => {
-    document.querySelectorAll("section").forEach((page) => {
-      page.classList.remove("active");
-    });
-
-    document
-      .getElementById(button.dataset.page || button.dataset.tab)
-      .classList.add("active");
+    refresh();
   };
-});
 
-function renderFoods(search = "") {
-  const result = $("results");
+function renderDailySports() {
+  const container =
+    $("dailySports");
 
-  if (!result) return;
+  container.innerHTML = "";
 
-  const allFoods = [...foods, ...s.custom];
+  if (
+    state.dailySports.length === 0
+  ) {
+    return;
+  }
+
+  state.dailySports.forEach(
+    (sport, index) => {
+      const item =
+        document.createElement(
+          "div"
+        );
+
+      item.className =
+        "food-item";
+
+      item.innerHTML = `
+        💪 ${sport} kcal
+
+        <div class="food-actions">
+          <button
+            class="small-btn"
+            onclick="removeSport(${index})">
+            ❌ Sil
+          </button>
+        </div>
+      `;
+
+      container.appendChild(
+        item
+      );
+    }
+  );
+}
+
+window.removeSport =
+  function (index) {
+    state.sport -=
+      state.dailySports[index];
+
+    state.dailySports.splice(
+      index,
+      1
+    );
+
+    saveState();
+
+    refresh();
+  };
+
+function refresh() {
+  updateDashboard();
+
+  renderDailyFoods();
+
+  renderDailySports();
+}
+/* BESİN ARAMA */
+
+function renderFoodResults(keyword = "") {
+  const container = $("foodResults");
+
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  const allFoods = [
+    ...foods,
+    ...state.customFoods
+  ];
 
   const filtered = allFoods.filter((food) =>
-    food.name.toLowerCase().includes(search.toLowerCase())
+    food.name
+      .toLowerCase()
+      .includes(keyword.toLowerCase())
   );
 
-  result.innerHTML = "";
-
   filtered.forEach((food) => {
-    const div = document.createElement("div");
+    const item =
+      document.createElement("div");
 
-    div.className = "food-item";
+    item.className = "food-item";
 
-    div.innerHTML = `
+    const kcal =
+      food.kcal || food.k;
+
+    const protein =
+      food.protein || food.p;
+
+    const unit =
+      food.unit || "adet";
+
+    item.innerHTML = `
       <strong>${food.name}</strong><br>
-      🔥 ${food.k || food.kcal} kcal<br>
-      🥩 ${food.p || food.protein} g<br>
-      <button onclick="addFood('${food.name}',${food.k || food.kcal},${food.p || food.protein})">
-        ➕ Ekle
-      </button>
+
+      🔥 ${kcal} kcal<br>
+
+      🥩 ${protein} g<br>
+
+      📏 ${unit}<br>
+
+      <div class="food-actions">
+
+        <button
+          class="small-btn"
+          onclick="addFood(
+            '${food.name}',
+            ${kcal},
+            ${protein}
+          )">
+
+          ➕ Ekle
+
+        </button>
+
+      </div>
     `;
 
-    result.appendChild(div);
+    container.appendChild(item);
   });
 }
 
-window.addFood = function (name, kcal, protein) {
-  s.cal += Number(kcal);
-  s.pro += Number(protein);
+window.addFood = function (
+  name,
+  kcal,
+  protein
+) {
+  state.calories += kcal;
 
-  s.daily.push({
-    text: `🍽️ ${name} - ${kcal} kcal - ${protein} g`
+  state.protein += protein;
+
+  state.dailyFoods.push({
+    name,
+    kcal,
+    protein
   });
 
-  save();
-  updateHome();
+  saveState();
+
+  refresh();
 };
 
-if ($("search")) {
-  $("search").addEventListener("input", (e) => {
-    renderFoods(e.target.value);
+if ($("foodSearch")) {
+  $("foodSearch").addEventListener(
+    "input",
+    (e) => {
+      renderFoodResults(
+        e.target.value
+      );
+    }
+  );
+}
+
+/* YENİ BESİN EKLEME */
+
+if ($("saveFoodButton")) {
+  $("saveFoodButton").addEventListener(
+    "click",
+    () => {
+      const name =
+        $("newFoodName").value;
+
+      const kcal =
+        Number(
+          $("newFoodCalories")
+            .value
+        );
+
+      const protein =
+        Number(
+          $("newFoodProtein")
+            .value
+        );
+
+      const unit =
+        $("newFoodUnit").value;
+
+      if (!name) {
+        return;
+      }
+
+      state.customFoods.push({
+        name,
+        kcal,
+        protein,
+        unit
+      });
+
+      $("newFoodName").value =
+        "";
+
+      $("newFoodCalories").value =
+        "";
+
+      $("newFoodProtein").value =
+        "";
+
+      saveState();
+
+      renderFoodResults();
+    }
+  );
+}
+
+/* SU EKLEME */
+
+if ($("waterButton")) {
+  $("waterButton").addEventListener(
+    "click",
+    () => {
+      state.water += 0.25;
+
+      saveState();
+
+      refresh();
+    }
+  );
+}
+
+/* HEDEFLER */
+
+if ($("saveProfileButton")) {
+  $("saveProfileButton")
+    .addEventListener(
+      "click",
+      () => {
+        state.goals.calories =
+          Number(
+            $("profileCalories")
+              .value
+          ) ||
+          state.goals.calories;
+
+        state.goals.protein =
+          Number(
+            $("profileProtein")
+              .value
+          ) ||
+          state.goals.protein;
+
+        state.goals.water =
+          Number(
+            $("profileWater")
+              .value
+          ) ||
+          state.goals.water;
+
+        saveState();
+
+        refresh();
+
+        alert(
+          "Hedefler kaydedildi."
+        );
+      }
+    );
+}
+
+renderFoodResults();
+
+refresh();
+/* SPOR */
+
+function calculateSport() {
+  const duration =
+    Number($("sportDuration").value);
+
+  const speed =
+    Number($("sportSpeed").value);
+
+  const incline =
+    Number($("sportIncline").value);
+
+  $("durationLabel").textContent =
+    duration;
+
+  $("speedLabel").textContent =
+    speed;
+
+  $("inclineLabel").textContent =
+    incline;
+
+  const calories = Math.round(
+    duration * speed * (1 + incline / 10)
+  );
+
+  $("sportResult").textContent =
+    "Yakılan kalori: " +
+    calories +
+    " kcal";
+
+  return calories;
+}
+
+if ($("sportDuration")) {
+  $("sportDuration").addEventListener(
+    "input",
+    calculateSport
+  );
+
+  $("sportSpeed").addEventListener(
+    "input",
+    calculateSport
+  );
+
+  $("sportIncline").addEventListener(
+    "input",
+    calculateSport
+  );
+}
+
+if ($("calculateSportButton")) {
+  $("calculateSportButton")
+    .addEventListener(
+      "click",
+      calculateSport
+    );
+}
+
+if ($("addSportButton")) {
+  $("addSportButton").addEventListener(
+    "click",
+    () => {
+      const calories =
+        calculateSport();
+
+      state.sport += calories;
+
+      state.dailySports.push(
+        calories
+      );
+
+      saveState();
+
+      refresh();
+    }
+  );
+}
+
+/* GÜNÜ BİTİR */
+
+if ($("finishDayButton")) {
+  $("finishDayButton")
+    .addEventListener(
+      "click",
+      () => {
+        const today =
+          new Date().toLocaleDateString(
+            "tr-TR"
+          );
+
+        state.history.unshift(`
+          <div class="history-item">
+
+            <strong>${today}</strong>
+
+            <br>
+
+            🔥 ${state.calories} kcal
+
+            <br>
+
+            🥩 ${state.protein} g
+
+            <br>
+
+            💧 ${state.water.toFixed(
+              1
+            )} L
+
+            <br>
+
+            💪 ${state.sport} kcal
+
+          </div>
+        `);
+
+        state.calories = 0;
+        state.protein = 0;
+        state.water = 0;
+        state.sport = 0;
+
+        state.dailyFoods = [];
+        state.dailySports = [];
+
+        saveState();
+
+        renderHistory();
+
+        refresh();
+
+        alert(
+          "Gün geçmişe kaydedildi."
+        );
+      }
+    );
+}
+
+/* GEÇMİŞ */
+
+function renderHistory() {
+  const history =
+    $("historyList");
+
+  if (!history) return;
+
+  history.innerHTML =
+    state.history.join("");
+}
+
+/* MENÜ */
+
+document
+  .querySelectorAll(
+    ".bottom-nav button"
+  )
+  .forEach((button) => {
+    button.addEventListener(
+      "click",
+      () => {
+        document
+          .querySelectorAll(".page")
+          .forEach((page) => {
+            page.classList.remove(
+              "active"
+            );
+          });
+
+        $(
+          button.dataset.page
+        ).classList.add(
+          "active"
+        );
+      }
+    );
   });
 
-  renderFoods();
-}
+/* BAŞLANGIÇ */
 
-if ($("saveFood")) {
-  $("saveFood").onclick = () => {
-    const name = $("nf").value;
+calculateSport();
 
-    if (!name) return;
+renderFoodResults();
 
-    s.custom.push({
-      name: name,
-      k: Number($("nk").value),
-      p: Number($("np").value)
-    });
+renderHistory();
 
-    $("nf").value = "";
-    $("nk").value = "";
-    $("np").value = "";
-
-    save();
-
-    renderFoods();
-  };
-}
-
-if ($("water")) {
-  $("water").onclick = () => {
-    s.water += 0.25;
-
-    save();
-    updateHome();
-  };
-}
-
-if ($("calcSport")) {
-  $("calcSport").onclick = () => {
-    const duration = Number($("dur").value);
-
-    const speed = Number($("spd").value);
-
-    const incline = Number($("inc").value);
-
-    const calories = Math.round(
-      duration * speed * (1 + incline / 10)
-    );
-
-    $("sportResult").textContent =
-      calories + " kcal";
-  };
-}
-
-if ($("addSport")) {
-  $("addSport").onclick = () => {
-    const calories =
-      parseInt($("sportResult").textContent) || 0;
-
-    s.sport += calories;
-
-    s.daily.push({
-      text: `💪 Spor - ${calories} kcal`
-    });
-
-    save();
-    updateHome();
-  };
-}
-
-if ($("saveGoals")) {
-  $("saveGoals").onclick = () => {
-    s.goals.cal =
-      Number($("goalCal").value) || s.goals.cal;
-
-    s.goals.pro =
-      Number($("goalPro").value) || s.goals.pro;
-
-    s.goals.water =
-      Number($("goalWater").value) || s.goals.water;
-
-    save();
-    updateHome();
-
-    alert("Hedefler kaydedildi.");
-  };
-}
-
-const finishButton = document.getElementById(
-  "finishDayButton"
-);
-
-if (finishButton) {
-  finishButton.onclick = () => {
-    const today = new Date().toLocaleDateString(
-      "tr-TR"
-    );
-
-    s.history.unshift(`
-      <strong>${today}</strong><br>
-      🔥 ${s.cal} kcal<br>
-      🥩 ${s.pro} g<br>
-      💧 ${s.water.toFixed(1)} L<br>
-      💪 ${s.sport} kcal
-    `);
-
-    s.cal = 0;
-    s.pro = 0;
-    s.water = 0;
-    s.sport = 0;
-
-    s.daily = [];
-
-    save();
-    updateHome();
-  };
-}
-
-updateHome();
+refresh();
