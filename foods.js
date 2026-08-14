@@ -42,8 +42,7 @@ const foods = [
 {name:"Tam buğday makarna (180 g)",kcal:190,protein:8,unit:"porsiyon"},
 {name:"Kaşarlı makarna (200 g)",kcal:340,protein:12,unit:"porsiyon"},
 
-{name:"Patates püresi",kcal:180,protein:4,unit:"porsiyon"},
-{name:"Kaşarlı patates püresi",kcal:260,protein:8,unit:"porsiyon"},
+
 {name:"Et sote",kcal:320,protein:30,unit:"porsiyon"},
 {name:"Tas kebabı",kcal:340,protein:28,unit:"porsiyon"},
 {name:"Izgara köfte",kcal:300,protein:26,unit:"porsiyon"},
@@ -154,7 +153,6 @@ const foods = [
 {name:"Hindi füme",kcal:110,protein:20,unit:"100 g"},
 {name:"Dana kaburga füme",kcal:175,protein:28,unit:"100 g"},
 {name:"Pastırma",kcal:250,protein:30,unit:"100 g"},
-{name:"Kavurma",kcal:300,protein:24,unit:"100 g"},
 {name:"Salam",kcal:336,protein:17,unit:"100 g"},
 {name:"Sosis",kcal:301,protein:12,unit:"100 g"},
 {name:"Sucuk",kcal:452,protein:24,unit:"100 g"},
@@ -165,12 +163,9 @@ const foods = [
 {name:"Tavuk göğsü",kcal:165,protein:31,unit:"100 g"},
 {name:"Tavuk şiş",kcal:180,protein:30,unit:"100 g"},
 {name:"Tavuk döner",kcal:215,protein:22,unit:"100 g"},
-{name:"Hindi füme",kcal:110,protein:20,unit:"100 g"},
-{name:"Dana kaburga füme",kcal:175,protein:28,unit:"100 g"},
 {name:"Biftek",kcal:220,protein:28,unit:"100 g"},
 {name:"Köfte",kcal:250,protein:20,unit:"100 g"},
 {name:"Et döner",kcal:290,protein:23,unit:"100 g"},
-{name:"Pastırma",kcal:250,protein:30,unit:"100 g"},
 {name:"Kavurma",kcal:300,protein:24,unit:"100 g"},
 
 /* BALIK */
@@ -187,14 +182,8 @@ const foods = [
 {name:"Kuru fasulye",kcal:170,protein:10,unit:"porsiyon"},
 {name:"Nohut",kcal:180,protein:9,unit:"porsiyon"},
 {name:"Yeşil mercimek",kcal:190,protein:13,unit:"porsiyon"},
-{name:"Mercimek çorbası",kcal:150,protein:8,unit:"kase"},
 {name:"Tavuklu pilav",kcal:420,protein:28,unit:"porsiyon"},
 {name:"Etli kuru fasulye",kcal:280,protein:18,unit:"porsiyon"},
-{name:"Mantı",kcal:350,protein:14,unit:"porsiyon"},
-{name:"Dolma",kcal:220,protein:8,unit:"porsiyon"},
-{name:"Sarma",kcal:180,protein:6,unit:"porsiyon"},
-{name:"Karnıyarık",kcal:300,protein:16,unit:"porsiyon"},
-{name:"Musakka",kcal:280,protein:18,unit:"porsiyon"},
 {name:"İmam bayıldı",kcal:210,protein:4,unit:"porsiyon"},
 
 /* KARBONHİDRATLAR */
@@ -202,13 +191,11 @@ const foods = [
 {name:"Yulaf",kcal:389,protein:17,unit:"100 g"},
 {name:"Pirinç pilavı",kcal:220,protein:4,unit:"porsiyon"},
 {name:"Bulgur pilavı",kcal:180,protein:5,unit:"porsiyon"},
-{name:"Makarna",kcal:220,protein:8,unit:"porsiyon"},
 {name:"Patates",kcal:77,protein:2,unit:"100 g"},
 {name:"Fırın patates",kcal:93,protein:2,unit:"100 g"},
 {name:"Lahmacun",kcal:220,protein:11,unit:"adet"},
 {name:"Pizza",kcal:285,protein:12,unit:"dilim"},
 {name:"Hamburger",kcal:295,protein:17,unit:"adet"},
-{name:"Cheeseburger",kcal:320,protein:18,unit:"adet"},
 {name:"Tost",kcal:350,protein:16,unit:"adet"},
 {name:"Simit",kcal:272,protein:9,unit:"adet"},
 {name:"Pide",kcal:450,protein:20,unit:"adet"},
@@ -269,9 +256,7 @@ const foods = [
 /* HAMBURGERLER */
 
 {name:"Big Mac Menü",kcal:1080,protein:32,unit:"menü"},
-{name:"Whopper Menü",kcal:1170,protein:38,unit:"menü"},
 {name:"Cheeseburger Menü",kcal:920,protein:28,unit:"menü"},
-{name:"Hamburger",kcal:295,protein:17,unit:"adet"},
 {name:"Cheeseburger",kcal:320,protein:18,unit:"adet"},
 {name:"Texas Burger",kcal:980,protein:48,unit:"porsiyon"},
 {name:"Smoke Burger",kcal:1050,protein:52,unit:"porsiyon"},
@@ -310,15 +295,15 @@ const foods = [
 {name:"Sucuklu Pizza",kcal:340,protein:15,unit:"dilim"},
 {name:"Bol Malzemeli Pizza",kcal:360,protein:17,unit:"dilim"},
 
-/* TAVUK DÜNYASI */
+/* TAVUK DÜNYASI (standart servis tabağı) */
 
-{name:"Kekiklim",kcal:650,protein:45,unit:"porsiyon"},
-{name:"Şefin Tavası",kcal:720,protein:42,unit:"porsiyon"},
-{name:"Acılı Kaşarlı",kcal:780,protein:48,unit:"porsiyon"},
-{name:"Kremalı Mantarlı",kcal:740,protein:44,unit:"porsiyon"},
-{name:"Barbekü Soslu",kcal:760,protein:46,unit:"porsiyon"},
-{name:"Köri Soslu",kcal:730,protein:44,unit:"porsiyon"},
-{name:"Soya Soslu",kcal:700,protein:43,unit:"porsiyon"},
-{name:"Izgara Tavuk Dünyası",kcal:620,protein:50,unit:"porsiyon"},
+{name:"Kekiklim",kcal:850,protein:48,unit:"tabak"},
+{name:"Şefin Tavası",kcal:920,protein:45,unit:"tabak"},
+{name:"Acılı Kaşarlı",kcal:980,protein:50,unit:"tabak"},
+{name:"Kremalı Mantarlı",kcal:950,protein:46,unit:"tabak"},
+{name:"Barbekü Soslu",kcal:970,protein:48,unit:"tabak"},
+{name:"Köri Soslu",kcal:940,protein:46,unit:"tabak"},
+{name:"Soya Soslu",kcal:910,protein:45,unit:"tabak"},
+{name:"Izgara Tavuk Dünyası",kcal:800,protein:52,unit:"tabak"},
   
 ];
