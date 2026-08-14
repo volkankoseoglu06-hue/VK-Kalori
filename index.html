@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
 
 <meta charset="UTF-8">
@@ -28,7 +29,7 @@ href="style.css">
 
 </div>
 
-<button id="profileButton">
+<button id="settingsButton">
 
 ⚙️
 
@@ -76,7 +77,7 @@ href="style.css">
 
 <span id="waterText">
 
-0 / 3
+0 / 3.5
 
 </span>
 
@@ -104,16 +105,18 @@ href="style.css">
 
 </section>
 
-<section class="day-mode">
+<section class="mode-card">
 
-<button id="sportMode"
+<button
+id="sportMode"
 class="active">
 
 🏋️ Spor Günü
 
 </button>
 
-<button id="normalMode">
+<button
+id="normalMode">
 
 🌙 Normal Gün
 
@@ -125,45 +128,57 @@ class="active">
 
 <h2>📋 Bugünün Özeti</h2>
 
-<ul>
+<div class="meal-summary">
 
-<li>🍳 Kahvaltı:
+<div>
+
+🍳 Kahvaltı
+
 <span id="breakfastCount">
 
 0
 
 </span>
 
-</li>
+</div>
 
-<li>🍲 Öğle:
+<div>
+
+🍲 Öğle
+
 <span id="lunchCount">
 
 0
 
 </span>
 
-</li>
+</div>
 
-<li>🍽️ Akşam:
+<div>
+
+🍽️ Akşam
+
 <span id="dinnerCount">
 
 0
 
 </span>
 
-</li>
+</div>
 
-<li>☕ Ara Öğün:
+<div>
+
+☕ Ara Öğün
+
 <span id="snackCount">
 
 0
 
 </span>
 
-</li>
+</div>
 
-</ul>
+</div>
 
 <button id="addWater">
 
@@ -186,30 +201,45 @@ class="active">
 <input
 id="foodSearch"
 type="text"
-placeholder="Peynir, tavuk, zeytin, protein tozu...">
+placeholder="Besin ara...">
 
 <div id="foodResults">
 
 </div>
 
-<select id="foodUnit">
+<select id="mealSelect">
 
-<option>Gram</option>
+<option value="breakfast">
 
-<option>Adet</option>
+🍳 Kahvaltı
 
-<option>Porsiyon</option>
+</option>
 
-<option>ml</option>
+<option value="lunch">
 
-<option>Ölçek</option>
+🍲 Öğle
+
+</option>
+
+<option value="dinner">
+
+🍽️ Akşam
+
+</option>
+
+<option value="snack">
+
+☕ Ara Öğün
+
+</option>
 
 </select>
 
 <input
 id="foodAmount"
 type="number"
-value="100">
+value="100"
+placeholder="Miktar">
 
 <button id="calculateFood">
 
@@ -219,7 +249,7 @@ value="100">
 
 <div id="foodCalculation">
 
-Besin seçiniz.
+Bir besin seçin.
 
 </div>
 
@@ -233,11 +263,23 @@ Besin seçiniz.
 
 <section class="card">
 
+<h2>❤️ Favori Besinler</h2>
+
+<div id="favoriteFoods">
+
+Henüz favori yok.
+
+</div>
+
+</section>
+
+<section class="card">
+
 <h2>🚶 Spor</h2>
 
 <label>
 
-Süre
+Süre (dakika)
 
 </label>
 
@@ -250,7 +292,7 @@ value="45">
 
 <label>
 
-Hız
+Hız (km/sa)
 
 </label>
 
@@ -263,7 +305,7 @@ value="5">
 
 <label>
 
-Eğim
+Eğim (%)
 
 </label>
 
@@ -284,6 +326,61 @@ value="5">
 
 <section class="card">
 
+<h2>⚖️ Hedefler</h2>
+
+<input
+id="targetCalories"
+type="number"
+placeholder="Kalori hedefi">
+
+<input
+id="targetProtein"
+type="number"
+placeholder="Protein hedefi">
+
+<input
+id="targetCarbs"
+type="number"
+placeholder="Karbonhidrat hedefi">
+
+<input
+id="targetWater"
+type="number"
+placeholder="Su hedefi">
+
+<button id="saveTargets">
+
+💾 Hedefleri Kaydet
+
+</button>
+
+</section>
+
+<section class="card">
+
+<h2>📊 Kilo Geçmişi</h2>
+
+<input
+id="weightInput"
+type="number"
+placeholder="Kilo">
+
+<button id="saveWeight">
+
+➕ Kilo Ekle
+
+</button>
+
+<div id="weightHistory">
+
+Henüz kayıt yok.
+
+</div>
+
+</section>
+
+<section class="card">
+
 <h2>📈 Geçmiş</h2>
 
 <div id="history">
@@ -294,33 +391,7 @@ Henüz kayıt yok.
 
 </section>
 
-<nav>
-
-<button>
-
-🏠
-
-</button>
-
-<button>
-
-🍽️
-
-</button>
-
-<button>
-
-💪
-
-</button>
-
-<button>
-
-📈
-
-</button>
-
-</nav>
+</div>
 
 <script src="foods.js"></script>
 
