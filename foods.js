@@ -150,12 +150,22 @@ const foods = [
 
 /* ŞARKÜTERİ */
 
-{name:"Hindi füme",kcal:110,protein:20,unit:"100 g"},
-{name:"Dana kaburga füme",kcal:175,protein:28,unit:"100 g"},
-{name:"Pastırma",kcal:250,protein:30,unit:"100 g"},
-{name:"Salam",kcal:336,protein:17,unit:"100 g"},
-{name:"Sosis",kcal:301,protein:12,unit:"100 g"},
-{name:"Sucuk",kcal:452,protein:24,unit:"100 g"},
+{name:"Hindi füme (1 dilim)",kcal:12,protein:2,unit:"dilim"},
+{name:"Hindi füme (1 paket-60 g)",kcal:66,protein:12,unit:"paket"},
+
+{name:"Dana kaburga füme (1 dilim)",kcal:18,protein:3,unit:"dilim"},
+{name:"Dana kaburga füme (1 paket-70 g)",kcal:123,protein:20,unit:"paket"},
+
+{name:"Pastırma (1 dilim)",kcal:10,protein:1.5,unit:"dilim"},
+{name:"Sucuk (1 dilim)",kcal:22,protein:1.2,unit:"dilim"},
+{name:"Salam (1 dilim)",kcal:14,protein:0.8,unit:"dilim"},
+
+/* SEK QUARK */
+
+{name:"Sek Quark sade (140 g)",kcal:120,protein:20,unit:"kutu"},
+{name:"Sek Quark çilekli (140 g)",kcal:135,protein:20,unit:"kutu"},
+{name:"Sek Quark vanilyalı (140 g)",kcal:140,protein:20,unit:"kutu"},
+{name:"Sek Quark limonlu cheesecake (140 g)",kcal:145,protein:20,unit:"kutu"},
 
 /* TAVUK VE ET */
 
