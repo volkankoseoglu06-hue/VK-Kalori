@@ -1,299 +1,155 @@
 const $ = (id) => document.getElementById(id);
 
-const state = JSON.parse(
-    localStorage.getItem("vkLife")
-) || {
+let s = JSON.parse(
+  localStorage.getItem("vk") ||
+    '{"cal":0,"pro":0,"water":0,"sport":0,"goals":{"cal":2200,"pro":160,"water":3},"daily":[],"history":[],"custom":[]}'
+);
 
-    calories: 0,
-    protein: 0,
-    water: 0,
-    sport: 0,
-
-    weight: 109,
-    height: 175,
-    age: 32,
-
-    history: []
-};
-
-function saveState() {
-
-    localStorage.setItem(
-        "vkLife",
-        JSON.stringify(state)
-    );
-
+function save() {
+  localStorage.setItem("vk", JSON.stringify(s));
 }
 
-function updateDate() {
+function draw() {
+  $("cCal").textContent = s.cal;
+  $("cPro").textContent = s.pro;
+  $("cWater").textContent = s.water.toFixed(1);
 
-    $("todayDate").textContent =
-        new Date().toLocaleDateString(
-            "tr-TR"
-        );
+  $("tCal").textContent = s.goals.cal;
+  $("tPro").textContent = s.goals.pro;
+  $("tWater").textContent = s.goals.water;
 
+  $("daily").innerHTML = s.daily
+    .map(
+      (x, i) =>
+        `<div>${x}
+        <button onclick="delItem(${i})">
+        Sil
+        </button>
+        </div>`
+    )
+    .join("");
+
+  $("historyList").innerHTML = s.history.join("<hr>");
 }
 
-function updateTargets() {
-
-    const bmr =
-        10 * state.weight +
-        6.25 * state.height -
-        5 * state.age +
-        5;
-
-    const proteinTarget =
-        Math.round(
-            state.weight * 1.5
-        );
-
-    $("calorieTarget").textContent =
-        `${state.calories}/${Math.round(bmr)}`;
-
-    $("proteinTarget").textContent =
-        `${state.protein}/${proteinTarget}`;
-
-    $("waterTarget").textContent =
-        `${state.water.toFixed(1)}/3`;
-
-    $("sportTarget").textContent =
-        state.sport;
-
-    $("summaryCalories").textContent =
-        state.calories;
-
-    $("summaryProtein").textContent =
-        state.protein;
-
-    $("summaryWater").textContent =
-        state.water.toFixed(1);
-
-    $("summarySport").textContent =
-        state.sport;
-
+function delItem(i) {
+  s.daily.splice(i, 1);
+  save();
+  draw();
 }
 
-function calculateSport() {
-
-    const duration =
-        Number(
-            $("sportDuration").value
-        );
-
-    const speed =
-        Number(
-            $("sportSpeed").value
-        );
-
-    const incline =
-        Number(
-            $("sportIncline").value
-        );
-
-    $("durationValue").textContent =
-        duration;
-
-    $("speedValue").textContent =
-        speed;
-
-    $("inclineValue").textContent =
-        incline;
-
-    const calories =
-        Math.round(
-            duration *
-            (speed * 1.2) *
-            (1 + incline / 10)
-        );
-
-    state.sport = calories;
-
-    $("sportCalories").textContent =
-        `Yakılan kalori: ${calories} kcal`;
-
-    updateTargets();
-
-    saveState();
-
-}
-
-function loadHistory() {
-
-    if (
-        state.history.length === 0
-    ) {
-
-        $("historyList").textContent =
-            "Henüz kayıt yok.";
-
-        return;
-
-    }
-
-    $("historyList").innerHTML =
-        state.history
-            .map(
-                item =>
-                    `<div>${item}</div>`
-            )
-            .join("");
-
-}
-
-function showPage(page) {
-
-    document
-        .querySelectorAll(".page")
-        .forEach(pageItem => {
-
-            pageItem.classList.remove(
-                "active"
-            );
-
-        });
-
-    $(page).classList.add(
-        "active"
-    );
-
-}
-
-document
-    .querySelectorAll(".nav-btn")
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                showPage(
-                    button.dataset.page
-                );
-
-            }
-        );
-
+document.querySelectorAll("[data-tab]").forEach((b) => {
+  b.onclick = () => {
+    document.querySelectorAll(".tab").forEach((t) => {
+      t.classList.remove("active");
     });
 
-$("profileBtn")
-    .addEventListener(
-        "click",
-        () => {
+    $(b.dataset.tab).classList.add("active");
+  };
+});
 
-            showPage(
-                "profilePage"
-            );
+function render(v = "") {
+  const all = [...foods, ...s.custom].filter((f) =>
+    f.name.toLowerCase().includes(v.toLowerCase())
+  );
 
-        }
-    );
+  $("results").innerHTML = all
+    .map(
+      (f) =>
+        `<div>
+        ${f.name} - ${f.k} kcal - ${f.p} g protein
+        <button onclick="addFood('${f.name}',${f.k},${f.p})">
+        Ekle
+        </button>
+        </div>`
+    )
+    .join("");
+}
 
-$("addWaterBtn")
-    .addEventListener(
-        "click",
-        () => {
+window.addFood = (n, k, p) => {
+  s.cal += k;
+  s.pro += p;
 
-            state.water += 0.25;
+  s.daily.push(n);
 
-            updateTargets();
+  save();
+  draw();
+};
 
-            saveState();
+$("search").oninput = (e) => {
+  render(e.target.value);
+};
 
-        }
-    );
+render();
 
-$("finishDayBtn")
-    .addEventListener(
-        "click",
-        () => {
+$("saveFood").onclick = () => {
+  const f = {
+    name: $("nf").value,
+    k: +$("nk").value,
+    p: +$("np").value,
+  };
 
-            state.history.unshift(
+  if (f.name) {
+    s.custom.push(f);
 
-                `${new Date()
-                    .toLocaleDateString(
-                        "tr-TR"
-                    )} | Kalori: ${state.calories}
-| Protein: ${state.protein} g
-| Su: ${state.water.toFixed(1)} L
-| Spor: ${state.sport} kcal`
+    save();
+    render();
 
-            );
+    $("nf").value = "";
+    $("nk").value = "";
+    $("np").value = "";
+  }
+};
 
-            state.calories = 0;
-            state.protein = 0;
-            state.water = 0;
-            state.sport = 0;
+$("water").onclick = () => {
+  s.water += 0.25;
 
-            loadHistory();
+  save();
+  draw();
+};
 
-            updateTargets();
+$("calcSport").onclick = () => {
+  const calorie = Math.round(
+    +$("dur").value *
+      +$("spd").value *
+      (1 + +$("inc").value / 10)
+  );
 
-            saveState();
+  $("sportResult").textContent =
+    calorie + " kcal";
+};
 
-        }
-    );
+$("addSport").onclick = () => {
+  const c =
+    parseInt($("sportResult").textContent) || 0;
 
-$("saveProfileBtn")
-    .addEventListener(
-        "click",
-        () => {
+  s.sport = c;
 
-            state.weight =
-                Number(
-                    $("userWeight").value
-                ) || state.weight;
+  s.daily.push(
+    "Spor - " + c + " kcal"
+  );
 
-            state.height =
-                Number(
-                    $("userHeight").value
-                ) || state.height;
+  save();
+  draw();
+};
 
-            state.age =
-                Number(
-                    $("userAge").value
-                ) || state.age;
+$("saveGoals").onclick = () => {
+  s.goals = {
+    cal:
+      +$("goalCal").value ||
+      s.goals.cal,
 
-            updateTargets();
+    pro:
+      +$("goalPro").value ||
+      s.goals.pro,
 
-            saveState();
+    water:
+      +$("goalWater").value ||
+      s.goals.water,
+  };
 
-            alert(
-                "Profil kaydedildi."
-            );
+  save();
+  draw();
+};
 
-        }
-    );
-
-$("sportDuration")
-    .addEventListener(
-        "input",
-        calculateSport
-    );
-
-$("sportSpeed")
-    .addEventListener(
-        "input",
-        calculateSport
-    );
-
-$("sportIncline")
-    .addEventListener(
-        "input",
-        calculateSport
-    );
-
-$("userWeight").value =
-    state.weight;
-
-$("userHeight").value =
-    state.height;
-
-$("userAge").value =
-    state.age;
-
-updateDate();
-
-updateTargets();
-
-calculateSport();
-
-loadHistory();
+draw();
