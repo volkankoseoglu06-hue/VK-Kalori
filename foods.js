@@ -128,6 +128,43 @@ const foods = [
 {name:"Latte",kcal:120,protein:6,unit:"bardak"},
 {name:"Ayran",kcal:37,protein:2,unit:"100 ml"},
 {name:"Kefir",kcal:60,protein:3.5,unit:"100 ml"},
-{name:"Maden suyu",kcal:0,protein:0,unit:"şişe"}
+{name:"Maden suyu",kcal:0,protein:0,unit:"şişe"},
 
+
+/* DÜRÜMLER */
+
+{name:"Hatay dürüm",kcal:780,protein:38,unit:"adet"},
+{name:"Tavuk dürüm",kcal:540,protein:35,unit:"adet"},
+{name:"Et dürüm",kcal:690,protein:38,unit:"adet"},
+{name:"Adana dürüm",kcal:720,protein:36,unit:"adet"},
+{name:"Urfa dürüm",kcal:680,protein:34,unit:"adet"},
+{name:"Tantuni",kcal:620,protein:32,unit:"adet"},
+{name:"Tavuk tantuni",kcal:520,protein:34,unit:"adet"},
+
+/* HAMBURGERLER */
+
+{name:"Big Mac Menü",kcal:1080,protein:32,unit:"menü"},
+{name:"Whopper Menü",kcal:1170,protein:38,unit:"menü"},
+{name:"Cheeseburger Menü",kcal:920,protein:28,unit:"menü"},
+{name:"Hamburger",kcal:295,protein:17,unit:"adet"},
+{name:"Cheeseburger",kcal:320,protein:18,unit:"adet"},
+
+/* PİZZALAR */
+
+{name:"Margherita Pizza",kcal:285,protein:12,unit:"dilim"},
+{name:"Karışık Pizza",kcal:320,protein:14,unit:"dilim"},
+{name:"Sucuklu Pizza",kcal:340,protein:15,unit:"dilim"},
+{name:"Bol Malzemeli Pizza",kcal:360,protein:17,unit:"dilim"},
+
+/* TAVUK DÜNYASI */
+
+{name:"Kekiklim",kcal:650,protein:45,unit:"porsiyon"},
+{name:"Şefin Tavası",kcal:720,protein:42,unit:"porsiyon"},
+{name:"Acılı Kaşarlı",kcal:780,protein:48,unit:"porsiyon"},
+{name:"Kremalı Mantarlı",kcal:740,protein:44,unit:"porsiyon"},
+{name:"Barbekü Soslu",kcal:760,protein:46,unit:"porsiyon"},
+{name:"Köri Soslu",kcal:730,protein:44,unit:"porsiyon"},
+{name:"Soya Soslu",kcal:700,protein:43,unit:"porsiyon"},
+{name:"Izgara Tavuk Dünyası",kcal:620,protein:50,unit:"porsiyon"},
+  
 ];
