@@ -296,3 +296,325 @@ $("saveFoodButton")
       );
     }
   );
+function calculateSport() {
+  const duration =
+    Number(
+      $("sportDuration").value
+    );
+
+  const speed =
+    Number(
+      $("sportSpeed").value
+    );
+
+  const incline =
+    Number(
+      $("sportIncline").value
+    );
+
+  $("durationLabel").textContent =
+    duration;
+
+  $("speedLabel").textContent =
+    speed;
+
+  $("inclineLabel").textContent =
+    incline;
+
+  const calories =
+    Math.round(
+      duration *
+      speed *
+      (1 + incline / 10)
+    );
+
+  $("sportResult").textContent =
+    `Yakılan kalori: ${calories} kcal`;
+
+  return calories;
+}
+
+function renderSports() {
+  const container =
+    $("dailySports");
+
+  container.innerHTML = "";
+
+  state.dailySports.forEach(
+    (sport, index) => {
+      const div =
+        document.createElement(
+          "div"
+        );
+
+      div.className =
+        "food-item";
+
+      div.innerHTML = `
+      💪 ${sport.calories} kcal
+
+      <button>
+      ❌
+      </button>
+      `;
+
+      div
+        .querySelector(
+          "button"
+        )
+        .addEventListener(
+          "click",
+          () => {
+            state.burnedCalories -=
+              sport.calories;
+
+            state.dailySports.splice(
+              index,
+              1
+            );
+
+            save();
+
+            updateDashboard();
+
+            renderSports();
+          }
+        );
+
+      container.appendChild(
+        div
+      );
+    }
+  );
+}
+
+$("sportDuration")
+  .addEventListener(
+    "input",
+    calculateSport
+  );
+
+$("sportSpeed")
+  .addEventListener(
+    "input",
+    calculateSport
+  );
+
+$("sportIncline")
+  .addEventListener(
+    "input",
+    calculateSport
+  );
+
+$("calculateSportButton")
+  .addEventListener(
+    "click",
+    calculateSport
+  );
+
+$("addSportButton")
+  .addEventListener(
+    "click",
+    () => {
+      const calories =
+        calculateSport();
+
+      state.burnedCalories +=
+        calories;
+
+      state.dailySports.push({
+        calories
+      });
+
+      save();
+
+      updateDashboard();
+
+      renderSports();
+    }
+  );
+
+$("waterButton")
+  .addEventListener(
+    "click",
+    () => {
+      state.water += 0.25;
+
+      save();
+
+      updateDashboard();
+    }
+  );
+
+$("saveProfileButton")
+  .addEventListener(
+    "click",
+    () => {
+      const calories =
+        Number(
+          $("profileCalories")
+            .value
+        );
+
+      const protein =
+        Number(
+          $("profileProtein")
+            .value
+        );
+
+      const water =
+        Number(
+          $("profileWater")
+            .value
+        );
+
+      if (calories > 0) {
+        state.goals.calories =
+          calories;
+      }
+
+      if (protein > 0) {
+        state.goals.protein =
+          protein;
+      }
+
+      if (water > 0) {
+        state.goals.water =
+          water;
+      }
+
+      save();
+
+      updateDashboard();
+
+      alert(
+        "Hedefler kaydedildi."
+      );
+    }
+  );
+
+function renderHistory() {
+  $("historyList").innerHTML =
+    state.history.join("");
+}
+
+$("finishDayButton")
+  .addEventListener(
+    "click",
+    () => {
+      const record = `
+      <div class="history-item">
+
+      <strong>
+      ${new Date()
+        .toLocaleDateString(
+          "tr-TR"
+        )}
+      </strong>
+
+      <br>
+
+      🔥 Alınan:
+      ${Math.round(
+        state.eatenCalories
+      )}
+
+      <br>
+
+      💪 Yakılan:
+      ${Math.round(
+        state.burnedCalories
+      )}
+
+      <br>
+
+      ⚖️ Net:
+      ${Math.round(
+        netCalories()
+      )}
+
+      <br>
+
+      🥩 Protein:
+      ${Math.round(
+        state.protein
+      )} g
+
+      <br>
+
+      💧 Su:
+      ${state.water.toFixed(
+        1
+      )} L
+
+      </div>
+      `;
+
+      state.history.unshift(
+        record
+      );
+
+      state.eatenCalories = 0;
+
+      state.burnedCalories = 0;
+
+      state.protein = 0;
+
+      state.water = 0;
+
+      state.dailyFoods = [];
+
+      state.dailySports = [];
+
+      save();
+
+      renderFoods();
+
+      renderSports();
+
+      renderHistory();
+
+      updateDashboard();
+
+      alert(
+        "Gün kaydedildi."
+      );
+    }
+  );
+
+document
+  .querySelectorAll(
+    ".bottom-nav button"
+  )
+  .forEach((button) => {
+    button.addEventListener(
+      "click",
+      () => {
+        document
+          .querySelectorAll(
+            ".page"
+          )
+          .forEach((page) =>
+            page.classList.remove(
+              "active"
+            )
+          );
+
+        $(
+          button.dataset.page
+        ).classList.add(
+          "active"
+        );
+      }
+    );
+  });
+
+updateDashboard();
+
+renderFoods();
+
+renderSports();
+
+renderHistory();
+
+calculateSport();
