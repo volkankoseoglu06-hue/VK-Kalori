@@ -1,57 +1,102 @@
 const $ = (id) => document.getElementById(id);
 
-let totals = {
+let selectedFood = null;
+let calculatedFood = null;
+
+let sportDay = true;
+
+let totals = JSON.parse(localStorage.getItem("vkTotals")) || {
     calories: 0,
     protein: 0,
     carbs: 0,
-    fat: 0,
     water: 0
 };
 
-let meals = {
+let meals = JSON.parse(localStorage.getItem("vkMeals")) || {
     breakfast: 0,
     lunch: 0,
     dinner: 0,
     snack: 0
 };
 
-let selectedFood = null;
-let calculatedFood = null;
+let favorites = JSON.parse(localStorage.getItem("vkFavorites")) || [];
 
-const history =
-    JSON.parse(
-        localStorage.getItem("vkHistory")
-    ) || [];
+let history = JSON.parse(localStorage.getItem("vkHistory")) || [];
 
-function updateDate() {
+let weights = JSON.parse(localStorage.getItem("vkWeights")) || [];
 
-    $("todayDate").textContent =
-        new Date().toLocaleDateString(
-            "tr-TR",
-            {
-                weekday: "long",
-                day: "numeric",
-                month: "long"
-            }
-        );
+let targets = JSON.parse(localStorage.getItem("vkTargets")) || {
+    calories: 2200,
+    protein: 165,
+    carbs: 220,
+    water: 3.5
+};
 
+function saveAll() {
+
+    localStorage.setItem(
+        "vkTotals",
+        JSON.stringify(totals)
+    );
+
+    localStorage.setItem(
+        "vkMeals",
+        JSON.stringify(meals)
+    );
+
+    localStorage.setItem(
+        "vkFavorites",
+        JSON.stringify(favorites)
+    );
+
+    localStorage.setItem(
+        "vkHistory",
+        JSON.stringify(history)
+    );
+
+    localStorage.setItem(
+        "vkWeights",
+        JSON.stringify(weights)
+    );
+
+    localStorage.setItem(
+        "vkTargets",
+        JSON.stringify(targets)
+    );
 }
 
-updateDate();
+$("todayDate").textContent =
+    new Date().toLocaleDateString(
+        "tr-TR",
+        {
+            weekday: "long",
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        }
+    );
 
 function updateDashboard() {
 
     $("calorieText").textContent =
-        totals.calories + " / 2200";
+        totals.calories +
+        " / " +
+        targets.calories;
 
     $("proteinText").textContent =
-        totals.protein + " / 165";
+        totals.protein +
+        " / " +
+        targets.protein;
 
     $("waterText").textContent =
-        totals.water.toFixed(1) + " / 3";
+        totals.water.toFixed(1) +
+        " / " +
+        targets.water;
 
     $("carbText").textContent =
-        totals.carbs + " / 220";
+        totals.carbs +
+        " / " +
+        targets.carbs;
 
     $("breakfastCount").textContent =
         meals.breakfast;
@@ -68,108 +113,90 @@ function updateDashboard() {
 
 updateDashboard();
 
-$("addWater").onclick = function () {
+$("addWater").onclick = () => {
 
     totals.water += 0.25;
 
-    updateDashboard();
+    saveAll();
 
+    updateDashboard();
 };
 
 function renderFoods(list) {
 
     $("foodResults").innerHTML = "";
 
-    if (list.length === 0) {
-
-        return;
-
-    }
-
     list.forEach(food => {
 
         const div =
-            document.createElement(
-                "div"
-            );
+            document.createElement("div");
 
         div.className =
             "food-item";
+
+        const favorite =
+            favorites.includes(food.name)
+                ? "❤️"
+                : "🤍";
 
         div.innerHTML =
             "<strong>" +
             food.name +
             "</strong><br>" +
+            food.unit +
+            " • " +
             food.kcal +
-            " kcal";
+            " kcal<br>" +
+            favorite;
 
-        div.onclick =
-            function () {
+        div.onclick = () => {
 
-                selectedFood =
-                    food;
-
-            };
+            selectedFood = food;
+        };
 
         $("foodResults")
             .appendChild(div);
-
     });
-
 }
 
-$("foodSearch")
-    .addEventListener(
-        "input",
-        function () {
+$("foodSearch").addEventListener(
+    "input",
+    function () {
 
-            const value =
-                this.value
+        const value =
+            this.value
                 .trim()
                 .toLowerCase();
 
-            if (
-                value.length < 2
-            ) {
+        if (value.length < 2) {
 
-                $("foodResults")
-                    .innerHTML = "";
+            $("foodResults")
+                .innerHTML = "";
 
-                return;
+            return;
+        }
 
-            }
-
-            const filtered =
-                foods.filter(
-                    food =>
-                        food.name
-                            .toLowerCase()
-                            .includes(
-                                value
-                            )
-                );
-
-            renderFoods(
-                filtered
+        const filtered =
+            foods.filter(food =>
+                food.name
+                    .toLowerCase()
+                    .includes(value)
             );
 
-        }
-    );
+        renderFoods(filtered);
+    }
+);
 
-$("calculateFood")
-    .onclick =
-    function () {
+$("calculateFood").onclick =
+    () => {
 
-        if (
-            !selectedFood
-        ) {
+        if (!selectedFood) {
 
             alert(
-                "Önce bir besin seç."
+                "Besin seç."
             );
 
             return;
-
         }
 
         const amount =
@@ -199,18 +226,11 @@ $("calculateFood")
                     ratio
                 ),
 
-            carb:
+            carbs:
                 Math.round(
                     selectedFood.carb *
                     ratio
-                ),
-
-            fat:
-                Math.round(
-                    selectedFood.fat *
-                    ratio
                 )
-
         };
 
         $("foodCalculation")
@@ -225,25 +245,20 @@ $("calculateFood")
             " g protein<br>" +
 
             "🍞 " +
-            calculatedFood.carb +
+            calculatedFood.carbs +
             " g karbonhidrat";
-
     };
 
-$("addFood")
-    .onclick =
-    function () {
+$("addFood").onclick =
+    () => {
 
-        if (
-            !calculatedFood
-        ) {
+        if (!calculatedFood) {
 
             alert(
                 "Önce hesapla."
             );
 
             return;
-
         }
 
         totals.calories +=
@@ -253,56 +268,21 @@ $("addFood")
             calculatedFood.protein;
 
         totals.carbs +=
-            calculatedFood.carb;
-
-        updateDashboard();
+            calculatedFood.carbs;
 
         const meal =
-            prompt(
+            $("mealSelect")
+                .value;
 
-                "1=Kahvaltı\n2=Öğle\n3=Akşam\n4=Ara Öğün"
+        meals[meal]++;
 
-            );
-
-        if (
-            meal === "1"
-        ) {
-
-            meals.breakfast++;
-
-        }
-
-        if (
-            meal === "2"
-        ) {
-
-            meals.lunch++;
-
-        }
-
-        if (
-            meal === "3"
-        ) {
-
-            meals.dinner++;
-
-        }
-
-        if (
-            meal === "4"
-        ) {
-
-            meals.snack++;
-
-        }
+        saveAll();
 
         updateDashboard();
 
         alert(
-            calculatedFood.name +
-            " eklendi."
+            "Besin eklendi."
         );
-
     };
 
 function calculateSport() {
@@ -327,107 +307,118 @@ function calculateSport() {
 
     const calories =
         Math.round(
-
             (duration / 60) *
-
-            (
-                50 +
-                speed *
-                incline
-            )
-
+            (50 + speed * incline)
         );
 
     $("sportCalories")
-        .textContent =
-
+        .innerHTML =
+        "🔥 " +
         calories +
         " kcal";
-
 }
 
-[
-    "duration",
-    "speed",
-    "incline"
-]
+["duration", "speed", "incline"]
     .forEach(id => {
 
-        $(id)
-            .addEventListener(
-                "input",
-                calculateSport
-            );
-
+        $(id).addEventListener(
+            "input",
+            calculateSport
+        );
     });
 
 calculateSport();
 
-function renderHistory() {
+$("sportMode").onclick =
+    () => {
 
-    $("history")
-        .innerHTML = "";
+        sportDay = true;
 
-    if (
-        history.length === 0
-    ) {
+        $("sportMode")
+            .classList
+            .add("active");
 
-        $("history")
-            .textContent =
+        $("normalMode")
+            .classList
+            .remove("active");
+    };
 
-            "Henüz kayıt yok.";
+$("normalMode").onclick =
+    () => {
 
-        return;
+        sportDay = false;
 
-    }
+        $("normalMode")
+            .classList
+            .add("active");
 
-    history
-        .slice()
-        .reverse()
-        .forEach(day => {
+        $("sportMode")
+            .classList
+            .remove("active");
+    };
 
-            const div =
-                document
-                    .createElement(
-                        "div"
-                    );
+$("saveTargets").onclick =
+    () => {
 
-            div.className =
-                "food-item";
+        targets.calories =
+            Number(
+                $("targetCalories")
+                    .value
+            ) || targets.calories;
 
-            div.innerHTML =
+        targets.protein =
+            Number(
+                $("targetProtein")
+                    .value
+            ) || targets.protein;
 
-                day.date +
+        targets.carbs =
+            Number(
+                $("targetCarbs")
+                    .value
+            ) || targets.carbs;
 
-                "<br>🔥 " +
+        targets.water =
+            Number(
+                $("targetWater")
+                    .value
+            ) || targets.water;
 
-                day.calories +
+        saveAll();
 
-                " kcal<br>🥩 " +
+        updateDashboard();
 
-                day.protein +
+        alert(
+            "Hedefler kaydedildi."
+        );
+    };
 
-                " g";
+$("saveWeight").onclick =
+    () => {
 
-            $("history")
-                .appendChild(
-                    div
-                );
+        const weight =
+            $("weightInput")
+                .value;
 
-        });
+        if (!weight) return;
 
-}
+        weights.push(weight);
 
-renderHistory();
+        $("weightHistory")
+            .innerHTML =
+            weights.join(
+                "<br>"
+            );
 
-$("finishDay")
-    .onclick =
-    function () {
+        saveAll();
+    };
+
+$("finishDay").onclick =
+    () => {
 
         history.push({
 
             date:
-
                 new Date()
                     .toLocaleDateString(
                         "tr-TR"
@@ -437,87 +428,62 @@ $("finishDay")
                 totals.calories,
 
             protein:
-                totals.protein,
-
-            carbs:
-                totals.carbs,
-
-            water:
-                totals.water
-
+                totals.protein
         });
 
-        localStorage.setItem(
-
-            "vkHistory",
-
-            JSON.stringify(
-                history
-            )
-
-        );
+        $("history")
+            .innerHTML =
+            history
+                .map(
+                    item =>
+                        item.date +
+                        " - " +
+                        item.calories +
+                        " kcal"
+                )
+                .join("<br>");
 
         totals = {
-
             calories: 0,
             protein: 0,
             carbs: 0,
-            fat: 0,
             water: 0
-
         };
 
         meals = {
-
             breakfast: 0,
             lunch: 0,
             dinner: 0,
             snack: 0
-
         };
 
-        updateDashboard();
+        saveAll();
 
-        renderHistory();
+        updateDashboard();
 
         alert(
             "Gün kaydedildi."
         );
-
     };
 
-$("sportMode")
-    .onclick =
-    function () {
+if (weights.length) {
 
-        $("sportMode")
-            .classList
-            .add(
-                "active"
-            );
+    $("weightHistory")
+        .innerHTML =
+        weights.join("<br>");
+}
 
-        $("normalMode")
-            .classList
-            .remove(
-                "active"
-            );
+if (history.length) {
 
-    };
-
-$("normalMode")
-    .onclick =
-    function () {
-
-        $("normalMode")
-            .classList
-            .add(
-                "active"
-            );
-
-        $("sportMode")
-            .classList
-            .remove(
-                "active"
-            );
-
-    };
+    $("history")
+        .innerHTML =
+        history
+            .map(
+                item =>
+                    item.date +
+                    " - " +
+                    item.calories +
+                    " kcal"
+            )
+            .join("<br>");
+}
