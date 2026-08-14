@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="tr">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>VK Yaşam Koçu 4.0</title>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>VK Yaşam Koçu 5.0</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -17,75 +19,87 @@
 
 <header class="header">
 
-<h1>VK Yaşam Koçu 4.0</h1>
+<h1>VK Yaşam Koçu</h1>
 
 <p id="today"></p>
 
 </header>
 
-<!-- ANA SAYFA -->
-
 <section id="homePage" class="page active">
 
 <div class="dashboard">
 
-<div class="circle-card">
-<div class="circle-value">
-<span id="currentCalories">0</span>
-<small>/</small>
-<span id="targetCalories">2500</span>
-</div>
+<div class="card stat">
+
+<h2 id="currentCalories">0</h2>
+
 <p>🔥 Kalori</p>
+
+<small>Hedef:
+<span id="targetCalories">2500</span>
+</small>
+
 </div>
 
-<div class="circle-card">
-<div class="circle-value">
-<span id="currentProtein">0</span>
-<small>/</small>
-<span id="targetProtein">165</span>
-</div>
+<div class="card stat">
+
+<h2 id="currentProtein">0</h2>
+
 <p>🥩 Protein</p>
+
+<small>Hedef:
+<span id="targetProtein">165</span>
+</small>
+
 </div>
 
-<div class="circle-card">
-<div class="circle-value">
-<span id="currentWater">0</span>
-<small>/</small>
+<div class="card stat">
+
+<h2 id="currentWater">0</h2>
+
+<p>💧 Su (L)</p>
+
+<small>Hedef:
 <span id="targetWater">3</span>
-</div>
-<p>💧 Su</p>
+</small>
+
 </div>
 
-<div class="circle-card">
-<div class="circle-value">
-<span id="currentSport">0</span>
-</div>
-<p>🚶 Spor</p>
+<div class="card stat">
+
+<h2 id="currentSport">0</h2>
+
+<p>💪 Spor</p>
+
 </div>
 
 </div>
 
 <div class="card">
 
-<h3>Bugün Eklenenler</h3>
+<h3>Bugünkü Besinler</h3>
 
 <div id="dailyFoods"></div>
+
+<h3>Bugünkü Sporlar</h3>
 
 <div id="dailySports"></div>
 
 </div>
 
-<button id="waterButton" class="primary">
+<button id="waterButton">
+
 💧 +250 ml Su
+
 </button>
 
-<button id="finishDayButton" class="primary">
+<button id="finishDayButton">
+
 📅 Günü Bitir
+
 </button>
 
 </section>
-
-<!-- BESLENME -->
 
 <section id="foodPage" class="page">
 
@@ -93,8 +107,7 @@
 
 <input
 id="foodSearch"
-type="text"
-placeholder="🔍 Besin ara">
+placeholder="Besin ara">
 
 <div id="foodResults"></div>
 
@@ -102,7 +115,7 @@ placeholder="🔍 Besin ara">
 
 <div class="card">
 
-<h3>➕ Yeni Besin Ekle</h3>
+<h3>Yeni Besin</h3>
 
 <input
 id="newFoodName"
@@ -121,18 +134,20 @@ placeholder="Protein">
 <select id="newFoodUnit">
 
 <option>100 g</option>
+
 <option>adet</option>
+
 <option>dilim</option>
+
 <option>porsiyon</option>
+
 <option>ölçek</option>
 
 </select>
 
-<button
-id="saveFoodButton"
-class="primary">
+<button id="saveFoodButton">
 
-💾 Besini Kaydet
+Kaydet
 
 </button>
 
@@ -140,15 +155,22 @@ class="primary">
 
 </section>
 
-<!-- SPOR -->
-
 <section id="sportPage" class="page">
 
 <div class="card">
 
 <label>
-⏱️ Süre:
-<span id="durationLabel">45</span> dk
+
+Süre:
+
+<span id="durationLabel">
+
+45
+
+</span>
+
+dk
+
 </label>
 
 <input
@@ -159,8 +181,17 @@ max="180"
 value="45">
 
 <label>
-⚡ Hız:
-<span id="speedLabel">5</span> km/sa
+
+Hız:
+
+<span id="speedLabel">
+
+5
+
+</span>
+
+km/sa
+
 </label>
 
 <input
@@ -171,8 +202,17 @@ max="10"
 value="5">
 
 <label>
-⛰️ Eğim:
-<span id="inclineLabel">5</span> %
+
+Eğim:
+
+<span id="inclineLabel">
+
+5
+
+</span>
+
+%
+
 </label>
 
 <input
@@ -184,23 +224,19 @@ value="5">
 
 <h3 id="sportResult">
 
-Yakılan kalori: 0 kcal
+Yakılan kalori: 0
 
 </h3>
 
-<button
-id="calculateSportButton"
-class="primary">
+<button id="calculateSportButton">
 
-🧮 Hesapla
+Hesapla
 
 </button>
 
-<button
-id="addSportButton"
-class="primary">
+<button id="addSportButton">
 
-➕ Günlüğe Ekle
+Günlüğe Ekle
 
 </button>
 
@@ -208,21 +244,17 @@ class="primary">
 
 </section>
 
-<!-- GEÇMİŞ -->
-
 <section id="historyPage" class="page">
 
 <div class="card">
 
-<h3>📈 Geçmiş</h3>
+<h3>Geçmiş</h3>
 
 <div id="historyList"></div>
 
 </div>
 
 </section>
-
-<!-- PROFİL -->
 
 <section id="profilePage" class="page">
 
@@ -244,10 +276,9 @@ type="number"
 placeholder="Hedef su">
 
 <button
-id="saveProfileButton"
-class="primary">
+id="saveProfileButton">
 
-💾 Hedefleri Kaydet
+Kaydet
 
 </button>
 
@@ -258,23 +289,33 @@ class="primary">
 <nav class="bottom-nav">
 
 <button data-page="homePage">
+
 🏠
+
 </button>
 
 <button data-page="foodPage">
+
 🍽️
+
 </button>
 
 <button data-page="sportPage">
+
 💪
+
 </button>
 
 <button data-page="historyPage">
+
 📈
+
 </button>
 
 <button data-page="profilePage">
+
 👤
+
 </button>
 
 </nav>
@@ -282,8 +323,8 @@ class="primary">
 </div>
 
 <script src="foods.js"></script>
+
 <script src="app.js"></script>
 
 </body>
-
 </html>
