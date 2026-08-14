@@ -351,26 +351,36 @@ function renderFoodResults(list){
 
 }
 
-renderFoodResults(foods);
 
 $("foodSearch")
 .addEventListener("input",()=>{
 
-  const value =
-  $("foodSearch")
-  .value
-  .toLowerCase();
+const value =
+$("foodSearch")
+.value
+.toLowerCase()
+.trim();
 
-  const filtered =
-  foods.filter(food=>
+if(value.length<2){
 
-    food.name
-    .toLowerCase()
-    .includes(value)
+$("foodResults").innerHTML="";
 
-  );
+return;
 
-  renderFoodResults(filtered);
+}
+
+const filtered =
+foods.filter(food=>
+
+food.name
+.toLowerCase()
+.includes(value)
+
+);
+
+renderFoodResults(filtered);
+
+});
 
 });
 
@@ -521,6 +531,14 @@ function calculateWalkingCalories() {
     Number($("sportSpeed").value);
 
   const incline =
+     $("durationValue").textContent =
+duration;
+
+$("speedValue").textContent =
+speed;
+
+$("inclineValue").textContent =
+incline;
     Number($("sportIncline").value);
 
   if (!weight) {
