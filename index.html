@@ -1,2 +1,67 @@
 <!DOCTYPE html>
-<html lang="tr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VK Yaşam Koçu</title><link rel="stylesheet" href="style.css"></head><body><div class="app"><header class="header"><h1>VK Yaşam Koçu</h1><p id="today"></p></header><nav class="top-nav"><button data-page="homePage">🏠<span>Ana Sayfa</span></button><button data-page="foodPage">🍽️<span>Beslenme</span></button><button data-page="sportPage">💪<span>Spor</span></button><button data-page="historyPage">📈<span>Geçmiş</span></button><button data-page="profilePage">👤<span>Profil</span></button></nav><section id="homePage" class="page active"><div class="dashboard"><div class="circle-card"><div class="circle red"><div id="currentCalories">0</div><small>/ <span id="targetCalories">2500</span></small></div><b>🔥 Kalori</b></div><div class="circle-card"><div class="circle blue"><div id="currentProtein">0</div><small>/ <span id="targetProtein">165</span> g</small></div><b>🥩 Protein</b></div><div class="circle-card"><div class="circle cyan"><div id="currentWater">0</div><small>/ <span id="targetWater">3</span> L</small></div><b>💧 Su</b></div><div class="circle-card"><div class="circle orange"><div id="currentSport">0</div><small>kcal</small></div><b>💪 Spor</b></div></div><div class="card net-card"><div>🔥 Alınan <strong id="eatenCalories">0</strong> kcal</div><div>💪 Yakılan <strong id="burnedCalories">0</strong> kcal</div><div>⚖️ Net <strong id="netCalories">0</strong> kcal</div></div><div class="card"><h3>Bugünkü Besinler</h3><div id="dailyFoods"></div><h3>Bugünkü Sporlar</h3><div id="dailySports"></div></div><button class="primary" id="waterButton">💧 +250 ml Su</button><button class="primary" id="finishDayButton">📅 Günü Bitir</button></section><section id="foodPage" class="page"><div class="card"><input id="foodSearch" placeholder="🔍 Besin ara"><div id="foodResults"></div></div><div id="foodCalcCard" class="card" style="display:none"><h3 id="selectedFoodName">Besin</h3><label>Miktar</label><input id="foodAmount" type="number" min="0.1" step="0.1" value="100"><select id="foodUnit"><option value="gram">Gram</option><option value="ml">ml</option><option value="adet">Adet</option><option value="dilim">Dilim</option><option value="porsiyon">Porsiyon</option><option value="ölçek">Ölçek</option></select><div id="foodCalculated">0 kcal / 0 g protein</div><button class="primary" id="calculateFoodButton">🧮 Hesapla</button><button class="primary" id="addFoodButton">➕ Günlüğe Ekle</button></div><div class="card"><h3>➕ Yeni Besin Ekle</h3><input id="newFoodName" placeholder="Besin adı"><input id="newFoodCalories" type="number" placeholder="Kalori"><input id="newFoodProtein" type="number" placeholder="Protein"><select id="newFoodUnit"><option>100 g</option><option>ml</option><option>adet</option><option>dilim</option><option>porsiyon</option><option>ölçek</option></select><button class="primary" id="saveFoodButton">💾 Kaydet</button></div></section><section id="sportPage" class="page"><div class="card"><label>Süre <span id="durationLabel">45</span> dk</label><input id="sportDuration" type="range" min="5" max="180" value="45"><label>Hız <span id="speedLabel">5</span> km/sa</label><input id="sportSpeed" type="range" min="3" max="10" value="5"><label>Eğim <span id="inclineLabel">5</span> %</label><input id="sportIncline" type="range" min="0" max="15" value="5"><h3 id="sportResult">Yakılan kalori: 0 kcal</h3><button class="primary" id="calculateSportButton">🧮 Hesapla</button><button class="primary" id="addSportButton">➕ Günlüğe Ekle</button></div></section><section id="historyPage" class="page"><div class="card"><h3>📈 Geçmiş</h3><div id="historyList"></div></div></section><section id="profilePage" class="page"><div class="card"><h3>🎯 Hedefler</h3><input id="profileCalories" type="number" placeholder="Hedef kalori"><input id="profileProtein" type="number" placeholder="Hedef protein"><input id="profileWater" type="number" placeholder="Hedef su (L)"><button class="primary" id="saveProfileButton">💾 Hedefleri Kaydet</button></div></section></div><script src="foods.js"></script><script src="app.js"></script></body></html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>VK Yaşam Koçu</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+<header class="header"><h1>VK Yaşam Koçu</h1><p id="today"></p></header>
+<nav class="top-nav">
+<button data-page="homePage">🏠<span>Ana Sayfa</span></button>
+<button data-page="foodPage">🍽️<span>Beslenme</span></button>
+<button data-page="sportPage">💪<span>Spor</span></button>
+<button data-page="historyPage">📈<span>Geçmiş</span></button>
+<button data-page="profilePage">👤<span>Profil</span></button>
+</nav>
+
+<section id="homePage" class="page active">
+<div class="dashboard">
+<div class="circle-card"><div class="circle red" id="calorieCircle"><div id="currentCalories">0</div><small>/ <span id="targetCalories">2500</span></small></div><b>🔥 Kalori</b></div>
+<div class="circle-card"><div class="circle blue" id="proteinCircle"><div id="currentProtein">0</div><small>/ <span id="targetProtein">165</span> g</small></div><b>🥩 Protein</b></div>
+<div class="circle-card"><div class="circle cyan" id="waterCircle"><div id="currentWater">0</div><small>/ <span id="targetWater">3</span> L</small></div><b>💧 Su</b></div>
+<div class="circle-card"><div class="circle orange" id="sportCircle"><div id="currentSport">0</div><small>kcal</small></div><b>💪 Spor</b></div>
+</div>
+<div class="card net-card"><div>🔥 Alınan<strong id="eatenCalories">0</strong></div><div>💪 Yakılan<strong id="burnedCalories">0</strong></div><div>⚖️ Net<strong id="netCalories">0</strong></div></div>
+<div class="card"><h3>Bugünkü Besinler</h3><div id="dailyFoods"></div><h3 class="section-gap">Bugünkü Sporlar</h3><div id="dailySports"></div></div>
+<button class="primary" id="waterButton">💧 +250 ml Su</button>
+<button class="primary secondary" id="finishDayButton">📅 Günü Bitir</button>
+</section>
+
+<section id="foodPage" class="page">
+<div class="card">
+<input id="foodSearch" placeholder="🔍 Besin ara" autocomplete="off">
+<div id="foodResults"></div>
+</div>
+<div id="foodCalcCard" class="card" style="display:none">
+<h3 id="selectedFoodName">Besin</h3>
+<div class="helper">Miktarı ve birimi seç, önce Hesapla'ya bas.</div>
+<div class="grid-2">
+<div><label>Miktar</label><input id="foodAmount" type="number" min="0.1" step="0.1" value="100"></div>
+<div><label>Birim</label><select id="foodUnit"><option value="gram">Gram</option><option value="ml">ml</option><option value="adet">Adet</option><option value="dilim">Dilim</option><option value="porsiyon">Porsiyon</option><option value="ölçek">Ölçek</option></select></div>
+</div>
+<div id="foodCalculated">0 kcal / 0 g protein</div>
+<div class="grid-2"><button class="primary" id="calculateFoodButton">🧮 Hesapla</button><button class="primary" id="addFoodButton">➕ Günlüğe Ekle</button></div>
+</div>
+<div class="card"><h3>➕ Yeni Besin Ekle</h3><div class="helper">Bulamadığın ürünü kendi verilerinle ekleyebilirsin.</div>
+<input id="newFoodName" placeholder="Besin adı"><div class="grid-2"><input id="newFoodCalories" type="number" min="0" placeholder="Kalori"><input id="newFoodProtein" type="number" min="0" placeholder="Protein (g)"></div><select id="newFoodUnit"><option value="gram">Gram</option><option value="ml">ml</option><option value="adet">Adet</option><option value="dilim">Dilim</option><option value="porsiyon">Porsiyon</option><option value="ölçek">Ölçek</option></select><button class="primary" id="saveFoodButton">💾 Besini Kaydet</button></div>
+</section>
+
+<section id="sportPage" class="page">
+<div class="card"><h3>💪 Spor Hesaplama</h3>
+<label>Aktivite</label><select id="sportType"><option value="walk">🚶 Yürüyüş</option><option value="run">🏃 Koşu</option><option value="bike">🚴 Bisiklet</option><option value="weights">🏋️ Ağırlık Antrenmanı</option><option value="stairs">🪜 Merdiven</option></select>
+<label>Süre <span id="durationLabel">45</span> dk</label><input id="sportDuration" type="range" min="5" max="180" value="45">
+<label>Hız <span id="speedLabel">5</span> km/sa</label><input id="sportSpeed" type="range" min="3" max="15" value="5">
+<label>Eğim <span id="inclineLabel">5</span> %</label><input id="sportIncline" type="range" min="0" max="20" value="5">
+<h3 id="sportResult">Yakılan kalori: 0 kcal</h3>
+<div class="grid-2"><button class="primary" id="calculateSportButton">🧮 Hesapla</button><button class="primary" id="addSportButton">➕ Günlüğe Ekle</button></div>
+</div></section>
+
+<section id="historyPage" class="page"><div class="card"><h3>📈 Geçmiş</h3><div id="historyList"></div></div></section>
+<section id="profilePage" class="page"><div class="card"><h3>🎯 Hedefler</h3><input id="profileCalories" type="number" min="1" placeholder="Hedef kalori"><input id="profileProtein" type="number" min="1" placeholder="Hedef protein"><input id="profileWater" type="number" min="0.1" step="0.1" placeholder="Hedef su (L)"><button class="primary" id="saveProfileButton">💾 Hedefleri Kaydet</button></div></section>
+</div>
+<script src="foods.js"></script><script src="app.js"></script>
+</body>
+</html>
