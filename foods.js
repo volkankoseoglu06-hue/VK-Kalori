@@ -240,6 +240,12 @@ const foods = [
 {name:"Proteinli puding",kcal:150,protein:20,unit:"adet"},
 {name:"Proteinli süt",kcal:180,protein:25,unit:"250 ml"},
 {name:"Kreatin",kcal:0,protein:0,unit:"5 g"},
+{name:"Sek Quark sade (140 g)",kcal:120,protein:20,unit:"kutu"},
+{name:"Proteinli süt (500 ml)",kcal:360,protein:50,unit:"şişe"},
+{name:"Pınar Protein Süt (500 ml)",kcal:360,protein:50,unit:"şişe"},
+{name:"Danone YoPro (160 g)",kcal:146,protein:15,unit:"kutu"},
+{name:"İçim Fit Protein (500 ml)",kcal:325,protein:40,unit:"şişe"},
+  
 
 /* PROTEIN OCEAN */
 
@@ -248,6 +254,12 @@ const foods = [
 {name:"Protein Ocean Fıstıklı Protein Bar (50 g)",kcal:220,protein:20,unit:"adet"},
 {name:"Protein Ocean Kakaolu Protein Bar (50 g)",kcal:200,protein:20,unit:"adet"},
 {name:"Protein Ocean Hindistan Cevizli Protein Bar (50 g)",kcal:205,protein:20,unit:"adet"},
+
+/* PROTEINOCEAN TAKVİYELERİ */
+
+{name:"Protein Ocean Kreatin (5 g)",kcal:0,protein:0,unit:"ölçek"},
+{name:"Protein Ocean Elektrolit (2 g)",kcal:0,protein:0,unit:"ölçek"},
+{name:"Protein Ocean Energy Gel (60 ml)",kcal:121,protein:0,unit:"adet"},
 
 /* İÇECEKLER */
 
