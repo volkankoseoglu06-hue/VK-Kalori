@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
 
 <meta charset="UTF-8">
@@ -28,13 +29,12 @@ href="style.css">
 
 </div>
 
-<button id="settingsBtn">
-
-⚙️
-
-</button>
-
 </header>
+
+<!-- ANA SAYFA -->
+
+<section id="homePage"
+class="page">
 
 <section class="dashboard">
 
@@ -104,36 +104,15 @@ href="style.css">
 
 </section>
 
-<section class="modeSelector">
-
-<button id="sportMode"
-class="active">
-
-🏋️ Spor Günü
-
-</button>
-
-<button id="restMode">
-
-🌙 Normal Gün
-
-</button>
-
-</section>
-
 <section class="card">
 
-<h2>
-
-📋 Bugünün Özeti
-
-</h2>
+<h2>📋 Bugünün Özeti</h2>
 
 <div class="mealGrid">
 
 <div>
 
-🍳 Kahvaltı
+🍳
 
 <p id="breakfastCount">
 
@@ -145,7 +124,7 @@ class="active">
 
 <div>
 
-🍲 Öğle
+🍲
 
 <p id="lunchCount">
 
@@ -157,7 +136,7 @@ class="active">
 
 <div>
 
-🍽️ Akşam
+🍽️
 
 <p id="dinnerCount">
 
@@ -169,7 +148,7 @@ class="active">
 
 <div>
 
-☕ Ara Öğün
+☕
 
 <p id="snackCount">
 
@@ -195,17 +174,20 @@ class="active">
 
 </section>
 
+</section>
+
+<!-- BESİNLER -->
+
+<section id="foodPage"
+class="page"
+style="display:none;">
+
 <section class="card">
 
-<h2>
-
-🍽️ Besinler
-
-</h2>
+<h2>🍽️ Besinler</h2>
 
 <input
 id="foodSearch"
-type="text"
 placeholder="Besin ara...">
 
 <div id="foodResults">
@@ -267,15 +249,32 @@ Bir besin seç.
 
 <section class="card">
 
-<h2>
+<h2>❤️ Favoriler</h2>
 
-🚶 Antreman
+<div id="favorites">
 
-</h2>
+Henüz favori yok.
+
+</div>
+
+</section>
+
+</section>
+
+<!-- SPOR -->
+
+<section id="sportPage"
+class="page"
+style="display:none;">
+
+<section class="card">
+
+<h2>💪 Antreman</h2>
 
 <label>
 
 Dakika:
+
 <span id="durationText">
 
 45
@@ -294,6 +293,7 @@ value="45">
 <label>
 
 Hız:
+
 <span id="speedText">
 
 5
@@ -314,6 +314,7 @@ value="5">
 <label>
 
 Eğim:
+
 <span id="inclineText">
 
 5
@@ -339,13 +340,37 @@ value="5">
 
 </section>
 
+</section>
+
+<!-- GEÇMİŞ -->
+
+<section id="historyPage"
+class="page"
+style="display:none;">
+
 <section class="card">
 
-<h2>
+<h2>📈 Geçmiş</h2>
 
-⚖️ Profil
+<div id="history">
 
-</h2>
+Henüz kayıt yok.
+
+</div>
+
+</section>
+
+</section>
+
+<!-- PROFİL -->
+
+<section id="profilePage"
+class="page"
+style="display:none;">
+
+<section class="card">
+
+<h2>⚖️ Profil</h2>
 
 <input
 id="weight"
@@ -370,41 +395,70 @@ Hedefleri Hesapla
 
 </section>
 
-<section class="card">
-
-<h2>
-
-❤️ Favoriler
-
-</h2>
-
-<div id="favorites">
-
-Henüz favori yok.
-
-</div>
-
 </section>
 
-<section class="card">
+<!-- ALT MENÜ -->
 
-<h2>
+<nav class="bottomNav">
 
-📈 Geçmiş
+<button onclick="showPage('homePage')">
 
-</h2>
+🏠
 
-<div id="history">
+<br>
 
-Henüz kayıt yok.
+Ana Sayfa
+
+</button>
+
+<button onclick="showPage('foodPage')">
+
+🍽️
+
+<br>
+
+Besinler
+
+</button>
+
+<button onclick="showPage('sportPage')">
+
+💪
+
+<br>
+
+Spor
+
+</button>
+
+<button onclick="showPage('historyPage')">
+
+📈
+
+<br>
+
+Geçmiş
+
+</button>
+
+<button onclick="showPage('profilePage')">
+
+👤
+
+<br>
+
+Profil
+
+</button>
+
+</nav>
 
 </div>
-
-</section>
 
 <script src="foods.js"></script>
 
 <script src="app.js"></script>
 
 </body>
+
 </html>
