@@ -10,8 +10,148 @@ content="width=device-width,initial-scale=1">
 
 <title>VK Yaşam Koçu</title>
 
-<link rel="stylesheet"
-href="style.css">
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Arial,sans-serif;
+background:#f5f5f5;
+color:#111;
+padding:20px;
+padding-bottom:100px;
+}
+
+.container{
+max-width:650px;
+margin:auto;
+}
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+}
+
+h1{
+font-size:30px;
+}
+
+.subtitle{
+color:#777;
+margin-top:5px;
+}
+
+.settings{
+width:55px;
+height:55px;
+border:none;
+border-radius:50%;
+background:#d71920;
+color:#fff;
+font-size:24px;
+cursor:pointer;
+}
+
+.dashboard{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+margin-bottom:20px;
+}
+
+.circleCard{
+background:#fff;
+padding:20px;
+border-radius:25px;
+text-align:center;
+box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.circle{
+width:120px;
+height:120px;
+margin:auto;
+border:10px solid #d71920;
+border-radius:50%;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+font-weight:700;
+font-size:22px;
+}
+
+.circleCard p{
+margin-top:12px;
+font-size:18px;
+}
+
+.mode{
+display:flex;
+gap:10px;
+margin-bottom:20px;
+}
+
+.mode button{
+flex:1;
+}
+
+.active{
+background:#d71920 !important;
+}
+
+.card{
+background:#fff;
+padding:22px;
+border-radius:25px;
+margin-bottom:20px;
+box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.card h2{
+margin-bottom:15px;
+}
+
+button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:14px;
+background:#111;
+color:#fff;
+font-size:16px;
+cursor:pointer;
+margin-top:10px;
+}
+
+.summary{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.summary div{
+background:#fafafa;
+padding:15px;
+border-radius:12px;
+}
+
+@media(max-width:500px){
+
+.dashboard{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
 
 </head>
 
@@ -25,11 +165,14 @@ href="style.css">
 
 <h1>VK Yaşam Koçu</h1>
 
-<p id="todayDate"></p>
+<p class="subtitle"
+id="todayDate">
+
+</p>
 
 </div>
 
-<button id="settingsButton">
+<button class="settings">
 
 ⚙️
 
@@ -39,84 +182,100 @@ href="style.css">
 
 <section class="dashboard">
 
-<div class="goal-card">
+<div class="circleCard">
 
-<div class="goal-circle">
+<div class="circle">
 
-<span id="calorieText">
+<span id="kcal">
 
-0 / 2200
-
-</span>
-
-</div>
-
-<p>🔥 Kalori</p>
-
-</div>
-
-<div class="goal-card">
-
-<div class="goal-circle">
-
-<span id="proteinText">
-
-0 / 165
+0/2200
 
 </span>
 
 </div>
 
-<p>🥩 Protein</p>
+<p>
+
+🔥 Kalori
+
+</p>
 
 </div>
 
-<div class="goal-card">
+<div class="circleCard">
 
-<div class="goal-circle">
+<div class="circle">
 
-<span id="waterText">
+<span id="protein">
 
-0 / 3.5
+0/165
 
 </span>
 
 </div>
 
-<p>💧 Su</p>
+<p>
+
+🥩 Protein
+
+</p>
 
 </div>
 
-<div class="goal-card">
+<div class="circleCard">
 
-<div class="goal-circle">
+<div class="circle">
 
-<span id="carbText">
+<span id="water">
 
-0 / 220
+0/3
 
 </span>
 
 </div>
 
-<p>🍞 Karbonhidrat</p>
+<p>
+
+💧 Su
+
+</p>
+
+</div>
+
+<div class="circleCard">
+
+<div class="circle">
+
+<span id="carb">
+
+0/220
+
+</span>
+
+</div>
+
+<p>
+
+🍞 Karbonhidrat
+
+</p>
 
 </div>
 
 </section>
 
-<section class="mode-card">
+<section class="mode">
 
 <button
-id="sportMode"
-class="active">
+class="active"
+id="sportButton">
 
 🏋️ Spor Günü
 
 </button>
 
 <button
-id="normalMode">
+id="restButton">
 
 🌙 Normal Gün
 
@@ -126,15 +285,21 @@ id="normalMode">
 
 <section class="card">
 
-<h2>📋 Bugünün Özeti</h2>
+<h2>
 
-<div class="meal-summary">
+📋 Bugünün Özeti
+
+</h2>
+
+<div class="summary">
 
 <div>
 
 🍳 Kahvaltı
 
-<span id="breakfastCount">
+<br>
+
+<span id="breakfast">
 
 0
 
@@ -146,7 +311,9 @@ id="normalMode">
 
 🍲 Öğle
 
-<span id="lunchCount">
+<br>
+
+<span id="lunch">
 
 0
 
@@ -158,7 +325,9 @@ id="normalMode">
 
 🍽️ Akşam
 
-<span id="dinnerCount">
+<br>
+
+<span id="dinner">
 
 0
 
@@ -170,7 +339,9 @@ id="normalMode">
 
 ☕ Ara Öğün
 
-<span id="snackCount">
+<br>
+
+<span id="snack">
 
 0
 
@@ -180,223 +351,11 @@ id="normalMode">
 
 </div>
 
-<button id="addWater">
+<button
+id="waterButton">
 
 💧 +250 ml Su
 
 </button>
 
-<button id="finishDay">
-
-📅 Günü Bitir
-
-</button>
-
 </section>
-
-<section class="card">
-
-<h2>🍽️ Besinler</h2>
-
-<input
-id="foodSearch"
-type="text"
-placeholder="Besin ara...">
-
-<div id="foodResults">
-
-</div>
-
-<select id="mealSelect">
-
-<option value="breakfast">
-
-🍳 Kahvaltı
-
-</option>
-
-<option value="lunch">
-
-🍲 Öğle
-
-</option>
-
-<option value="dinner">
-
-🍽️ Akşam
-
-</option>
-
-<option value="snack">
-
-☕ Ara Öğün
-
-</option>
-
-</select>
-
-<input
-id="foodAmount"
-type="number"
-value="100"
-placeholder="Miktar">
-
-<button id="calculateFood">
-
-🧮 Hesapla
-
-</button>
-
-<div id="foodCalculation">
-
-Bir besin seçin.
-
-</div>
-
-<button id="addFood">
-
-➕ Günlüğe Ekle
-
-</button>
-
-</section>
-
-<section class="card">
-
-<h2>❤️ Favori Besinler</h2>
-
-<div id="favoriteFoods">
-
-Henüz favori yok.
-
-</div>
-
-</section>
-
-<section class="card">
-
-<h2>🚶 Spor</h2>
-
-<label>
-
-Süre (dakika)
-
-</label>
-
-<input
-id="duration"
-type="range"
-min="5"
-max="180"
-value="45">
-
-<label>
-
-Hız (km/sa)
-
-</label>
-
-<input
-id="speed"
-type="range"
-min="3"
-max="10"
-value="5">
-
-<label>
-
-Eğim (%)
-
-</label>
-
-<input
-id="incline"
-type="range"
-min="0"
-max="15"
-value="5">
-
-<div id="sportCalories">
-
-0 kcal
-
-</div>
-
-</section>
-
-<section class="card">
-
-<h2>⚖️ Hedefler</h2>
-
-<input
-id="targetCalories"
-type="number"
-placeholder="Kalori hedefi">
-
-<input
-id="targetProtein"
-type="number"
-placeholder="Protein hedefi">
-
-<input
-id="targetCarbs"
-type="number"
-placeholder="Karbonhidrat hedefi">
-
-<input
-id="targetWater"
-type="number"
-placeholder="Su hedefi">
-
-<button id="saveTargets">
-
-💾 Hedefleri Kaydet
-
-</button>
-
-</section>
-
-<section class="card">
-
-<h2>📊 Kilo Geçmişi</h2>
-
-<input
-id="weightInput"
-type="number"
-placeholder="Kilo">
-
-<button id="saveWeight">
-
-➕ Kilo Ekle
-
-</button>
-
-<div id="weightHistory">
-
-Henüz kayıt yok.
-
-</div>
-
-</section>
-
-<section class="card">
-
-<h2>📈 Geçmiş</h2>
-
-<div id="history">
-
-Henüz kayıt yok.
-
-</div>
-
-</section>
-
-</div>
-
-<script src="foods.js"></script>
-
-<script src="app.js"></script>
-
-</body>
-
-</html>
