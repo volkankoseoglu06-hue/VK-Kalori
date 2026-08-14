@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="tr">
-
 <head>
 
 <meta charset="UTF-8">
@@ -10,148 +9,8 @@ content="width=device-width,initial-scale=1">
 
 <title>VK Yaşam Koçu</title>
 
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-body{
-font-family:Arial,sans-serif;
-background:#f5f5f5;
-color:#111;
-padding:20px;
-padding-bottom:100px;
-}
-
-.container{
-max-width:650px;
-margin:auto;
-}
-
-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:25px;
-}
-
-h1{
-font-size:30px;
-}
-
-.subtitle{
-color:#777;
-margin-top:5px;
-}
-
-.settings{
-width:55px;
-height:55px;
-border:none;
-border-radius:50%;
-background:#d71920;
-color:#fff;
-font-size:24px;
-cursor:pointer;
-}
-
-.dashboard{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:15px;
-margin-bottom:20px;
-}
-
-.circleCard{
-background:#fff;
-padding:20px;
-border-radius:25px;
-text-align:center;
-box-shadow:0 5px 15px rgba(0,0,0,.08);
-}
-
-.circle{
-width:120px;
-height:120px;
-margin:auto;
-border:10px solid #d71920;
-border-radius:50%;
-
-display:flex;
-justify-content:center;
-align-items:center;
-
-font-weight:700;
-font-size:22px;
-}
-
-.circleCard p{
-margin-top:12px;
-font-size:18px;
-}
-
-.mode{
-display:flex;
-gap:10px;
-margin-bottom:20px;
-}
-
-.mode button{
-flex:1;
-}
-
-.active{
-background:#d71920 !important;
-}
-
-.card{
-background:#fff;
-padding:22px;
-border-radius:25px;
-margin-bottom:20px;
-box-shadow:0 5px 15px rgba(0,0,0,.08);
-}
-
-.card h2{
-margin-bottom:15px;
-}
-
-button{
-width:100%;
-padding:14px;
-border:none;
-border-radius:14px;
-background:#111;
-color:#fff;
-font-size:16px;
-cursor:pointer;
-margin-top:10px;
-}
-
-.summary{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-}
-
-.summary div{
-background:#fafafa;
-padding:15px;
-border-radius:12px;
-}
-
-@media(max-width:500px){
-
-.dashboard{
-grid-template-columns:1fr;
-}
-
-}
-
-</style>
+<link rel="stylesheet"
+href="style.css">
 
 </head>
 
@@ -165,14 +24,11 @@ grid-template-columns:1fr;
 
 <h1>VK Yaşam Koçu</h1>
 
-<p class="subtitle"
-id="todayDate">
-
-</p>
+<p id="today"></p>
 
 </div>
 
-<button class="settings">
+<button id="settingsBtn">
 
 ⚙️
 
@@ -182,11 +38,11 @@ id="todayDate">
 
 <section class="dashboard">
 
-<div class="circleCard">
+<div class="statCard">
 
 <div class="circle">
 
-<span id="kcal">
+<span id="calorieValue">
 
 0/2200
 
@@ -194,19 +50,15 @@ id="todayDate">
 
 </div>
 
-<p>
-
-🔥 Kalori
-
-</p>
+<p>🔥 Kalori</p>
 
 </div>
 
-<div class="circleCard">
+<div class="statCard">
 
 <div class="circle">
 
-<span id="protein">
+<span id="proteinValue">
 
 0/165
 
@@ -214,19 +66,15 @@ id="todayDate">
 
 </div>
 
-<p>
-
-🥩 Protein
-
-</p>
+<p>🥩 Protein</p>
 
 </div>
 
-<div class="circleCard">
+<div class="statCard">
 
 <div class="circle">
 
-<span id="water">
+<span id="waterValue">
 
 0/3
 
@@ -234,19 +82,15 @@ id="todayDate">
 
 </div>
 
-<p>
-
-💧 Su
-
-</p>
+<p>💧 Su</p>
 
 </div>
 
-<div class="circleCard">
+<div class="statCard">
 
 <div class="circle">
 
-<span id="carb">
+<span id="carbValue">
 
 0/220
 
@@ -254,28 +98,22 @@ id="todayDate">
 
 </div>
 
-<p>
-
-🍞 Karbonhidrat
-
-</p>
+<p>🍞 Karbonhidrat</p>
 
 </div>
 
 </section>
 
-<section class="mode">
+<section class="modeSelector">
 
-<button
-class="active"
-id="sportButton">
+<button id="sportMode"
+class="active">
 
 🏋️ Spor Günü
 
 </button>
 
-<button
-id="restButton">
+<button id="restMode">
 
 🌙 Normal Gün
 
@@ -291,19 +129,17 @@ id="restButton">
 
 </h2>
 
-<div class="summary">
+<div class="mealGrid">
 
 <div>
 
 🍳 Kahvaltı
 
-<br>
-
-<span id="breakfast">
+<p id="breakfastCount">
 
 0
 
-</span>
+</p>
 
 </div>
 
@@ -311,13 +147,11 @@ id="restButton">
 
 🍲 Öğle
 
-<br>
-
-<span id="lunch">
+<p id="lunchCount">
 
 0
 
-</span>
+</p>
 
 </div>
 
@@ -325,13 +159,11 @@ id="restButton">
 
 🍽️ Akşam
 
-<br>
-
-<span id="dinner">
+<p id="dinnerCount">
 
 0
 
-</span>
+</p>
 
 </div>
 
@@ -339,26 +171,30 @@ id="restButton">
 
 ☕ Ara Öğün
 
-<br>
-
-<span id="snack">
+<p id="snackCount">
 
 0
 
-</span>
+</p>
 
 </div>
 
 </div>
 
-<button
-id="waterButton">
+<button id="addWater">
 
 💧 +250 ml Su
 
 </button>
 
+<button id="finishDay">
+
+📅 Günü Bitir
+
+</button>
+
 </section>
+
 <section class="card">
 
 <h2>
@@ -370,32 +206,36 @@ id="waterButton">
 <input
 id="foodSearch"
 type="text"
-placeholder="Besin ara (tavuk, peynir, whey...)">
+placeholder="Besin ara...">
 
-<div
-id="foodResults"
-style="
-max-height:250px;
-overflow-y:auto;
-margin-top:10px;">
+<div id="foodResults">
+
 </div>
 
 <select id="mealType">
 
 <option value="breakfast">
+
 🍳 Kahvaltı
+
 </option>
 
 <option value="lunch">
+
 🍲 Öğle
+
 </option>
 
 <option value="dinner">
+
 🍽️ Akşam
+
 </option>
 
 <option value="snack">
+
 ☕ Ara Öğün
+
 </option>
 
 </select>
@@ -403,30 +243,128 @@ margin-top:10px;">
 <input
 id="foodAmount"
 type="number"
-value="100"
-placeholder="Gram">
+value="100">
 
-<button id="calculateButton">
+<button id="calculateFood">
 
 🧮 Hesapla
 
 </button>
 
-<div
-id="foodInfo"
-style="
-padding:15px;
-margin-top:10px;
-background:#fafafa;
-border-radius:12px;">
+<div id="foodInfo">
 
 Bir besin seç.
 
 </div>
 
-<button id="addFoodButton">
+<button id="addFood">
 
 ➕ Günlüğe Ekle
+
+</button>
+
+</section>
+
+<section class="card">
+
+<h2>
+
+🚶 Antreman
+
+</h2>
+
+<label>
+
+Dakika:
+<span id="durationText">
+
+45
+
+</span>
+
+</label>
+
+<input
+id="duration"
+type="range"
+min="5"
+max="180"
+value="45">
+
+<label>
+
+Hız:
+<span id="speedText">
+
+5
+
+</span>
+
+km/sa
+
+</label>
+
+<input
+id="speed"
+type="range"
+min="3"
+max="10"
+value="5">
+
+<label>
+
+Eğim:
+<span id="inclineText">
+
+5
+
+</span>
+
+%
+
+</label>
+
+<input
+id="incline"
+type="range"
+min="0"
+max="15"
+value="5">
+
+<div id="exerciseCalories">
+
+0 kcal
+
+</div>
+
+</section>
+
+<section class="card">
+
+<h2>
+
+⚖️ Profil
+
+</h2>
+
+<input
+id="weight"
+type="number"
+placeholder="Kilo">
+
+<input
+id="height"
+type="number"
+placeholder="Boy">
+
+<input
+id="age"
+type="number"
+placeholder="Yaş">
+
+<button id="calculateTargets">
+
+Hedefleri Hesapla
 
 </button>
 
@@ -448,337 +386,15 @@ Henüz favori yok.
 
 </section>
 
-<script>
-
-const foods=[
-
-{
-name:"Karabuğday patlağı",
-gram:10,
-kcal:38,
-protein:1.3,
-carb:8
-},
-
-{
-name:"Ekşi mayalı ekmek",
-gram:35,
-kcal:85,
-protein:3,
-carb:16
-},
-
-{
-name:"Beyaz peynir",
-gram:100,
-kcal:265,
-protein:14,
-carb:4
-},
-
-{
-name:"Dana kaburga füme",
-gram:100,
-kcal:180,
-protein:29,
-carb:1
-},
-
-{
-name:"Izgara tavuk",
-gram:100,
-kcal:165,
-protein:31,
-carb:0
-},
-
-{
-name:"Izgara köfte",
-gram:100,
-kcal:250,
-protein:26,
-carb:5
-},
-
-{
-name:"Siyah zeytin",
-gram:40,
-kcal:46,
-protein:0.4,
-carb:2
-},
-
-{
-name:"Yeşil zeytin",
-gram:40,
-kcal:58,
-protein:0.4,
-carb:1
-},
-
-{
-name:"Protein tozu",
-gram:25,
-kcal:120,
-protein:20,
-carb:3
-},
-
-{
-name:"Fit browni",
-gram:45,
-kcal:280,
-protein:22,
-carb:18
-},
-
-{
-name:"Yoğurt",
-gram:100,
-kcal:61,
-protein:3.5,
-carb:5
-},
-
-{
-name:"Kuru fasulye",
-gram:100,
-kcal:127,
-protein:9,
-carb:23
-},
-
-{
-name:"Nohut",
-gram:100,
-kcal:164,
-protein:9,
-carb:27
-}
-
-];
-
-let selectedFood=null;
-
-document
-.getElementById("foodSearch")
-.addEventListener("input",function(){
-
-const value=this.value.toLowerCase();
-
-const results=
-document.getElementById(
-"foodResults"
-);
-
-results.innerHTML="";
-
-if(value.length<2){
-
-return;
-
-}
-
-foods
-.filter(food=>
-
-food.name
-.toLowerCase()
-.includes(value)
-
-)
-
-.forEach(food=>{
-
-const div=
-document.createElement(
-"div"
-);
-
-div.className=
-"summary";
-
-div.style.marginTop=
-"10px";
-
-div.innerHTML=
-
-"<div>"+
-
-food.name+
-
-"<br>"+
-
-food.kcal+
-
-" kcal</div>";
-
-div.onclick=()=>{
-
-selectedFood=food;
-
-};
-
-results.appendChild(div);
-
-});
-
-});
-
-document
-.getElementById(
-"calculateButton"
-)
-
-.onclick=()=>{
-
-if(!selectedFood){
-
-alert(
-"Besin seç."
-);
-
-return;
-
-}
-
-const amount=
-
-Number(
-
-document
-.getElementById(
-"foodAmount"
-)
-.value
-
-);
-
-const ratio=
-
-amount/
-
-selectedFood.gram;
-
-document
-.getElementById(
-"foodInfo"
-)
-
-.innerHTML=
-
-"🔥 "+
-
-Math.round(
-selectedFood.kcal*ratio
-)+
-
-" kcal<br>"+
-
-"🥩 "+
-
-Math.round(
-selectedFood.protein*ratio
-)+
-
-" g protein<br>"+
-
-"🍞 "+
-
-Math.round(
-selectedFood.carb*ratio
-)+
-
-" g karbonhidrat";
-
-};
-
-</script>
 <section class="card">
 
-<h2>🚶 Spor</h2>
+<h2>
 
-<label>Kilo (kg)</label>
+📈 Geçmiş
 
-<input
-id="userWeight"
-type="number"
-value="109">
+</h2>
 
-<label>Boy (cm)</label>
-
-<input
-id="userHeight"
-type="number"
-value="175">
-
-<label>Yaş</label>
-
-<input
-id="userAge"
-type="number"
-value="32">
-
-<button id="calculateBMR">
-
-⚖️ Bazal Metabolizmayı Hesapla
-
-</button>
-
-<div id="bmrResult">
-
-Bazal metabolizma hesaplanmadı.
-
-</div>
-
-<hr style="margin:20px 0">
-
-<label>Yürüyüş süresi (dk)</label>
-
-<input
-id="walkDuration"
-type="range"
-min="5"
-max="180"
-value="45">
-
-<label>Hız (km/sa)</label>
-
-<input
-id="walkSpeed"
-type="range"
-min="3"
-max="10"
-value="5">
-
-<label>Eğim (%)</label>
-
-<input
-id="walkIncline"
-type="range"
-min="0"
-max="15"
-value="5">
-
-<div id="walkCalories">
-
-🔥 0 kcal
-
-</div>
-
-</section>
-
-<section class="card">
-
-<h2>📅 Gün Sonu</h2>
-
-<button id="finishDayButton">
-
-📅 Günü Bitir ve Geçmişe Kaydet
-
-</button>
-
-<div id="dayHistory">
+<div id="history">
 
 Henüz kayıt yok.
 
@@ -786,233 +402,9 @@ Henüz kayıt yok.
 
 </section>
 
-<script>
+<script src="foods.js"></script>
 
-let historyData=
-JSON.parse(
-localStorage.getItem(
-"vkHistory"
-)
-)||[];
+<script src="app.js"></script>
 
-document
-.getElementById(
-"calculateBMR"
-)
-
-.onclick=()=>{
-
-const weight=
-
-Number(
-document
-.getElementById(
-"userWeight"
-)
-.value
-);
-
-const height=
-
-Number(
-document
-.getElementById(
-"userHeight"
-)
-.value
-);
-
-const age=
-
-Number(
-document
-.getElementById(
-"userAge"
-)
-.value
-);
-
-const bmr=
-
-Math.round(
-
-10*weight+
-
-6.25*height-
-
-5*age+
-
-5
-
-);
-
-const protein=
-
-Math.round(
-weight*1.5
-);
-
-document
-.getElementById(
-"bmrResult"
-)
-
-.innerHTML=
-
-"🔥 Bazal: "+
-
-bmr+
-
-" kcal<br>"+
-
-"🥩 Protein hedefi: "+
-
-protein+
-
-" g";
-
-};
-
-function calculateWalk(){
-
-const duration=
-
-Number(
-document
-.getElementById(
-"walkDuration"
-)
-.value
-);
-
-const speed=
-
-Number(
-document
-.getElementById(
-"walkSpeed"
-)
-.value
-);
-
-const incline=
-
-Number(
-document
-.getElementById(
-"walkIncline"
-)
-.value
-);
-
-const weight=
-
-Number(
-document
-.getElementById(
-"userWeight"
-)
-.value
-);
-
-const met=
-
-3+
-
-speed/2+
-
-incline/4;
-
-const calories=
-
-Math.round(
-
-weight*
-
-0.0175*
-
-met*
-
-duration
-
-);
-
-document
-.getElementById(
-"walkCalories"
-)
-
-.innerHTML=
-
-"🔥 "+
-
-calories+
-
-" kcal";
-
-}
-
-[
-"walkDuration",
-"walkSpeed",
-"walkIncline"
-]
-
-.forEach(id=>{
-
-document
-.getElementById(id)
-
-.addEventListener(
-"input",
-calculateWalk
-);
-
-});
-
-calculateWalk();
-
-document
-.getElementById(
-"finishDayButton"
-)
-
-.onclick=()=>{
-
-historyData.push(
-
-new Date()
-.toLocaleDateString(
-"tr-TR"
-)
-
-);
-
-localStorage.setItem(
-
-"vkHistory",
-
-JSON.stringify(
-historyData
-)
-
-);
-
-document
-.getElementById(
-"dayHistory"
-)
-
-.innerHTML=
-
-historyData.join(
-"<br>"
-);
-
-alert(
-"Gün kaydedildi."
-);
-
-};
-
-</script>
+</body>
+</html>
