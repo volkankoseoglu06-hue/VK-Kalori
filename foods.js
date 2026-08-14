@@ -54,6 +54,63 @@ const foods = [
 {name:"Patates kroket",kcal:280,protein:6,unit:"100 g"},
 {name:"Kaşarlı patates",kcal:310,protein:8,unit:"porsiyon"},
 
+  /* İÇECEKLER */
+
+{name:"Kola (330 ml)",kcal:139,protein:0,unit:"kutu"},
+{name:"Zero kola (330 ml)",kcal:1,protein:0,unit:"kutu"},
+{name:"Fanta (330 ml)",kcal:148,protein:0,unit:"kutu"},
+{name:"Meyve suyu (200 ml)",kcal:90,protein:1,unit:"bardak"},
+{name:"Şalgam (300 ml)",kcal:35,protein:1,unit:"şişe"},
+{name:"Enerji içeceği (250 ml)",kcal:112,protein:0,unit:"kutu"},
+
+/* SOSLAR */
+
+{name:"Ketçap (1 yemek kaşığı)",kcal:20,protein:0,unit:"adet"},
+{name:"Mayonez (1 yemek kaşığı)",kcal:94,protein:0,unit:"adet"},
+{name:"Acı sos (1 yemek kaşığı)",kcal:10,protein:0,unit:"adet"},
+{name:"Barbekü sos (1 yemek kaşığı)",kcal:35,protein:0,unit:"adet"},
+{name:"Sarımsaklı mayonez (1 yemek kaşığı)",kcal:100,protein:0,unit:"adet"},
+{name:"Hardal (1 yemek kaşığı)",kcal:15,protein:1,unit:"adet"},
+
+/* ATIŞTIRMALIKLAR */
+
+{name:"Patlamış mısır (100 g)",kcal:390,protein:12,unit:"100 g"},
+{name:"Kraker (1 paket)",kcal:220,protein:4,unit:"adet"},
+{name:"Cips (100 g)",kcal:540,protein:7,unit:"100 g"},
+{name:"Çubuk kraker (100 g)",kcal:380,protein:10,unit:"100 g"},
+{name:"Peynirli sandviç",kcal:340,protein:14,unit:"adet"},
+{name:"Ton balıklı sandviç",kcal:420,protein:28,unit:"adet"},
+{name:"Tavuklu sandviç",kcal:450,protein:32,unit:"adet"},
+
+/* TATLILAR */
+
+{name:"Baklava (1 dilim)",kcal:180,protein:3,unit:"adet"},
+{name:"Künefe (200 g)",kcal:520,protein:10,unit:"porsiyon"},
+{name:"Sütlaç (200 g)",kcal:260,protein:8,unit:"kase"},
+{name:"Kazandibi (200 g)",kcal:280,protein:7,unit:"kase"},
+{name:"Profiterol (200 g)",kcal:450,protein:8,unit:"porsiyon"},
+{name:"Cheesecake (1 dilim)",kcal:420,protein:8,unit:"adet"},
+{name:"Magnolia (250 g)",kcal:480,protein:7,unit:"porsiyon"},
+{name:"Dondurma (100 g)",kcal:210,protein:4,unit:"porsiyon"},
+{name:"Çikolata (100 g)",kcal:540,protein:7,unit:"100 g"},
+{name:"Bisküvi (1 paket)",kcal:450,protein:7,unit:"adet"},
+
+/* ÇİĞ KÖFTE */
+
+{name:"Çiğ köfte (100 g)",kcal:180,protein:5,unit:"100 g"},
+{name:"Çiğ köfte dürüm",kcal:420,protein:10,unit:"adet"},
+{name:"Çiğ köfte porsiyon (250 g)",kcal:450,protein:13,unit:"porsiyon"},
+
+/* KOMAGENE */
+
+{name:"Komagene çiğ köfte dürüm",kcal:430,protein:10,unit:"adet"},
+{name:"Komagene mega dürüm",kcal:620,protein:15,unit:"adet"},
+{name:"Komagene çiğ köfte (1 porsiyon)",kcal:460,protein:13,unit:"porsiyon"},
+{name:"Komagene aile boyu (500 g)",kcal:900,protein:25,unit:"porsiyon"},
+{name:"Komagene lavaş",kcal:110,protein:3,unit:"adet"},
+{name:"Komagene nar ekşisi",kcal:45,protein:0,unit:"yemek kaşığı"},
+{name:"Komagene ayran (300 ml)",kcal:110,protein:6,unit:"adet"},
+
 /* ÇORBALAR */
 
 {name:"Mercimek çorbası (250 ml)",kcal:150,protein:8,unit:"kase"},
