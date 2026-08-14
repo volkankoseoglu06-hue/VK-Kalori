@@ -1,21 +1,22 @@
 const $ = (id) => document.getElementById(id);
 
-const state =
-  JSON.parse(localStorage.getItem("vkLife")) || {
-    calories: 0,
-    protein: 0,
-    water: 0,
-    sport: 0,
-    goals: {
-      calories: 2500,
-      protein: 165,
-      water: 3
-    },
-    dailyFoods: [],
-    dailySports: [],
-    customFoods: [],
-    history: []
-  };
+const state = JSON.parse(localStorage.getItem("vkLife")) || {
+  eatenCalories: 0,
+  burnedCalories: 0,
+  protein: 0,
+  water: 0,
+
+  goals: {
+    calories: 2500,
+    protein: 165,
+    water: 3
+  },
+
+  dailyFoods: [],
+  dailySports: [],
+  customFoods: [],
+  history: []
+};
 
 function save() {
   localStorage.setItem(
@@ -24,45 +25,36 @@ function save() {
   );
 }
 
-function showPage(pageId) {
-  document
-    .querySelectorAll(".page")
-    .forEach((page) =>
-      page.classList.remove("active")
-    );
-
-  $(pageId).classList.add("active");
+function netCalories() {
+  return (
+    state.eatenCalories -
+    state.burnedCalories
+  );
 }
-
-document
-  .querySelectorAll(".bottom-nav button")
-  .forEach((button) => {
-    button.addEventListener("click", () => {
-      showPage(button.dataset.page);
-    });
-  });
 
 function updateDashboard() {
   $("currentCalories").textContent =
-    Math.round(state.calories);
-
-  $("targetCalories").textContent =
-    state.goals.calories;
+    Math.round(netCalories());
 
   $("currentProtein").textContent =
     Math.round(state.protein);
 
-  $("targetProtein").textContent =
-    state.goals.protein;
-
   $("currentWater").textContent =
     state.water.toFixed(1);
 
+  $("currentSport").textContent =
+    Math.round(
+      state.burnedCalories
+    );
+
+  $("targetCalories").textContent =
+    state.goals.calories;
+
+  $("targetProtein").textContent =
+    state.goals.protein;
+
   $("targetWater").textContent =
     state.goals.water;
-
-  $("currentSport").textContent =
-    Math.round(state.sport);
 
   $("today").textContent =
     new Date().toLocaleDateString(
@@ -70,10 +62,15 @@ function updateDashboard() {
     );
 }
 
-function renderFoodResults(keyword = "") {
-  const results = $("foodResults");
+function searchFoods(text) {
+  const results =
+    $("foodResults");
 
   results.innerHTML = "";
+
+  if (text.length < 2) {
+    return;
+  }
 
   const list = [
     ...foods,
@@ -85,55 +82,104 @@ function renderFoodResults(keyword = "") {
       food.name
         .toLowerCase()
         .includes(
-          keyword.toLowerCase()
+          text.toLowerCase()
         )
     )
     .forEach((food) => {
-      const div =
-        document.createElement("div");
+      const card =
+        document.createElement(
+          "div"
+        );
 
-      div.className = "food-item";
+      card.className =
+        "food-item";
 
-      div.innerHTML = `
-        <strong>${food.name}</strong>
-        <br>
-        🔥 ${food.kcal} kcal
-        <br>
-        🥩 ${food.protein} g
-        <br><br>
-        <button class="small-btn">
-        ➕ Ekle
-        </button>
+      card.innerHTML = `
+      <strong>
+      ${food.name}
+      </strong>
+
+      <br>
+
+      🔥 ${food.kcal} kcal
+
+      <br>
+
+      🥩 ${food.protein} g
+
+      <br>
+
+      <small>
+      ${food.unit}
+      </small>
+
+      <input
+      type="number"
+      value="1"
+      min="0.5"
+      step="0.5"
+      class="amount">
+
+      <button>
+
+      ➕ Günlüğe Ekle
+
+      </button>
       `;
 
-      div
-        .querySelector("button")
+      const amount =
+        card.querySelector(
+          ".amount"
+        );
+
+      card
+        .querySelector(
+          "button"
+        )
         .addEventListener(
           "click",
           () => {
-            state.calories +=
-              food.kcal;
+            const multiplier =
+              Number(
+                amount.value
+              );
+
+            const kcal =
+              food.kcal *
+              multiplier;
+
+            const protein =
+              food.protein *
+              multiplier;
+
+            state.eatenCalories +=
+              kcal;
 
             state.protein +=
-              food.protein;
+              protein;
 
-            state.dailyFoods.push(
-              food
-            );
+            state.dailyFoods.push({
+              name:
+                food.name,
+              kcal,
+              protein
+            });
 
             save();
 
             updateDashboard();
 
-            renderDailyFoods();
+            renderFoods();
           }
         );
 
-      results.appendChild(div);
+      results.appendChild(
+        card
+      );
     });
 }
 
-function renderDailyFoods() {
+function renderFoods() {
   const container =
     $("dailyFoods");
 
@@ -142,25 +188,43 @@ function renderDailyFoods() {
   state.dailyFoods.forEach(
     (food, index) => {
       const div =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
       div.className =
         "food-item";
 
       div.innerHTML = `
-        ${food.name}
-        <button
-        class="small-btn">
-        ❌
-        </button>
+      ${food.name}
+
+      <br>
+
+      🔥 ${Math.round(
+        food.kcal
+      )}
+
+      <br>
+
+      🥩 ${Math.round(
+        food.protein
+      )}
+
+      <button>
+
+      ❌
+
+      </button>
       `;
 
       div
-        .querySelector("button")
+        .querySelector(
+          "button"
+        )
         .addEventListener(
           "click",
           () => {
-            state.calories -=
+            state.eatenCalories -=
               food.kcal;
 
             state.protein -=
@@ -175,104 +239,24 @@ function renderDailyFoods() {
 
             updateDashboard();
 
-            renderDailyFoods();
+            renderFoods();
           }
         );
 
-      container.appendChild(div);
-    }
-  );
-}
-
-function calculateSport() {
-  const duration =
-    +$("sportDuration").value;
-
-  const speed =
-    +$("sportSpeed").value;
-
-  const incline =
-    +$("sportIncline").value;
-
-  $("durationLabel").textContent =
-    duration;
-
-  $("speedLabel").textContent =
-    speed;
-
-  $("inclineLabel").textContent =
-    incline;
-
-  const calories =
-    Math.round(
-      duration *
-        speed *
-        (1 + incline / 10)
-    );
-
-  $("sportResult").textContent =
-    `Yakılan kalori: ${calories}`;
-
-  return calories;
-}
-
-$("sportDuration")
-  .addEventListener(
-    "input",
-    calculateSport
-  );
-
-$("sportSpeed")
-  .addEventListener(
-    "input",
-    calculateSport
-  );
-
-$("sportIncline")
-  .addEventListener(
-    "input",
-    calculateSport
-  );
-
-$("addSportButton")
-  .addEventListener(
-    "click",
-    () => {
-      const calories =
-        calculateSport();
-
-      state.sport += calories;
-
-      state.dailySports.push(
-        calories
+      container.appendChild(
+        div
       );
-
-      save();
-
-      updateDashboard();
     }
   );
-
-$("waterButton")
-  .addEventListener(
-    "click",
-    () => {
-      state.water += 0.25;
-
-      save();
-
-      updateDashboard();
-    }
-  );
+}
 
 $("foodSearch")
   .addEventListener(
     "input",
-    (e) => {
-      renderFoodResults(
+    (e) =>
+      searchFoods(
         e.target.value
-      );
-    }
+      )
   );
 
 $("saveFoodButton")
@@ -281,16 +265,19 @@ $("saveFoodButton")
     () => {
       const food = {
         name:
-          $("newFoodName").value,
+          $("newFoodName")
+            .value,
 
         kcal: Number(
-          $("newFoodCalories")
-            .value
+          $(
+            "newFoodCalories"
+          ).value
         ),
 
         protein: Number(
-          $("newFoodProtein")
-            .value
+          $(
+            "newFoodProtein"
+          ).value
         ),
 
         unit:
@@ -309,82 +296,3 @@ $("saveFoodButton")
       );
     }
   );
-
-$("saveProfileButton")
-  .addEventListener(
-    "click",
-    () => {
-      state.goals.calories =
-        Number(
-          $("profileCalories")
-            .value
-        ) || state.goals.calories;
-
-      state.goals.protein =
-        Number(
-          $("profileProtein")
-            .value
-        ) || state.goals.protein;
-
-      state.goals.water =
-        Number(
-          $("profileWater")
-            .value
-        ) || state.goals.water;
-
-      save();
-
-      updateDashboard();
-    }
-  );
-
-$("finishDayButton")
-  .addEventListener(
-    "click",
-    () => {
-      state.history.unshift(
-        `
-        <div class="history-item">
-        ${new Date().toLocaleDateString(
-          "tr-TR"
-        )}
-        <br>
-        🔥 ${state.calories}
-        <br>
-        🥩 ${state.protein}
-        <br>
-        💧 ${state.water}
-        <br>
-        💪 ${state.sport}
-        </div>
-      `
-      );
-
-      state.calories = 0;
-      state.protein = 0;
-      state.water = 0;
-      state.sport = 0;
-
-      state.dailyFoods = [];
-      state.dailySports = [];
-
-      save();
-
-      location.reload();
-    }
-  );
-
-function renderHistory() {
-  $("historyList").innerHTML =
-    state.history.join("");
-}
-
-updateDashboard();
-
-renderDailyFoods();
-
-renderFoodResults();
-
-renderHistory();
-
-calculateSport();
