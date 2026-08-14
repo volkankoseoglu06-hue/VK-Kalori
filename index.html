@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
 
 <title>VK Yaşam Koçu</title>
 
 <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
@@ -16,107 +20,141 @@
 <header>
 
 <div>
+
 <h1>VK Yaşam Koçu</h1>
-<p>Bugün</p>
+
+<p id="todayDate"></p>
+
 </div>
 
-<button class="settings-btn" onclick="toggleSettings()">
+<button id="profileButton">
+
 ⚙️
+
 </button>
 
 </header>
 
-<section class="dashboard">
+<main>
 
-<div class="circle-card">
+<section
+class="page active"
+id="homePage">
 
-<div class="progress-ring">
-<span id="kcalValue">1450</span>
+<div class="dashboard">
+
+<div class="ring-card">
+
+<div class="ring">
+
+<span id="calorieText">
+
+0 / 0
+
+</span>
+
 </div>
 
 <p>🔥 Kalori</p>
 
 </div>
 
-<div class="circle-card">
+<div class="ring-card">
 
-<div class="progress-ring">
-<span id="proteinValue">112</span>
+<div class="ring">
+
+<span id="proteinText">
+
+0 / 0
+
+</span>
+
 </div>
 
 <p>🥩 Protein</p>
 
 </div>
 
-<div class="circle-card">
+<div class="ring-card">
 
-<div class="progress-ring">
-<span id="waterValue">2.1</span>
+<div class="ring">
+
+<span id="waterText">
+
+0 / 0
+
+</span>
+
 </div>
 
 <p>💧 Su</p>
 
 </div>
 
-<div class="circle-card">
+<div class="ring-card">
 
-<div class="progress-ring">
-<span id="carbValue">120</span>
+<div class="ring">
+
+<span id="carbText">
+
+0 / 0
+
+</span>
+
 </div>
 
 <p>🍞 Karbonhidrat</p>
 
 </div>
 
-</section>
+</div>
 
-<section class="mode">
+<div class="summary-card">
 
-<button class="active">
-🏋️ Spor Günü
-</button>
+<h2>Bugünün Özeti</h2>
 
-<button>
-🌙 Dinlenme
-</button>
+<ul id="todaySummary">
 
-</section>
-
-<section class="screen" id="homeScreen">
-
-<div class="card">
-
-<h2>📋 Bugünün Özeti</h2>
-
-<ul>
-
-<li>🍽️ Öğün: 4</li>
-
-<li>👣 Adım: 8.200</li>
-
-<li>🔥 Yakılan: 620 kcal</li>
+<li>Henüz kayıt yok.</li>
 
 </ul>
 
 </div>
 
+<button
+id="finishDayButton"
+class="primary-button">
+
+🔴 Günü Bitir
+
+</button>
+
 </section>
 
-<section class="screen hidden" id="foodScreen">
+<section
+class="page"
+id="foodPage">
 
 <div class="card">
 
-<h2>🍽️ Yemekler</h2>
+<h2>🍽️ Besin Ekle</h2>
 
 <input
 id="foodSearch"
-placeholder="Peynir, zeytin, tavuk..."
-onkeyup="searchFood()"
->
+type="text"
+placeholder="Besin ara...">
 
-<div id="foodResults"></div>
+<div id="foodResults">
 
-<select>
+</div>
+
+<label>
+
+Birim
+
+</label>
+
+<select id="unitSelect">
 
 <option>Gram</option>
 
@@ -130,11 +168,22 @@ onkeyup="searchFood()"
 
 </select>
 
-<input type="number" value="100">
+<label>
 
-<button onclick="addFood()">
+Miktar
 
-➕ Günlüğe Ekle
+</label>
+
+<input
+id="amountInput"
+type="number"
+value="100">
+
+<button
+id="addFoodButton"
+class="primary-button">
+
+➕ Besin Ekle
 
 </button>
 
@@ -142,40 +191,74 @@ onkeyup="searchFood()"
 
 </section>
 
-<section class="screen hidden" id="sportScreen">
+<section
+class="page"
+id="sportPage">
 
 <div class="card">
 
 <h2>💪 Spor</h2>
 
-<label>Süre</label>
+<label>
+
+Aktivite
+
+</label>
+
+<select id="sportType">
+
+<option>Yürüyüş</option>
+
+<option>Koşu</option>
+
+<option>Bisiklet</option>
+
+<option>Ağırlık</option>
+
+</select>
+
+<label>
+
+Süre (dakika)
+
+</label>
 
 <input
+id="durationInput"
 type="range"
 min="5"
 max="180"
-value="45"
->
+value="45">
 
-<label>Hız</label>
+<label>
+
+Hız
+
+</label>
 
 <input
+id="speedInput"
 type="range"
 min="1"
 max="10"
-value="5"
->
+value="5">
 
-<label>Eğim</label>
+<label>
+
+Eğim
+
+</label>
 
 <input
+id="inclineInput"
 type="range"
 min="0"
 max="15"
-value="8"
->
+value="5">
 
-<button>
+<button
+id="addSportButton"
+class="primary-button">
 
 🏃 Sporu Ekle
 
@@ -185,78 +268,128 @@ value="8"
 
 </section>
 
-<section class="screen hidden" id="historyScreen">
+<section
+class="page"
+id="historyPage">
 
 <div class="card">
 
 <h2>📈 Geçmiş</h2>
 
-<p>Son 7 gün</p>
+<div id="historyList">
+
+Henüz kayıt yok.
+
+</div>
 
 </div>
 
 </section>
 
 <section
-class="settings-panel hidden"
-id="settingsPanel"
->
+class="page"
+id="profilePage">
 
 <div class="card">
 
 <h2>⚙️ Profil</h2>
 
-<select>
+<input
+id="ageInput"
+type="number"
+placeholder="Yaş">
 
-<option>Erkek</option>
+<input
+id="heightInput"
+type="number"
+placeholder="Boy (cm)">
 
-<option>Kadın</option>
+<input
+id="weightInput"
+type="number"
+placeholder="Kilo (kg)">
 
-</select>
+<input
+id="targetWeightInput"
+type="number"
+placeholder="Hedef kilo">
 
-<input placeholder="Yaş">
+<button
+id="saveProfileButton"
+class="primary-button">
 
-<input placeholder="Boy">
+💾 Kaydet
 
-<input placeholder="Kilo">
-
-<input placeholder="Hedef kilo">
-
-<input placeholder="Kalori hedefi">
-
-<input placeholder="Protein hedefi">
-
-<input placeholder="Su hedefi">
+</button>
 
 </div>
 
 </section>
 
-<nav>
+</main>
 
-<button onclick="showScreen('homeScreen')">
+<nav class="bottom-nav">
+
+<button
+data-page="homePage">
+
 🏠
+
+<span>
+
+Ana Sayfa
+
+</span>
+
 </button>
 
-<button onclick="showScreen('foodScreen')">
+<button
+data-page="foodPage">
+
 🍽️
+
+<span>
+
+Yemekler
+
+</span>
+
 </button>
 
-<button onclick="showScreen('sportScreen')">
+<button
+data-page="sportPage">
+
 💪
+
+<span>
+
+Spor
+
+</span>
+
 </button>
 
-<button onclick="showScreen('historyScreen')">
+<button
+data-page="historyPage">
+
 📈
+
+<span>
+
+Geçmiş
+
+</span>
+
 </button>
 
 </nav>
 
 </div>
 
-<script src="foods.js"></script>
+<script src="app.js">
 
-<script src="app.js"></script>
+</script>
 
 </body>
+
 </html>
