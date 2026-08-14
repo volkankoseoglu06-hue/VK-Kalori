@@ -1,15 +1,27 @@
 const $ = (id) => document.getElementById(id);
 
-let s = JSON.parse(
-  localStorage.getItem("vk") ||
-    '{"cal":0,"pro":0,"water":0,"sport":0,"goals":{"cal":2200,"pro":160,"water":3},"daily":[],"history":[],"custom":[]}'
-);
+let s = JSON.parse(localStorage.getItem("vk")) || {
+  cal: 0,
+  pro: 0,
+  water: 0,
+  sport: 0,
+
+  goals: {
+    cal: 2200,
+    pro: 160,
+    water: 3
+  },
+
+  daily: [],
+  history: [],
+  custom: []
+};
 
 function save() {
   localStorage.setItem("vk", JSON.stringify(s));
 }
 
-function draw() {
+function updateHome() {
   $("cCal").textContent = s.cal;
   $("cPro").textContent = s.pro;
   $("cWater").textContent = s.water.toFixed(1);
@@ -18,138 +30,237 @@ function draw() {
   $("tPro").textContent = s.goals.pro;
   $("tWater").textContent = s.goals.water;
 
-  $("daily").innerHTML = s.daily
-    .map(
-      (x, i) =>
-        `<div>${x}
-        <button onclick="delItem(${i})">
-        Sil
-        </button>
-        </div>`
-    )
-    .join("");
-
-  $("historyList").innerHTML = s.history.join("<hr>");
+  renderDaily();
+  renderHistory();
 }
 
-function delItem(i) {
-  s.daily.splice(i, 1);
+function renderDaily() {
+  const daily = $("daily");
+
+  daily.innerHTML = "";
+
+  if (s.daily.length === 0) {
+    daily.innerHTML = "<div>Bugün henüz kayıt yok.</div>";
+    return;
+  }
+
+  s.daily.forEach((item, index) => {
+    const div = document.createElement("div");
+
+    div.className = "daily-item";
+
+    div.innerHTML = `
+      ${item.text}
+      <button onclick="deleteDaily(${index})">
+        ❌ Sil
+      </button>
+    `;
+
+    daily.appendChild(div);
+  });
+}
+
+window.deleteDaily = function (index) {
+  s.daily.splice(index, 1);
+
   save();
-  draw();
+  updateHome();
+};
+
+function renderHistory() {
+  const history = $("historyList");
+
+  history.innerHTML = "";
+
+  if (s.history.length === 0) {
+    history.innerHTML = "Henüz kayıt yok.";
+    return;
+  }
+
+  s.history.forEach((item) => {
+    const div = document.createElement("div");
+
+    div.className = "history-item";
+
+    div.innerHTML = item;
+
+    history.appendChild(div);
+  });
 }
 
-document.querySelectorAll("[data-tab]").forEach((b) => {
-  b.onclick = () => {
-    document.querySelectorAll(".tab").forEach((t) => {
-      t.classList.remove("active");
+document.querySelectorAll("[data-tab]").forEach((button) => {
+  button.onclick = () => {
+    document.querySelectorAll("section").forEach((page) => {
+      page.classList.remove("active");
     });
 
-    $(b.dataset.tab).classList.add("active");
+    document
+      .getElementById(button.dataset.page || button.dataset.tab)
+      .classList.add("active");
   };
 });
 
-function render(v = "") {
-  const all = [...foods, ...s.custom].filter((f) =>
-    f.name.toLowerCase().includes(v.toLowerCase())
+function renderFoods(search = "") {
+  const result = $("results");
+
+  if (!result) return;
+
+  const allFoods = [...foods, ...s.custom];
+
+  const filtered = allFoods.filter((food) =>
+    food.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  $("results").innerHTML = all
-    .map(
-      (f) =>
-        `<div>
-        ${f.name} - ${f.k} kcal - ${f.p} g protein
-        <button onclick="addFood('${f.name}',${f.k},${f.p})">
-        Ekle
-        </button>
-        </div>`
-    )
-    .join("");
+  result.innerHTML = "";
+
+  filtered.forEach((food) => {
+    const div = document.createElement("div");
+
+    div.className = "food-item";
+
+    div.innerHTML = `
+      <strong>${food.name}</strong><br>
+      🔥 ${food.k || food.kcal} kcal<br>
+      🥩 ${food.p || food.protein} g<br>
+      <button onclick="addFood('${food.name}',${food.k || food.kcal},${food.p || food.protein})">
+        ➕ Ekle
+      </button>
+    `;
+
+    result.appendChild(div);
+  });
 }
 
-window.addFood = (n, k, p) => {
-  s.cal += k;
-  s.pro += p;
+window.addFood = function (name, kcal, protein) {
+  s.cal += Number(kcal);
+  s.pro += Number(protein);
 
-  s.daily.push(n);
+  s.daily.push({
+    text: `🍽️ ${name} - ${kcal} kcal - ${protein} g`
+  });
 
   save();
-  draw();
+  updateHome();
 };
 
-$("search").oninput = (e) => {
-  render(e.target.value);
-};
+if ($("search")) {
+  $("search").addEventListener("input", (e) => {
+    renderFoods(e.target.value);
+  });
 
-render();
+  renderFoods();
+}
 
-$("saveFood").onclick = () => {
-  const f = {
-    name: $("nf").value,
-    k: +$("nk").value,
-    p: +$("np").value,
-  };
+if ($("saveFood")) {
+  $("saveFood").onclick = () => {
+    const name = $("nf").value;
 
-  if (f.name) {
-    s.custom.push(f);
+    if (!name) return;
 
-    save();
-    render();
+    s.custom.push({
+      name: name,
+      k: Number($("nk").value),
+      p: Number($("np").value)
+    });
 
     $("nf").value = "";
     $("nk").value = "";
     $("np").value = "";
-  }
-};
 
-$("water").onclick = () => {
-  s.water += 0.25;
+    save();
 
-  save();
-  draw();
-};
-
-$("calcSport").onclick = () => {
-  const calorie = Math.round(
-    +$("dur").value *
-      +$("spd").value *
-      (1 + +$("inc").value / 10)
-  );
-
-  $("sportResult").textContent =
-    calorie + " kcal";
-};
-
-$("addSport").onclick = () => {
-  const c =
-    parseInt($("sportResult").textContent) || 0;
-
-  s.sport = c;
-
-  s.daily.push(
-    "Spor - " + c + " kcal"
-  );
-
-  save();
-  draw();
-};
-
-$("saveGoals").onclick = () => {
-  s.goals = {
-    cal:
-      +$("goalCal").value ||
-      s.goals.cal,
-
-    pro:
-      +$("goalPro").value ||
-      s.goals.pro,
-
-    water:
-      +$("goalWater").value ||
-      s.goals.water,
+    renderFoods();
   };
+}
 
-  save();
-  draw();
-};
+if ($("water")) {
+  $("water").onclick = () => {
+    s.water += 0.25;
 
-draw();
+    save();
+    updateHome();
+  };
+}
+
+if ($("calcSport")) {
+  $("calcSport").onclick = () => {
+    const duration = Number($("dur").value);
+
+    const speed = Number($("spd").value);
+
+    const incline = Number($("inc").value);
+
+    const calories = Math.round(
+      duration * speed * (1 + incline / 10)
+    );
+
+    $("sportResult").textContent =
+      calories + " kcal";
+  };
+}
+
+if ($("addSport")) {
+  $("addSport").onclick = () => {
+    const calories =
+      parseInt($("sportResult").textContent) || 0;
+
+    s.sport += calories;
+
+    s.daily.push({
+      text: `💪 Spor - ${calories} kcal`
+    });
+
+    save();
+    updateHome();
+  };
+}
+
+if ($("saveGoals")) {
+  $("saveGoals").onclick = () => {
+    s.goals.cal =
+      Number($("goalCal").value) || s.goals.cal;
+
+    s.goals.pro =
+      Number($("goalPro").value) || s.goals.pro;
+
+    s.goals.water =
+      Number($("goalWater").value) || s.goals.water;
+
+    save();
+    updateHome();
+
+    alert("Hedefler kaydedildi.");
+  };
+}
+
+const finishButton = document.getElementById(
+  "finishDayButton"
+);
+
+if (finishButton) {
+  finishButton.onclick = () => {
+    const today = new Date().toLocaleDateString(
+      "tr-TR"
+    );
+
+    s.history.unshift(`
+      <strong>${today}</strong><br>
+      🔥 ${s.cal} kcal<br>
+      🥩 ${s.pro} g<br>
+      💧 ${s.water.toFixed(1)} L<br>
+      💪 ${s.sport} kcal
+    `);
+
+    s.cal = 0;
+    s.pro = 0;
+    s.water = 0;
+    s.sport = 0;
+
+    s.daily = [];
+
+    save();
+    updateHome();
+  };
+}
+
+updateHome();
