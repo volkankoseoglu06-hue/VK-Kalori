@@ -237,10 +237,17 @@ const foods = [
 /* PROTEİN ÜRÜNLERİ */
 
 {name:"Protein tozu",kcal:100,protein:20,unit:"25 g"},
-{name:"Protein bar",kcal:200,protein:20,unit:"adet"},
 {name:"Proteinli puding",kcal:150,protein:20,unit:"adet"},
 {name:"Proteinli süt",kcal:180,protein:25,unit:"250 ml"},
 {name:"Kreatin",kcal:0,protein:0,unit:"5 g"},
+
+/* PROTEIN OCEAN */
+
+{name:"Protein Ocean Protein Bar (50 g)",kcal:200,protein:20,unit:"adet"},
+{name:"Protein Ocean Big Boy Protein Bar (50 g)",kcal:210,protein:20,unit:"adet"},
+{name:"Protein Ocean Fıstıklı Protein Bar (50 g)",kcal:220,protein:20,unit:"adet"},
+{name:"Protein Ocean Kakaolu Protein Bar (50 g)",kcal:200,protein:20,unit:"adet"},
+{name:"Protein Ocean Hindistan Cevizli Protein Bar (50 g)",kcal:205,protein:20,unit:"adet"},
 
 /* İÇECEKLER */
 
