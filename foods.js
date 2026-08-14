@@ -148,6 +148,23 @@ const foods = [
 {name:"Cheeseburger Menü",kcal:920,protein:28,unit:"menü"},
 {name:"Hamburger",kcal:295,protein:17,unit:"adet"},
 {name:"Cheeseburger",kcal:320,protein:18,unit:"adet"},
+{name:"Texas Burger",kcal:980,protein:48,unit:"porsiyon"},
+{name:"Smoke Burger",kcal:1050,protein:52,unit:"porsiyon"},
+{name:"Cheddar Burger",kcal:1100,protein:50,unit:"porsiyon"},
+{name:"BBQ Burger",kcal:1020,protein:49,unit:"porsiyon"},
+{name:"Texas Steak",kcal:780,protein:60,unit:"porsiyon"},
+{name:"Dana Kaburga",kcal:850,protein:55,unit:"porsiyon"},
+{name:"BBQ Tavuk",kcal:690,protein:52,unit:"porsiyon"},
+{name:"Çıtır Tavuk Burger",kcal:920,protein:40,unit:"porsiyon"},
+  
+  /* TEXAS SMOKE HOUSE */
+
+{name:"Texas Burger Menü",kcal:1350,protein:58,unit:"menü"},
+{name:"Smoke Burger Menü",kcal:1420,protein:60,unit:"menü"},
+{name:"Cheddar Burger Menü",kcal:1450,protein:62,unit:"menü"},
+{name:"BBQ Burger Menü",kcal:1380,protein:59,unit:"menü"},
+{name:"Patates sepeti (170 g)",kcal:420,protein:6,unit:"porsiyon"},
+{name:"Soğan halkası (190 g)",kcal:380,protein:7,unit:"porsiyon"},
 
 /* PİZZALAR */
 
