@@ -11,7 +11,140 @@
 <header class="header"><h1>VK Yaşam Koçu</h1><p id="today"></p></header>
 <nav class="top-nav">
 <button data-page="homePage">🏠<span>Ana Sayfa</span></button>
-<button data-page="foodPage">🍽️<span>Beslenme</span></button>
+<section id="foodPage" class="page">
+
+<div class="card">
+
+<h3>🍽️ Beslenme</h3>
+
+<input
+id="foodSearch"
+placeholder="🔍 Besin ara"
+autocomplete="off">
+
+<div id="foodResults"></div>
+
+</div>
+
+<div
+class="card"
+id="foodCalcCard"
+style="display:none">
+
+<h3 id="selectedFoodName">
+
+Besin seçilmedi
+
+</h3>
+
+<label>⚖️ Miktar</label>
+
+<input
+id="foodAmount"
+type="number"
+min="0.1"
+step="0.1"
+value="100">
+
+<label>📏 Birim</label>
+
+<select id="foodUnit">
+
+<option value="gram">Gram</option>
+
+<option value="ml">ml</option>
+
+<option value="adet">Adet</option>
+
+<option value="dilim">Dilim</option>
+
+<option value="porsiyon">Porsiyon</option>
+
+<option value="kase">Kase</option>
+
+<option value="ölçek">25 g (ölçek)</option>
+
+</select>
+
+<div id="foodCalculated">
+
+0 kcal / 0 g protein
+
+</div>
+
+<div class="grid-2">
+
+<button
+class="primary"
+id="calculateFoodButton">
+
+🧮 Hesapla
+
+</button>
+
+<button
+class="primary"
+id="addFoodButton">
+
+➕ Günlüğe ekle
+
+</button>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>➕ Yeni Besin Ekle</h3>
+
+<input
+id="newFoodName"
+placeholder="Besin adı">
+
+<div class="grid-2">
+
+<input
+id="newFoodCalories"
+type="number"
+placeholder="Kalori">
+
+<input
+id="newFoodProtein"
+type="number"
+placeholder="Protein">
+
+</div>
+
+<select id="newFoodUnit">
+
+<option>Gram</option>
+
+<option>ml</option>
+
+<option>Adet</option>
+
+<option>Dilim</option>
+
+<option>Porsiyon</option>
+
+<option>Kase</option>
+
+<option>25 g</option>
+
+</select>
+
+<button
+class="primary"
+id="saveFoodButton">
+
+💾 Besini kaydet
+
+</button>
+
+</div>
+
+</section>
 <button data-page="sportPage">💪<span>Spor</span></button>
 <button data-page="historyPage">📈<span>Geçmiş</span></button>
 <button data-page="profilePage">👤<span>Profil</span></button>
