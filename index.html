@@ -31,11 +31,13 @@ href="style.css">
 
 <button id="profileBtn">
 
-⚙️
+👤
 
 </button>
 
 </header>
+
+<!-- ANA SAYFA -->
 
 <section id="homePage"
 class="page active">
@@ -46,21 +48,9 @@ class="page active">
 
 <div class="circle">
 
-<div>
+<div id="calorieTarget">
 
-<span id="currentCalories">
-
-0
-
-</span>
-
-<small>/</small>
-
-<span id="targetCalories">
-
-0
-
-</span>
+0/0
 
 </div>
 
@@ -74,21 +64,9 @@ class="page active">
 
 <div class="circle">
 
-<div>
+<div id="proteinTarget">
 
-<span id="currentProtein">
-
-0
-
-</span>
-
-<small>/</small>
-
-<span id="targetProtein">
-
-0
-
-</span>
+0/0
 
 </div>
 
@@ -102,21 +80,9 @@ class="page active">
 
 <div class="circle">
 
-<div>
+<div id="waterTarget">
 
-<span id="currentWater">
-
-0
-
-</span>
-
-<small>/</small>
-
-<span id="targetWater">
-
-0
-
-</span>
+0/0
 
 </div>
 
@@ -130,27 +96,33 @@ class="page active">
 
 <div class="circle">
 
-<div>
-
-<span id="currentCarbs">
+<div id="sportTarget">
 
 0
-
-</span>
-
-<small>/</small>
-
-<span id="targetCarbs">
-
-0
-
-</span>
 
 </div>
 
 </div>
 
-<h3>🍞 Karbonhidrat</h3>
+<h3>🚶 Spor</h3>
+
+</div>
+
+</div>
+
+<div class="summary">
+
+<h2>📋 Bugünün Özeti</h2>
+
+<div id="mealSummary">
+
+<div>🔥 Kalori: <span id="summaryCalories">0</span></div>
+
+<div>🥩 Protein: <span id="summaryProtein">0</span></div>
+
+<div>💧 Su: <span id="summaryWater">0</span> L</div>
+
+<div>🚶 Spor: <span id="summarySport">0</span> kcal</div>
 
 </div>
 
@@ -164,121 +136,66 @@ class="page active">
 
 </button>
 
-</div>
-
-<div class="summary">
-
-<h2>📋 Bugünün Özeti</h2>
-
-<div id="mealSummary">
-
-<div>🍳 Kahvaltı: 0</div>
-
-<div>🍲 Öğle: 0</div>
-
-<div>🍽️ Akşam: 0</div>
-
-<div>☕ Ara Öğün: 0</div>
-
-</div>
-
-</div>
-
 <button id="finishDayBtn">
 
-🔴 Günü Bitir
+📅 Günü Bitir
 
 </button>
-
-</section>
-
-<section id="foodPage"
-class="page">
-
-<h2>🍽️ Besinler</h2>
-
-<input
-id="foodSearch"
-type="text"
-placeholder="Peynir, tavuk, zeytin, protein tozu...">
-
-<div id="foodResults">
 
 </div>
 
-<select id="mealType">
-
-<option>Kahvaltı</option>
-
-<option>Öğle</option>
-
-<option>Akşam</option>
-
-<option>Ara Öğün</option>
-
-</select>
-
-<select id="foodUnit">
-
-<option>Gram</option>
-
-<option>Adet</option>
-
-<option>Porsiyon</option>
-
-<option>ml</option>
-
-<option>Ölçek</option>
-
-</select>
-
-<input
-id="foodAmount"
-type="number"
-value="100">
-
-<div id="foodCalculation">
-
-Henüz hesaplanmadı.
-
-</div>
-
-<button id="calculateFoodBtn">
-
-🧮 Hesapla
-
-</button>
-
-<button id="addFoodBtn">
-
-➕ Günlüğe Ekle
-
-</button>
-
 </section>
+
+<!-- SPOR -->
 
 <section id="sportPage"
 class="page">
 
-<h2>💪 Spor</h2>
+<div class="profile-box">
 
-<select id="sportType">
+<div>
 
-<option>Yürüyüş</option>
+⏱️ Süre:
 
-<option>Koşu</option>
+<span id="durationValue">
 
-<option>Bisiklet</option>
+45
 
-<option>Ağırlık</option>
+</span>
 
-</select>
+dk
 
-<label>
+</div>
 
-Süre (dakika)
+<div>
 
-</label>
+⚡ Hız:
+
+<span id="speedValue">
+
+5
+
+</span>
+
+km/sa
+
+</div>
+
+<div>
+
+⛰️ Eğim:
+
+<span id="inclineValue">
+
+5
+
+</span>
+
+%
+
+</div>
+
+</div>
 
 <input
 id="sportDuration"
@@ -287,24 +204,12 @@ min="5"
 max="180"
 value="45">
 
-<label>
-
-Hız (km/sa)
-
-</label>
-
 <input
 id="sportSpeed"
 type="range"
-min="1"
+min="3"
 max="10"
 value="5">
-
-<label>
-
-Eğim (%)
-
-</label>
 
 <input
 id="sportIncline"
@@ -312,42 +217,19 @@ type="range"
 min="0"
 max="15"
 value="5">
-<div class="profile-box">
 
-<div>
-⏱️ Süre:
-<span id="durationValue">45</span> dk
-</div>
-
-<div>
-⚡ Hız:
-<span id="speedValue">5</span> km/sa
-</div>
-
-<div>
-⛰️ Eğim:
-<span id="inclineValue">5</span> %
-</div>
-
-</div>
 <div id="sportCalories">
 
-0 kcal
+Yakılan kalori: 0 kcal
 
 </div>
-
-<button id="addSportBtn">
-
-🏃 Sporu Ekle
-
-</button>
 
 </section>
 
+<!-- GEÇMİŞ -->
+
 <section id="historyPage"
 class="page">
-
-<h2>📈 Geçmiş</h2>
 
 <div id="historyList">
 
@@ -357,76 +239,25 @@ Henüz kayıt yok.
 
 </section>
 
+<!-- PROFİL -->
+
 <section id="profilePage"
 class="page">
 
-<h2>⚙️ Profil</h2>
+<input
+id="userWeight"
+type="number"
+placeholder="Kilo">
 
 <input
-id="age"
+id="userHeight"
+type="number"
+placeholder="Boy">
+
+<input
+id="userAge"
 type="number"
 placeholder="Yaş">
-
-<input
-id="height"
-type="number"
-placeholder="Boy (cm)">
-
-<input
-id="weight"
-type="number"
-placeholder="Kilo (kg)">
-
-<input
-id="targetWeight"
-type="number"
-placeholder="Hedef kilo">
-
-<div class="profile-box">
-
-<div>
-
-⚖️ Bazal metabolizma:
-
-<span id="bmrValue">
-
-0
-
-</span>
-
-kcal
-
-</div>
-
-<div>
-
-🥩 Protein hedefi:
-
-<span id="proteinGoalValue">
-
-0
-
-</span>
-
-g
-
-</div>
-
-<div>
-
-💧 Su hedefi:
-
-<span id="waterGoalValue">
-
-0
-
-</span>
-
-L
-
-</div>
-
-</div>
 
 <button id="saveProfileBtn">
 
@@ -438,59 +269,39 @@ L
 
 <nav>
 
-<button
-class="nav-btn"
+<button class="nav-btn"
 data-page="homePage">
 
 🏠
 
-<span>
-
-Ana Sayfa
-
-</span>
+<span>Ana Sayfa</span>
 
 </button>
 
-<button
-class="nav-btn"
-data-page="foodPage">
-
-🍽️
-
-<span>
-
-Yemekler
-
-</span>
-
-</button>
-
-<button
-class="nav-btn"
+<button class="nav-btn"
 data-page="sportPage">
 
 💪
 
-<span>
-
-Spor
-
-</span>
+<span>Spor</span>
 
 </button>
 
-<button
-class="nav-btn"
+<button class="nav-btn"
 data-page="historyPage">
 
 📈
 
-<span>
+<span>Geçmiş</span>
 
-Geçmiş
+</button>
 
-</span>
+<button class="nav-btn"
+data-page="profilePage">
+
+👤
+
+<span>Profil</span>
 
 </button>
 
