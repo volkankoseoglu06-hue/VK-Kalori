@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>VK Yaşam Koçu</title>
+
+<link rel="stylesheet"
+href="style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+
+<div>
+
+<h1>VK Yaşam Koçu</h1>
+
+<p id="todayDate"></p>
+
+</div>
+
+<button id="profileBtn">
+
+⚙️
+
+</button>
+
+</header>
+
+<section id="homePage"
+class="page active">
+
+<div class="targets">
+
+<div class="target-card">
+
+<div class="circle">
+
+<div>
+
+<span id="currentCalories">
+
+0
+
+</span>
+
+<small>/</small>
+
+<span id="targetCalories">
+
+0
+
+</span>
+
+</div>
+
+</div>
+
+<h3>🔥 Kalori</h3>
+
+</div>
+
+<div class="target-card">
+
+<div class="circle">
+
+<div>
+
+<span id="currentProtein">
+
+0
+
+</span>
+
+<small>/</small>
+
+<span id="targetProtein">
+
+0
+
+</span>
+
+</div>
+
+</div>
+
+<h3>🥩 Protein</h3>
+
+</div>
+
+<div class="target-card">
+
+<div class="circle">
+
+<div>
+
+<span id="currentWater">
+
+0
+
+</span>
+
+<small>/</small>
+
+<span id="targetWater">
+
+0
+
+</span>
+
+</div>
+
+</div>
+
+<h3>💧 Su</h3>
+
+</div>
+
+<div class="target-card">
+
+<div class="circle">
+
+<div>
+
+<span id="currentCarbs">
+
+0
+
+</span>
+
+<small>/</small>
+
+<span id="targetCarbs">
+
+0
+
+</span>
+
+</div>
+
+</div>
+
+<h3>🍞 Karbonhidrat</h3>
+
+</div>
+
+</div>
+
+<div class="quick-actions">
+
+<button id="addWaterBtn">
+
+💧 +250 ml Su
+
+</button>
+
+</div>
+
+<div class="summary">
+
+<h2>📋 Bugünün Özeti</h2>
+
+<div id="mealSummary">
+
+<div>🍳 Kahvaltı: 0</div>
+
+<div>🍲 Öğle: 0</div>
+
+<div>🍽️ Akşam: 0</div>
+
+<div>☕ Ara Öğün: 0</div>
+
+</div>
+
+</div>
+
+<button id="finishDayBtn">
+
+🔴 Günü Bitir
+
+</button>
+
+</section>
+
+<section id="foodPage"
+class="page">
+
+<h2>🍽️ Besinler</h2>
+
+<input
+id="foodSearch"
+type="text"
+placeholder="Peynir, tavuk, zeytin, protein tozu...">
+
+<div id="foodResults">
+
+</div>
+
+<select id="mealType">
+
+<option>Kahvaltı</option>
+
+<option>Öğle</option>
+
+<option>Akşam</option>
+
+<option>Ara Öğün</option>
+
+</select>
+
+<select id="foodUnit">
+
+<option>Gram</option>
+
+<option>Adet</option>
+
+<option>Porsiyon</option>
+
+<option>ml</option>
+
+<option>Ölçek</option>
+
+</select>
+
+<input
+id="foodAmount"
+type="number"
+value="100">
+
+<div id="foodCalculation">
+
+Henüz hesaplanmadı.
+
+</div>
+
+<button id="calculateFoodBtn">
+
+🧮 Hesapla
+
+</button>
+
+<button id="addFoodBtn">
+
+➕ Günlüğe Ekle
+
+</button>
+
+</section>
+
+<section id="sportPage"
+class="page">
+
+<h2>💪 Spor</h2>
+
+<select id="sportType">
+
+<option>Yürüyüş</option>
+
+<option>Koşu</option>
+
+<option>Bisiklet</option>
+
+<option>Ağırlık</option>
+
+</select>
+
+<label>
+
+Süre (dakika)
+
+</label>
+
+<input
+id="sportDuration"
+type="range"
+min="5"
+max="180"
+value="45">
+
+<label>
+
+Hız (km/sa)
+
+</label>
+
+<input
+id="sportSpeed"
+type="range"
+min="1"
+max="10"
+value="5">
+
+<label>
+
+Eğim (%)
+
+</label>
+
+<input
+id="sportIncline"
+type="range"
+min="0"
+max="15"
+value="5">
+
+<div id="sportCalories">
+
+0 kcal
+
+</div>
+
+<button id="addSportBtn">
+
+🏃 Sporu Ekle
+
+</button>
+
+</section>
+
+<section id="historyPage"
+class="page">
+
+<h2>📈 Geçmiş</h2>
+
+<div id="historyList">
+
+Henüz kayıt yok.
+
+</div>
+
+</section>
+
+<section id="profilePage"
+class="page">
+
+<h2>⚙️ Profil</h2>
+
+<input
+id="age"
+type="number"
+placeholder="Yaş">
+
+<input
+id="height"
+type="number"
+placeholder="Boy (cm)">
+
+<input
+id="weight"
+type="number"
+placeholder="Kilo (kg)">
+
+<input
+id="targetWeight"
+type="number"
+placeholder="Hedef kilo">
+
+<div class="profile-box">
+
+<div>
+
+⚖️ Bazal metabolizma:
+
+<span id="bmrValue">
+
+0
+
+</span>
+
+kcal
+
+</div>
+
+<div>
+
+🥩 Protein hedefi:
+
+<span id="proteinGoalValue">
+
+0
+
+</span>
+
+g
+
+</div>
+
+<div>
+
+💧 Su hedefi:
+
+<span id="waterGoalValue">
+
+0
+
+</span>
+
+L
+
+</div>
+
+</div>
+
+<button id="saveProfileBtn">
+
+💾 Kaydet
+
+</button>
+
+</section>
+
+<nav>
+
+<button
+class="nav-btn"
+data-page="homePage">
+
+🏠
+
+<span>
+
+Ana Sayfa
+
+</span>
+
+</button>
+
+<button
+class="nav-btn"
+data-page="foodPage">
+
+🍽️
+
+<span>
+
+Yemekler
+
+</span>
+
+</button>
+
+<button
+class="nav-btn"
+data-page="sportPage">
+
+💪
+
+<span>
+
+Spor
+
+</span>
+
+</button>
+
+<button
+class="nav-btn"
+data-page="historyPage">
+
+📈
+
+<span>
+
+Geçmiş
+
+</span>
+
+</button>
+
+</nav>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+
+</html>
