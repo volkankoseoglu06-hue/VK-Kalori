@@ -18,7 +18,6 @@ const foods = [
 {name:"Krem peynir (1 yemek kaşığı - 30 g)",kcal:100,protein:2,unit:"kaşık"},
 {name:"Sek Quark (1 kutu - 140 g)",kcal:105,protein:18,unit:"kutu"},
 
-{name:"Zeytin",kcal:5,protein:0.1,unit:"adet"},
 {name:"Siyah zeytin",kcal:5,protein:0.1,unit:"adet"},
 {name:"Yeşil zeytin",kcal:4,protein:0.1,unit:"adet"},
 
