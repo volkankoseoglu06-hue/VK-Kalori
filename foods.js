@@ -267,12 +267,20 @@ const foods = [
 /* İÇECEKLER */
 
 {name:"Çay",kcal:0,protein:0,unit:"bardak"},
-{name:"Türk kahvesi",kcal:7,protein:0,unit:"fincan"},
-{name:"Americano",kcal:10,protein:0,unit:"fincan"},
-{name:"Latte",kcal:120,protein:6,unit:"bardak"},
 {name:"Ayran",kcal:37,protein:2,unit:"100 ml"},
 {name:"Kefir",kcal:60,protein:3.5,unit:"100 ml"},
 {name:"Maden suyu",kcal:0,protein:0,unit:"şişe"},
+  
+/* KAHVELER */
+
+{name:"Türk kahvesi",kcal:7,protein:0,unit:"fincan"},
+{name:"Espresso",kcal:3,protein:0,unit:"fincan"},
+{name:"Buzlu espresso",kcal:3,protein:0,unit:"fincan"},
+{name:"Americano",kcal:5,protein:0,unit:"fincan"},
+{name:"Buzlu americano",kcal:5,protein:0,unit:"fincan"},
+{name:"Filtre kahve",kcal:5,protein:0,unit:"fincan"},
+{name:"Latte",kcal:120,protein:6,unit:"fincan"},
+{name:"Buzlu latte",kcal:120,protein:6,unit:"fincan"},
 
 
 /* DÜRÜMLER */
