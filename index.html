@@ -1,145 +1,132 @@
 <!DOCTYPE html>
 <html lang="tr">
-
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<meta name="viewport"
-content="width=device-width,initial-scale=1">
+<title>VK Yaşam Koçu 4.0</title>
 
-<title>VK Yaşam Koçu</title>
-
-<link rel="stylesheet"
-href="style.css">
-
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="container">
+<div class="app">
 
-<header>
+<header class="header">
 
 <div>
-
 <h1>VK Yaşam Koçu</h1>
-
-<p id="todayDate"></p>
-
+<p id="today"></p>
 </div>
-
-<button id="profileBtn">
-
-👤
-
-</button>
 
 </header>
 
 <!-- ANA SAYFA -->
 
-<section id="homePage"
-class="page active">
+<section id="homePage" class="page active">
 
-<div class="targets">
+<div class="dashboard">
 
-<div class="target-card">
+<div class="circle-card">
+<div class="circle-value">
+<span id="currentCalories">0</span>
+<small>/</small>
+<span id="targetCalories">2500</span>
+</div>
+<p>🔥 Kalori</p>
+</div>
 
-<div class="circle">
+<div class="circle-card">
+<div class="circle-value">
+<span id="currentProtein">0</span>
+<small>/</small>
+<span id="targetProtein">165</span>
+</div>
+<p>🥩 Protein</p>
+</div>
 
-<div id="calorieTarget">
+<div class="circle-card">
+<div class="circle-value">
+<span id="currentWater">0</span>
+<small>/</small>
+<span id="targetWater">3</span>
+</div>
+<p>💧 Su</p>
+</div>
 
-0/0
-
+<div class="circle-card">
+<div class="circle-value">
+<span id="currentSport">0</span>
+</div>
+<p>🚶 Spor</p>
 </div>
 
 </div>
 
-<h3>🔥 Kalori</h3>
+<div class="card">
+
+<h3>Bugün Eklenenler</h3>
+
+<div id="dailyFoods"></div>
+
+<div id="dailySports"></div>
 
 </div>
 
-<div class="target-card">
-
-<div class="circle">
-
-<div id="proteinTarget">
-
-0/0
-
-</div>
-
-</div>
-
-<h3>🥩 Protein</h3>
-
-</div>
-
-<div class="target-card">
-
-<div class="circle">
-
-<div id="waterTarget">
-
-0/0
-
-</div>
-
-</div>
-
-<h3>💧 Su</h3>
-
-</div>
-
-<div class="target-card">
-
-<div class="circle">
-
-<div id="sportTarget">
-
-0
-
-</div>
-
-</div>
-
-<h3>🚶 Spor</h3>
-
-</div>
-
-</div>
-
-<div class="summary">
-
-<h2>📋 Bugünün Özeti</h2>
-
-<div id="mealSummary">
-
-<div>🔥 Kalori: <span id="summaryCalories">0</span></div>
-
-<div>🥩 Protein: <span id="summaryProtein">0</span></div>
-
-<div>💧 Su: <span id="summaryWater">0</span> L</div>
-
-<div>🚶 Spor: <span id="summarySport">0</span> kcal</div>
-
-</div>
-
-</div>
-
-<div class="quick-actions">
-
-<button id="addWaterBtn">
-
+<button id="waterButton" class="primary">
 💧 +250 ml Su
-
 </button>
 
-<button id="finishDayBtn">
-
+<button id="finishDayButton" class="primary">
 📅 Günü Bitir
+</button>
 
+</section>
+
+<!-- BESLENME -->
+
+<section id="foodPage" class="page">
+
+<div class="card">
+
+<input
+id="foodSearch"
+type="text"
+placeholder="🔍 Besin ara">
+
+<div id="foodResults"></div>
+
+</div>
+
+<div class="card">
+
+<h3>➕ Yeni Besin</h3>
+
+<input id="newFoodName" placeholder="Besin adı">
+
+<input
+id="newFoodCalories"
+type="number"
+placeholder="Kalori">
+
+<input
+id="newFoodProtein"
+type="number"
+placeholder="Protein">
+
+<select id="newFoodUnit">
+
+<option value="100 g">100 g</option>
+<option value="adet">Adet</option>
+<option value="dilim">Dilim</option>
+<option value="porsiyon">Porsiyon</option>
+<option value="ölçek">Ölçek</option>
+
+</select>
+
+<button id="saveFoodButton" class="primary">
+💾 Besini Kaydet
 </button>
 
 </div>
@@ -148,54 +135,14 @@ class="page active">
 
 <!-- SPOR -->
 
-<section id="sportPage"
-class="page">
+<section id="sportPage" class="page">
 
-<div class="profile-box">
+<div class="card">
 
-<div>
-
-⏱️ Süre:
-
-<span id="durationValue">
-
-45
-
-</span>
-
-dk
-
-</div>
-
-<div>
-
-⚡ Hız:
-
-<span id="speedValue">
-
-5
-
-</span>
-
-km/sa
-
-</div>
-
-<div>
-
-⛰️ Eğim:
-
-<span id="inclineValue">
-
-5
-
-</span>
-
-%
-
-</div>
-
-</div>
+<label>
+⏱️ Süre
+<span id="durationLabel">45</span> dk
+</label>
 
 <input
 id="sportDuration"
@@ -204,12 +151,22 @@ min="5"
 max="180"
 value="45">
 
+<label>
+⚡ Hız
+<span id="speedLabel">5</span> km/sa
+</label>
+
 <input
 id="sportSpeed"
 type="range"
 min="3"
 max="10"
 value="5">
+
+<label>
+⛰️ Eğim
+<span id="inclineLabel">5</span> %
+</label>
 
 <input
 id="sportIncline"
@@ -218,9 +175,17 @@ min="0"
 max="15"
 value="5">
 
-<div id="sportCalories">
+<h3 id="sportResult">
+Yakılan kalori: 0
+</h3>
 
-Yakılan kalori: 0 kcal
+<button id="calculateSportButton" class="primary">
+🧮 Hesapla
+</button>
+
+<button id="addSportButton" class="primary">
+➕ Günlüğe Ekle
+</button>
 
 </div>
 
@@ -228,12 +193,13 @@ Yakılan kalori: 0 kcal
 
 <!-- GEÇMİŞ -->
 
-<section id="historyPage"
-class="page">
+<section id="historyPage" class="page">
 
-<div id="historyList">
+<div class="card">
 
-Henüz kayıt yok.
+<h3>📈 Geçmiş</h3>
+
+<div id="historyList"></div>
 
 </div>
 
@@ -241,76 +207,51 @@ Henüz kayıt yok.
 
 <!-- PROFİL -->
 
-<section id="profilePage"
-class="page">
+<section id="profilePage" class="page">
+
+<div class="card">
 
 <input
-id="userWeight"
+id="profileCalories"
 type="number"
-placeholder="Kilo">
+placeholder="Hedef kalori">
 
 <input
-id="userHeight"
+id="profileProtein"
 type="number"
-placeholder="Boy">
+placeholder="Hedef protein">
 
 <input
-id="userAge"
+id="profileWater"
 type="number"
-placeholder="Yaş">
+placeholder="Hedef su">
 
-<button id="saveProfileBtn">
-
-💾 Kaydet
-
+<button id="saveProfileButton" class="primary">
+💾 Hedefleri Kaydet
 </button>
+
+</div>
 
 </section>
 
-<nav>
+<nav class="bottom-nav">
 
-<button class="nav-btn"
-data-page="homePage">
+<button data-page="homePage">🏠</button>
 
-🏠
+<button data-page="foodPage">🍽️</button>
 
-<span>Ana Sayfa</span>
+<button data-page="sportPage">💪</button>
 
-</button>
+<button data-page="historyPage">📈</button>
 
-<button class="nav-btn"
-data-page="sportPage">
-
-💪
-
-<span>Spor</span>
-
-</button>
-
-<button class="nav-btn"
-data-page="historyPage">
-
-📈
-
-<span>Geçmiş</span>
-
-</button>
-
-<button class="nav-btn"
-data-page="profilePage">
-
-👤
-
-<span>Profil</span>
-
-</button>
+<button data-page="profilePage">👤</button>
 
 </nav>
 
 </div>
 
+<script src="foods.js"></script>
 <script src="app.js"></script>
 
 </body>
-
 </html>
