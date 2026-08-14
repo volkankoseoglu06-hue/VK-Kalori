@@ -95,21 +95,30 @@ const foods = [
 {name:"Çikolata (100 g)",kcal:540,protein:7,unit:"100 g"},
 {name:"Bisküvi (1 paket)",kcal:450,protein:7,unit:"adet"},
 
-/* ÇİĞ KÖFTE */
-
-{name:"Çiğ köfte (100 g)",kcal:180,protein:5,unit:"100 g"},
-{name:"Çiğ köfte dürüm",kcal:420,protein:10,unit:"adet"},
-{name:"Çiğ köfte porsiyon (250 g)",kcal:450,protein:13,unit:"porsiyon"},
-
 /* KOMAGENE */
 
-{name:"Komagene çiğ köfte dürüm",kcal:430,protein:10,unit:"adet"},
-{name:"Komagene mega dürüm",kcal:620,protein:15,unit:"adet"},
-{name:"Komagene çiğ köfte (1 porsiyon)",kcal:460,protein:13,unit:"porsiyon"},
-{name:"Komagene aile boyu (500 g)",kcal:900,protein:25,unit:"porsiyon"},
-{name:"Komagene lavaş",kcal:110,protein:3,unit:"adet"},
-{name:"Komagene nar ekşisi",kcal:45,protein:0,unit:"yemek kaşığı"},
-{name:"Komagene ayran (300 ml)",kcal:110,protein:6,unit:"adet"},
+{name:"Komagene Çiğ Köfte (100 g)",kcal:180,protein:5,unit:"100 g"},
+{name:"Komagene Çiğ Köfte (250 g)",kcal:450,protein:13,unit:"porsiyon"},
+
+{name:"Komagene Dürüm (1 adet - 220 g)",kcal:420,protein:10,unit:"adet"},
+{name:"Komagene Mega Dürüm (1 adet - 320 g)",kcal:620,protein:15,unit:"adet"},
+{name:"Komagene Double Dürüm (1 adet - 420 g)",kcal:790,protein:20,unit:"adet"},
+
+{name:"Komagene Etsiz Çiğ Köfte Menü (350 g)",kcal:650,protein:18,unit:"menü"},
+{name:"Komagene Mega Menü (500 g)",kcal:900,protein:25,unit:"menü"},
+{name:"Komagene Aile Boyu Menü (1000 g)",kcal:1800,protein:50,unit:"menü"},
+
+{name:"Komagene Lavaş (1 adet - 60 g)",kcal:160,protein:5,unit:"adet"},
+{name:"Komagene Mini Lavaş (1 adet - 30 g)",kcal:80,protein:2,unit:"adet"},
+
+{name:"Komagene Nar Ekşisi (1 yemek kaşığı)",kcal:45,protein:0,unit:"adet"},
+{name:"Komagene Acı Sos (1 yemek kaşığı)",kcal:10,protein:0,unit:"adet"},
+
+{name:"Komagene Ayran (300 ml)",kcal:110,protein:6,unit:"şişe"},
+{name:"Komagene Şalgam (300 ml)",kcal:35,protein:1,unit:"şişe"},
+
+{name:"Komagene Marul (50 g)",kcal:8,protein:1,unit:"porsiyon"},
+{name:"Komagene Turşu (50 g)",kcal:12,protein:0,unit:"porsiyon"},
 
 /* ÇORBALAR */
 
