@@ -4,7 +4,10 @@ const foods = [
 
 {name:"Yumurta",kcal:78,protein:6,unit:"adet"},
 {name:"Yumurta beyazı",kcal:17,protein:4,unit:"adet"},
-
+{name:"Süt (1 bardak - 200 ml)",kcal:122,protein:6,unit:"bardak"},
+{name:"Yarım yağlı süt (1 bardak - 200 ml)",kcal:94,protein:7,unit:"bardak"},
+{name:"Laktozsuz süt (1 bardak - 200 ml)",kcal:92,protein:6,unit:"bardak"},
+  
 {name:"Beyaz peynir (1 kibrit kutusu - 30 g)",kcal:80,protein:4,unit:"adet"},
 {name:"Kaşar peyniri (1 dilim - 20 g)",kcal:81,protein:5,unit:"dilim"},
 {name:"Lor peyniri (1 yemek kaşığı - 30 g)",kcal:30,protein:5,unit:"kaşık"},
