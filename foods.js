@@ -272,6 +272,18 @@ const foods = [
 {name:"Dana Kaburga",kcal:850,protein:55,unit:"porsiyon"},
 {name:"BBQ Tavuk",kcal:690,protein:52,unit:"porsiyon"},
 {name:"Çıtır Tavuk Burger",kcal:920,protein:40,unit:"porsiyon"},
+{name:"King Chicken",kcal:620,protein:28,unit:"adet"},
+{name:"King Chicken Menü",kcal:1120,protein:36,unit:"menü"},
+{name:"Whopper",kcal:690,protein:31,unit:"adet"},
+{name:"Whopper Menü",kcal:1170,protein:38,unit:"menü"},
+{name:"Double Whopper",kcal:930,protein:48,unit:"adet"},
+{name:"Double Whopper Menü",kcal:1410,protein:55,unit:"menü"},
+{name:"Chicken Royale",kcal:660,protein:30,unit:"adet"},
+{name:"Chicken Royale Menü",kcal:1140,protein:37,unit:"menü"},
+{name:"Big King",kcal:540,protein:27,unit:"adet"},
+{name:"Big King Menü",kcal:1020,protein:34,unit:"menü"},
+{name:"Patates kızartması (orta)",kcal:340,protein:4,unit:"adet"},
+{name:"Soğan halkası (8 adet)",kcal:280,protein:5,unit:"porsiyon"},
   
   /* TEXAS SMOKE HOUSE */
 
