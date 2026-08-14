@@ -28,6 +28,8 @@ const foods = [
 
 {name:"Menemen",kcal:160,protein:8,unit:"porsiyon"},
 {name:"Omlet (2 yumurta)",kcal:180,protein:12,unit:"porsiyon"},
+{name:"Tereyağı (1 çay kaşığı - 5 g)",kcal:36,protein:0,unit:"adet"},
+{name:"Zeytinyağı (1 yemek kaşığı - 10 ml)",kcal:80,protein:0,unit:"adet"},
 
 {name:"Bal (1 yemek kaşığı - 21 g)",kcal:64,protein:0,unit:"kaşık"},
 {name:"Reçel (1 yemek kaşığı - 20 g)",kcal:56,protein:0,unit:"kaşık"},
