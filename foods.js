@@ -14,6 +14,25 @@ const foods = [
 {name:"Karabuğday patlağı",kcal:19,protein:1,unit:"adet"},
 {name:"Ekşi mayalı ekmek",kcal:85,protein:3,unit:"dilim"},
 {name:"Tam buğday ekmeği",kcal:70,protein:3,unit:"dilim"},
+{name:"Menemen",kcal:160,protein:8,unit:"porsiyon"},
+{name:"Omlet",kcal:180,protein:12,unit:"porsiyon"},
+{name:"Bal",kcal:64,protein:0,unit:"yemek kaşığı"},
+{name:"Reçel",kcal:56,protein:0,unit:"yemek kaşığı"},
+{name:"Tahin",kcal:89,protein:3,unit:"yemek kaşığı"},
+{name:"Pekmez",kcal:58,protein:0,unit:"yemek kaşığı"},
+{name:"Mozzarella",kcal:280,protein:22,unit:"100 g"},
+{name:"Tulum peyniri",kcal:363,protein:22,unit:"100 g"},
+{name:"Çeçil peyniri",kcal:290,protein:27,unit:"100 g"},
+{name:"Siyah zeytin",kcal:5,protein:0.1,unit:"adet"},
+{name:"Yeşil zeytin",kcal:4,protein:0.1,unit:"adet"},
+{name:"Domates",kcal:18,protein:1,unit:"100 g"},
+{name:"Salatalık",kcal:15,protein:1,unit:"100 g"},
+{name:"Biber",kcal:20,protein:1,unit:"100 g"},
+{name:"Közlenmiş biber",kcal:31,protein:1,unit:"100 g"},
+{name:"Brokoli",kcal:35,protein:3,unit:"100 g"},
+{name:"Ispanak",kcal:23,protein:3,unit:"100 g"},
+{name:"Kabak",kcal:17,protein:1,unit:"100 g"},
+{name:"Patlıcan",kcal:25,protein:1,unit:"100 g"},
 
 /* TAVUK VE ET */
 
@@ -44,6 +63,14 @@ const foods = [
 {name:"Nohut",kcal:180,protein:9,unit:"porsiyon"},
 {name:"Yeşil mercimek",kcal:190,protein:13,unit:"porsiyon"},
 {name:"Mercimek çorbası",kcal:150,protein:8,unit:"kase"},
+{name:"Tavuklu pilav",kcal:420,protein:28,unit:"porsiyon"},
+{name:"Etli kuru fasulye",kcal:280,protein:18,unit:"porsiyon"},
+{name:"Mantı",kcal:350,protein:14,unit:"porsiyon"},
+{name:"Dolma",kcal:220,protein:8,unit:"porsiyon"},
+{name:"Sarma",kcal:180,protein:6,unit:"porsiyon"},
+{name:"Karnıyarık",kcal:300,protein:16,unit:"porsiyon"},
+{name:"Musakka",kcal:280,protein:18,unit:"porsiyon"},
+{name:"İmam bayıldı",kcal:210,protein:4,unit:"porsiyon"},
 
 /* KARBONHİDRATLAR */
 
@@ -53,6 +80,13 @@ const foods = [
 {name:"Makarna",kcal:220,protein:8,unit:"porsiyon"},
 {name:"Patates",kcal:77,protein:2,unit:"100 g"},
 {name:"Fırın patates",kcal:93,protein:2,unit:"100 g"},
+{name:"Lahmacun",kcal:220,protein:11,unit:"adet"},
+{name:"Pizza",kcal:285,protein:12,unit:"dilim"},
+{name:"Hamburger",kcal:295,protein:17,unit:"adet"},
+{name:"Cheeseburger",kcal:320,protein:18,unit:"adet"},
+{name:"Tost",kcal:350,protein:16,unit:"adet"},
+{name:"Simit",kcal:272,protein:9,unit:"adet"},
+{name:"Pide",kcal:450,protein:20,unit:"adet"},
 
 /* KURUYEMİŞLER */
 
@@ -62,6 +96,12 @@ const foods = [
 {name:"Kaju",kcal:9,protein:0.3,unit:"adet"},
 {name:"Antep fıstığı",kcal:4,protein:0.2,unit:"adet"},
 {name:"Yer fıstığı",kcal:6,protein:0.3,unit:"adet"},
+{name:"Ay çekirdeği",kcal:3,protein:0.1,unit:"adet"},
+{name:"Kabak çekirdeği",kcal:5,protein:0.3,unit:"adet"},
+{name:"Leblebi",kcal:4,protein:0.2,unit:"adet"},
+{name:"Kuru üzüm",kcal:3,protein:0.03,unit:"adet"},
+{name:"Kuru kayısı",kcal:17,protein:0.5,unit:"adet"},
+{name:"Hurma",kcal:23,protein:0.2,unit:"adet"},
 
 /* MEYVELER */
 
