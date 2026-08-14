@@ -35,6 +35,7 @@ const foods = [
 {name:"Patlıcan",kcal:25,protein:1,unit:"100 g"},
 {name:"Beyaz pirinç",kcal:130,protein:3,unit:"100 g"},
 {name:"Bulgur",kcal:120,protein:4,unit:"100 g"},
+
   
 /* MAKARNALAR */
 
@@ -150,14 +151,20 @@ const foods = [
 
 /* ŞARKÜTERİ */
 
-{name:"Hindi füme (1 dilim)",kcal:12,protein:2,unit:"dilim"},
-{name:"Hindi füme (1 paket-60 g)",kcal:66,protein:12,unit:"paket"},
+{name:"Hindi füme (1 dilim - 10 g)",kcal:11,protein:2,unit:"dilim"},
+{name:"Hindi füme (1 paket - 60 g)",kcal:66,protein:12,unit:"paket"},
 
-{name:"Dana kaburga füme (1 dilim)",kcal:18,protein:3,unit:"dilim"},
-{name:"Dana kaburga füme (1 paket-70 g)",kcal:123,protein:20,unit:"paket"},
+{name:"Dana kaburga füme (1 dilim - 10 g)",kcal:18,protein:3,unit:"dilim"},
+{name:"Dana kaburga füme (1 paket - 70 g)",kcal:123,protein:20,unit:"paket"},
 
-{name:"Pastırma (1 dilim)",kcal:10,protein:1.5,unit:"dilim"},
-{name:"Sucuk (1 dilim)",kcal:22,protein:1.2,unit:"dilim"},
+{name:"Kaşar peyniri (1 dilim - 20 g)",kcal:81,protein:5,unit:"dilim"},
+{name:"Kaşar peyniri (100 g)",kcal:404,protein:25,unit:"100 g"},
+
+{name:"Beyaz peynir (1 dilim - 30 g)",kcal:80,protein:4,unit:"dilim"},
+{name:"Lor peyniri (1 dilim - 30 g)",kcal:30,protein:5,unit:"dilim"},
+
+{name:"Sucuk (1 dilim - 5 g)",kcal:23,protein:1,unit:"dilim"},
+{name:"Pastırma (1 dilim - 4 g)",kcal:10,protein:1.2,unit:"dilim"},
 {name:"Salam (1 dilim)",kcal:14,protein:0.8,unit:"dilim"},
 
 /* SEK QUARK */
