@@ -59,21 +59,29 @@ const foods = [
 {name:"Chef Pilav Tereyağlı Nohutlu Pirinç Pilavı (250 g)",kcal:430,protein:10,unit:"porsiyon"},
 {name:"Chef Pilav Tereyağlı Nohutlu Pirinç Pilavı (125 g)",kcal:215,protein:5,unit:"yarım porsiyon"},
 
-{name:"Pilav Üstü Tavuk Izgara (250 g tereyağlı pirinç pilavı + 85 g çiğ tavuk ızgara + salata + turşu)",kcal:690,protein:34,unit:"menü"},
+{name:"Chef Pilav Pilav Üstü Tavuk Izgara (250 g pilav + 85 g çiğ tavuk + salata + turşu)",kcal:690,protein:34,unit:"menü"},
+{name:"Chef Pilav Pilav Üstü Tavuk Izgara (125 g pilav + 85 g çiğ tavuk + salata + turşu)",kcal:495,protein:31,unit:"menü"},
 
-{name:"Pilav Üstü Köri Soslu Tavuk (250 g nohutlu pirinç pilavı + 200 g tavuk + köri sosu + salata)",kcal:930,protein:58,unit:"menü"},
+{name:"Chef Pilav Pilav Üstü Köri Soslu Tavuk (250 g nohutlu pilav + 200 g tavuk + salata)",kcal:930,protein:58,unit:"menü"},
+{name:"Chef Pilav Pilav Üstü Köri Soslu Tavuk (125 g nohutlu pilav + 200 g tavuk + salata)",kcal:715,protein:53,unit:"menü"},
 
-{name:"Pilav Üstü Double Tavuk Döner (250 g tereyağlı pirinç pilavı + 130 g tavuk döner + salata + turşu)",kcal:860,protein:42,unit:"menü"},
+{name:"Chef Pilav Pilav Üstü Double Tavuk Döner (250 g pilav + 130 g tavuk döner + salata + turşu)",kcal:860,protein:42,unit:"menü"},
+{name:"Chef Pilav Pilav Üstü Double Tavuk Döner (125 g pilav + 130 g tavuk döner + salata + turşu)",kcal:665,protein:39,unit:"menü"},
 
-{name:"Cazip Sporcu Izgara (250 g tereyağlı pirinç pilavı + 180 g çiğ bonfile tavuk + salata + turşu + kola)",kcal:980,protein:55,unit:"menü"},
+{name:"Chef Pilav Cazip Sporcu Izgara (250 g pilav + 180 g çiğ bonfile tavuk + salata + turşu + kola)",kcal:980,protein:55,unit:"menü"},
+{name:"Chef Pilav Cazip Sporcu Izgara (125 g pilav + 180 g çiğ bonfile tavuk + salata + turşu + kola)",kcal:785,protein:52,unit:"menü"},
 
-{name:"Double Izgara (250 g tereyağlı pirinç pilavı + 270-300 g çiğ tavuk ızgara + salata + turşu)",kcal:1050,protein:82,unit:"menü"},
+{name:"Chef Pilav Double Izgara (250 g pilav + 270-300 g çiğ tavuk ızgara + salata + turşu)",kcal:1050,protein:82,unit:"menü"},
+{name:"Chef Pilav Double Izgara (125 g pilav + 270-300 g çiğ tavuk ızgara + salata + turşu)",kcal:855,protein:79,unit:"menü"},
 
-{name:"Sporcu Izgara Pilavı (250 g tereyağlı pirinç pilavı + 170-190 g çiğ tavuk ızgara + salata + turşu)",kcal:880,protein:55,unit:"menü"},
+{name:"Chef Pilav Sporcu Izgara Pilavı (250 g pilav + 170-190 g çiğ tavuk ızgara + salata + turşu)",kcal:880,protein:55,unit:"menü"},
+{name:"Chef Pilav Sporcu Izgara Pilavı (125 g pilav + 170-190 g çiğ tavuk ızgara + salata + turşu)",kcal:685,protein:52,unit:"menü"},
 
-{name:"Sporcu Pilavı (250 g tereyağlı nohutlu pirinç pilavı + 150 g tavuk + salata + turşu)",kcal:820,protein:50,unit:"menü"},
+{name:"Chef Pilav Sporcu Pilavı (250 g nohutlu pilav + 150 g tavuk + salata + turşu)",kcal:820,protein:50,unit:"menü"},
+{name:"Chef Pilav Sporcu Pilavı (125 g nohutlu pilav + 150 g tavuk + salata + turşu)",kcal:605,protein:45,unit:"menü"},
 
-{name:"Pilav Üstü Tavuk (250 g tereyağlı nohutlu pirinç pilavı + 80 g tavuk + salata + turşu)",kcal:670,protein:31,unit:"menü"},
+{name:"Chef Pilav Pilav Üstü Tavuk (250 g nohutlu pilav + 80 g tavuk + salata + turşu)",kcal:670,protein:31,unit:"menü"},
+{name:"Chef Pilav Pilav Üstü Tavuk (125 g nohutlu pilav + 80 g tavuk + salata + turşu)",kcal:455,protein:26,unit:"menü"},
 
   
 /* MAKARNALAR */
