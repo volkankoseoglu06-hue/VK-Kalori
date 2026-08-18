@@ -51,6 +51,39 @@ const foods = [
 {name:"Avokado (1/2 adet - 75 g)",kcal:120,protein:2,unit:"adet"},
 {name:"Fıstık ezmesi (1 yemek kaşığı - 16 g)",kcal:95,protein:4,unit:"kaşık"},
 
+/* KÖFTECİ YUSUF */
+
+{name:"Köfteci Yusuf Köfte Menü (200 g köfte + 200 g patates + salata)",kcal:920,protein:48,unit:"menü"},
+{name:"Köfteci Yusuf Kasap Köfte (180 g)",kcal:450,protein:40,unit:"porsiyon"},
+{name:"Köfteci Yusuf Dana Sucuk (150 g)",kcal:620,protein:32,unit:"porsiyon"},
+{name:"Köfteci Yusuf Izgara Tavuk (200 g)",kcal:420,protein:62,unit:"porsiyon"},
+{name:"Köfteci Yusuf Et Döner (200 g)",kcal:580,protein:46,unit:"porsiyon"},
+{name:"Köfteci Yusuf Tavuk Şiş (220 g)",kcal:460,protein:65,unit:"porsiyon"},
+{name:"Köfteci Yusuf Piyaz (200 g)",kcal:320,protein:14,unit:"porsiyon"},
+{name:"Köfteci Yusuf Patates Kızartması (150 g)",kcal:470,protein:6,unit:"porsiyon"},
+
+/* HD İSKENDER */
+
+{name:"HD İskender Klasik (120 g döner + tereyağlı pide + yoğurt + domates sosu)",kcal:980,protein:42,unit:"menü"},
+{name:"HD İskender Duble (180 g döner + tereyağlı pide + yoğurt + domates sosu)",kcal:1280,protein:60,unit:"menü"},
+{name:"HD Bursa Kebabı (150 g döner + pide + yoğurt)",kcal:1050,protein:48,unit:"menü"},
+{name:"HD Et Döner Porsiyon (180 g)",kcal:620,protein:45,unit:"porsiyon"},
+{name:"HD Pilav Üstü Döner (180 g döner + 200 g pilav)",kcal:890,protein:48,unit:"menü"},
+{name:"HD Mercimek Çorbası (300 ml)",kcal:180,protein:8,unit:"kase"},
+{name:"HD Sütlaç (150 g)",kcal:260,protein:7,unit:"porsiyon"},
+
+/* ASPAVA MENÜLERİ */
+
+{name:"Aspava Adana Menü (200 g Adana + 100 g bulgur pilavı + 100 g patates kızartması + lavaş + salata + ezme)",kcal:1250,protein:55,unit:"menü"},
+
+{name:"Aspava Urfa Menü (200 g Urfa + 100 g bulgur pilavı + 100 g patates kızartması + lavaş + salata + ezme)",kcal:1180,protein:52,unit:"menü"},
+
+{name:"Aspava Beyti Menü (250 g beyti + 100 g bulgur pilavı + 100 g patates kızartması + lavaş + salata + ezme)",kcal:1350,protein:58,unit:"menü"},
+
+{name:"Aspava İskender Menü (200 g döner + tereyağlı pide + yoğurt + sos)",kcal:1150,protein:52,unit:"menü"},
+
+{name:"Aspava Tavuk Şiş Menü (220 g tavuk şiş + 100 g bulgur pilavı + 100 g patates kızartması + lavaş + salata + ezme)",kcal:1050,protein:68,unit:"menü"},
+
 /* IKEA MENÜLERİ */
 
 {name:"IKEA İsveç Köfte Menü (8 köfte + 200 g patates püresi + 150 g patates kızartması)",kcal:980,protein:38,unit:"menü"},
@@ -365,12 +398,27 @@ const foods = [
 
 {name:"Protein tozu",kcal:100,protein:20,unit:"25 g"},
 {name:"Proteinli puding",kcal:150,protein:20,unit:"adet"},
-{name:"Proteinli süt",kcal:180,protein:25,unit:"250 ml"},
 {name:"Kreatin",kcal:0,protein:0,unit:"5 g"},
-{name:"Proteinli süt (500 ml)",kcal:360,protein:50,unit:"şişe"},
-{name:"Pınar Protein Süt (500 ml)",kcal:360,protein:50,unit:"şişe"},
-{name:"Danone YoPro (160 g)",kcal:146,protein:15,unit:"kutu"},
-{name:"İçim Fit Protein (500 ml)",kcal:325,protein:40,unit:"şişe"},
+
+/* FELLAS PROTEIN BAR */
+
+{name:"Fellas Protein Bar Kakao (50 g)",kcal:195,protein:15,unit:"adet"},
+
+{name:"Fellas Protein Bar Fıstık Ezmesi (50 g)",kcal:205,protein:15,unit:"adet"},
+
+{name:"Fellas Protein Bar Brownie (50 g)",kcal:200,protein:15,unit:"adet"},
+
+{name:"Fellas Protein Bar Hindistan Cevizi (50 g)",kcal:190,protein:15,unit:"adet"},
+
+{name:"Fellas Protein Bar Tuzlu Karamel (50 g)",kcal:200,protein:15,unit:"adet"},
+  
+/* PROTEİNLİ SÜTLER */
+
+{name:"İçim Fit Proteinli Süt (500 ml)",kcal:185,protein:25,unit:"şişe"},
+
+{name:"Pınar Proteinli Süt (500 ml)",kcal:220,protein:30,unit:"şişe"},
+
+{name:"Proteinli Süt (56 g protein - 500 ml)",kcal:360,protein:56,unit:"şişe"},
   
 
 /* PROTEIN OCEAN */
