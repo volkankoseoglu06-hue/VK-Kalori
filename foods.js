@@ -51,6 +51,78 @@ const foods = [
 {name:"Avokado (1/2 adet - 75 g)",kcal:120,protein:2,unit:"adet"},
 {name:"Fıstık ezmesi (1 yemek kaşığı - 16 g)",kcal:95,protein:4,unit:"kaşık"},
 
+/* IKEA MENÜLERİ */
+
+{name:"IKEA İsveç Köfte Menü (8 köfte + 200 g patates püresi + 150 g patates kızartması)",kcal:980,protein:38,unit:"menü"},
+
+{name:"IKEA İsveç Köfte Menü (12 köfte + 200 g patates püresi + 150 g patates kızartması)",kcal:1220,protein:52,unit:"menü"},
+
+{name:"IKEA Tavuk Schnitzel Menü (200 g tavuk + 200 g pirinç pilavı + 150 g patates kızartması)",kcal:1080,protein:58,unit:"menü"},
+
+{name:"IKEA Izgara Tavuk Menü (200 g tavuk + 200 g bulgur pilavı + 150 g patates kızartması)",kcal:930,protein:60,unit:"menü"},
+
+{name:"IKEA Somon Menü (180 g somon + 200 g pirinç pilavı + 150 g patates kızartması)",kcal:1040,protein:47,unit:"menü"},
+
+{name:"IKEA Dana Biftek Menü (200 g dana biftek + 200 g bulgur pilavı + 150 g patates kızartması)",kcal:1020,protein:60,unit:"menü"},
+
+{name:"IKEA Sebze Köftesi Menü (180 g sebze köftesi + 200 g bulgur pilavı + 150 g patates kızartması)",kcal:790,protein:24,unit:"menü"},
+
+{name:"IKEA Çocuk Köfte Menü (5 köfte + 125 g patates püresi + 100 g patates kızartması)",kcal:620,protein:22,unit:"menü"},
+
+{name:"IKEA Pirinç Pilavı (200 g)",kcal:260,protein:5,unit:"porsiyon"},
+{name:"IKEA Pirinç Pilavı (100 g)",kcal:130,protein:3,unit:"yarım porsiyon"},
+
+{name:"IKEA Bulgur Pilavı (200 g)",kcal:240,protein:8,unit:"porsiyon"},
+{name:"IKEA Bulgur Pilavı (100 g)",kcal:120,protein:4,unit:"yarım porsiyon"},
+
+{name:"IKEA Patates Kızartması (150 g)",kcal:470,protein:6,unit:"porsiyon"},
+{name:"IKEA Patates Kızartması (75 g)",kcal:235,protein:3,unit:"yarım porsiyon"},
+/* KAHVALTI */
+
+{name:"IKEA Kahvaltı Tabağı (peynir + zeytin + domates + salatalık + ekmek)",kcal:420,protein:18,unit:"menü"},
+
+{name:"IKEA Büyük Kahvaltı Tabağı (peynir çeşitleri + yumurta + zeytin + domates + salatalık + ekmek)",kcal:680,protein:32,unit:"menü"},
+
+{name:"IKEA Omlet (2 yumurta + garnitür)",kcal:220,protein:14,unit:"porsiyon"},
+
+{name:"IKEA Güveçte Menemen (250 g)",kcal:240,protein:12,unit:"porsiyon"},
+
+{name:"IKEA Dana Sucuk Patates (80 g sucuk + 200 g patates)",kcal:620,protein:22,unit:"porsiyon"},
+
+/* SALATALAR */
+
+{name:"IKEA Akdeniz Salatası (300 g)",kcal:280,protein:8,unit:"porsiyon"},
+
+{name:"IKEA Izgara Tavuklu Salata (150 g tavuk + 200 g salata)",kcal:420,protein:38,unit:"porsiyon"},
+
+{name:"IKEA Cevizli Narlı Roka Salatası (250 g)",kcal:360,protein:8,unit:"porsiyon"},
+
+{name:"IKEA Karidesli Salata (300 g)",kcal:430,protein:30,unit:"porsiyon"},
+
+/* TAMAMLAYICILAR */
+
+{name:"IKEA Patates Püresi (200 g)",kcal:220,protein:5,unit:"porsiyon"},
+
+{name:"IKEA Kızarmış Patates (150 g)",kcal:470,protein:6,unit:"porsiyon"},
+
+{name:"IKEA Bulgur Pilavı (200 g)",kcal:240,protein:8,unit:"porsiyon"},
+
+{name:"IKEA Sarımsaklı Ekmek (100 g)",kcal:320,protein:8,unit:"porsiyon"},
+
+{name:"IKEA Cacık (150 g)",kcal:90,protein:5,unit:"kase"},
+
+{name:"IKEA Çorba (300 ml)",kcal:180,protein:8,unit:"kase"},
+
+/* TATLILAR */
+
+{name:"IKEA Cheesecake (120 g)",kcal:430,protein:7,unit:"porsiyon"},
+
+{name:"IKEA Tiramisu (120 g)",kcal:450,protein:7,unit:"porsiyon"},
+
+{name:"IKEA Elmalı Tart (120 g)",kcal:380,protein:5,unit:"porsiyon"},
+
+{name:"IKEA Çikolatalı Almondy Kek (110 g)",kcal:470,protein:7,unit:"porsiyon"},
+
 /* CHEF PİLAV (CEVİZLİDERE) */
 
 {name:"Chef Pilav Tereyağlı Pirinç Pilavı (250 g)",kcal:390,protein:7,unit:"porsiyon"},
