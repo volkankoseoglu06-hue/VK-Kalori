@@ -358,9 +358,9 @@ const foods = [
 
 /* KARBONHİDRATLAR */
 
-{name:"Yulaf",kcal:389,protein:17,unit:"100 g"},
-{name:"Pirinç pilavı",kcal:220,protein:4,unit:"porsiyon"},
-{name:"Bulgur pilavı",kcal:180,protein:5,unit:"porsiyon"},
+{name:"Yulaf (1 tatlı kaşığı - 10 g)",kcal:39,protein:1.7,unit:"tatlı kaşığı"},
+{name:"Pirinç pilavı (100 g)",kcal:130,protein:3,unit:"100 g"},
+{name:"Bulgur pilavı (100 g)",kcal:120,protein:4,unit:"100 g"},
 {name:"Patates",kcal:77,protein:2,unit:"100 g"},
 {name:"Fırın patates",kcal:93,protein:2,unit:"100 g"},
 {name:"Lahmacun",kcal:220,protein:11,unit:"adet"},
@@ -369,6 +369,60 @@ const foods = [
 {name:"Tost",kcal:350,protein:16,unit:"adet"},
 {name:"Simit",kcal:272,protein:9,unit:"adet"},
 {name:"Pide",kcal:450,protein:20,unit:"adet"},
+
+/* DOMINO'S PİZZALARI */
+
+{name:"Domino's Margarita (mozzarella + pizza sosu) - 1 dilim",kcal:210,protein:8,unit:"dilim"},
+
+{name:"Domino's Süperos (jambon + sucuk + sosis + mozzarella + siyah zeytin + domates) - 1 dilim",kcal:235,protein:10,unit:"dilim"},
+
+{name:"Domino's Bol Malzemos (jambon + pepperoni + sucuk + sosis + mısır + mantar + domates + mozzarella) - 1 dilim",kcal:245,protein:11,unit:"dilim"},
+
+{name:"Domino's Karışık (sucuk + sosis + mısır + mantar + mozzarella) - 1 dilim",kcal:235,protein:10,unit:"dilim"},
+
+{name:"Domino's Bol Etli (jambon + pepperoni + sucuk + sosis + küp sucuk + mantar + mozzarella) - 1 dilim",kcal:260,protein:13,unit:"dilim"},
+
+{name:"Domino's Tavuklu (tavuk + mısır + köz biber + yeşil biber + mozzarella) - 1 dilim",kcal:230,protein:12,unit:"dilim"},
+
+{name:"Domino's Extravaganzza (jambon + pepperoni + sosis + mısır + mantar + soğan + mozzarella) - 1 dilim",kcal:255,protein:12,unit:"dilim"},
+
+{name:"Domino's Barbekü Soslu Tavuklu (tavuk + mısır + köz biber + barbekü sos) - 1 dilim",kcal:245,protein:12,unit:"dilim"},
+
+{name:"Domino's Üç Peynirli (mozzarella + cheddar + olgunlaştırılmış peynir + sarımsak sos) - 1 dilim",kcal:250,protein:11,unit:"dilim"},
+
+{name:"Domino's Konyalım (kavurma + soğan + köz biber + mozzarella) - 1 dilim",kcal:255,protein:13,unit:"dilim"},
+
+{name:"Domino's Pastırma & Sucuk (pastırma + sucuk + mantar + domates + mozzarella) - 1 dilim",kcal:255,protein:13,unit:"dilim"},
+
+/* PAN PİZZALAR */
+
+{name:"Domino's Sucuk Pan Pizza (sucuk + mantar + mozzarella) - 1 dilim",kcal:270,protein:12,unit:"dilim"},
+
+{name:"Domino's Bol Pan Pizza (sucuk + jambon + sosis + mantar + mısır + acı biber + mozzarella) - 1 dilim",kcal:285,protein:13,unit:"dilim"},
+
+{name:"Domino's Süper Pan Pizza (pepperoni + jambon + zeytin + mısır + biber + mozzarella) - 1 dilim",kcal:280,protein:13,unit:"dilim"},
+
+/* PIZZETTA */
+
+{name:"Domino's Margarita Pizzetta (1 adet)",kcal:430,protein:16,unit:"adet"},
+
+{name:"Domino's Sucuklu Pizzetta (1 adet)",kcal:500,protein:22,unit:"adet"},
+
+{name:"Domino's Karışık Pizzetta (1 adet)",kcal:520,protein:24,unit:"adet"},
+
+/* EKMEKLER */
+
+{name:"Domino's Sarımsaklı Ekmek (6 dilim)",kcal:520,protein:12,unit:"adet"},
+
+{name:"Domino's Bol Peynirli Ekmek (6 dilim, cheddar + mozzarella + sarımsak sos)",kcal:920,protein:38,unit:"adet"},
+
+{name:"Domino's Sucuklu Bol Peynirli Ekmek (6 dilim, sucuk + cheddar + mozzarella + sarımsak sos)",kcal:1080,protein:48,unit:"adet"},
+
+/* DÜRÜMLER */
+
+{name:"Domino's Tavuklu Dürümos (1 adet)",kcal:520,protein:28,unit:"adet"},
+
+{name:"Domino's Bol Malzemeli Dürümos (1 adet)",kcal:580,protein:25,unit:"adet"},
 
 /* KURUYEMİŞLER */
 
