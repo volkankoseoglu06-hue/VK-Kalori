@@ -599,31 +599,31 @@ function addWater(){
 }
 
 function setupNavigation(){
-  document.querySelectorAll('.top-nav button').forEach(button=>{
-    button.addEventListener('click', ()=>{
-      document.querySelectorAll('.page').forEach(page=>{
-        page.classList.remove('active');
-      });
-
-      const page = $(button.dataset.page);
-
-      if(page){
-        page.classList.add('active');
-      }
+  const buttons=document.querySelectorAll('.bottom-nav button, .brand');
+  buttons.forEach(button=>{
+    button.addEventListener('click',()=>{
+      document.querySelectorAll('.page').forEach(page=>page.classList.remove('active'));
+      const page=$(button.dataset.page);
+      if(page)page.classList.add('active');
+      document.querySelectorAll('.bottom-nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===button.dataset.page));
+      window.scrollTo({top:0,behavior:'smooth'});
     });
   });
+
+  const gear=$('profileHeaderButton');
+  if(gear){
+    gear.addEventListener('click',()=>{
+      document.querySelectorAll('.page').forEach(page=>page.classList.remove('active'));
+      $('profilePage')?.classList.add('active');
+      document.querySelectorAll('.bottom-nav button').forEach(b=>b.classList.remove('active'));
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  }
 }
 
 function setupDayButtons(){
-  $('normalDayBtn').addEventListener('click', ()=>{
-    setDayType('normal');
-  });
-
-  $('sportDayBtn').addEventListener('click', ()=>{
-    setDayType('sport');
-  });
+  // Gün tipi seçimi artık ana ekranda görünmüyor; hedefler profil üzerinden yönetiliyor.
 }
-
 function setupEvents(){
   const editGoalsButton=$('editGoalsButton');
   if(editGoalsButton){
@@ -631,7 +631,7 @@ function setupEvents(){
       document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
       const profile=$('profilePage');
       if(profile)profile.classList.add('active');
-      document.querySelectorAll('.top-nav button').forEach(b=>b.classList.toggle('active',b.dataset.page==='profilePage'));
+      document.querySelectorAll('.bottom-nav button').forEach(b=>b.classList.toggle('active',b.dataset.page==='profilePage'));
     };
   }
 
