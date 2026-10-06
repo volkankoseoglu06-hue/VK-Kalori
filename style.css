@@ -2055,3 +2055,90 @@ body:has(#homePage.active) .vk-home-head .round-settings{position:absolute!impor
 .modern-exercise-card .muscle-hotspot{
   display:none!important;
 }
+
+/* ===== Final iPhone 11 polish ===== */
+body:has(#homePage.active) .header .header-weight{
+  visibility:hidden!important;
+  opacity:0!important;
+  pointer-events:none!important;
+}
+body:has(#homePage.active) .header{
+  border-radius:26px!important;
+  box-shadow:0 12px 32px rgba(39,70,110,.10)!important;
+}
+body:has(#homePage.active) .home-goal-grid{
+  gap:8px!important;
+}
+body:has(#homePage.active) .goal-card{
+  min-height:96px!important;
+  border-radius:22px!important;
+  box-shadow:0 9px 24px rgba(39,70,110,.07)!important;
+}
+body:has(#homePage.active) .home-calorie-card,
+body:has(#homePage.active) .home-summary-card,
+body:has(#homePage.active) .ai-advice-card{
+  border-radius:24px!important;
+  box-shadow:0 11px 30px rgba(39,70,110,.07)!important;
+}
+body:has(#homePage.active) .home-summary-card>div{
+  min-height:38px!important;
+  padding:9px 14px!important;
+}
+body:has(#homePage.active) .home-summary-card span{
+  font-size:11px!important;
+}
+body:has(#homePage.active) .home-summary-card b{
+  font-size:11px!important;
+  font-weight:900!important;
+}
+body:has(#homePage.active) .ai-advice-card{
+  padding:12px 14px!important;
+}
+body:has(#homePage.active) .ai-advice-card p{
+  font-size:10px!important;
+}
+
+/* Exercise names must stay on one normal line/word wrap, never letter-by-letter. */
+.modern-exercise-card .exercise-info,
+.modern-exercise-card .exercise-title-row,
+.modern-exercise-card .exercise-title-row h3{
+  min-width:0!important;
+  width:100%!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  hyphens:none!important;
+}
+.modern-exercise-card .exercise-title-row h3{
+  font-size:14px!important;
+  line-height:1.12!important;
+  white-space:normal!important;
+}
+.modern-exercise-card .exercise-main{
+  display:grid!important;
+  grid-template-columns:76px minmax(0,1fr)!important;
+  gap:8px!important;
+  align-items:start!important;
+}
+.modern-exercise-card .exercise-info{
+  padding:4px 42px 0 0!important;
+  display:block!important;
+}
+.modern-exercise-card .exercise-result{
+  left:84px!important;
+  top:40px!important;
+}
+.modern-exercise-card .exercise-inline-controls{
+  padding-left:84px!important;
+}
+@media(max-width:390px){
+  .modern-exercise-card .exercise-main{grid-template-columns:72px minmax(0,1fr)!important}
+  .modern-exercise-card .exercise-info{padding-right:40px!important}
+  .modern-exercise-card .exercise-result{left:80px!important}
+  .modern-exercise-card .exercise-inline-controls{padding-left:80px!important}
+}
+
+/* Cardio tabs are compact and clearly tappable. */
+.sport-type-tabs button{
+  min-height:44px!important;
+  font-size:11px!important;
+}
