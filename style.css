@@ -1105,3 +1105,32 @@ body{min-height:100vh}
 .brand .vk-logo{width:54px!important;height:45px!important}
 .brand>span{font-size:28px!important;letter-spacing:3px!important;font-weight:700!important}
 .brand>span span{font-weight:500!important;color:#1e293b!important}
+
+
+.modal-set-actions{display:flex;justify-content:flex-end;margin-top:7px}
+.modal-add-set{
+  border:0;background:#eff6ff;color:#2563eb;border-radius:9px;
+  padding:7px 10px;font:800 10px/1 'Manrope',sans-serif;cursor:pointer;
+}
+.modal-set-list{display:grid!important;gap:5px!important;margin-top:7px!important}
+.modal-set-row{
+  display:grid!important;
+  grid-template-columns:42px minmax(0,1fr) minmax(0,1fr) 30px!important;
+  gap:6px!important;
+  align-items:center!important;
+  padding:6px 8px!important;
+  border-radius:10px!important;
+  background:#f8fafc!important;
+}
+.modal-set-row>span{font-size:10px!important;font-weight:800!important;color:#334155!important}
+.modal-set-row input{
+  width:100%!important;box-sizing:border-box!important;
+  border:1px solid #dbe5f1!important;border-radius:8px!important;
+  background:#fff!important;padding:7px 6px!important;
+  font:800 10px/1 'Manrope',sans-serif!important;text-align:center!important;
+}
+.modal-remove-set{
+  width:30px!important;height:30px!important;border:0!important;
+  border-radius:8px!important;background:#fee2e2!important;color:#dc2626!important;
+  font:900 16px/1 'Manrope',sans-serif!important;cursor:pointer;
+}
