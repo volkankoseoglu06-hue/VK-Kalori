@@ -76,9 +76,12 @@ function updateDashboard(){
   $('currentProtein').textContent = Math.round(state.protein);
   $('currentWater').textContent = state.water.toFixed(1);
   $('currentSport').textContent = Math.round(state.burned);
-  $('eatenCalories').textContent = Math.round(state.eaten);
-  $('burnedCalories').textContent = Math.round(state.burned);
-  $('netCalories').textContent = Math.round(netCalories());
+  const eaten = $('eatenCalories');
+  const burned = $('burnedCalories');
+  const net = $('netCalories');
+  if(eaten) eaten.textContent = Math.round(state.eaten);
+  if(burned) burned.textContent = Math.round(state.burned);
+  if(net) net.textContent = Math.round(netCalories());
   $('targetCalories').textContent = state.goals.calories;
   $('targetProtein').textContent = state.goals.protein;
   $('targetWater').textContent = state.goals.water;
