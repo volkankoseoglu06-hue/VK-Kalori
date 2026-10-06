@@ -1731,3 +1731,27 @@ body:has(#workoutPage.active) .workout-quick-stats span{
     display:none!important;
   }
 }
+
+
+/* Workout history delete */
+.workout-history-summary{position:relative!important}
+.history-delete{
+  position:absolute!important;
+  top:8px!important;
+  right:8px!important;
+  width:22px!important;
+  height:22px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:50%!important;
+  background:#eef2f7!important;
+  color:#64748b!important;
+  font-size:16px!important;
+  line-height:22px!important;
+  display:grid!important;
+  place-items:center!important;
+  cursor:pointer!important;
+  z-index:3!important;
+}
+.history-delete:hover{background:#fee2e2!important;color:#dc2626!important}
+.history-summary-head{padding-right:32px!important}
