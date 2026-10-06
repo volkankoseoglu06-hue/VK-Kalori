@@ -250,11 +250,31 @@ function pauseWorkout(){
 }
 function completeWorkout(){
   window.__vkWorkoutDay=day;
-  if(!S.session && !active){
-    syncWorkoutBurnToDashboard();
+  const currentLogs=(S.logs||[]).filter(isCurrentWorkoutLog);
+  if(!active && !S.session && !currentLogs.length){
+    alert('Önce en az 1 hareket için set gir.');
     return;
   }
-  finishSession(false);
+  if(active || S.session){
+    finishSession(false);
+  }else{
+    const directId='direct_'+today()+'_'+day+'_'+Date.now();
+    currentLogs.forEach(log=>log.sessionId=directId);
+    const sets=currentLogs.reduce((sum,log)=>sum+(Number(log.sets)||0),0);
+    const minutes=Math.max(5,Math.min(180,sets*2.5));
+    activeSessionId=directId;
+    if(sets>0 && typeof addWorkoutBurn==='function'){
+      const density=sets/Math.max(1,minutes);
+      const met=density>=0.50?5.8:(density>=0.30?5.0:3.5);
+      addWorkoutBurn(minutes,sets,met,directId);
+    }
+    S.session={id:directId,day,status:'finished',elapsedMs:minutes*60000,sets};
+    saveWorkoutState();
+    render();
+    history();
+    if(typeof updateDashboard==='function')updateDashboard();
+  }
+  alert('Antrenman tamamlandı 🎉');
 }
 function finishSession(autoComplete=false){
   if(!S.session && !active)return;
@@ -657,6 +677,7 @@ function addModalSetRow(weight='',reps=10){
   const row=document.createElement('div');
   row.className='modal-set-row';
   row.innerHTML='<span>'+n+'. Set</span><input class="modal-set-weight" type="number" min="0" step="0.5" value="'+weight+'" placeholder="kg"><input class="modal-set-reps" type="number" min="1" max="50" value="'+reps+'" placeholder="tekrar"><button type="button" class="modal-remove-set" data-remove-set aria-label="Seti sil">×</button>';
+  list.querySelector('.modal-empty-sets')?.remove();
   list.appendChild(row);
   syncModalSetCount();
 }
@@ -693,16 +714,12 @@ function open(i){
     '</div>';
 
   document.getElementById('workoutCues').innerHTML=selected[5].map(x=>'<li>'+x+'</li>').join('');
-  document.getElementById('modalWeight').value=weight;
-  document.getElementById('modalSets').value=sets;
-  document.getElementById('modalReps').value=reps;
-
   const setList=document.getElementById('modalSetList');
   if(setList){
     const details=Array.isArray(saved?.setDetails)&&saved.setDetails.length ? saved.setDetails : [];
-    setList.innerHTML=details.map((d,n)=>
+    setList.innerHTML=details.length ? details.map((d,n)=>
       '<div class="modal-set-row"><span>'+(n+1)+'. Set</span><input class="modal-set-weight" type="number" min="0" step="0.5" value="'+(d.weight||0)+'" placeholder="kg"><input class="modal-set-reps" type="number" min="1" max="50" value="'+(d.reps||10)+'" placeholder="tekrar"><button type="button" class="modal-remove-set" data-remove-set aria-label="Seti sil">×</button></div>'
-    ).join('');
+    ).join('') : '<div class="modal-empty-sets">Henüz set eklenmedi. <b>+ Set ekle</b> ile ilk setini gir.</div>';
   }
 
   document.getElementById('workoutSource').innerHTML='<a target="_blank" rel="noopener" href="https://repdb.co">Exercise data by RepDB ↗</a>';
