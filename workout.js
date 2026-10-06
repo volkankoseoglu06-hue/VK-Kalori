@@ -64,6 +64,93 @@ function close(){document.getElementById('workoutModal').classList.remove('open'
 function history(){document.getElementById('workoutHistory').innerHTML=S.logs.slice(0,15).map(x=>'<div class="workout-history-item"><strong>'+new Date(x.date+'T12:00:00').toLocaleDateString('tr-TR')+'</strong><span>Gün '+x.day+' • '+x.exercise+'</span><span>'+x.weight+' kg × '+x.sets+' × '+x.reps+' • RPE '+x.rpe+'</span></div>').join('')||'<div class="empty-state">Henüz kayıt yok. İlk antrenmandan sonra burada görünecek.</div>'}
 function rest(n){clearInterval(timer);sec=n;let b=document.getElementById('restTimerBtn');timer=setInterval(()=>{b.textContent='⏱️ Dinlenme '+Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0');if(sec--<=0){clearInterval(timer);b.textContent='⏱️ 90 sn dinlenme'}},1000)}
 function svg(t){
-let p={squat:'<circle cx="120" cy="35" r="13"/><path d="M120 50v55l-30 40-15 45m45-85 30 40 15 45M120 75 78 95 65 125m55-50 42 20 13 30"/>',press:'<circle cx="120" cy="42" r="13"/><path d="M120 57v55m0-40-38-2-12-20m50 22 38-2 12-20M120 112l-28 38v40m28-78 28 38v40"/>',row:'<circle cx="135" cy="45" r="13"/><path d="m128 58-23 47-30 45-20 35m50-80 40 25 30 30m-65-68-35-2-20 20m57-18 38-18 25-20"/>',hinge:'<circle cx="155" cy="50" r="13"/><path d="m145 63-40 42-30 40-10 40m50-80 30 45 15 40m-42-95-43 30m43-30 37 15"/>',curl:'<circle cx="120" cy="35" r="13"/><path d="M120 50v60l-30 40-5 40m35-80 30 40 5 40m-35-122-38 32-7 30m45-62 38 32 7 30"/>',bridge:'<circle cx="70" cy="125" r="13"/><path d="m82 120 43-30 50 20 15 35m-65-55-10-35m10 35 20-35"/>',raise:'<circle cx="120" cy="35" r="13"/><path d="M120 50v60l-30 40-5 40m35-80 30 40 5 40m-35-122L75 45 60 70m60 0 45-25 15 25"/>',core:'<circle cx="90" cy="95" r="13"/><path d="m103 100 42 15 35-10m-35 10 20 30m-20-30-25 35-25 25m50-60 30 35"/>'}[t]||'';return '<svg class="exercise-svg '+t+'" viewBox="0 0 240 210"><line class="ground" x1="35" y1="195" x2="205" y2="195"/><g class="body-move">'+p+'</g></svg>'
+const figures={
+squat:`
+<g class="human">
+  <circle class="head" cx="120" cy="30" r="12"/>
+  <path class="body" d="M120 44 L120 92"/>
+  <path class="limb" d="M120 55 L88 68 L68 88"/>
+  <path class="limb" d="M120 55 L152 68 L172 88"/>
+  <path class="limb" d="M120 92 L92 125 L80 172"/>
+  <path class="limb" d="M120 92 L148 125 L160 172"/>
+  <path class="shoe" d="M70 174 L88 174 M150 174 L168 174"/>
+  <path class="equipment" d="M82 67 H158 M86 61 V73 M154 61 V73"/>
+</g>`,
+press:`
+<path class="bench" d="M55 145 H190 M72 145 L65 180 M170 145 L178 180 M72 128 H172"/>
+<g class="human">
+  <circle class="head" cx="77" cy="105" r="11"/>
+  <path class="body" d="M88 110 L130 128"/>
+  <path class="limb" d="M100 116 L92 88 L82 70"/>
+  <path class="limb" d="M125 125 L135 96 L145 72"/>
+  <path class="limb" d="M125 128 L155 145"/>
+  <path class="limb" d="M104 120 L76 142"/>
+  <path class="shoe" d="M151 145 H168"/>
+  <path class="equipment" d="M72 68 H92 M65 63 V73 M99 63 V73 M135 70 H155 M128 65 V75 M162 65 V75"/>
+</g>`,
+row:`
+<g class="human">
+  <circle class="head" cx="112" cy="45" r="11"/>
+  <path class="body" d="M105 56 L78 92 L105 112"/>
+  <path class="limb" d="M78 92 L48 116 L35 145"/>
+  <path class="limb" d="M78 92 L112 112 L145 142"/>
+  <path class="limb" d="M105 112 L88 150"/>
+  <path class="limb" d="M105 112 L128 150"/>
+  <path class="shoe" d="M80 153 H97 M122 153 H139"/>
+  <path class="equipment" d="M32 145 H55 M26 139 V151 M61 139 V151"/>
+</g>`,
+hinge:`
+<g class="human">
+  <circle class="head" cx="150" cy="48" r="11"/>
+  <path class="body" d="M140 58 L102 92 L82 115"/>
+  <path class="limb" d="M102 92 L68 120 L55 150"/>
+  <path class="limb" d="M82 115 L105 150 L112 176"/>
+  <path class="limb" d="M82 115 L60 150 L52 176"/>
+  <path class="shoe" d="M43 178 H62 M104 178 H121"/>
+  <path class="equipment" d="M63 116 H105 M58 110 V122 M110 110 V122"/>
+</g>`,
+curl:`
+<g class="human">
+  <circle class="head" cx="120" cy="30" r="12"/>
+  <path class="body" d="M120 44 L120 105"/>
+  <path class="limb" d="M120 55 L88 78 L90 106"/>
+  <path class="limb" d="M120 55 L152 78 L150 106"/>
+  <path class="limb" d="M120 105 L94 142 L88 174"/>
+  <path class="limb" d="M120 105 L146 142 L152 174"/>
+  <path class="shoe" d="M78 176 H96 M144 176 H162"/>
+  <path class="equipment" d="M76 107 H104 M70 101 V113 M110 101 V113 M136 107 H164 M130 101 V113 M170 101 V113"/>
+</g>`,
+bridge:`
+<g class="human">
+  <circle class="head" cx="64" cy="132" r="11"/>
+  <path class="body" d="M75 128 L112 100 L151 120"/>
+  <path class="limb" d="M151 120 L174 151 L183 174"/>
+  <path class="limb" d="M112 100 L132 72 L150 60"/>
+  <path class="limb" d="M112 100 L92 72 L72 60"/>
+  <path class="equipment" d="M90 104 H134"/>
+</g>
+<path class="bench" d="M105 150 H190 M122 150 L116 178 M178 150 L184 178"/>`,
+raise:`
+<g class="human">
+  <circle class="head" cx="120" cy="30" r="12"/>
+  <path class="body" d="M120 44 L120 105"/>
+  <path class="limb" d="M120 55 L90 82 L62 104"/>
+  <path class="limb" d="M120 55 L150 82 L178 104"/>
+  <path class="limb" d="M120 105 L95 142 L90 174"/>
+  <path class="limb" d="M120 105 L145 142 L150 174"/>
+  <path class="shoe" d="M80 176 H98 M142 176 H160"/>
+  <path class="equipment" d="M52 104 H70 M46 98 V110 M76 98 V110 M170 104 H188 M164 98 V110 M194 98 V110"/>
+</g>`,
+core:`
+<g class="human">
+  <circle class="head" cx="82" cy="95" r="11"/>
+  <path class="body" d="M94 98 L130 108 L162 105"/>
+  <path class="limb" d="M162 105 L190 126"/>
+  <path class="limb" d="M130 108 L108 139 L85 166"/>
+  <path class="limb" d="M130 108 L148 139 L172 164"/>
+  <path class="limb" d="M104 98 L76 76"/>
+</g>`
+};
+return '<svg class="exercise-svg exercise-'+t+'" viewBox="0 0 240 200" role="img" aria-label="Animasyonlu '+t+' hareketi"><line class="ground" x1="30" y1="182" x2="210" y2="182"/><g class="body-move">'+(figures[t]||figures.squat)+'</g></svg>';
 }
 document.addEventListener('DOMContentLoaded',initWorkout);
