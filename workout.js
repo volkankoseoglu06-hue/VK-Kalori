@@ -18,7 +18,7 @@ const W={
 ['Rear-Delt Row','Arka omuz • üst sırt',2,'10–15','row',['Gövdeyi kontrollü öne eğ.','Dirsekleri yana açarak çek.','Üst sırtı sıkıp yavaş indir.'],['Boynu kaldırma.','Belden savurma.'],'ACE Shoulder Guide','https://www.acefitness.org/continuing-education/prosource/september-2014/4972/dynamite-delts-ace-research-identifies-top-shoulder-exercises/'],
 ['Lateral Raise','Yan omuz',2,'10–15','raise',['Kollar hafif bükülü.','Dambılları omuz hizasına kadar kontrollü kaldır.','İnerken ağırlığı bırakma.'],['Omuzları shrug yapma.','Ağırlığı savurma.'],'ACE Shoulder Guide','https://www.acefitness.org/continuing-education/prosource/september-2014/4972/dynamite-delts-ace-research-identifies-top-shoulder-exercises/'],
 ['Dead Bug','Core',2,'8–10/yan','core',['Karın bölgesini kontrollü sık.','Karşı kol ve bacağı yavaş uzat.','Nefesi tutma.'],['Bel kontrolünü kaybetme.','Hızı artırma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/']]}}
-let S=load();let day=1;let selected=null;let timer=null;let sec=90;
+let S=load();let day=1;let selected=null;let timer=null;let sec=90;let active=false;let activeSet=1;let activeExercise=0;
 function load(){try{return JSON.parse(localStorage.getItem(WORKOUT_KEY))||{logs:[],weights:{},done:{}}}catch(e){return{logs:[],weights:{},done:{}}}}
 function save(){localStorage.setItem(WORKOUT_KEY,JSON.stringify(S))}
 function today(){return new Date().toISOString().slice(0,10)}
@@ -29,10 +29,13 @@ function initWorkout(){
  document.getElementById('workoutDayTabs').onclick=e=>{let b=e.target.closest('[data-day]');if(!b)return;day=+b.dataset.day;tabs();render()};
  document.getElementById('workoutDetail').onclick=e=>{let b=e.target.closest('[data-open]');if(b)open(+b.dataset.open);let d=e.target.closest('[data-done]');if(d)toggle(+d.dataset.done)};
  document.getElementById('workoutModal').onclick=e=>{if(e.target.id==='workoutModal'||e.target.matches('[data-close]'))close();if(e.target.matches('[data-save]'))log()};
- document.getElementById('restTimerBtn').onclick=()=>rest(90);
+ document.getElementById('restTimerBtn').onclick=()=>rest(90); document.getElementById('startWorkoutButton').onclick=()=>startGuided();
  ['workoutWeight','workoutSetsDone','workoutRepsDone'].forEach(id=>document.getElementById(id).oninput=preview);
 }
 function tabs(){document.getElementById('workoutDayTabs').innerHTML=[1,2,3].map(d=>'<button class="workout-day '+(d===day?'active':'')+'" data-day="'+d+'"><strong>Gün '+d+'</strong><span>'+W[d].name.replace('Full Body ','')+'</span></button>').join('')}
+function startGuided(){active=true;activeExercise=0;activeSet=1;renderActive();document.getElementById('startWorkoutButton').textContent='⏹️ Antrenmanı Durdur'}
+function renderActive(){let panel=document.getElementById('activeWorkoutPanel');if(!panel)return;if(!active){panel.innerHTML='';return}let x=W[day].ex[activeExercise],total=W[day].ex.length;panel.innerHTML='<div class="active-workout"><span class="eyebrow">AKTİF ANTRENMAN</span><h3>'+x[0]+'</h3><div>'+x[1]+' • '+activeSet+'/'+x[2]+' set • '+x[3]+' tekrar</div><div class="set-controls"><input id="activeWeight" type="number" min="0" step="0.5" placeholder="Ağırlık kg" value="'+(S.weights[key(x[0])]||'')+'"><input id="activeReps" type="number" min="1" value="'+((x[3].match(/^\\d+/)||['10'])[0])+'"></div><div class="active-set"><span>Set '+activeSet+' hazır</span><button id="completeActiveSet">✓ Seti Tamamla</button></div><div class="active-next">Hareket '+(activeExercise+1)+'/'+total+' • Sonraki: '+(W[day].ex[activeExercise+1]?.[0]||'Antrenman biter')+'</div><button class="technique-btn" id="activeTechnique">▶ Tekniği göster</button></div>';document.getElementById('completeActiveSet').onclick=completeActiveSet;document.getElementById('activeTechnique').onclick=()=>open(activeExercise)}
+function completeActiveSet(){let x=W[day].ex[activeExercise],wt=+document.getElementById('activeWeight').value||0,reps=+document.getElementById('activeReps').value||10;S.logs.unshift({date:today(),day,exercise:x[0],weight:wt,sets:1,reps,rpe:7});if(wt)S.weights[key(x[0])]=wt;save();rest(90);if(activeSet<x[2])activeSet++;else if(activeExercise<W[day].ex.length-1){activeExercise++;activeSet=1}else{active=false;document.getElementById('startWorkoutButton').textContent='▶️ Bugünkü Antrenmanı Başlat';alert('Antrenman tamamlandı 🎉')}render();history();renderActive()}
 function render(){
  let w=W[day],done=w.ex.filter(x=>S.done[key(x[0])]).length;
  document.getElementById('workoutTitle').textContent=w.name;document.getElementById('workoutSubtitle').textContent=w.focus;document.getElementById('workoutProgress').textContent=done+'/'+w.ex.length+' hareket tamamlandı';
