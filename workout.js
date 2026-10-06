@@ -481,18 +481,15 @@ function workoutLoggedKcal(){
     .reduce((sum,log)=>sum+exerciseKcalForLog(log),0);
 }
 function render(){
-  const title=document.getElementById('workoutTitle');
-  const subtitle=document.getElementById('workoutSubtitle');
   const detail=document.getElementById('workoutDetail');
-  if(!title||!subtitle||!detail)return;
+  if(!detail)return;
 
   const plan=W[day];
   const doneCount=plan.ex.filter(ex=>S.done[key(ex[0])]===today()).length;
   const todayLogs=(S.logs||[]).filter(isCurrentWorkoutLog);
   const totalSets=todayLogs.reduce((sum,log)=>sum+(Number(log.sets)||0),0);
 
-  title.textContent='Antrenman';
-  subtitle.textContent=plan.name;
+  // The page header is rendered by index.html; the workout list is rendered here.
 
   // The reference design uses the timer icon as the session control.
   const startButton=document.getElementById('startWorkoutButton');
