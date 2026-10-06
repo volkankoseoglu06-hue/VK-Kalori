@@ -235,7 +235,7 @@ function pauseWorkout(){
 function completeWorkout(){
   window.__vkWorkoutDay=day;
   if(!S.session && !active)return;
-  completeWorkout();
+  finishSession(true);
 }
 function finishSession(autoComplete=false){
   if(!S.session && !active)return;
