@@ -187,6 +187,8 @@ function updateDashboard(){
   setText('homeCalorieGoal',Math.round(calorieGoal));
   setText('homeProteinGoal',Math.round(proteinGoal));
   setText('homeWaterGoal',waterGoal.toFixed(1));
+  const headerWeight=$('headerWeightValue');
+  if(headerWeight) headerWeight.textContent = state.weight>0 ? Number(state.weight).toLocaleString('tr-TR',{maximumFractionDigits:1}) : '—';
 
   const setRing=(selector,pct)=>{
     const el=document.querySelector(selector);
