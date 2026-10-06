@@ -2817,3 +2817,50 @@ body:has(#homePage.active) .modern-header{
   .modern-header .brand .header-date{font-size:9px!important}
   .workout-start-main{padding:7px 10px!important}
 }
+
+
+/* VK Life header: logo + date centered together */
+.modern-header{position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important}
+.modern-header .brand{position:static!important;transform:none!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;width:auto!important}
+.modern-header .vk-logo-img{width:126px!important;height:auto!important;display:block!important}
+.modern-header .header-date{display:inline-block!important;color:#64748b!important;font-size:11px!important;font-weight:800!important;white-space:nowrap!important;letter-spacing:0!important}
+
+/* Workout controls */
+.workout-start-main{transition:transform .15s ease,background .2s ease!important}
+.workout-start-main.is-running .workout-play{background:#f59e0b!important}
+.workout-start-main.is-running .workout-start-copy strong{color:#d97706!important}
+.workout-start-main.is-paused .workout-play{background:#2563eb!important}
+.workout-start-main.is-paused .workout-start-copy strong{color:#2563eb!important}
+.workout-start-main.is-finished .workout-play{background:#16a34a!important}
+.workout-start-main.is-finished .workout-start-copy strong{color:#16a34a!important}
+.finish-workout-button{
+  display:none;
+  width:100%;
+  min-height:48px;
+  margin:14px 0 8px;
+  border:0;
+  border-radius:15px;
+  background:#16a34a;
+  color:#fff;
+  font:inherit;
+  font-weight:900;
+  font-size:14px;
+  cursor:pointer;
+  box-shadow:0 7px 18px rgba(22,163,74,.18);
+}
+.finish-workout-button:disabled{opacity:.65;cursor:default}
+
+/* Animated movement preview directly inside workout cards */
+.reference-exercise-image{position:relative!important;display:block!important;width:100%!important;height:100%!important;overflow:hidden!important}
+.reference-exercise-image>img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:contain!important}
+.reference-exercise-image-peak{opacity:0;animation:referenceRepdbPose 2.8s ease-in-out infinite}
+@keyframes referenceRepdbPose{0%,42%{opacity:0}50%,92%{opacity:1}100%{opacity:0}}
+.reference-exercise-card.done{border-color:#bbf7d0!important;background:#f0fdf4!important}
+.reference-exercise-card.done .reference-exercise-number{background:#16a34a!important;color:#fff!important}
+.reference-exercise-card.done .reference-exercise-title{color:#166534!important}
+.reference-exercise-card{position:relative;cursor:pointer}
+.reference-exercise-card .reference-exercise-image{background:#f4f8fc;border-radius:15px;overflow:hidden}
+@media(max-width:430px){
+  .modern-header .vk-logo-img{width:116px!important}
+  .modern-header .header-date{font-size:10px!important}
+}
