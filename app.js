@@ -660,6 +660,10 @@ function setupEvents(){
 }
 
 function refreshAll(){
+  if($('profileWeight')) $('profileWeight').value = state.weight || '';
+  if($('profileCalories')) $('profileCalories').value = state.goals.calories || '';
+  if($('profileProtein')) $('profileProtein').value = state.goals.protein || '';
+  if($('profileWater')) $('profileWater').value = state.goals.water || '';
   updateDashboard();
   renderFoods();
   renderSports();
