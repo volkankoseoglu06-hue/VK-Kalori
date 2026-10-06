@@ -471,3 +471,31 @@ button{
   .activity-ring strong{font-size:23px}
   .plan-grid{grid-template-columns:1fr}
 }
+
+/* Gerçek hareket gösterimi: başlangıç -> hareket + çalışan kaslar */
+.exercise-visual{width:100%}
+.visual-stage{position:relative;background:#f8fafc;border-radius:16px;padding:6px 6px 0;overflow:hidden}
+.visual-stage .exercise-svg{width:100%;height:205px;display:block}
+.exercise-svg .pose{animation-duration:2.8s;animation-timing-function:ease-in-out;animation-iteration-count:infinite}
+.exercise-svg .pose-a{animation-name:poseStart}
+.exercise-svg .pose-b{animation-name:poseEnd}
+.exercise-svg .body-line{fill:none;stroke:#111827;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+.exercise-svg .muscle-hot{fill:#ef4444;stroke:none;opacity:.82;filter:drop-shadow(0 1px 2px rgba(239,68,68,.2))}
+.exercise-svg .equipment{fill:#111827;stroke:none}
+.exercise-svg .bench{stroke:#64748b;stroke-width:6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.visual-labels{position:absolute;left:0;right:0;bottom:6px;display:flex;align-items:center;justify-content:center;gap:10px;font-size:9px;font-weight:900;letter-spacing:.7px;color:#64748b}
+.visual-labels b{color:#2563eb;font-size:14px}
+.working-title{margin-top:10px;font-size:10px;font-weight:900;letter-spacing:.7px;color:#6b7280}
+.working-muscles{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.working-muscles span{background:#fee2e2;color:#b91c1c;border-radius:999px;padding:5px 8px;font-size:10px;font-weight:800}
+.walking-visual{margin-top:9px}
+.walking-visual .visual-stage{background:#fff}
+.walking-visual .exercise-svg{height:145px}
+.walking-visual .working-title{font-size:9px}
+.walking-visual .working-muscles span{padding:4px 7px}
+@keyframes poseStart{0%,42%{opacity:1}50%,100%{opacity:0}}
+@keyframes poseEnd{0%,42%{opacity:0}50%,92%{opacity:1}100%{opacity:0}}
+@media(max-width:430px){
+  .visual-stage .exercise-svg{height:190px}
+  .walking-visual .exercise-svg{height:132px}
+}
