@@ -397,8 +397,7 @@ button{
   .today-summary h3{font-size:17px}
   .summary-stat{padding:10px}
   .summary-stat strong{font-size:15px}
-  .sport-summary{grid-template-columns:1fr 1fr}
-  .sport-summary strong{font-size:16px}
+  .sport-summary{grid-template-columns:1fr 1fr}  .sport-summary strong{font-size:16px}
 }
 
 /* VK Life circular activity dashboard */
@@ -510,3 +509,36 @@ button{
 }
 
 .profile-note{margin:8px 0 0;color:#6b7280;font-size:11px;line-height:1.45}
+
+/* Dashboard ring actions */
+.action-ring{
+  border:0;
+  padding:0;
+  color:inherit;
+  font:inherit;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.action-ring:focus-visible{
+  outline:3px solid #2563eb;
+  outline-offset:3px;
+}
+.action-ring:active{
+  transform:scale(.97);
+}
+.action-ring:hover{
+  transform:translateY(-1px);
+}
+.finish-ring{
+  background:conic-gradient(#16a34a var(--ring-pct),#dcfce7 0);
+}
+.finish-ring:after{
+  background:#fff;
+}
+.finish-ring strong{
+  color:#16a34a;
+  font-size:30px;
+}
+@media(max-width:430px){
+  .finish-ring strong{font-size:27px}
+}

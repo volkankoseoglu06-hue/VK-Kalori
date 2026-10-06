@@ -45,21 +45,24 @@
       <b>⚖️ Net Kalori</b><span>alınan − yakılan</span>
     </div>
     <div class="activity-ring-card">
-      <div class="activity-ring water-ring"><div><strong id="summaryWater">0.0</strong><small>L</small></div></div>
-      <b>💧 Su</b><span>/ <span id="summaryWaterGoal">3.0</span> L</span>
+      <button id="waterButton" class="activity-ring water-ring action-ring" type="button" aria-label="250 ml su ekle">
+        <div><strong id="summaryWater">0.0</strong><small>L</small></div>
+      </button>
+      <b>💧 Su</b><span>Dokun: +250 ml</span>
     </div>
     <div class="activity-ring-card">
       <div class="activity-ring protein-ring"><div><strong id="summaryProtein">0</strong><small>g</small></div></div>
       <b>🥩 Protein</b><span>günlük hedef</span>
     </div>
     <div class="activity-ring-card">
-      <div class="activity-ring sets-ring"><div><strong id="summaryWorkoutSets">0</strong><small>set</small></div></div>
-      <b>🏋️ Setler</b><span>bugünkü toplam</span>
+      <button id="finishDayButton" class="activity-ring finish-ring action-ring" type="button" aria-label="Günü bitir">
+        <div><strong>✓</strong><small>gün</small></div>
+      </button>
+      <b>📅 Günü Bitir</b><span>Günü kaydet</span>
     </div>
   </div>
 </div>
 <div class="card"><h3>🍽️ Bugünkü Besinler</h3><div id="dailyFoods"></div><h3 class="section-gap">Bugünkü Sporlar</h3><div id="dailySports"></div></div>
-<button class="primary" id="waterButton">💧 +250 ml Su</button><button class="primary secondary" id="finishDayButton">📅 Günü Bitir</button>
 </section>
 <section id="foodPage" class="page">
 <div class="card"><h3>🍽️ Beslenme</h3><input id="foodSearch" type="text" placeholder="🔍 Besin ara" autocomplete="off"><div id="foodResults"></div></div>
