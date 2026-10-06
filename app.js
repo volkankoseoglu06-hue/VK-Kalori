@@ -82,7 +82,7 @@ function netCalories(){
 }
 
 function getTodayWorkoutSummary(){
-  const empty={done:0,sets:0};
+  const empty={done:0,sets:0,minutes:0};
   try{
     const raw=localStorage.getItem('vk_workout_log_v1');
     if(!raw)return empty;
@@ -94,39 +94,56 @@ function getTodayWorkoutSummary(){
       .filter(x=>x.date===todayKey && (!resetAt || Number(x.at||0)>resetAt))
       .reduce((sum,x)=>sum+(Number(x.sets)||0),0);
     if(resetAt && done===0 && sets===0)return empty;
-    return {done,sets};
+    const minutes=(state.dailySports||[]).filter(x=>x.name==='Ağırlık Antrenmanı').reduce((sum,x)=>sum+(Number(x.duration)||0),0);\n    return {done,sets,minutes};
   }catch(e){
     return empty;
   }
 }
 
-function addWorkoutBurn(minutes,sets=13,met=3.5){
-  const exists=state.dailySports.some(x=>x.name==='Ağırlık Antrenmanı'||x.name==='Ağırlık');
-  if(exists)return false;
-
+function addWorkoutBurn(minutes,sets=13,met=3.5,sessionId=''){
   const weight=Number(state.weight)||0;
   if(weight<=0){
     alert('Ağırlık kalorisi için Profil bölümünden vücut ağırlığını gir.');
     return false;
   }
 
-  const mins=Math.max(20,Math.min(120,Number(minutes)||45));
+  const mins=Math.max(5,Math.min(180,Number(minutes)||45));
   const setCount=Math.max(1,Number(sets)||13);
   const intensity=Number(met)||3.5;
 
   // Net aktif enerji: (MET - 1) x kg x saat.
   const kcal=Math.max(0,Math.round((intensity-1)*weight*(mins/60)));
 
-  state.burned+=kcal;
-  state.dailySports.push({
-    name:'Ağırlık Antrenmanı',
-    duration:mins,
-    sets:setCount,
-    met:intensity,
-    weight,
-    calories:kcal
-  });
+  const existingIndex=sessionId
+    ? state.dailySports.findIndex(x=>x.name==='Ağırlık Antrenmanı'&&x.sessionId===sessionId)
+    : -1;
 
+  if(existingIndex>=0){
+    state.burned=Math.max(0,state.burned-safeNum(state.dailySports[existingIndex].calories));
+    state.dailySports[existingIndex]={
+      ...state.dailySports[existingIndex],
+      duration:mins,
+      sets:setCount,
+      met:intensity,
+      weight,
+      calories:kcal
+    };
+  }else{
+    const manualWeightExists=state.dailySports.some(x=>x.name==='Ağırlık Antrenmanı'||x.name==='Ağırlık');
+    if(manualWeightExists)return false;
+
+    state.dailySports.push({
+      name:'Ağırlık Antrenmanı',
+      duration:mins,
+      sets:setCount,
+      met:intensity,
+      weight,
+      calories:kcal,
+      sessionId:sessionId||null
+    });
+  }
+
+  state.burned+=kcal;
   save();
   updateDashboard();
   renderSports();
@@ -153,7 +170,7 @@ function updateDashboard(){
   setText('currentNet',net);
   setText('summaryWalk',walkMinutes);
   setText('summaryWorkout',workout.done);
-  setText('summaryWorkoutDetail',workout.sets+' set');
+  setText('summaryWorkoutDetail',workout.sets+' set / '+Math.round(workout.minutes)+' dk');
   setText('summaryWorkoutSets',workout.sets);
   setText('summaryEaten',eaten);
   setText('summaryBurned',burned);
@@ -276,7 +293,7 @@ function searchFood(text){
   );
 
   if(!filtered.length){
-    results.innerHTML = '<div class="food-item">Besin bulunamadı. Yeni besin ekleyebilirsin.</div>';
+    results.innerHTML = '<div class="food-item"><strong>Besin bulunamadı.</strong><br><small>Kalori ve protein değerini girerek hemen ekleyebilirsin.</small><button type="button" class="quick-custom-food" style="margin-top:8px;width:100%;padding:9px;border:0;border-radius:10px;background:#111827;color:#fff;font-weight:800">➕ Bu besini ekle</button></div>';\n    results.querySelector('.quick-custom-food').onclick=()=>{const name=$('newFoodName');if(name){name.value=text.trim();name.focus();name.scrollIntoView({behavior:'smooth',block:'center'});}};
     return;
   }
 
@@ -540,24 +557,24 @@ function finishDay(){
   state.dailyFoods = [];
   state.dailySports = [];
 
-  // Gün bittiğinde antrenman tiklerini de temizle.
-  // Geçmiş set kayıtları (S.logs) korunur; sadece aktif günün tamamlandı işaretleri sıfırlanır.
+  // Günü Bitir: bugünün antrenman işaretlerini sıfırla,
+  // ancak geçmiş set/tekrar/ağırlık kayıtlarını koru.
   try{
     const raw=localStorage.getItem('vk_workout_log_v1');
-    if(raw){
-      const workoutData=JSON.parse(raw)||{};
-      workoutData.done={};
-      workoutData.dayResetAt=Date.now();
-      localStorage.setItem('vk_workout_log_v1',JSON.stringify(workoutData));
-    }
+    const workoutData=raw?JSON.parse(raw):{logs:[],weights:{},done:{}};
+    workoutData.done={};
+    workoutData.dayResetAt=Date.now();
+    workoutData.session=null;
+    localStorage.setItem('vk_workout_log_v1',JSON.stringify(workoutData));
   }catch(e){}
+
+  if(typeof resetWorkoutDay==='function')resetWorkoutDay();
 
   save();
   refreshAll();
 
-  alert('Gün kaydedildi.');
+  alert('Gün kaydedildi. Antrenman ekranı da sıfırlandı.');
 }
-
 function saveProfile(){
   const calories = safeNum($('profileCalories').value);
   const protein = safeNum($('profileProtein').value);

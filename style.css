@@ -579,3 +579,41 @@ button{
   .goal-edit-button{padding:8px 10px;font-size:12px}
 }
 .workout-entry-grid{display:grid;grid-template-columns:1.35fr .75fr .75fr;gap:7px;margin:8px 0}.workout-entry-grid label{margin:0;font-size:10px;font-weight:800;color:#374151}.workout-entry-grid input{margin-top:4px;padding:9px 8px;border:1px solid #d1d5db;border-radius:10px;background:#fff;font-size:14px;font-weight:800;width:100%;box-sizing:border-box}.exercise-card.done .workout-entry-grid input{border-color:#bbf7d0;background:#f0fdf4}.technique-note{margin:10px 0 0;padding:11px;border-radius:12px;background:#f8fafc;color:#6b7280;font-size:12px;line-height:1.45}@media(max-width:430px){.workout-entry-grid{grid-template-columns:1.2fr .8fr .8fr;gap:6px}.workout-entry-grid input{padding:9px 7px;font-size:13px}}
+
+/* Workout session flow: light active panel, visible timer, resume state */
+.active-workout{
+  background:#ffffff!important;
+  color:#111827!important;
+  border:1px solid #dbe3ef;
+  border-radius:16px;
+  padding:14px;
+  margin-bottom:12px;
+  box-shadow:0 5px 18px rgba(0,0,0,.06);
+}
+.active-workout .eyebrow{color:#64748b}
+.active-workout h3{margin:4px 0;font-size:17px}
+.active-workout p{margin:3px 0 0;color:#64748b;font-size:12px}
+.active-workout-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.elapsed-box{min-width:76px;text-align:center;background:#eff6ff;border-radius:12px;padding:8px}
+.elapsed-box small{display:block;color:#64748b;font-size:9px;font-weight:800}
+.elapsed-box strong{display:block;color:#1d4ed8;font-size:17px;margin-top:2px}
+.set-controls.three{display:grid;grid-template-columns:1.25fr .75fr .9fr;gap:7px;margin-top:10px}
+.set-controls.three label{margin:0;font-size:10px;font-weight:800;color:#374151}
+.set-controls.three input{margin-top:4px;background:#fff}
+.active-set{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#f8fafc!important;border:1px solid #e5e7eb;padding:10px;border-radius:12px;margin-top:9px}
+.active-set button{background:#111827;color:#fff;border:0;border-radius:10px;padding:9px 11px;font-weight:800}
+.active-next{font-size:11px;color:#6b7280;margin-top:8px}
+.paused-workout{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.paused-workout>div strong{display:block;font-size:13px}
+.paused-workout>div span{display:block;color:#6b7280;font-size:11px;margin-top:3px}
+.resume-inline{border:0;border-radius:10px;padding:9px 11px;background:#111827;color:#fff;font-weight:800;white-space:nowrap}
+.workout-start.stop-workout{background:#b91c1c!important}
+.workout-entry-grid input:focus,.set-controls.three input:focus{outline:2px solid #bfdbfe;outline-offset:1px}
+@media(max-width:430px){
+  .active-workout-head{align-items:flex-start}
+  .elapsed-box{min-width:72px}
+  .set-controls.three{grid-template-columns:1.15fr .7fr .85fr}
+  .set-controls.three input{padding:9px 7px;font-size:13px}
+  .paused-workout{align-items:flex-start}
+  .resume-inline{padding:8px 9px;font-size:12px}
+}
