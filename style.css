@@ -1918,3 +1918,54 @@ body:has(#homePage.active) .header .brand>span{display:none}
 body:has(#homePage.active) .header .header-settings{order:1;width:42px;height:42px;border:1px solid #dbe6f2;border-radius:50%;background:#f8fbff;font-size:17px}
 body:has(#homePage.active) .header .header-weight{order:3;display:flex!important;align-items:center;justify-content:center;gap:3px;height:40px;border:1px solid #d5e3f6;border-radius:15px;background:#f2f7ff;color:#526987}
 body:has(#homePage.active) .header .header-weight span{font-size:13px}.header-weight strong{font-size:14px}.header-weight small{font-size:10px;font-weight:850}
+
+/* ===== Final compact home + stable workout polish ===== */
+body:has(#homePage.active) .header .header-weight{visibility:hidden!important;opacity:0!important}
+body:has(#homePage.active) .vk-home-head{margin-top:2px!important;margin-bottom:14px!important}
+body:has(#homePage.active) .vk-home-head .eyebrow{display:none!important}
+body:has(#homePage.active) .vk-home-head #today{font-size:18px!important;font-weight:900!important;color:#101a35!important;margin:0!important}
+.home-four-metrics{grid-template-columns:repeat(4,1fr)!important;gap:7px!important;margin-bottom:14px!important}
+.home-four-metrics .goal-card{min-height:96px!important;padding:9px 5px!important;border-radius:18px!important}
+.home-four-metrics .goal-card strong{font-size:18px!important}
+.home-four-metrics .goal-card b{font-size:8px!important}
+.home-four-metrics .goal-card small{font-size:8px!important}
+.home-four-metrics .goal-icon{width:27px!important;height:27px!important;margin-bottom:5px!important}
+#homeWaterCard{cursor:pointer!important;-webkit-tap-highlight-color:transparent!important}
+#homeWaterCard:active{transform:scale(.97)!important}
+.home-summary-compact>div{padding:10px 13px!important}
+.home-summary-compact b{font-size:12px!important}
+.finish-day-button{width:100%!important;height:48px!important;margin-top:10px!important;border:0!important;border-radius:15px!important;background:linear-gradient(145deg,#2563eb,#1d4ed8)!important;color:#fff!important;font-size:12px!important;font-weight:900!important;box-shadow:0 9px 20px rgba(37,99,235,.18)!important}
+body:has(#homePage.active) .home-calorie-card,
+body:has(#homePage.active) .home-actions-grid{display:none!important}
+
+/* Home header: logo + settings, intentionally empty right side */
+body:has(#homePage.active) .header{grid-template-columns:44px 1fr 44px!important}
+body:has(#homePage.active) .header .header-weight{display:block!important;width:44px!important;height:42px!important;border:0!important;background:transparent!important;box-shadow:none!important}
+body:has(#homePage.active) .header .header-settings{justify-self:start!important}
+body:has(#homePage.active) .header .vk-logo-img{width:128px!important}
+
+/* Workout: clean, stable three-day selector */
+.workout-day-tabs{grid-template-columns:repeat(3,1fr)!important;gap:7px!important}
+.workout-day{min-height:50px!important;background:#fff!important;border:1px solid #dfe8f2!important;border-radius:15px!important}
+.workout-day.active{background:#2563eb!important;border-color:#2563eb!important;box-shadow:0 7px 16px rgba(37,99,235,.16)!important}
+.workout-day .day-label{display:block!important}
+.workout-day .day-label strong{font-size:13px!important;font-weight:900!important}
+.workout-day .day-icon,.workout-day .day-arrow,.workout-day .day-label small{display:none!important}
+
+/* Compact exercise cards on iPhone 11 */
+.modern-exercise-card{padding:9px!important;border-radius:18px!important}
+.modern-exercise-card .exercise-main{grid-template-columns:82px 1fr!important;min-height:96px!important}
+.exercise-visual{width:82px!important;height:96px!important;border-radius:14px!important}
+.exercise-info{padding-right:44px!important}
+.exercise-title-row h3{font-size:14px!important;max-width:150px!important}
+.exercise-result{left:92px!important;top:43px!important}
+.exercise-result .result-line{padding:4px 5px!important}
+.exercise-inline-controls{padding-left:92px!important;gap:6px!important;margin-top:6px!important}
+.inline-field input{height:38px!important;min-height:38px!important;font-size:14px!important}
+.inline-add,.inline-complete{width:36px!important;height:36px!important;border-radius:12px!important}
+@media(max-width:390px){
+ .modern-exercise-card .exercise-main{grid-template-columns:76px 1fr!important}
+ .exercise-visual{width:76px!important;height:90px!important}
+ .exercise-result{left:84px!important}
+ .exercise-inline-controls{padding-left:84px!important}
+}
