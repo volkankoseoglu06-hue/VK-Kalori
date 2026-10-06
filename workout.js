@@ -110,7 +110,7 @@ function startElapsedTicker(){
       const liveKcal=document.querySelector('[data-stat="kcal"]');
       if(liveKcal)liveKcal.textContent=workoutKcalToday();
       const liveTime=document.querySelector('[data-stat="time"]');
-      if(liveTime)liveTime.textContent=stateWorkoutMinutes()+' dk';
+      if(liveTime)liveTime.textContent=(active?Math.max(0,Math.round(sessionElapsedMs()/60000)):stateWorkoutMinutes())+' dk';
       const button=document.getElementById('startWorkoutButton');
       if(button){
         const copy=button.querySelector('.workout-start-copy strong');
@@ -161,7 +161,7 @@ function initWorkout(){
   };
 
   document.getElementById('startWorkoutButton').onclick=()=>{
-    if(active)return;
+    if(active){pauseWorkout();return;}
     if(S.session && S.session.status==='paused' && S.session.day===day)resumeWorkout();
     else startGuided();
   };
@@ -207,6 +207,32 @@ function resumeWorkout(){
   save();
   renderActive();
   startElapsedTicker();
+}
+function pauseWorkout(){
+  if(!active)return;
+  const elapsed=sessionElapsedMs();
+  active=false;
+  activePausedMs=elapsed;
+  activeStartedAt=0;
+  clearElapsedTicker();
+  S.session={
+    ...(S.session||{}),
+    id:activeSessionId||S.session?.id||('session_'+Date.now()),
+    day,
+    status:'paused',
+    elapsedMs:elapsed,
+    activeSet,
+    activeExercise,
+    sets:activeSessionSets||Number(S.session?.sets)||0
+  };
+  save();
+  render();
+  history();
+  renderActive();
+}
+function completeWorkout(){
+  if(!S.session && !active)return;
+  completeWorkout();
 }
 function finishSession(autoComplete=false){
   if(!S.session && !active)return;
@@ -340,21 +366,38 @@ function render(){
   if(startButton){
     const copy=startButton.querySelector('.workout-start-copy strong');
     const small=startButton.querySelector('.workout-start-copy small');
+    const panel=startButton.closest('.workout-start-panel');
+    let actions=panel?.querySelector('.workout-session-actions');
+    if(!actions && panel){
+      actions=document.createElement('div');
+      actions.className='workout-session-actions';
+      actions.innerHTML='<button type="button" class="session-pause-btn">Durdur</button><button type="button" class="session-finish-btn">Antrenmanı Tamamla</button>';
+      panel.appendChild(actions);
+      actions.querySelector('.session-pause-btn').onclick=(ev)=>{ev.stopPropagation();pauseWorkout();};
+      actions.querySelector('.session-finish-btn').onclick=(ev)=>{ev.stopPropagation();completeWorkout();};
+    }
     if(active){
-      if(copy)copy.textContent='Antrenmana Devam Ediyor';
+      if(copy)copy.textContent='Antrenman Devam Ediyor';
       if(small)small.textContent='Süreyi takip et ve setlerini kaydet';
       startButton.classList.add('is-running');
       if(timer)timer.textContent=formatDuration(sessionElapsedMs());
+      if(actions)actions.style.display='flex';
+      const pauseBtn=actions?.querySelector('.session-pause-btn');
+      if(pauseBtn)pauseBtn.textContent='Durdur';
     }else if(S.session?.status==='paused'&&S.session.day===day){
       if(copy)copy.textContent='Antrenmana Devam Et';
       if(small)small.textContent='Kaldığın yerden devam et';
       startButton.classList.remove('is-running');
       if(timer)timer.textContent=formatDuration(Number(S.session.elapsedMs)||0);
+      if(actions)actions.style.display='flex';
+      const pauseBtn=actions?.querySelector('.session-pause-btn');
+      if(pauseBtn)pauseBtn.textContent='Devam Et';
     }else{
       if(copy)copy.textContent='Antrenmanı Başlat';
       if(small)small.textContent='Süreyi başlat ve setlerini kaydet';
       startButton.classList.remove('is-running');
       if(timer)timer.textContent='00:00';
+      if(actions)actions.style.display='none';
     }
   }
 
@@ -403,7 +446,7 @@ function todayWorkoutLoggedMinutes(){
   return Math.round(sport.filter(x=>x.name==='Ağırlık Antrenmanı').reduce((s,x)=>s+(Number(x.duration)||0),0));
 }
 function workoutKcalToday(){
-  const committed=Math.round((state?.dailySports||[]).filter(x=>x.name==='Ağırlık Antrenmanı').reduce((s,x)=>s+(Number(x.calories)||0),0));
+  const committed=Math.round((state?.dailySports||[]).filter(x=>x.name==='Ağırlık Antrenmanı' && x.sessionId!==activeSessionId).reduce((s,x)=>s+(Number(x.calories)||0),0));
   if(!active)return committed;
   const mins=sessionElapsedMs()/60000;
   if(mins<=0)return committed;
@@ -425,7 +468,7 @@ function saveExerciseValues(i,weight,sets,reps,setDetails=null){
   reps=Math.max(1,Math.min(50,Number(reps)||10));
 
   S.logs=(S.logs||[]).filter(log=>!(log.date===today()&&log.day===day&&log.exercise===x[0]&&!log.autoDone));
-  S.logs.unshift({date:today(),at:Date.now(),day,exercise:x[0],weight,sets,reps,rpe:7,setDetails:Array.isArray(setDetails)&&setDetails.length?setDetails:null});
+  S.logs.unshift({date:today(),at:Date.now(),sessionId:activeSessionId||S.session?.id||null,day,exercise:x[0],weight,sets,reps,rpe:7,setDetails:Array.isArray(setDetails)&&setDetails.length?setDetails:null});
   if(weight)S.weights[k]=weight;
   S.done[k]=today();
   if(active){
@@ -468,7 +511,7 @@ function addSetFromCard(i){
   const x=W[day].ex[i], k=key(x[0]);
   const existing=(S.logs||[]).find(log=>log.date===today()&&log.day===day&&log.exercise===x[0]&&!log.autoDone);
   S.logs=(S.logs||[]).filter(log=>!(log.date===today()&&log.day===day&&log.exercise===x[0]&&!log.autoDone));
-  S.logs.unshift({date:today(),at:Date.now(),day,exercise:x[0],weight:w,sets,reps,rpe:7});
+  S.logs.unshift({date:today(),at:Date.now(),sessionId:activeSessionId||S.session?.id||null,day,exercise:x[0],weight:w,sets,reps,rpe:7});
   if(w)S.weights[k]=w;
   if(existing?.setDetails)S.logs[0].setDetails=existing.setDetails;
   if(active){activeSessionSets=Math.max(activeSessionSets,sets);persistSession('active')}
@@ -560,9 +603,28 @@ function open(i){
 }
 function close(){document.getElementById('workoutModal').classList.remove('open');selected=null}
 function history(){
-  document.getElementById('workoutHistory').innerHTML=S.logs.slice(0,15).map(x=>
-    '<div class="workout-history-item"><strong>'+new Date(x.date+'T12:00:00').toLocaleDateString('tr-TR')+'</strong><span>Gün '+x.day+' • '+x.exercise+'</span><span>'+x.weight+' kg × '+x.sets+' × '+x.reps+' • RPE '+x.rpe+'</span></div>'
-  ).join('')||'<div class="empty-state">Henüz kayıt yok. İlk antrenmandan sonra burada görünecek.</div>';
+  const el=document.getElementById('workoutHistory');
+  if(!el)return;
+  const sessions={};
+  (S.logs||[]).forEach(log=>{
+    if(log.autoDone)return;
+    const id=log.sessionId || ('direct_'+log.date+'_'+log.day);
+    const key=id+'_'+log.date+'_'+log.day;
+    if(!sessions[key])sessions[key]={date:log.date,day:log.day,sessionId:id,moves:new Set(),sets:0};
+    sessions[key].moves.add(log.exercise);
+    sessions[key].sets+=Number(log.sets)||0;
+  });
+  const sports=(state?.dailySports||[]).filter(x=>x.name==='Ağırlık Antrenmanı');
+  const cards=sports.map(s=>{
+    const id=s.sessionId||'';
+    const matching=Object.values(sessions).find(x=>id && x.sessionId===id);
+    const moves=matching?matching.moves.size:(matching?.moves?.size||0);
+    const sets=Number(s.sets)||matching?.sets||0;
+    const duration=Math.round(Number(s.duration)||0);
+    const kcal=Math.round(Number(s.calories)||0);
+    return '<div class="workout-history-summary"><div class="history-summary-head"><strong>'+new Date((s.date||today())+'T12:00:00').toLocaleDateString('tr-TR',{day:'2-digit',month:'long',year:'numeric'})+'</strong><span>Gün '+(s.day||matching?.day||day)+'</span></div><div class="history-summary-grid"><div><b>'+(moves||'—')+'</b><small>Hareket</small></div><div><b>'+sets+'</b><small>Set</small></div><div><b>'+duration+' dk</b><small>Süre</small></div><div><b>'+kcal+' kcal</b><small>Yakım</small></div></div></div>';
+  });
+  el.innerHTML=cards.slice(-10).reverse().join('') || '<div class="empty-state">Henüz tamamlanan antrenman yok.</div>';
 }
 function resetWorkoutDay(){
   clearElapsedTicker();
