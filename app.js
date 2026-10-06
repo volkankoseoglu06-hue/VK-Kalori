@@ -94,7 +94,8 @@ function getTodayWorkoutSummary(){
       .filter(x=>x.date===todayKey && (!resetAt || Number(x.at||0)>resetAt))
       .reduce((sum,x)=>sum+(Number(x.sets)||0),0);
     if(resetAt && done===0 && sets===0)return empty;
-    const minutes=(state.dailySports||[]).filter(x=>x.name==='Ağırlık Antrenmanı').reduce((sum,x)=>sum+(Number(x.duration)||0),0);\n    return {done,sets,minutes};
+    const minutes=(state.dailySports||[]).filter(x=>x.name==='Ağırlık Antrenmanı').reduce((sum,x)=>sum+(Number(x.duration)||0),0);
+    return {done,sets,minutes};
   }catch(e){
     return empty;
   }
@@ -293,7 +294,8 @@ function searchFood(text){
   );
 
   if(!filtered.length){
-    results.innerHTML = '<div class="food-item"><strong>Besin bulunamadı.</strong><br><small>Kalori ve protein değerini girerek hemen ekleyebilirsin.</small><button type="button" class="quick-custom-food" style="margin-top:8px;width:100%;padding:9px;border:0;border-radius:10px;background:#111827;color:#fff;font-weight:800">➕ Bu besini ekle</button></div>';\n    results.querySelector('.quick-custom-food').onclick=()=>{const name=$('newFoodName');if(name){name.value=text.trim();name.focus();name.scrollIntoView({behavior:'smooth',block:'center'});}};
+    results.innerHTML = '<div class="food-item"><strong>Besin bulunamadı.</strong><br><small>Kalori ve protein değerini girerek hemen ekleyebilirsin.</small><button type="button" class="quick-custom-food" style="margin-top:8px;width:100%;padding:9px;border:0;border-radius:10px;background:#111827;color:#fff;font-weight:800">➕ Bu besini ekle</button></div>';
+    results.querySelector('.quick-custom-food').onclick=()=>{const name=$('newFoodName');if(name){name.value=text.trim();name.focus();name.scrollIntoView({behavior:'smooth',block:'center'});}};
     return;
   }
 
