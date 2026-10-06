@@ -280,17 +280,17 @@ function exerciseImage(name,pose='start'){
   const ids={
     'Goblet Squat':'goblet-squat',
     'Dambıl Bench Press':'db-bench-press',
-    'Tek Kol Dambıl Row':'single-arm-dumbbell-row',
+    'Tek Kol Dambıl Row':'single-arm-db-row',
     'Dambıl Romanian Deadlift':'dumbbell-romanian-deadlift',
     'Hammer Curl':'hammer-curl',
     'Destekli Split Squat':'dumbbell-split-squat',
-    'Eğimli Dambıl Press':'incline-dumbbell-press',
+    'Eğimli Dambıl Press':'incline-db-press',
     'Bench Destekli Dambıl Row':'single-arm-chest-supported-dumbbell-row',
     'Bench Glute Bridge':'glute-bridge',
     'Oturarak Dambıl Shoulder Press':'seated-db-press',
     'Dambıl Front Squat':'dumbbell-front-squat',
     'Dambıl Floor Press':'dumbbell-floor-press',
-    'Rear-Delt Row':'rear-delt-row',
+    'Rear-Delt Row':'rear-delt-fly',
     'Lateral Raise':'dumbbell-lateral-raise',
     'Dead Bug':'dead-bug'
   };
