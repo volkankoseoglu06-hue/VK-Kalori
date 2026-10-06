@@ -143,6 +143,17 @@ function initWorkout(){
     renderActive();
   };
 
+  const historyEl=document.getElementById('workoutHistory');
+  if(historyEl){
+    historyEl.onclick=e=>{
+      const btn=e.target.closest('[data-delete-history]');
+      if(!btn)return;
+      e.preventDefault();
+      e.stopPropagation();
+      deleteHistory(btn.dataset.deleteHistory);
+    };
+  }
+
   document.getElementById('workoutDetail').onclick=e=>{
     const add=e.target.closest('[data-add-set]');
     if(add){ addSetFromCard(+add.dataset.addSet); return; }
@@ -659,6 +670,23 @@ function open(i){
   document.getElementById('workoutModal').classList.add('open');
 }
 function close(){document.getElementById('workoutModal').classList.remove('open');selected=null}
+function deleteHistory(id){
+  if(!id)return;
+  const sports=Array.isArray(state?.dailySports)?state.dailySports:[];
+  const removed=sports.filter(x=>(x.sessionId||'')===id && x.name==='Ağırlık Antrenmanı');
+  const removedKcal=removed.reduce((sum,x)=>sum+(Number(x.calories)||0),0);
+  state.dailySports=sports.filter(x=>!((x.sessionId||'')===id && x.name==='Ağırlık Antrenmanı'));
+  if(removedKcal)state.burned=Math.max(0,(Number(state.burned)||0)-removedKcal);
+  S.logs=(S.logs||[]).filter(log=>(log.sessionId||'')!==id);
+  if(S.session?.id===id)S.session=null;
+  saveWorkoutState();
+  if(typeof save==='function')save();
+  render();
+  history();
+  if(typeof updateDashboard==='function')updateDashboard();
+  if(typeof renderSports==='function')renderSports();
+}
+
 function history(){
   const el=document.getElementById('workoutHistory');
   if(!el)return;
@@ -679,7 +707,7 @@ function history(){
     const sets=Number(s.sets)||matching?.sets||0;
     const duration=Math.round(Number(s.duration)||0);
     const kcal=Math.round(Number(s.calories)||0);
-    return '<div class="workout-history-summary"><div class="history-summary-head"><strong>'+new Date((s.date||today())+'T12:00:00').toLocaleDateString('tr-TR',{day:'2-digit',month:'long',year:'numeric'})+'</strong><span>Gün '+(s.day||matching?.day||day)+'</span></div><div class="history-summary-grid"><div><b>'+(moves||'—')+'</b><small>Hareket</small></div><div><b>'+sets+'</b><small>Set</small></div><div><b>'+duration+' dk</b><small>Süre</small></div><div><b>'+kcal+' kcal</b><small>Yakım</small></div></div></div>';
+    return '<div class="workout-history-summary" data-history-id="'+id+'"><button type="button" class="history-delete" data-delete-history="'+id+'" aria-label="Antrenman geçmişini sil">×</button><div class="history-summary-head"><strong>'+new Date((s.date||today())+'T12:00:00').toLocaleDateString('tr-TR',{day:'2-digit',month:'long',year:'numeric'})+'</strong><span>Gün '+(s.day||matching?.day||day)+'</span></div><div class="history-summary-grid"><div><b>'+(moves||'—')+'</b><small>Hareket</small></div><div><b>'+sets+'</b><small>Set</small></div><div><b>'+duration+' dk</b><small>Süre</small></div><div><b>'+kcal+' kcal</b><small>Yakım</small></div></div></div>';
   });
   el.innerHTML=cards.slice(-10).reverse().join('') || '<div class="empty-state">Henüz tamamlanan antrenman yok.</div>';
 }
