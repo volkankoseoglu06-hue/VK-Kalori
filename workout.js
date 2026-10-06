@@ -45,7 +45,7 @@ function load(){
     return{logs:[],weights:{},done:{},dayResetAt:0,session:null};
   }
 }
-function save(){localStorage.setItem(WORKOUT_KEY,JSON.stringify(S))}
+function saveWorkoutState(){localStorage.setItem(WORKOUT_KEY,JSON.stringify(S))}
 function today(){
   const d=new Date();
   const y=d.getFullYear();
@@ -96,7 +96,7 @@ function persistSession(status='active'){
     activeExercise,
     sets:activeSessionSets
   };
-  save();
+  saveWorkoutState();
 }
 function clearElapsedTicker(){
   if(elapsedTicker){clearInterval(elapsedTicker);elapsedTicker=null}
@@ -189,7 +189,7 @@ function startGuided(){
   activeSessionSets=0;
   activeSessionId='session_'+Date.now();
   S.session={id:activeSessionId,day,status:'active',startedAt:activeStartedAt,elapsedMs:0,activeSet,activeExercise,sets:0};
-  save();
+  saveWorkoutState();
   render();
   renderActive();
   startElapsedTicker();
@@ -206,7 +206,7 @@ function resumeWorkout(){
   activeStartedAt=Date.now();
   S.session.status='active';
   S.session.startedAt=activeStartedAt;
-  save();
+  saveWorkoutState();
   renderActive();
   startElapsedTicker();
 }
@@ -227,7 +227,7 @@ function pauseWorkout(){
     activeExercise,
     sets:activeSessionSets||Number(S.session?.sets)||0
   };
-  save();
+  saveWorkoutState();
   render();
   history();
   renderActive();
@@ -271,7 +271,7 @@ function finishSession(autoComplete=false){
     activeExercise,
     sets
   };
-  save();
+  saveWorkoutState();
 
   const b=document.getElementById('startWorkoutButton');
   if(b){
@@ -311,7 +311,7 @@ function completeActiveSet(){
       activeExercise++;
       activeSet=1;
     }else{
-      save();
+      saveWorkoutState();
       finishSession(true);
       return;
     }
@@ -512,7 +512,7 @@ function syncWorkoutBurnToDashboard(){
     entry.calories=kcal;
   }
   state.burned=Math.max(0,(Number(state.burned)||0)-old+kcal);
-  if(typeof save==='function')save();
+  if(typeof save==='function')saveWorkoutState();
   if(typeof updateDashboard==='function')updateDashboard();
   if(typeof renderSports==='function')renderSports();
 }
@@ -533,7 +533,7 @@ function saveExerciseValues(i,weight,sets,reps,setDetails=null){
     activeSessionSets=currentTotal;
     persistSession('active');
   }else{
-    save();
+    saveWorkoutState();
   }
 
   const allDone=W[day].ex.every(ex=>S.done[key(ex[0])]===today());
@@ -552,7 +552,7 @@ function saveExerciseValues(i,weight,sets,reps,setDetails=null){
     }else if(typeof addWorkoutBurn==='function'){
       addWorkoutBurn(sessionMinutes,totalSets,met,'direct_'+today()+'_'+day);
       W[day].ex.forEach(ex=>{S.done[key(ex[0])]=today()});
-      save();
+      saveWorkoutState();
     }
   }
 
@@ -572,7 +572,7 @@ function addSetFromCard(i){
   if(w)S.weights[k]=w;
   if(existing?.setDetails)S.logs[0].setDetails=existing.setDetails;
   if(active){activeSessionSets=Math.max(activeSessionSets,sets);persistSession('active')}
-  save(); render(); history(); if(typeof updateDashboard==='function')updateDashboard();
+  saveWorkoutState(); render(); history(); if(typeof updateDashboard==='function')updateDashboard();
 }
 function completeExerciseFromCard(i){
   const weight=document.querySelector('[data-weight="'+i+'"]')?.value||0;
@@ -693,7 +693,7 @@ function resetWorkoutDay(){
   S.done={};
   S.dayResetAt=Date.now();
   S.session=null;
-  save();
+  saveWorkoutState();
   render();
   renderActive();
   history();
