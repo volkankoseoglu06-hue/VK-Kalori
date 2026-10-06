@@ -346,3 +346,20 @@ button{
   .workout-hero h2{font-size:22px}
   .walking-head h3{font-size:18px}
 }
+
+
+/* Main dashboard polish */
+.today-focus{padding:16px;background:linear-gradient(135deg,#ffffff,#f7faff)}
+.today-focus-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
+.today-focus h3{margin-top:3px;font-size:18px}
+.status-badge{padding:7px 10px;border-radius:999px;background:#eef2ff;color:#3730a3;font-size:11px;font-weight:800;white-space:nowrap}
+.focus-row{margin-top:12px}
+.focus-label{display:flex;justify-content:space-between;gap:10px;font-size:12px;margin-bottom:6px}
+.focus-label b{font-size:12px;color:#374151}
+.progress-track{height:8px;background:#e5e7eb;border-radius:999px;overflow:hidden}
+.progress-fill{height:100%;width:0;border-radius:999px;background:#111827;transition:width .35s ease}
+@media(max-width:430px){
+  .today-focus{padding:14px}
+  .today-focus h3{font-size:17px}
+  .status-badge{font-size:10px;padding:6px 8px}
+}
