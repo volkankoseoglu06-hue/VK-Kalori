@@ -121,6 +121,12 @@ function updateDashboard(){
   const net=eaten-burned;
 
   const setText=(id,value)=>{const el=$(id);if(el)el.textContent=value};
+  setText('currentCalories',net);
+  setText('currentProtein',Math.round(state.protein));
+  setText('currentWater',state.water.toFixed(1));
+  setText('currentSport',burned);
+  setText('currentWorkout',workout.done);
+  setText('currentNet',net);
   setText('summaryWalk',walkMinutes);
   setText('summaryWorkout',workout.done);
   setText('summaryWorkoutDetail',workout.sets+' set');
