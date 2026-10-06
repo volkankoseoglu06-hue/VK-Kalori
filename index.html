@@ -23,9 +23,9 @@
 <div class="circle-card"><div class="circle red"><div id="currentCalories">0</div><small>/ <span id="targetCalories">1800</span></small></div><b>🔥 Kalori</b></div>
 <div class="circle-card"><div class="circle blue"><div id="currentProtein">0</div><small>/ <span id="targetProtein">165</span> g</small></div><b>🥩 Protein</b></div>
 <div class="circle-card"><div class="circle cyan"><div id="currentWater">0</div><small>/ <span id="targetWater">3</span> L</small></div><b>💧 Su</b></div>
-<div class="circle-card"><div class="circle orange"><div id="currentSport">0</div><small>kcal</small></div><b>💪 Spor</b></div>
+<div class="circle-card"><div class="circle orange"><div id="currentSport">0</div><small>kcal</small></div><b>🔥 Yakılan</b></div>
 </div>
-<div class="card net-card compact-summary"><div>🔥 Alınan<strong id="eatenCalories">0</strong><small>kcal</small></div><div>💪 Yakılan<strong id="burnedCalories">0</strong><small>kcal</small></div><div>⚖️ Net<strong id="netCalories">0</strong><small>kcal</small></div></div><div class="card daily-summary"><h3>📋 Bugünün Özeti</h3><div class="summary-grid"><div><span>🍽️ Besin</span><b id="summaryFoodCount">0</b></div><div><span>🥩 Protein</span><b id="summaryProtein">0 g</b></div><div><span>💧 Su</span><b id="summaryWater">0 L</b></div><div><span>💪 Antrenman</span><b id="summaryWorkout">Hazır</b></div></div></div>
+<div class="card daily-summary"><h3>📋 Bugünün Özeti</h3><div class="summary-grid"><div><span>🍽️ Besin</span><b id="summaryFoodCount">0</b></div><div><span>🥩 Protein</span><b id="summaryProtein">0 g</b></div><div><span>💧 Su</span><b id="summaryWater">0 L</b></div><div><span>💪 Antrenman</span><b id="summaryWorkout">Hazır</b></div></div></div>
 <div class="card"><h3>Bugünkü Besinler</h3><div id="dailyFoods"></div><h3 class="section-gap">Bugünkü Sporlar</h3><div id="dailySports"></div></div>
 <button class="primary" id="waterButton">💧 +250 ml Su</button><button class="primary secondary" id="finishDayButton">📅 Günü Bitir</button>
 </section>
@@ -38,16 +38,24 @@
 <div class="card"><h3>🚴 Kardiyo</h3><label>Aktivite</label><select id="sportType"><option value="walk">🚶 Yürüyüş</option><option value="run">🏃 Koşu</option><option value="bike">🚴 Bisiklet</option><option value="weights">🏋️ Ağırlık</option><option value="stairs">🪜 Merdiven</option></select><label>Süre: <span id="durationLabel">45</span> dk</label><input id="sportDuration" type="range" min="5" max="180" value="45"><label>Hız: <span id="speedLabel">5</span> km/sa</label><input id="sportSpeed" type="range" min="3" max="15" value="5"><label>Eğim: <span id="inclineLabel">5</span> %</label><input id="sportIncline" type="range" min="0" max="20" value="5"><div id="sportResult">Yakılan kalori: 0 kcal</div><div class="grid-2"><button class="primary" id="calculateSportButton">🧮 Hesapla</button><button class="primary" id="addSportButton">➕ Günlüğe Ekle</button></div></div>
 </section>
 <section id="workoutPage" class="page">
-<div class="workout-hero card"><div><span class="eyebrow">🏋️ 3 GÜN FULL BODY</span><h2 id="workoutTitle">Full Body A</h2><p id="workoutSubtitle"></p></div><div class="workout-progress" id="workoutProgress"></div></div><button class="primary workout-start" id="startWorkoutButton">▶️ Bugünkü Antrenmanı Başlat</button><div id="activeWorkoutPanel"></div>
+<div class="workout-hero card"><div><span class="eyebrow">🏋️ 3 GÜN FULL BODY</span><h2 id="workoutTitle">Full Body A</h2><p id="workoutSubtitle"></p></div><div class="workout-progress" id="workoutProgress"></div></div>
 <div class="workout-day-tabs" id="workoutDayTabs"></div>
+<button class="primary workout-start" id="startWorkoutButton">▶️ Bugünkü Antrenmanı Başlat</button><div id="activeWorkoutPanel"></div>
 <div class="card workout-tip"><strong>💡 Nasıl ilerleyeceğiz?</strong><p>İlk hedef ağırlığı artırmak değil, hareketleri temiz teknikle yapmak. Tüm tekrarlar rahatça tamamlanıyorsa bir sonraki seansta küçük bir artış yap.</p><button id="restTimerBtn" class="timer-btn">⏱️ 90 sn dinlenme</button></div>
+<div class="card walking-card">
+  <div class="walking-head"><div><span class="eyebrow">🚶 HER GÜN</span><h3>30 dk Yürüyüş</h3></div><span class="walking-badge">Günlük hedef</span></div>
+  <p><strong>Hedef:</strong> Her gün 30 dk, yaklaşık 5 km/sa tempoda yürüyüş bandı.</p>
+  <p><strong>Kuvvet günleri:</strong> Ağırlık antrenmanından sonra veya ayrı bir saatte yap.</p>
+  <p class="walking-note">Yürüyüşü ayrıca kaydettiğinde ana ekrandaki yakılan kalori otomatik artar.</p>
+  <button class="primary walking-go" id="walkingGoButton">🚶 Kardiyo → Yürüyüşü Aç</button>
+</div>
 <div id="workoutDetail"></div>
 <div class="card"><h3>📋 Antrenman geçmişi</h3><div id="workoutHistory"></div></div>
 </section>
 <section id="historyPage" class="page"><div class="card"><h3>📈 Beslenme Geçmişi</h3><div id="historyList"></div></div></section>
 <section id="profilePage" class="page"><div class="card"><h3>👤 Profil</h3><input id="profileCalories" type="number" placeholder="Kalori hedefi"><input id="profileProtein" type="number" placeholder="Protein hedefi"><input id="profileWater" type="number" placeholder="Su hedefi"><button class="primary" id="saveProfileButton">💾 Kaydet</button></div></section>
 </div>
-<div id="workoutModal" class="workout-modal"><div class="workout-modal-box"><button class="modal-close" data-close>×</button><div id="workoutAnimation"></div><span class="eyebrow">TEKNİK REHBER</span><h2 id="workoutModalTitle"></h2><p id="workoutModalMuscle"></p><div class="tech-columns"><div><h4>✓ Yapılış</h4><ul id="workoutCues"></ul></div><div><h4>⚠️ Dikkat</h4><ul id="workoutMistakes"></ul></div></div><div class="source-line">Kaynak: <span id="workoutSource"></span></div><div class="log-grid"><label>Ağırlık (kg)<input id="workoutWeight" type="number" min="0" step="0.5"></label><label>Set<input id="workoutSetsDone" type="number" min="1"></label><label>Tekrar<input id="workoutRepsDone" type="number" min="1"></label><label>Zorluk RPE<select id="workoutRpe"><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></label></div><div class="modal-stats"><span>🏋️ <b id="modalVolume">—</b> kg</span><span>Set <b id="modalSets">—</b></span><span>Tekrar <b id="modalReps">—</b></span></div><button class="primary" data-save-exercise>✓ Kaydet ve Yapıldı İşaretle</button></div></div>
+<div id="workoutModal" class="workout-modal"><div class="workout-modal-box"><button class="modal-close" data-close>×</button><div id="workoutAnimation"></div><span class="eyebrow">TEKNİK REHBER</span><h2 id="workoutModalTitle"></h2><p id="workoutModalMuscle"></p><div class="tech-columns"><div><h4>✓ Yapılış</h4><ul id="workoutCues"></ul></div><div><h4>⚠️ Dikkat</h4><ul id="workoutMistakes"></ul></div></div><div class="source-line">Kaynak: <span id="workoutSource"></span></div><div class="log-grid"><label>Ağırlık (kg)<input id="workoutWeight" type="number" min="0" step="0.5"></label><label>Set<input id="workoutSetsDone" type="number" min="1"></label><label>Tekrar<input id="workoutRepsDone" type="number" min="1"></label><label>Zorluk (RPE)<select id="workoutRpe"><option value="6">6 — Kolay</option><option value="7">7 — Orta</option><option value="8">8 — Zor</option><option value="9">9 — Çok zor</option><option value="10">10 — Maksimum</option></select></label></div><div class="modal-stats"><span>🏋️ <b id="modalVolume">—</b> kg</span><span>Set <b id="modalSets">—</b></span><span>Tekrar <b id="modalReps">—</b></span></div><button class="primary" data-save-exercise>✓ Kaydet ve Yapıldı İşaretle</button></div></div>
 <script src="foods.js"></script><script src="app.js"></script><script src="workout.js"></script>
 </body>
 </html>
