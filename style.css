@@ -2679,3 +2679,80 @@ body:has(#homePage.active) .modern-header .header-date{position:absolute!importa
   .modern-header{grid-template-columns:42px 1fr 86px!important}
   .modern-header .header-date{font-size:10px!important}
 }
+
+
+/* FINAL GYM UI FIXES */
+.modern-header .brand{
+  position:absolute!important;
+  left:50%!important;
+  transform:translateX(-50%)!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:7px!important;
+  width:max-content!important;
+  max-width:calc(100% - 110px)!important;
+}
+.modern-header .vk-logo-img{
+  width:128px!important;
+  height:auto!important;
+  display:block!important;
+}
+.modern-header .header-date{
+  position:static!important;
+  display:inline-block!important;
+  color:#111827!important;
+  font-size:13px!important;
+  font-weight:800!important;
+  white-space:nowrap!important;
+  margin:0!important;
+}
+.modern-header .brand>span:not(.header-date){display:none!important}
+
+/* Workout cards were accidentally hidden by a legacy rule. */
+body:has(#workoutPage.active) .workout-start-panel,
+body:has(#workoutPage.active) .workout-quick-stats,
+body:has(#workoutPage.active) .workout-history-card{
+  display:block!important;
+}
+body:has(#workoutPage.active) .workout-quick-stats{
+  display:grid!important;
+}
+body:has(#workoutPage.active) #workoutDetail{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:8px!important;
+  min-height:20px!important;
+}
+body:has(#workoutPage.active) .finish-workout-button{
+  display:block!important;
+}
+
+/* Exercise modal must sit above the fixed bottom navigation and scroll independently. */
+#workoutModal{
+  z-index:1000!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain!important;
+}
+#workoutModal .workout-modal-box{
+  max-height:90vh!important;
+  overflow-y:auto!important;
+  padding-bottom:28px!important;
+}
+#workoutModal .modal-set-list{
+  max-height:none!important;
+}
+#workoutModal .modal-save-exercise{
+  margin-top:10px!important;
+}
+
+/* Home header: logo + date together, centered. */
+body:has(#homePage.active) .modern-header{
+  justify-content:center!important;
+}
+@media(max-width:430px){
+  .modern-header .vk-logo-img{width:118px!important}
+  .modern-header .header-date{font-size:12px!important}
+  .modern-header .brand{gap:6px!important}
+  #workoutModal .workout-modal-box{max-height:88vh!important}
+}
