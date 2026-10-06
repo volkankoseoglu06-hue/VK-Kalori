@@ -355,7 +355,7 @@ function exerciseImage(name,pose='start'){
     'Dead Bug':'dead-bug'
   };
   const id=ids[name];
-  return id ? 'https://exercise-dataset.com/images/flat/'+id+'-'+pose+'.webp' : '';
+  return id ? 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+id+'-'+pose+'.webp' : '';
 }
 const MUSCLE_TARGETS={
   'Goblet Squat':['Quadriceps','Gluteus','Hamstring'],
@@ -489,8 +489,8 @@ function render(){
     const reps=saved?.reps ?? Number((x[3].match(/^\\d+/)||['10'])[0]);
     const weight=saved?.weight ?? S.weights[k] ?? '';
     const isDone=S.done[k]===today();
-    const kcal=isDone&&saved?exerciseKcalForLog(saved):0;
-    const volume=isDone&&saved?exerciseVolumeForLog(saved):0;
+    const kcal=saved?exerciseKcalForLog(saved):0;
+    const volume=saved?exerciseVolumeForLog(saved):0;
     return '<article class="exercise-card modern-exercise-card '+(isDone?'done':'')+'">'+
       '<div class="exercise-main">'+
         '<button class="exercise-visual" type="button" data-open="'+i+'">'+exerciseCardImage(x[0])+'</button>'+
