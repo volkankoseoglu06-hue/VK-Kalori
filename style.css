@@ -108,3 +108,52 @@ body{background:radial-gradient(circle at 50% -10%,#ffffff 0,#f4f8fc 42%,#edf4fa
 .home-quick button{background:linear-gradient(145deg,#fff,#f6f9fc);box-shadow:0 4px 12px rgba(30,57,90,.05)}
 #foodPage .card,#sportPage .card,#historyPage .card,#profilePage .card{border:1px solid #e8edf4;box-shadow:0 8px 24px rgba(30,57,90,.06)}
 #foodPage .primary,#sportPage .primary,#profilePage .primary{border-radius:14px}
+
+
+/* iPhone 11 premium app shell */
+html,body{width:100%;max-width:100%;overflow-x:hidden;overscroll-behavior-x:none}
+body{padding-bottom:96px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.app{width:100%;max-width:414px;min-height:100dvh;padding:10px 12px 104px;margin:0 auto}
+input,select,textarea{font-size:16px!important;line-height:1.2;touch-action:manipulation}
+button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.top-nav{position:fixed;left:50%;top:auto;bottom:max(10px,env(safe-area-inset-bottom));transform:translateX(-50%);width:min(calc(100% - 24px),390px);margin:0;box-shadow:0 12px 32px rgba(30,57,90,.16);background:rgba(255,255,255,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:50}
+.top-nav button{min-height:48px}
+.page{animation:pageIn .18s ease-out}
+@keyframes pageIn{from{opacity:.2;transform:translateY(3px)}to{opacity:1;transform:none}}
+.page-heading,.section-title{margin-top:8px}
+.section-title h1,.page-heading h1{font-size:26px;font-weight:900}
+#foodPage .card,#sportPage .card,#historyPage .card,#profilePage .card{border:1px solid #e7edf5;box-shadow:0 9px 26px rgba(30,57,90,.07);border-radius:20px}
+#foodPage .food-item,#historyPage .history-item{border:1px solid #e7edf5;background:#fbfdff;border-radius:14px}
+#foodPage #foodSearch{height:48px;border-radius:15px}
+#foodPage .primary,#sportPage .primary,#profilePage .primary{min-height:46px;border-radius:14px}
+#sportPage input[type=range]{height:34px}
+.workout-day-tabs{position:sticky;top:8px;z-index:6;padding:3px;background:rgba(242,247,252,.88);backdrop-filter:blur(10px);border-radius:15px}
+.exercise-card{grid-template-columns:96px 1fr;padding:9px;border-radius:18px}
+.exercise-image{width:96px;height:118px;position:relative;background:linear-gradient(145deg,#eef8ff,#f8fbff)}
+.exercise-image>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.muscle-mini,.modal-muscle-map{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.mini-body{position:relative;width:46px;height:82px;filter:drop-shadow(0 3px 5px rgba(0,0,0,.1));opacity:.92}
+.body-head{position:absolute;width:12px;height:12px;border-radius:50%;background:#e5e7eb;left:17px;top:2px;border:1px solid #cbd5e1}
+.body-torso{position:absolute;width:22px;height:34px;border-radius:10px 10px 8px 8px;background:#e5e7eb;left:12px;top:15px;border:1px solid #cbd5e1}
+.body-arm,.body-leg{position:absolute;background:#e5e7eb;border-radius:7px;border:1px solid #cbd5e1}
+.body-arm{width:7px;height:29px;top:17px}.body-arm.left{left:5px;transform:rotate(16deg)}.body-arm.right{right:5px;transform:rotate(-16deg)}
+.body-leg{width:9px;height:31px;top:46px}.body-leg.left{left:13px;transform:rotate(5deg)}.body-leg.right{right:13px;transform:rotate(-5deg)}
+.muscle-zone{position:absolute;display:block;background:#ef4444;box-shadow:0 0 0 3px rgba(239,68,68,.12);animation:musclePulse 1.1s ease-in-out infinite}
+.zone-chest{width:18px;height:9px;border-radius:7px;left:14px;top:23px}.zone-triceps{width:5px;height:15px;border-radius:5px;left:5px;top:22px}.zone-biceps{width:5px;height:15px;border-radius:5px;right:5px;top:22px}.zone-shoulder{width:26px;height:8px;border-radius:8px;left:10px;top:17px}.zone-back{width:18px;height:18px;border-radius:8px;left:14px;top:21px}.zone-quads{width:8px;height:17px;border-radius:6px;left:14px;top:48px}.zone-hamstring{width:8px;height:17px;border-radius:6px;right:14px;top:48px}.zone-glute{width:18px;height:10px;border-radius:7px;left:14px;top:43px}.zone-core{width:11px;height:18px;border-radius:5px;left:17px;top:29px}
+@keyframes musclePulse{50%{transform:scale(1.1);opacity:.72}}
+.motion-dot{position:absolute;right:5px;bottom:5px;width:18px;height:18px;border-radius:50%;background:#ef4444;color:#fff;font-size:8px;display:grid;place-items:center;box-shadow:0 3px 8px rgba(239,68,68,.3)}
+.exercise-body{padding-top:2px}
+.exercise-title-row h3{font-size:14px}
+.exercise-fields input{font-size:16px!important}
+.exercise-results span{font-size:8px}
+.workout-modal-box{width:min(414px,100%);padding:14px 14px calc(18px + env(safe-area-inset-bottom));}
+#workoutAnimation{height:188px;background:linear-gradient(145deg,#eef7ff,#f8fbff);border:1px solid #e4edf7}
+.muscle-visual{width:100%;height:100%;display:flex;align-items:center;justify-content:center;gap:10px;padding:8px}
+.modal-motion{position:relative;width:190px;height:150px;flex:0 0 190px}
+.modal-motion>img{width:100%;height:100%;object-fit:contain;border-radius:14px}
+.modal-muscle-map .mini-body{transform:scale(1.25);opacity:.72}
+.muscle-caption{flex:1;min-width:105px;text-align:left;padding-right:3px}
+.muscle-caption strong{display:block;font-size:11px;color:#27344e}
+.muscle-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
+.muscle-tags span{font-size:8px;font-weight:900;color:#b42318;background:#fff1f0;border:1px solid #ffd1cc;border-radius:7px;padding:4px 5px}
+@media(max-width:390px){.app{padding-left:10px;padding-right:10px}.exercise-card{grid-template-columns:88px 1fr}.exercise-image{width:88px;height:112px}.modal-motion{width:170px;flex-basis:170px}.muscle-caption{min-width:95px}}
