@@ -108,7 +108,7 @@ function startElapsedTicker(){
       const timer=document.getElementById('workoutElapsed');
       if(timer)timer.textContent=formatDuration(sessionElapsedMs());
       const liveKcal=document.querySelector('[data-stat="kcal"]');
-      if(liveKcal)liveKcal.textContent=workoutKcalToday();
+      if(liveKcal)liveKcal.textContent=workoutLoggedKcal();
       const liveTime=document.querySelector('[data-stat="time"]');
       if(liveTime)liveTime.textContent=(active?Math.max(0,Math.round(sessionElapsedMs()/60000)):stateWorkoutMinutes())+' dk';
       const button=document.getElementById('startWorkoutButton');
