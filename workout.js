@@ -689,6 +689,8 @@ function saveExerciseFromModal(){
 function addModalSetRow(weight='',reps=10){
   const list=document.getElementById('modalSetList');
   if(!list)return;
+  const empty=list.querySelector('.modal-empty-sets');
+  if(empty)empty.remove();
   const n=list.querySelectorAll('.modal-set-row').length+1;
   const row=document.createElement('div');
   row.className='modal-set-row';
