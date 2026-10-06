@@ -2633,3 +2633,49 @@ body:has(#homePage.active) .modern-header .header-date{position:absolute!importa
 .sport-type-tabs button{width:100%!important;min-width:0!important;margin:0!important}
 #workoutModal .workout-modal-box{max-height:calc(100dvh - 8px)!important;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior:contain!important}
 #workoutModal .modal-set-list .modal-empty-sets{display:block!important;grid-column:1/-1!important}
+
+
+/* Final workout fixes */
+#workoutPage #workoutDetail{display:flex!important;flex-direction:column!important;gap:8px!important;min-height:20px!important}
+.reference-exercise-card.done{
+  background:#f0fdf4!important;
+  border-color:#86efac!important;
+  box-shadow:0 6px 18px rgba(22,163,74,.10)!important;
+}
+.reference-exercise-card.done .reference-exercise-number{
+  background:#16a34a!important;color:#fff!important;border-color:#16a34a!important;
+}
+.reference-exercise-card.done .reference-exercise-title{color:#166534!important}
+.reference-exercise-card.done .reference-exercise-meta{color:#15803d!important}
+#workoutModal{z-index:1000!important}
+#workoutModal .workout-modal-box{
+  max-height:calc(100dvh - 16px)!important;
+  padding-bottom:92px!important;
+  overflow-y:auto!important;
+  -webkit-overflow-scrolling:touch;
+}
+#workoutModal .modal-add-set{
+  width:100%;min-height:44px;border:0;border-radius:12px;background:#eff6ff;color:#2563eb;
+  font-weight:900;font-size:14px;cursor:pointer;margin:4px 0 2px;
+}
+#workoutModal .modal-empty-sets{
+  padding:12px;border-radius:12px;background:#f8fafc;color:#64748b;text-align:center;font-size:12px;
+}
+.finish-workout-button.completed{
+  background:#16a34a!important;color:#fff!important;
+}
+.finish-workout-button:disabled{opacity:1!important}
+.modern-header{
+  overflow:visible!important;
+}
+.modern-header .brand{z-index:2!important}
+.modern-header .header-date{
+  z-index:3!important;
+  justify-self:end!important;
+  text-align:right!important;
+  padding-right:2px!important;
+}
+@media(max-width:430px){
+  .modern-header{grid-template-columns:42px 1fr 86px!important}
+  .modern-header .header-date{font-size:10px!important}
+}
