@@ -140,7 +140,9 @@ function addWorkoutBurn(minutes,sets=13,met=3.5,sessionId=''){
       met:intensity,
       weight,
       calories:kcal,
-      sessionId:sessionId||null
+      sessionId:sessionId||null,
+      date:localDateKey(),
+      day:window.__vkWorkoutDay||null
     });
   }
 
