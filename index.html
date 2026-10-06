@@ -8,21 +8,27 @@
 </head>
 <body>
 <div class="app">
-<header class="header"><h1>VK Life</h1><p id="today"></p></header>
-<nav class="top-nav">
-<button data-page="homePage">🏠<span>Ana Sayfa</span></button>
-<button data-page="foodPage">🍽️<span>Beslenme</span></button>
-<button data-page="sportPage">💪<span>Kardiyo</span></button>
-<button data-page="workoutPage">🏋️<span>Antrenman</span></button>
-<button data-page="historyPage">📈<span>Geçmiş</span></button>
-<button data-page="profilePage">👤<span>Profil</span></button>
+<header class="header modern-header">
+  <button class="brand" data-page="homePage" aria-label="VK Life ana sayfa">
+    <svg class="vk-logo" viewBox="0 0 64 52" aria-hidden="true">
+      <path d="M4 4h14l14 19L45 4h15L38 34l9 14H32L4 12z" fill="url(#vkG)"/>
+      <path d="M19 4h14L22 23l-8 11H4z" fill="#1d4ed8" opacity=".88"/>
+      <defs><linearGradient id="vkG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#60a5fa"/><stop offset=".55" stop-color="#2563eb"/><stop offset="1" stop-color="#4f46e5"/></linearGradient></defs>
+    </svg>
+    <span>VK<span>Life</span></span>
+  </button>
+  <button id="profileHeaderButton" class="header-settings" aria-label="Profil">⚙</button>
+</header>
+<nav class="bottom-nav">
+  <button data-page="homePage" class="active"><span>⌂</span><small>Ana Sayfa</small></button>
+  <button data-page="foodPage"><span>♜</span><small>Beslenme</small></button>
+  <button data-page="workoutPage"><span>⌁</span><small>Antrenman</small></button>
+  <button data-page="sportPage"><span>♡</span><small>Kardiyo</small></button>
+  <button data-page="historyPage"><span>▣</span><small>Geçmiş</small></button>
 </nav>
 <section id="homePage" class="page active">
-<div class="day-bar"><button id="normalDayBtn" class="day-option active">☀️ Normal Gün</button><button id="sportDayBtn" class="day-option">🔥 Spor Günü</button></div>
 <div class="card today-summary">
-  <div class="today-summary-head">
-    <div><span class="eyebrow">BUGÜN</span><h3>Bugünkü Özet</h3></div>
-  </div>
+  <div class="dashboard-spacer"></div>
   <div class="activity-rings">
     <div class="activity-ring-card">
       <div class="activity-ring walk-ring"><div><strong id="summaryWalk">0</strong><small>dk</small></div></div>
@@ -62,17 +68,6 @@
     </div>
   </div>
 </div>
-<div class="card daily-goals-card">
-  <div class="daily-goals-head">
-    <div><span class="eyebrow">🎯 HEDEFLER</span><h3>Günlük Hedeflerin</h3></div>
-    <button id="editGoalsButton" class="goal-edit-button" type="button">⚙️ Ayarla</button>
-  </div>
-  <div class="daily-goals-grid">
-    <div class="daily-goal"><strong id="homeCalorieGoal">1800</strong><span>kcal</span><small>Kalori</small></div>
-    <div class="daily-goal"><strong id="homeProteinGoal">165</strong><span>g</span><small>Protein</small></div>
-    <div class="daily-goal"><strong id="homeWaterGoal">3.0</strong><span>L</span><small>Su</small></div>
-  </div>
-</div>
 
 </section>
 <section id="foodPage" class="page">
@@ -84,36 +79,21 @@
 <div class="card"><h3>🚴 Kardiyo</h3><label>Aktivite</label><select id="sportType"><option value="walk">🚶 Yürüyüş</option><option value="run">🏃 Koşu</option><option value="bike">🚴 Bisiklet</option><option value="weights">🏋️ Ağırlık</option><option value="stairs">🪜 Merdiven</option></select><label>Süre: <span id="durationLabel">45</span> dk</label><input id="sportDuration" type="range" min="5" max="180" value="45"><label>Hız: <span id="speedLabel">5</span> km/sa</label><input id="sportSpeed" type="range" min="3" max="15" value="5"><label>Eğim: <span id="inclineLabel">5</span> %</label><input id="sportIncline" type="range" min="0" max="20" value="5"><div id="sportResult">Yakılan kalori: 0 kcal</div><div class="grid-2"><button class="primary" id="calculateSportButton">🧮 Hesapla</button><button class="primary" id="addSportButton">➕ Günlüğe Ekle</button></div></div>
 </section>
 <section id="workoutPage" class="page">
-<div class="workout-hero card"><div><span class="eyebrow">🏋️ 3 GÜN FULL BODY</span><h2 id="workoutTitle">Full Body A</h2><p id="workoutSubtitle"></p></div><div class="workout-progress" id="workoutProgress"></div></div>
+<div class="workout-hero card"><div><span class="eyebrow">🏋️ ANTRENMAN</span><h2 id="workoutTitle">Antrenman</h2><p id="workoutSubtitle"></p></div><div class="workout-progress" id="workoutProgress"></div></div>
 <div class="workout-day-tabs" id="workoutDayTabs"></div>
-<button class="primary workout-start" id="startWorkoutButton">▶️ Bugünkü Antrenmanı Başlat</button><div id="activeWorkoutPanel"></div>
-<div class="card workout-tip"><strong>💡 Nasıl ilerleyeceğiz?</strong><p>İlk hedef ağırlığı artırmak değil, hareketleri temiz teknikle yapmak. Tüm tekrarlar rahatça tamamlanıyorsa bir sonraki seansta küçük bir artış yap.</p></div>
-<div class="card workout-plans">
-  <div class="plan-section-title"><span class="eyebrow">BUGÜNKÜ PLAN</span><h3>🏋️ Ağırlık + 🚶 Yürüyüş</h3></div>
-  <div class="plan-grid">
-    <div class="plan-box strength-plan-box">
-      <strong>🏋️ Ağırlık Antrenmanı</strong>
-      <span>3 gün Full Body • 5 hareket</span>
-      <small>Hareketleri aşağıdaki listeden yap, setleri tamamla.</small>
-    </div>
-    <div class="plan-box walk-plan-box">
-      <strong>🚶 Yürüyüş</strong>
-      <span>Her gün 30 dk</span>
-      <small>Yürüyüş artık antrenmanın bir parçası: kuvvet günü 10 dk başlangıç + 20 dk bitiriş, dinlenme günü 30 dk.</small>
-      <div id="walkingVisual" class="walking-visual"></div>
-      <div class="walking-plan-grid">
-        <button class="walking-plan-btn" id="walkingPreButton"><span>10 dk</span><small>Öncesi</small></button>
-        <button class="walking-plan-btn" id="walkingPostButton"><span>20 dk</span><small>Sonrası</small></button>
-        <button class="walking-plan-btn full" id="walkingRestButton"><span>30 dk</span><small>Dinlenme günü</small></button>
-      </div>
-    </div>
-  </div>
+<button class="primary workout-start" id="startWorkoutButton">▶ Antrenmanı Başlat</button>
+<div class="workout-quick-stats">
+  <div><strong data-stat="moves">0/5</strong><span>Hareket</span></div>
+  <div><strong data-stat="sets">0</strong><span>Toplam Set</span></div>
+  <div><strong data-stat="time">0 dk</strong><span>Geçen Süre</span></div>
+  <div><strong data-stat="kcal">0</strong><span>Tahmini Yakım</span></div>
 </div>
+<div id="activeWorkoutPanel"></div>
 <div id="workoutDetail"></div>
 <div class="card"><h3>📋 Antrenman geçmişi</h3><div id="workoutHistory"></div></div>
 </section>
 <section id="historyPage" class="page"><div class="card"><h3>📈 Beslenme Geçmişi</h3><div id="historyList"></div></div></section>
-<section id="profilePage" class="page"><div class="card"><h3>👤 Profil</h3><label>⚖️ Vücut ağırlığı (kg)<input id="profileWeight" type="number" min="30" max="300" step="0.1" placeholder="Örn. 90"></label><input id="profileCalories" type="number" placeholder="Kalori hedefi"><input id="profileProtein" type="number" placeholder="Protein hedefi"><input id="profileWater" type="number" placeholder="Su hedefi"><p class="profile-note">Ağırlık antrenmanı kalorisi, vücut ağırlığın + gerçek antrenman süresi + set yoğunluğuna göre hesaplanır.</p><button class="primary" id="saveProfileButton">💾 Kaydet</button></div></section>
+<section id="profilePage" class="page"><div class="card"><h3>👤 Profil</h3><label>⚖️ Vücut ağırlığı (kg)<input id="profileWeight" type="number" min="30" max="300" step="0.1" placeholder="Örn. 90"></label><input id="profileCalories" type="number" placeholder="Kalori hedefi"><input id="profileProtein" type="number" placeholder="Protein hedefi"><input id="profileWater" type="number" placeholder="Su hedefi"><p class="profile-note">Ağırlık antrenmanı kalorisi, vücut ağırlığın + gerçek antrenman süresi + set yoğunluğuna göre hesaplanır.</p><button class="primary" id="saveProfileButton">💾 Kaydet</button><p class="repdb-credit">Egzersiz görselleri: <a href="https://repdb.co" target="_blank" rel="noopener">Exercise data by RepDB (repdb.co)</a></p></div></section>
 </div>
 <div id="workoutModal" class="workout-modal"><div class="workout-modal-box"><button class="modal-close" data-close>×</button><div id="workoutAnimation"></div><span class="eyebrow">TEKNİK REHBER</span><h2 id="workoutModalTitle"></h2><p id="workoutModalMuscle"></p><div class="tech-columns"><div><h4>✓ Yapılış</h4><ul id="workoutCues"></ul></div><div><h4>⚠️ Dikkat</h4><ul id="workoutMistakes"></ul></div></div><div class="source-line">Kaynak: <span id="workoutSource"></span></div><p class="technique-note">Ağırlık, set ve tekrar girişlerini hareket kartından yap. Burada sadece hareketin tekniğini görebilirsin.</p></div></div>
 <script src="foods.js"></script><script src="app.js"></script><script src="workout.js"></script>

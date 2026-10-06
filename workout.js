@@ -125,7 +125,7 @@ function initWorkout(){
     const b=e.target.closest('[data-day]');
     if(!b)return;
     if(active){
-      alert('Aktif antrenmanı bitir veya durdurup sonra gün değiştir.');
+      alert('Aktif antrenmanı önce bitir veya durdur.');
       return;
     }
     day=+b.dataset.day;
@@ -148,22 +148,9 @@ function initWorkout(){
     else startGuided();
   };
 
-  const planWalk=(minutes)=>{
-    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-    document.getElementById('sportPage').classList.add('active');
-    document.getElementById('sportType').value='walk';
-    document.getElementById('sportDuration').value=minutes;
-    document.getElementById('sportSpeed').value=5;
-    document.getElementById('sportIncline').value=0;
-    if(typeof calculateSport==='function')calculateSport();
-  };
-  document.getElementById('walkingPreButton').onclick=()=>planWalk(10);
-  document.getElementById('walkingPostButton').onclick=()=>planWalk(20);
-  document.getElementById('walkingRestButton').onclick=()=>planWalk(30);
-  if(document.getElementById('walkingVisual'))document.getElementById('walkingVisual').innerHTML=svg('walk');
-
   startElapsedTicker();
 }
+
 function tabs(){
   const icons=['🅰️','🅱️','🆑'];
   document.getElementById('workoutDayTabs').innerHTML=[1,2,3].map((d,i)=>
@@ -289,6 +276,90 @@ function completeActiveSet(){
   history();
   if(typeof updateDashboard==='function')updateDashboard();
 }
+function exerciseImage(name,pose='start'){
+  const ids={
+    'Goblet Squat':'goblet-squat',
+    'Dambıl Bench Press':'db-bench-press',
+    'Tek Kol Dambıl Row':'single-arm-db-row',
+    'Dambıl Romanian Deadlift':'dumbbell-romanian-deadlift',
+    'Hammer Curl':'hammer-curl',
+    'Destekli Split Squat':'dumbbell-split-squat',
+    'Eğimli Dambıl Press':'incline-db-press',
+    'Bench Destekli Dambıl Row':'single-arm-chest-supported-dumbbell-row',
+    'Bench Glute Bridge':'glute-bridge',
+    'Oturarak Dambıl Shoulder Press':'seated-db-press',
+    'Dambıl Front Squat':'dumbbell-front-squat',
+    'Dambıl Floor Press':'dumbbell-floor-press',
+    'Rear-Delt Row':'rear-delt-fly',
+    'Lateral Raise':'dumbbell-lateral-raise',
+    'Dead Bug':'dead-bug'
+  };
+  const id=ids[name];
+  return id ? 'https://exercise-dataset.com/images/flat/'+id+'-'+pose+'.webp' : '';
+}
+function exerciseCardImage(name){
+  const start=exerciseImage(name,'start');
+  const peak=exerciseImage(name,'peak');
+  if(!start)return '<div class="exercise-image-fallback">🏋️</div>';
+  return '<div class="exercise-image-wrap"><img src="'+start+'" alt="'+name+' başlangıç" loading="lazy"><img src="'+peak+'" alt="" class="exercise-image-peak" loading="lazy"></div>';
+}
+function render(){
+  const title=document.getElementById('workoutTitle');
+  const subtitle=document.getElementById('workoutSubtitle');
+  const progress=document.getElementById('workoutProgress');
+  const detail=document.getElementById('workoutDetail');
+  if(!title||!subtitle||!progress||!detail)return;
+
+  const plan=W[day];
+  const doneCount=plan.ex.filter(ex=>S.done[key(ex[0])]===today()).length;
+  const todayLogs=(S.logs||[]).filter(log=>log.date===today()&&log.day===day&&!log.autoDone);
+  const totalSets=todayLogs.reduce((sum,log)=>sum+(Number(log.sets)||0),0);
+  const minutes=stateWorkoutMinutes();
+  title.textContent='Antrenman';
+  subtitle.textContent=plan.name+' • '+plan.focus;
+  progress.innerHTML='<strong>'+doneCount+'/5</strong><span>hareket</span>';
+
+  const startButton=document.getElementById('startWorkoutButton');
+  if(startButton){
+    if(active)startButton.textContent='⏹ Antrenmanı Bitir • '+formatDuration(sessionElapsedMs());
+    else if(S.session?.status==='paused'&&S.session.day===day)startButton.textContent='▶ Antrenmana Devam Et • '+formatDuration(Number(S.session.elapsedMs)||0);
+    else startButton.textContent='▶ Antrenmanı Başlat';
+  }
+
+  detail.innerHTML=plan.ex.map((x,i)=>{
+    const k=key(x[0]);
+    const saved=(S.logs||[]).find(log=>log.date===today()&&log.day===day&&log.exercise===x[0]&&!log.autoDone);
+    const wt=saved?.weight ?? S.weights[k] ?? '';
+    const sets=saved?.sets ?? x[2];
+    const reps=saved?.reps ?? Number((x[3].match(/^\d+/)||['10'])[0]);
+    const isDone=S.done[k]===today();
+    const muscles=x[1].split(' • ').map(m=>'<span>'+m+'</span>').join('');
+    return '<article class="exercise-card modern-exercise-card '+(isDone?'done':'')+'">'+
+      '<button class="exercise-main" type="button" data-open="'+i+'">'+exerciseCardImage(x[0])+'<div class="exercise-info"><div class="exercise-title-row"><h3>'+x[0]+'</h3><span class="exercise-check">'+(isDone?'✓':'○')+'</span></div><div class="muscle-tags">'+muscles+'</div><div class="exercise-prescription"><span>3 set</span><span>'+x[3]+' tekrar</span></div></div></button>'+
+      '<div class="workout-entry-grid"><label>Ağırlık (kg)<input data-weight="'+i+'" type="number" min="0" step="0.5" value="'+wt+'" placeholder="0"></label><label>Set<input data-sets="'+i+'" type="number" min="1" max="10" value="'+sets+'"></label><label>Tekrar<input data-reps="'+i+'" type="number" min="1" max="50" value="'+reps+'"></label></div>'+
+      '<div class="exercise-actions"><button class="technique-btn" data-open="'+i+'">Detay / Nasıl yapılır</button><button class="done-btn" data-done="'+i+'">'+(isDone?'✓ Kaydedildi':'Setleri Kaydet')+'</button></div>'+
+    '</article>';
+  }).join('');
+
+  const stats=document.querySelector('.workout-quick-stats');
+  if(stats){
+    stats.querySelector('[data-stat="moves"]').textContent=doneCount+'/5';
+    stats.querySelector('[data-stat="sets"]').textContent=totalSets;
+    stats.querySelector('[data-stat="time"]').textContent=minutes+' dk';
+    stats.querySelector('[data-stat="kcal"]').textContent=workoutKcalToday();
+  }
+}
+function stateWorkoutMinutes(){
+  const sessionMinutes=S.session?.day===day ? Number(S.session.elapsedMs||0)/60000 : 0;
+  return Math.round(Math.max(sessionMinutes, todayWorkoutLoggedMinutes()));
+}
+function todayWorkoutLoggedMinutes(){
+  const sport=state?.dailySports||[];
+  return Math.round(sport.filter(x=>x.name==='Ağırlık Antrenmanı').reduce((s,x)=>s+(Number(x.duration)||0),0));
+}
+function workoutKcalToday(){
+  return Math.round((state?.dailySports||[]).filter(x=>x.name==='Ağırlık Antrenmanı').reduce((s,x)=>s+(Number(x.calories)||0),0));
+}
 function renderActive(){
   const panel=document.getElementById('activeWorkoutPanel');
   if(!panel)return;
@@ -357,13 +428,19 @@ function saveExerciseFromCard(i){
 }
 function open(i){
   selected=W[day].ex[i];
-  const k=key(selected[0]);
   document.getElementById('workoutModalTitle').textContent=selected[0];
   document.getElementById('workoutModalMuscle').textContent=selected[1];
-  document.getElementById('workoutAnimation').innerHTML=svg(selected[4]);
+  const start=exerciseImage(selected[0],'start');
+  const peak=exerciseImage(selected[0],'peak');
+  document.getElementById('workoutAnimation').innerHTML=
+    '<div class="real-exercise-view">'+
+      '<img src="'+start+'" alt="'+selected[0]+' başlangıç" class="real-exercise-img start-img">'+
+      '<img src="'+peak+'" alt="'+selected[0]+' hareket" class="real-exercise-img peak-img">'+
+      '<div class="real-exercise-labels"><span>BAŞLANGIÇ</span><b>↕</b><span>HAREKET</span></div>'+
+    '</div>';
   document.getElementById('workoutCues').innerHTML=selected[5].map(x=>'<li>'+x+'</li>').join('');
   document.getElementById('workoutMistakes').innerHTML=selected[6].map(x=>'<li>'+x+'</li>').join('');
-  document.getElementById('workoutSource').innerHTML='<a target="_blank" rel="noopener" href="'+selected[8]+'">'+selected[7]+' ↗</a>';
+  document.getElementById('workoutSource').innerHTML='<a target="_blank" rel="noopener" href="https://repdb.co">Exercise data by RepDB ↗</a>';
   document.getElementById('workoutModal').classList.add('open');
 }
 function close(){document.getElementById('workoutModal').classList.remove('open');selected=null}
@@ -387,72 +464,5 @@ function resetWorkoutDay(){
   renderActive();
   history();
   if(typeof updateDashboard==='function')updateDashboard();
-}
-function svg(t){
- const muscles={
-  squat:['Quadriceps','Gluteus maximus','Hamstrings','Core'],
-  press:['Göğüs','Ön omuz','Triceps'],
-  row:['Sırt','Arka omuz','Biceps'],
-  hinge:['Hamstring','Kalça','Bel stabilizatörleri'],
-  curl:['Biceps','Ön kol'],
-  bridge:['Kalça','Arka bacak'],
-  raise:['Yan omuz','Üst sırt'],
-  core:['Karın','Kalça fleksörleri','Core'],
-  walk:['Baldır','Quadriceps','Kalça','Hamstring']
- };
- const label=(muscles[t]||muscles.squat).map(x=>'<span>'+x+'</span>').join('');
- const head=(x,y)=>'<circle cx="'+x+'" cy="'+y+'" r="10" class="body-line"/>';
- const line=(d)=>'<path d="'+d+'" class="body-line"/>';
- const db=(x,y)=>'<rect x="'+x+'" y="'+y+'" width="10" height="18" rx="3" class="equipment"/>';
- const bench='<path d="M48 158h108" class="bench"/><path d="M62 158l-7 24M142 158l7 24" class="bench"/>';
- let a='',b='',hotA='',hotB='';
- if(t==='squat'){
-  a=head(120,35)+line('M120 48v48M120 60l-28 22M120 60l28 22M120 96l-22 43-8 40M120 96l22 43 8 40')+db(112,63)+db(118,63);
-  b=head(120,48)+line('M120 61l8 35M128 70l-30 15M128 70l28 10M128 96l-28 20 8 42M128 96l28 20-8 42')+db(116,75)+db(122,75);
-  hotA='<ellipse cx="103" cy="135" rx="9" ry="18" class="muscle-hot"/><ellipse cx="137" cy="135" rx="9" ry="18" class="muscle-hot"/><ellipse cx="120" cy="103" rx="16" ry="9" class="muscle-hot"/>';
-  hotB='<ellipse cx="105" cy="116" rx="11" ry="17" class="muscle-hot"/><ellipse cx="143" cy="116" rx="11" ry="17" class="muscle-hot"/><ellipse cx="128" cy="101" rx="18" ry="10" class="muscle-hot"/>';
- }else if(t==='press'){
-  a=bench+head(94,132)+line('M102 137l38 12 35-3M110 142l-12-23M110 142l-7 25M175 146l-18-21M175 146l10 21')+db(93,111)+db(169,119);
-  b=bench+head(94,132)+line('M102 137l38 12 35-3M110 142l-14-35M110 142l-8 29M175 146l-15-34M175 146l9 28')+db(93,93)+db(170,94);
-  hotA='<ellipse cx="123" cy="143" rx="18" ry="9" class="muscle-hot"/><ellipse cx="105" cy="139" rx="7" ry="9" class="muscle-hot"/>';
-  hotB='<ellipse cx="123" cy="143" rx="18" ry="9" class="muscle-hot"/><ellipse cx="104" cy="137" rx="7" ry="9" class="muscle-hot"/>';
- }else if(t==='row'){
-  a=head(139,52)+line('M132 63l-30 36-35 30M102 99l-24-4-20 12M102 99l30 20 24 22M102 99l-8-22M102 99l24-22')+db(62,101)+db(118,72);
-  b=head(139,52)+line('M132 63l-30 36-35 30M102 99l-25-7-20 7M102 99l32 8 30 12M102 99l-5-25M102 99l24-25')+db(66,87)+db(120,67);
-  hotA='<ellipse cx="113" cy="91" rx="22" ry="9" class="muscle-hot"/><ellipse cx="128" cy="82" rx="9" ry="8" class="muscle-hot"/>';
-  hotB='<ellipse cx="113" cy="94" rx="23" ry="9" class="muscle-hot"/><ellipse cx="128" cy="84" rx="9" ry="8" class="muscle-hot"/>';
- }else if(t==='hinge'){
-  a=head(120,35)+line('M120 48v48M120 60l-28 22M120 60l28 22M120 96l-22 43-8 40M120 96l22 43 8 40')+db(87,80)+db(143,80);
-  b=head(145,58)+line('M136 67l-38 33-35 27M98 100l-24-3-18 10M98 100l31 20 25 20M98 100l-15 38-5 39M98 100l28 38 7 39')+db(67,91)+db(125,108);
-  hotA='<ellipse cx="103" cy="133" rx="10" ry="22" class="muscle-hot"/><ellipse cx="137" cy="133" rx="10" ry="22" class="muscle-hot"/><ellipse cx="120" cy="99" rx="18" ry="8" class="muscle-hot"/>';
-  hotB='<ellipse cx="89" cy="120" rx="11" ry="20" class="muscle-hot"/><ellipse cx="112" cy="125" rx="11" ry="20" class="muscle-hot"/><ellipse cx="108" cy="99" rx="22" ry="8" class="muscle-hot"/>';
- }else if(t==='curl'){
-  a=head(120,35)+line('M120 48v60M120 60l-32 28-8 30M120 60l32 28 8 30M120 108l-25 35-5 38M120 108l25 35 5 38')+db(78,118)+db(150,118);
-  b=head(120,35)+line('M120 48v60M120 60l-32 20 14 27M120 60l32 20-14 27M120 108l-25 35-5 38M120 108l25 35 5 38')+db(96,102)+db(134,102);
-  hotA='<ellipse cx="91" cy="94" rx="7" ry="13" class="muscle-hot"/><ellipse cx="149" cy="94" rx="7" ry="13" class="muscle-hot"/>';
-  hotB='<ellipse cx="101" cy="90" rx="8" ry="13" class="muscle-hot"/><ellipse cx="139" cy="90" rx="8" ry="13" class="muscle-hot"/>';
- }else if(t==='bridge'){
-  a=head(66,132)+line('M78 128l40-28 50 18 20 32M118 100l-8-35M118 100l25-35M165 118l-4 42')+bench;
-  b=head(66,132)+line('M78 128l42-46 48 10 20 32M120 82l-9-33M120 82l25-30M168 92l-7 68')+bench;
-  hotA='<ellipse cx="118" cy="105" rx="15" ry="8" class="muscle-hot"/>';
-  hotB='<ellipse cx="120" cy="86" rx="17" ry="9" class="muscle-hot"/><ellipse cx="151" cy="91" rx="9" ry="8" class="muscle-hot"/>';
- }else if(t==='raise'){
-  a=head(120,35)+line('M120 48v60M120 60l-30 35-10 28M120 60l30 35 10 28M120 108l-25 35-5 38M120 108l25 35 5 38')+db(78,120)+db(152,120);
-  b=head(120,35)+line('M120 48v60M120 60l-55 5-20 20M120 60l55 5 20 20M120 108l-25 35-5 38M120 108l25 35 5 38')+db(43,78)+db(177,78);
-  hotA='<ellipse cx="91" cy="71" rx="8" ry="9" class="muscle-hot"/><ellipse cx="149" cy="71" rx="8" ry="9" class="muscle-hot"/>';
-  hotB='<ellipse cx="82" cy="66" rx="10" ry="8" class="muscle-hot"/><ellipse cx="158" cy="66" rx="10" ry="8" class="muscle-hot"/>';
- }else if(t==='core'){
-  a=head(92,92)+line('M105 97l45 15 28-8M150 112l-20 28M150 112l25 25M130 140l-22 25-18 8M175 137l20 20 8 15') ;
-  b=head(92,92)+line('M105 97l45 15 28-8M150 112l-5 36M150 112l38 5M145 148l-20 28M188 117l22 18') ;
-  hotA='<ellipse cx="132" cy="108" rx="20" ry="9" class="muscle-hot"/>';
-  hotB='<ellipse cx="132" cy="108" rx="20" ry="9" class="muscle-hot"/>';
- }else{
-  a=head(120,35)+line('M120 48v60M120 60l-28 24M120 60l28 24M120 108l-25 36-8 37M120 108l25 28 10-35') ;
-  b=head(120,35)+line('M120 48v60M120 60l-28 18M120 60l32 15M120 108l-25 28-8 39M120 108l28 37 18-12') ;
-  hotA='<ellipse cx="104" cy="137" rx="9" ry="17" class="muscle-hot"/><ellipse cx="136" cy="137" rx="9" ry="17" class="muscle-hot"/>';
-  hotB='<ellipse cx="104" cy="132" rx="9" ry="17" class="muscle-hot"/><ellipse cx="140" cy="137" rx="9" ry="17" class="muscle-hot"/>';
- }
- const svg='<svg class="exercise-svg exercise-'+t+'" viewBox="0 0 240 200" role="img" aria-label="'+t+' başlangıç ve hareket animasyonu"><line class="ground" x1="25" y1="183" x2="215" y2="183"/><g class="pose pose-a">'+hotA+a+'</g><g class="pose pose-b">'+hotB+b+'</g></svg>';
- return '<div class="exercise-visual"><div class="visual-stage">'+svg+'<div class="visual-labels"><span>BAŞLANGIÇ</span><b>↕</b><span>HAREKET</span></div></div><div class="working-title">ÇALIŞAN BÖLGELER</div><div class="working-muscles">'+label+'</div></div>';
 }
 document.addEventListener('DOMContentLoaded',initWorkout);

@@ -94,7 +94,8 @@ function getTodayWorkoutSummary(){
       .filter(x=>x.date===todayKey && (!resetAt || Number(x.at||0)>resetAt))
       .reduce((sum,x)=>sum+(Number(x.sets)||0),0);
     if(resetAt && done===0 && sets===0)return empty;
-    const minutes=(state.dailySports||[]).filter(x=>x.name==='Ağırlık Antrenmanı').reduce((sum,x)=>sum+(Number(x.duration)||0),0);\n    return {done,sets,minutes};
+    const minutes=(state.dailySports||[]).filter(x=>x.name==='Ağırlık Antrenmanı').reduce((sum,x)=>sum+(Number(x.duration)||0),0);
+    return {done,sets,minutes};
   }catch(e){
     return empty;
   }
@@ -196,7 +197,7 @@ function updateDashboard(){
   setRing('.protein-ring',(state.protein/proteinGoal)*100);
   setRing('.sets-ring',Math.min(100,(workout.sets/13)*100));
 
-  $('today').textContent=new Date().toLocaleDateString('tr-TR');
+  if($('today')) $('today').textContent=new Date().toLocaleDateString('tr-TR');
   updateDayButtons();
 }
 function updateDayButtons(){
@@ -293,7 +294,8 @@ function searchFood(text){
   );
 
   if(!filtered.length){
-    results.innerHTML = '<div class="food-item"><strong>Besin bulunamadı.</strong><br><small>Kalori ve protein değerini girerek hemen ekleyebilirsin.</small><button type="button" class="quick-custom-food" style="margin-top:8px;width:100%;padding:9px;border:0;border-radius:10px;background:#111827;color:#fff;font-weight:800">➕ Bu besini ekle</button></div>';\n    results.querySelector('.quick-custom-food').onclick=()=>{const name=$('newFoodName');if(name){name.value=text.trim();name.focus();name.scrollIntoView({behavior:'smooth',block:'center'});}};
+    results.innerHTML = '<div class="food-item"><strong>Besin bulunamadı.</strong><br><small>Kalori ve protein değerini girerek hemen ekleyebilirsin.</small><button type="button" class="quick-custom-food" style="margin-top:8px;width:100%;padding:9px;border:0;border-radius:10px;background:#111827;color:#fff;font-weight:800">➕ Bu besini ekle</button></div>';
+    results.querySelector('.quick-custom-food').onclick=()=>{const name=$('newFoodName');if(name){name.value=text.trim();name.focus();name.scrollIntoView({behavior:'smooth',block:'center'});}};
     return;
   }
 
@@ -599,31 +601,31 @@ function addWater(){
 }
 
 function setupNavigation(){
-  document.querySelectorAll('.top-nav button').forEach(button=>{
-    button.addEventListener('click', ()=>{
-      document.querySelectorAll('.page').forEach(page=>{
-        page.classList.remove('active');
-      });
-
-      const page = $(button.dataset.page);
-
-      if(page){
-        page.classList.add('active');
-      }
+  const buttons=document.querySelectorAll('.bottom-nav button, .brand');
+  buttons.forEach(button=>{
+    button.addEventListener('click',()=>{
+      document.querySelectorAll('.page').forEach(page=>page.classList.remove('active'));
+      const page=$(button.dataset.page);
+      if(page)page.classList.add('active');
+      document.querySelectorAll('.bottom-nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===button.dataset.page));
+      window.scrollTo({top:0,behavior:'smooth'});
     });
   });
+
+  const gear=$('profileHeaderButton');
+  if(gear){
+    gear.addEventListener('click',()=>{
+      document.querySelectorAll('.page').forEach(page=>page.classList.remove('active'));
+      $('profilePage')?.classList.add('active');
+      document.querySelectorAll('.bottom-nav button').forEach(b=>b.classList.remove('active'));
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  }
 }
 
 function setupDayButtons(){
-  $('normalDayBtn').addEventListener('click', ()=>{
-    setDayType('normal');
-  });
-
-  $('sportDayBtn').addEventListener('click', ()=>{
-    setDayType('sport');
-  });
+  // Gün tipi seçimi artık ana ekranda görünmüyor; hedefler profil üzerinden yönetiliyor.
 }
-
 function setupEvents(){
   const editGoalsButton=$('editGoalsButton');
   if(editGoalsButton){
@@ -631,7 +633,7 @@ function setupEvents(){
       document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
       const profile=$('profilePage');
       if(profile)profile.classList.add('active');
-      document.querySelectorAll('.top-nav button').forEach(b=>b.classList.toggle('active',b.dataset.page==='profilePage'));
+      document.querySelectorAll('.bottom-nav button').forEach(b=>b.classList.toggle('active',b.dataset.page==='profilePage'));
     };
   }
 
