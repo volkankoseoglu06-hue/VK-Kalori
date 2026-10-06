@@ -71,52 +71,67 @@ function netCalories(){
   return state.eaten - state.burned;
 }
 
-function updateDashboard(){
-  $('currentCalories').textContent = Math.round(netCalories());
-  $('currentProtein').textContent = Math.round(state.protein);
-  $('currentWater').textContent = state.water.toFixed(1);
-  $('currentSport').textContent = Math.round(state.burned);
-  const eaten = $('eatenCalories');
-  const burned = $('burnedCalories');
-  const net = $('netCalories');
-  if(eaten) eaten.textContent = Math.round(state.eaten);
-  if(burned) burned.textContent = Math.round(state.burned);
-  if(net) net.textContent = Math.round(netCalories());
-  $('targetCalories').textContent = state.goals.calories;
-  $('targetProtein').textContent = state.goals.protein;
-  $('targetWater').textContent = state.goals.water;
-
-  const calorieGoal = Math.max(1, state.goals.calories);
-  const proteinGoal = Math.max(1, state.goals.protein);
-  const waterGoal = Math.max(0.1, state.goals.water);
-  const caloriePct = Math.min(100, Math.round((Math.max(0, netCalories()) / calorieGoal) * 100));
-  const proteinPct = Math.min(100, Math.round((state.protein / proteinGoal) * 100));
-  const waterPct = Math.min(100, Math.round((state.water / waterGoal) * 100));
-
-  const calorieProgress = $('calorieProgress');
-  const proteinProgress = $('proteinProgress');
-  const waterProgress = $('waterProgress');
-  if(calorieProgress) calorieProgress.style.width = caloriePct + '%';
-  if(proteinProgress) proteinProgress.style.width = proteinPct + '%';
-  if(waterProgress) waterProgress.style.width = waterPct + '%';
-
-  const calorieText = $('calorieProgressText');
-  const proteinText = $('proteinProgressText');
-  const waterText = $('waterProgressText');
-  if(calorieText) calorieText.textContent = `${Math.round(Math.max(0, netCalories()))} / ${Math.round(calorieGoal)} kcal`;
-  if(proteinText) proteinText.textContent = `${Math.round(state.protein)} / ${Math.round(proteinGoal)} g`;
-  if(waterText) waterText.textContent = `${state.water.toFixed(1)} / ${waterGoal.toFixed(1)} L`;
-
-  const badge = $('dailyStatusBadge');
-  if(badge){
-    const overall = Math.round((caloriePct + proteinPct + waterPct) / 3);
-    badge.textContent = overall >= 90 ? 'Harika gidiyor' : overall >= 60 ? 'İyi gidiyor' : 'Başlayalım';
+function getTodayWorkoutSummary(){
+  const empty={done:0,sets:0};
+  try{
+    const raw=localStorage.getItem('vk_workout_log_v1');
+    if(!raw)return empty;
+    const data=JSON.parse(raw)||{};
+    const todayKey=new Date().toISOString().slice(0,10);
+    const done=Object.values(data.done||{}).filter(v=>v===todayKey).length;
+    const sets=(data.logs||[])
+      .filter(x=>x.date===todayKey)
+      .reduce((sum,x)=>sum+(Number(x.sets)||0),0);
+    return {done,sets};
+  }catch(e){
+    return empty;
   }
-
-  $('today').textContent = new Date().toLocaleDateString('tr-TR');
-  updateDayButtons();
 }
 
+function updateDashboard(){
+  const calorieGoal=Math.max(1,state.goals.calories);
+  const proteinGoal=Math.max(1,state.goals.protein);
+  const waterGoal=Math.max(0.1,state.goals.water);
+  const sportMinutes=state.dailySports.reduce((sum,s)=>sum+(Number(s.duration)||0),0);
+  const sportCalories=Math.round(state.burned);
+  const workout=getTodayWorkoutSummary();
+
+  const calorieEl=$('summaryCalories');
+  const proteinEl=$('summaryProtein');
+  const waterEl=$('summaryWater');
+  const foodCountEl=$('summaryFoodCount');
+  const sportDurationEl=$('summarySportDuration');
+  const sportDetailEl=$('summarySportDetail');
+  const workoutEl=$('summaryWorkout');
+  const workoutDetailEl=$('summaryWorkoutDetail');
+  const badge=$('dailyStatusBadge');
+
+  if(calorieEl) calorieEl.textContent=`${Math.round(Math.max(0,netCalories()))} kcal`;
+  if(proteinEl) proteinEl.textContent=`${Math.round(state.protein)} g`;
+  if(waterEl) waterEl.textContent=`${state.water.toFixed(1)} L`;
+  if(foodCountEl) foodCountEl.textContent=state.dailyFoods.length;
+  if(sportDurationEl) sportDurationEl.textContent=`${sportMinutes} dk`;
+  if(sportDetailEl) sportDetailEl.textContent=`${sportCalories} kcal yakılan`;
+
+  if(workoutEl){
+    workoutEl.textContent=workout.done ? `${workout.done} hareket` : 'Hazır';
+  }
+  if(workoutDetailEl){
+    workoutDetailEl.textContent=workout.sets ? `${workout.sets} set tamamlandı` : 'Henüz kayıt yok';
+  }
+
+  const caloriePct=Math.min(100,Math.round((Math.max(0,netCalories())/calorieGoal)*100));
+  const proteinPct=Math.min(100,Math.round((state.protein/proteinGoal)*100));
+  const waterPct=Math.min(100,Math.round((state.water/waterGoal)*100));
+  const overall=Math.round((caloriePct+proteinPct+waterPct)/3);
+
+  if(badge){
+    badge.textContent=overall>=90?'Harika gidiyor':overall>=60?'İyi gidiyor':'Başlayalım';
+  }
+
+  $('today').textContent=new Date().toLocaleDateString('tr-TR');
+  updateDayButtons();
+}
 function updateDayButtons(){
   const normal = $('normalDayBtn');
   const sport = $('sportDayBtn');
