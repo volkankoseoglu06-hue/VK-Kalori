@@ -176,6 +176,7 @@ function tabs(){
   ).join('');
 }
 function startGuided(){
+  window.__vkWorkoutDay=day;
   // Yeni seans başlatılıyorsa o günün eski "Yaptım" işaretlerini temizle.
   if(!S.session || S.session.status==='finished' || S.session.day!==day){
     Object.keys(S.done).forEach(k=>{if(S.done[k]===today())delete S.done[k]});
@@ -194,6 +195,7 @@ function startGuided(){
   startElapsedTicker();
 }
 function resumeWorkout(){
+  window.__vkWorkoutDay=day;
   if(!S.session || S.session.day!==day)return startGuided();
   activeSet=Math.max(1,Number(S.session.activeSet)||1);
   activeExercise=Math.max(0,Math.min(W[day].ex.length-1,Number(S.session.activeExercise)||0));
@@ -231,6 +233,7 @@ function pauseWorkout(){
   renderActive();
 }
 function completeWorkout(){
+  window.__vkWorkoutDay=day;
   if(!S.session && !active)return;
   completeWorkout();
 }
@@ -239,6 +242,7 @@ function finishSession(autoComplete=false){
 
   const elapsed=sessionElapsedMs();
   const minutes=Math.max(5,Math.min(180,elapsed/60000));
+  window.__vkWorkoutDay=day;
   const sets=activeSessionSets || Number(S.session?.sets)||0;
 
   active=false;
@@ -251,6 +255,7 @@ function finishSession(autoComplete=false){
   }
 
   if(sets>0 && typeof addWorkoutBurn==='function'){
+    window.__vkWorkoutDay=day;
     const density=sets/Math.max(1,minutes);
     const met=density>=0.50?5.8:(density>=0.30?5.0:3.5);
     addWorkoutBurn(minutes,sets,met,activeSessionId);
@@ -260,7 +265,7 @@ function finishSession(autoComplete=false){
     ...(S.session||{}),
     id:activeSessionId||S.session?.id||('session_'+Date.now()),
     day,
-    status:'paused',
+    status:'finished',
     elapsedMs:elapsed,
     activeSet,
     activeExercise,
@@ -446,8 +451,14 @@ function todayWorkoutLoggedMinutes(){
   return Math.round(sport.filter(x=>x.name==='Ağırlık Antrenmanı').reduce((s,x)=>s+(Number(x.duration)||0),0));
 }
 function workoutKcalToday(){
-  const committed=Math.round((state?.dailySports||[]).filter(x=>x.name==='Ağırlık Antrenmanı' && x.sessionId!==activeSessionId).reduce((s,x)=>s+(Number(x.calories)||0),0));
-  if(!active)return committed;
+  const currentId=activeSessionId||S.session?.id||'';
+  const committed=Math.round((state?.dailySports||[])
+    .filter(x=>x.name==='Ağırlık Antrenmanı' && x.sessionId!==currentId)
+    .reduce((s,x)=>s+(Number(x.calories)||0),0));
+  const sessionOpen=active || (S.session?.day===day && S.session?.status==='paused');
+  if(!sessionOpen)return committed + Math.round((state?.dailySports||[])
+    .filter(x=>x.name==='Ağırlık Antrenmanı' && x.sessionId===currentId)
+    .reduce((s,x)=>s+(Number(x.calories)||0),0));
   const mins=sessionElapsedMs()/60000;
   if(mins<=0)return committed;
   const weight=Number(state?.weight)||0;
