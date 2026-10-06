@@ -2756,3 +2756,5 @@ body:has(#homePage.active) .modern-header{
   .modern-header .brand{gap:6px!important}
   #workoutModal .workout-modal-box{max-height:88vh!important}
 }
+
+/* vk workout ui refresh */
