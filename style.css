@@ -417,3 +417,11 @@ button{
   .activity-ring-card b{font-size:10px}
   .summary-foot{font-size:10px}
 }
+
+.walking-plan-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.walking-plan-btn{border:1px solid #dbe3ef;background:#fff;border-radius:13px;padding:11px 9px;text-align:left;cursor:pointer}
+.walking-plan-btn span{display:block;font-size:13px;font-weight:900}
+.walking-plan-btn small{display:block;margin-top:3px;color:#6b7280;font-size:10px}
+.walking-plan-btn.full{grid-column:1/-1;background:#f8fafc}
+.walking-plan-btn:hover{transform:translateY(-1px)}
+@media(max-width:430px){.walking-plan-btn{padding:10px 8px}}
