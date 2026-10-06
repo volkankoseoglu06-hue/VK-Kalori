@@ -508,11 +508,6 @@ function render(){
           '</div>'+
         '</div>'+
       '</div>'+
-      '<div class="exercise-inline-controls">'+
-        '<label class="inline-field"><small>Ağırlık (kg)</small><input aria-label="Ağırlık kg" data-weight="'+i+'" type="number" min="0" step="0.5" value="'+weight+'" placeholder="0"></label>'+
-        '<label class="inline-field"><small>Set</small><input aria-label="Set" data-sets="'+i+'" type="number" min="1" max="10" value="'+sets+'" placeholder="1"></label>'+
-        '<label class="inline-field"><small>Tekrar</small><input aria-label="Tekrar" data-reps="'+i+'" type="number" min="1" max="50" value="'+reps+'" placeholder="10"></label>'+
-      '</div>'+
     '</article>';
   }).join('');
 
