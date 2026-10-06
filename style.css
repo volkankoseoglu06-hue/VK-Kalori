@@ -2518,3 +2518,50 @@ body:has(#homePage.active) .modern-header .header-weight{display:none!important;
   body:has(#homePage.active) .home-goal-grid.home-four-metrics .goal-card strong{font-size:27px!important}
   body:has(#homePage.active) .home-goal-grid.home-four-metrics .goal-card small{font-size:14px!important;margin-top:11px!important}
 }
+
+/* Workout modal: mobile scrolling + manual set entry */
+#workoutModal{z-index:200!important;overflow:hidden!important}
+#workoutModal .workout-modal-box{
+  max-height:calc(100dvh - 12px)!important;
+  max-height:calc(100vh - 12px)!important;
+  overflow-y:auto!important;
+  -webkit-overflow-scrolling:touch;
+  padding-bottom:120px!important;
+  box-sizing:border-box;
+}
+#workoutModal .modal-entry-grid{display:none!important}
+#workoutModal .modal-set-actions{display:flex!important;justify-content:flex-end;margin:8px 0 4px}
+#workoutModal .modal-add-set{
+  border:0;border-radius:12px;background:#eff6ff;color:#2563eb;
+  padding:10px 14px;font-family:inherit;font-weight:900;cursor:pointer;
+}
+#workoutModal .modal-set-list:empty{min-height:0;margin-top:0}
+#workoutModal .modal-set-list>div{
+  grid-template-columns:58px minmax(0,1fr) minmax(0,1fr) 28px!important;
+}
+#workoutModal .modal-set-list input{
+  width:100%;box-sizing:border-box;border:1px solid #dbe5f1;
+  border-radius:9px;padding:9px 7px;background:#fff;font-weight:800;
+}
+#workoutModal .modal-remove-set{
+  border:0;background:#fee2e2;color:#dc2626;border-radius:8px;
+  min-height:32px;font-weight:900;
+}
+.finish-workout-button{
+  width:100%;min-height:52px;margin:14px 0 20px;border:0;border-radius:16px;
+  background:#0f172a;color:#fff;font-family:inherit;font-size:15px;font-weight:900;
+  box-shadow:0 7px 18px rgba(15,23,42,.12);cursor:pointer;
+}
+.finish-workout-button:active{transform:scale(.99)}
+.reference-exercise-card.done{
+  border-color:#86efac!important;
+  background:#f0fdf4!important;
+}
+.reference-exercise-card.done .reference-exercise-number{
+  background:#16a34a!important;color:#fff!important;
+}
+.reference-exercise-card.done .reference-exercise-chevron{color:#16a34a!important}
+@media(max-width:430px){
+  #workoutModal .workout-modal-box{padding-bottom:130px!important}
+  #workoutModal .modal-set-list>div{grid-template-columns:52px minmax(0,1fr) minmax(0,1fr) 28px!important}
+}
