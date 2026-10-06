@@ -196,7 +196,7 @@ function updateDashboard(){
   setRing('.protein-ring',(state.protein/proteinGoal)*100);
   setRing('.sets-ring',Math.min(100,(workout.sets/13)*100));
 
-  $('today').textContent=new Date().toLocaleDateString('tr-TR');
+  if($('today')) $('today').textContent=new Date().toLocaleDateString('tr-TR');
   updateDayButtons();
 }
 function updateDayButtons(){
