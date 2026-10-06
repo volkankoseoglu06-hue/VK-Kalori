@@ -542,3 +542,39 @@ button{
 @media(max-width:430px){
   .finish-ring strong{font-size:27px}
 }
+
+
+/* Home daily goals */
+.daily-goals-card{margin-top:14px}
+.daily-goals-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.daily-goals-head h3{margin:3px 0 0;font-size:18px}
+.goal-edit-button{
+  border:0;
+  background:#f3f4f6;
+  color:#374151;
+  border-radius:12px;
+  padding:9px 12px;
+  font-weight:800;
+  cursor:pointer;
+}
+.daily-goals-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.daily-goal{
+  background:#f8fafc;
+  border-radius:14px;
+  padding:12px 8px;
+  text-align:center;
+  display:flex;
+  align-items:baseline;
+  justify-content:center;
+  flex-wrap:wrap;
+  column-gap:4px;
+}
+.daily-goal strong{font-size:22px;line-height:1}
+.daily-goal span{font-size:12px;font-weight:800;color:#6b7280}
+.daily-goal small{width:100%;display:block;margin-top:6px;color:#6b7280;font-size:11px;font-weight:700}
+@media(max-width:430px){
+  .daily-goals-grid{gap:8px}
+  .daily-goal{padding:11px 5px}
+  .daily-goal strong{font-size:20px}
+  .goal-edit-button{padding:8px 10px;font-size:12px}
+}
