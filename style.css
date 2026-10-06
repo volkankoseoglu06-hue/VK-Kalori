@@ -1018,3 +1018,90 @@ body{min-height:100vh}
     gap:10px!important;
   }
 }
+
+
+/* Compact inline workout logging */
+.modern-exercise-card{padding:10px 10px 9px!important}
+.modern-exercise-card > .exercise-main{
+  grid-template-columns:92px minmax(0,1fr) 30px!important;
+  gap:10px!important;
+}
+.exercise-visual,.exercise-open{
+  border:0!important;
+  background:transparent!important;
+  padding:0!important;
+  margin:0!important;
+  text-align:left!important;
+  font-family:inherit!important;
+  cursor:pointer;
+}
+.exercise-visual{width:92px;height:92px}
+.exercise-visual .exercise-image-wrap,.exercise-visual .exercise-image-fallback{
+  width:92px!important;height:92px!important;
+}
+.exercise-open{min-width:0!important;width:100%!important}
+.exercise-open .exercise-title-row h3{font-size:15px!important}
+.exercise-check{align-self:start!important;margin-top:3px!important}
+.exercise-check.checked{background:#16a34a!important;border-color:#16a34a!important;color:#fff!important}
+.exercise-inline-controls{
+  display:grid!important;
+  grid-template-columns:minmax(0,1.25fr) minmax(54px,.72fr) minmax(62px,.9fr) 38px 38px!important;
+  gap:6px!important;
+  margin-top:8px!important;
+  padding-left:102px!important;
+}
+.exercise-inline-controls input{
+  width:100%!important;
+  min-width:0!important;
+  height:34px!important;
+  box-sizing:border-box!important;
+  border:1px solid #dbe5f1!important;
+  border-radius:9px!important;
+  background:#fbfdff!important;
+  color:#0f172a!important;
+  padding:7px 6px!important;
+  font:800 11px/1 'Manrope',sans-serif!important;
+  text-align:center!important;
+}
+.exercise-inline-controls input:focus{outline:2px solid #bfdbfe!important;outline-offset:1px}
+.inline-add,.inline-complete{
+  width:38px!important;height:34px!important;
+  border-radius:9px!important;
+  border:1px solid #dbe5f1!important;
+  font:900 18px/1 'Manrope',sans-serif!important;
+  cursor:pointer;
+}
+.inline-add{background:#eff6ff!important;color:#2563eb!important}
+.inline-complete{background:#16a34a!important;color:#fff!important;border-color:#16a34a!important;font-size:16px!important}
+.inline-complete.completed{background:#16a34a!important}
+@media(max-width:430px){
+  .modern-exercise-card > .exercise-main{grid-template-columns:82px minmax(0,1fr) 27px!important;gap:9px!important}
+  .exercise-visual{width:82px;height:82px}
+  .exercise-visual .exercise-image-wrap,.exercise-visual .exercise-image-fallback{width:82px!important;height:82px!important}
+  .exercise-open .exercise-title-row h3{font-size:14px!important}
+  .exercise-inline-controls{
+    padding-left:91px!important;
+    grid-template-columns:minmax(0,1.2fr) 42px 52px 34px 34px!important;
+    gap:5px!important;
+  }
+  .exercise-inline-controls input{height:32px!important;font-size:10px!important}
+  .inline-add,.inline-complete{width:34px!important;height:32px!important}
+}
+
+/* Reference-style line icons in bottom navigation */
+.bottom-nav button span.nav-icon{
+  width:20px!important;height:20px!important;
+  display:grid!important;place-items:center!important;
+  font-size:0!important;color:#64748b!important;
+}
+.bottom-nav button span.nav-icon svg{
+  width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.bottom-nav button.active span.nav-icon{color:#2563eb!important}
+.bottom-nav button small{font-size:9px!important}
+
+/* Reference-style VK Life header logo */
+.brand .vk-logo{width:54px!important;height:45px!important}
+.brand>span{font-size:28px!important;letter-spacing:3px!important;font-weight:700!important}
+.brand>span span{font-weight:500!important;color:#1e293b!important}
