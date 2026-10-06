@@ -5,6 +5,7 @@ const DEFAULTS = {
   burned: 0,
   protein: 0,
   water: 0,
+  weight: 0,
   dayType: 'normal',
   dailyFoods: [],
   dailySports: [],
@@ -46,6 +47,7 @@ function normalizeState(s){
   out.burned = safeNum(s.burned);
   out.protein = safeNum(s.protein);
   out.water = safeNum(s.water);
+  out.weight = safeNum(s.weight);
 
   out.dayType = s.dayType === 'sport' ? 'sport' : 'normal';
 
@@ -96,13 +98,33 @@ function getTodayWorkoutSummary(){
   }
 }
 
-function addWorkoutBurn(minutes){
+function addWorkoutBurn(minutes,sets=13,met=3.5){
   const exists=state.dailySports.some(x=>x.name==='Ağırlık Antrenmanı'||x.name==='Ağırlık');
   if(exists)return false;
-  const mins=Math.max(20,Number(minutes)||45);
-  const kcal=Math.round(mins*5*0.9);
+
+  const weight=Number(state.weight)||0;
+  if(weight<=0){
+    alert('Ağırlık kalorisi için Profil bölümünden vücut ağırlığını gir.');
+    return false;
+  }
+
+  const mins=Math.max(20,Math.min(120,Number(minutes)||45));
+  const setCount=Math.max(1,Number(sets)||13);
+  const intensity=Number(met)||3.5;
+
+  // Net aktif enerji: (MET - 1) x kg x saat.
+  const kcal=Math.max(0,Math.round((intensity-1)*weight*(mins/60)));
+
   state.burned+=kcal;
-  state.dailySports.push({name:'Ağırlık Antrenmanı',duration:mins,calories:kcal});
+  state.dailySports.push({
+    name:'Ağırlık Antrenmanı',
+    duration:mins,
+    sets:setCount,
+    met:intensity,
+    weight,
+    calories:kcal
+  });
+
   save();
   updateDashboard();
   renderSports();
@@ -534,15 +556,17 @@ function saveProfile(){
   const calories = safeNum($('profileCalories').value);
   const protein = safeNum($('profileProtein').value);
   const water = safeNum($('profileWater').value);
+  const weight = safeNum($('profileWeight').value);
 
   if(calories > 0) state.goals.calories = calories;
   if(protein > 0) state.goals.protein = protein;
   if(water > 0) state.goals.water = water;
+  if(weight > 0) state.weight = weight;
 
   save();
   updateDashboard();
 
-  alert('Hedefler kaydedildi.');
+  alert('Profil ve hedefler kaydedildi.');
 }
 
 function addWater(){
@@ -639,6 +663,10 @@ function setupEvents(){
 }
 
 function refreshAll(){
+  if($('profileWeight')) $('profileWeight').value = state.weight || '';
+  if($('profileCalories')) $('profileCalories').value = state.goals.calories || '';
+  if($('profileProtein')) $('profileProtein').value = state.goals.protein || '';
+  if($('profileWater')) $('profileWater').value = state.goals.water || '';
   updateDashboard();
   renderFoods();
   renderSports();
