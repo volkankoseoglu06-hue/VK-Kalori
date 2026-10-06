@@ -494,19 +494,17 @@ function render(){
     return '<article class="exercise-card modern-exercise-card '+(isDone?'done':'')+'">'+
       '<div class="exercise-main">'+
         '<button class="exercise-visual" type="button" data-open="'+i+'">'+exerciseCardImage(x[0])+'</button>'+
-        '<button class="exercise-info exercise-open" type="button" data-open="'+i+'">'+
-          '<div class="exercise-title-row"><h3>'+x[0]+'</h3></div>'+
-
-        '</button>'+
-        '<div class="exercise-result">'+
-          '<div class="result-line"><span class="result-fire">🔥</span><div><small>Tahmini Yakım</small><b>'+kcal+' kcal</b></div></div>'+
-          '<div class="result-line"><span class="result-icon">🏋️</span><div><small>Toplam Hacim</small><b>'+volume+' kg</b></div></div>'+
-          '<div class="result-line"><span class="result-icon">▱</span><div><small>Set × Tekrar</small><b>'+sets+' × '+reps+'</b></div></div>'+
-        '</div>'+
-        '<div class="exercise-mobile-result"><span>🔥 '+kcal+' kcal</span><span>🏋️ '+volume+' kg</span><span>▱ '+sets+' set</span></div>'+
-        '<div class="exercise-actions-large">'+
-          '<button class="inline-add" type="button" data-add-set="'+i+'" aria-label="Set ekle">+</button>'+
-          '<button class="inline-complete '+(isDone?'completed':'')+'" type="button" data-complete="'+i+'" aria-label="Hareketi tamamla">✓</button>'+
+        '<div class="exercise-info">'+
+          '<button class="exercise-open exercise-title-button" type="button" data-open="'+i+'"><h3>'+x[0]+'</h3></button>'+
+          '<div class="exercise-result">'+
+            '<span class="compact-metric">🔥 <b>'+kcal+' kcal</b></span>'+
+            '<span class="compact-metric">🏋️ <b>'+volume+' kg</b></span>'+
+            '<span class="compact-metric">▱ <b>'+sets+' × '+reps+'</b></span>'+
+          '</div>'+
+          '<div class="exercise-actions-large">'+
+            '<button class="inline-add" type="button" data-add-set="'+i+'" aria-label="Set ekle">+</button>'+
+            '<button class="inline-complete '+(isDone?'completed':'')+'" type="button" data-complete="'+i+'" aria-label="Hareketi tamamla">✓</button>'+
+          '</div>'+
         '</div>'+
       '</div>'+
       '<div class="exercise-inline-controls">'+
