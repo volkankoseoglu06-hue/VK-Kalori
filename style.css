@@ -2396,7 +2396,9 @@ body:has(#homePage.active) .home-four-metrics .goal-card small{font-size:7px!imp
   -webkit-tap-highlight-color:transparent!important;
 }
 .reference-exercise-card:active{transform:scale(.992)!important}
+.reference-exercise-card{position:relative!important}
 .reference-exercise-card.done{border-color:#b9ead1!important;background:#fbfffd!important}
+.reference-exercise-card.done::after{content:'✓';position:absolute;right:10px;top:8px;width:21px;height:21px;border-radius:50%;display:grid;place-items:center;background:#16a866;color:#fff;font-size:12px;font-weight:900;box-shadow:0 3px 8px rgba(22,168,102,.2)}
 .reference-exercise-number{
   width:27px!important;height:27px!important;border-radius:50%!important;
   display:grid!important;place-items:center!important;
