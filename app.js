@@ -693,10 +693,9 @@ function setupEvents(){
     addSport
   );
 
-  $('waterButton').addEventListener(
-    'click',
-    addWater
-  );
+  const waterTargets = [$('waterButton'), $('homeWaterCard')].filter(Boolean);
+  waterTargets.forEach(el=>el.addEventListener('click', addWater));
+  waterTargets.forEach(el=>el.addEventListener('keydown', e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();addWater();}}));
 
   $('finishDayButton').addEventListener(
     'click',
