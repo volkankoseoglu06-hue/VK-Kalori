@@ -1,25 +1,24 @@
 const WORKOUT_KEY='vk_workout_log_v1';
 const W={
-1:{name:'Tüm vücut A',focus:'Temel kuvvet • kontrollü tempo',ex:[
-['Goblet Squat','Bacak • kalça',3,'8–12','squat',['Dambılı göğüste tut.','Kalça ve dizleri birlikte bükerek kontrollü in.','Topuklardan kuvvet alarak kalk.'],['Dizleri içeri düşürme.','Ağırlığı öne savurma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/equipment/dumbbells/'],
-['Dambıl Bench Press','Göğüs • ön omuz • triceps',3,'8–12','press',['Ayaklar yere sağlam bassın; baş, omuz ve kalça bench ile temaslı kalsın.','Dambılları kontrollü göğsün orta hattına indir.','Bilekleri nötr tutup yukarı it.'],['Dambılları zıplatma.','Belini aşırı çukurlaştırma.'],'ACE Chest Press','https://www.acefitness.org/resources/everyone/exercise-library/19/chest-press/'],
+1:{name:'Tüm vücut A',focus:'Göğüs • sırt • kalça • kol • core',ex:[
+['Dambıl Bench Press','Göğüs • ön omuz • triceps',3,'8–12','press',['Ayaklar yere sağlam bassın.','Dambılları kontrollü göğsün orta hattına indir.','Bilekleri nötr tutup yukarı it.'],['Dambılları zıplatma.','Belini aşırı çukurlaştırma.'],'ACE Chest Press','https://www.acefitness.org/resources/everyone/exercise-library/19/chest-press/'],
 ['Tek Kol Dambıl Row','Sırt • arka omuz • biceps',3,'8–12/kol','row',['Bir el ve aynı taraftaki diz bench üzerinde destek olsun.','Dambılı kalçaya doğru çek.','Gövdeyi sabit tut.'],['Gövdeyi döndürme.','Momentumla savurma.'],'ACE Workout Builder','https://www.acefitness.org/continuing-education/certified/april-2025/8841/the-ace-workout-builder-for-high-intensity-resistance-training/'],
-['Dambıl Romanian Deadlift','Arka bacak • kalça',2,'8–12','hinge',['Dizleri hafif bük, kalçayı geriye gönder.','Dambılları bacaklara yakın indir.','Kalçayı öne getirerek kalk.'],['Belden kamburlaşma.','Ağırlığı öne savurma.'],'ACE Workout Builder','https://www.acefitness.org/continuing-education/certified/april-2025/8841/the-ace-workout-builder-for-high-intensity-resistance-training/'],
+['Dambıl Romanian Deadlift','Arka bacak • kalça',3,'8–12','hinge',['Dizleri hafif bük, kalçayı geriye gönder.','Dambılları bacaklara yakın indir.','Kalçayı öne getirerek kalk.'],['Belden kamburlaşma.','Ağırlığı öne savurma.'],'ACE Workout Builder','https://www.acefitness.org/continuing-education/certified/april-2025/8841/the-ace-workout-builder-for-high-intensity-resistance-training/'],
 ['Hammer Curl','Biceps • ön kol',2,'10–12','curl',['Avuçlar birbirine bakacak.','Dirsekleri gövdeye yakın tut.','Yukarı kontrollü, aşağı yavaş.'],['Belden momentum alma.','Dirsekleri öne kaçırma.'],'ACE Workout Builder','https://www.acefitness.org/continuing-education/certified/april-2025/8841/the-ace-workout-builder-for-high-intensity-resistance-training/'],
-['Bench Crunch','Karın • core',2,'10–15','core',['900 benchi mekik pozisyonuna al ve ayaklarını alt ayaklıklarına sabitle.','Karnını sıkarak kürek kemiklerini kontrollü şekilde kaldır.','Belini zorlamadan yavaşça başlangıç pozisyonuna dön.'],['Boynundan çekme.','Ayaklardan hız alma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/']]},
-2:{name:'Tüm vücut B',focus:'Çekiş • omuz • tek taraflı bacak',ex:[
-['Destekli Split Squat','Bacak • kalça',3,'8–10/kol','squat',['Bench yanında hafif destek kullan.','Ön ayağın tamamı yerde kalsın.','Kontrollü alçal ve öndeki bacaktan yüksel.'],['Dizi içeri kaçırma.','Denge bozuluyorsa ağırlığı azalt.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/equipment/dumbbells/'],
+['Bench Crunch','Karın • core',2,'10–15','core',['Bench'i mekik pozisyonuna al ve ayaklarını sabitle.','Karnını sıkarak kürek kemiklerini kontrollü kaldır.','Belini zorlamadan yavaşça dön.'],['Boynundan çekme.','Ayaklardan hız alma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/']]},
+2:{name:'Tüm vücut B',focus:'Üst göğüs • sırt • kalça • omuz • core',ex:[
 ['Eğimli Dambıl Press','Üst göğüs • omuz • triceps',3,'8–12','press',['Bench açısını orta seviyede ayarla.','Kürek kemiklerini geriye-aşağı al.','Dambılları üst göğse indirip dengeli it.'],['Omuzları öne düşürme.','Ağırlığı kontrolsüz bırakma.'],'ACE Incline Chest Press','https://www.acefitness.org/resources/everyone/exercise-library/25/incline-chest-press/'],
 ['Bench Destekli Dambıl Row','Sırt • arka omuz',3,'10–12','row',['Göğsü eğimli bench üzerine destekle.','Dambılları kaburgalara doğru çek.','Üst noktada kısa sıkıştırıp yavaş bırak.'],['Boynu öne uzatma.','Omuzları kulaklara kaldırma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/'],
 ['Bench Glute Bridge','Kalça • arka bacak',3,'10–15','bridge',['Omuzları bench üzerine sabitle.','Kalçayı kontrollü kaldır.','Üstte kalçayı sık, belden aşırı yaylanma.'],['Hareketi belden yapma.','Savurma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/equipment/dumbbells/'],
-['Oturarak Dambıl Shoulder Press','Omuz • triceps',2,'8–12','press',['Sırtlığı destek olarak kullan.','Dambılları omuz hizasından başlat.','Momentum almadan yukarı it.'],['Belden aşırı geriye yatma.','Dambılları çarpıştırma.'],'ACE Shoulder Guide','https://www.acefitness.org/continuing-education/prosource/september-2014/4972/dynamite-delts-ace-research-identifies-top-shoulder-exercises/']]},
-3:{name:'Tüm vücut C',focus:'Hareket kalitesi • omuz • core',ex:[
-['Dambıl Front Squat','Bacak • kalça • core',3,'8–12','squat',['Dambılları omuzlarda güvenli konumda tut.','Gövdeyi kontrollü dik tut.','Topuklardan iterek kalk.'],['Dizleri içeri bırakma.','Gövdeyi öne yığma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/equipment/dumbbells/'],
+['Oturarak Dambıl Shoulder Press','Omuz • triceps',2,'8–12','press',['Sırtı bench ile destekle.','Dambılları omuz hizasından başlat.','Momentum almadan yukarı it.'],['Belden aşırı geriye yatma.','Dambılları çarpıştırma.'],'ACE Shoulder Guide','https://www.acefitness.org/continuing-education/prosource/september-2014/4972/dynamite-delts-ace-research-identifies-top-shoulder-exercises/'],
+['Dead Bug','Karın • core',2,'8–10/yan','core',['Belini kontrollü şekilde yere yakın tut.','Karşı kol ve bacağı yavaş uzat.','Nefesi tutma.'],['Bel kontrolünü kaybetme.','Hızı artırma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/']]},
+3:{name:'Tüm vücut C',focus:'Göğüs • sırt • kalça • omuz • core',ex:[
 ['Dambıl Floor Press','Göğüs • triceps',3,'8–12','press',['Sırtüstü yat, dizleri bük.','Üst kollar yere hafifçe temas edince dur.','Dambılları kontrollü yukarı it.'],['Dirsekleri sertçe yere çarptırma.','Bilekleri bükme.'],'ACE Chest Press','https://www.acefitness.org/resources/everyone/exercise-library/19/chest-press/'],
-['Şınav','Göğüs • triceps • ön omuz',2,'6–12','press',['Eller omuz genişliğinden biraz açık olsun.','Gövdeyi baştan kalçaya düz tut.','Göğsü kontrollü indirip zemini it.'],['Belini çökertme.','Dirsekleri tamamen yana açma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/'],
-['Rear-Delt Row','Arka omuz • üst sırt',2,'10–15','row',['Gövdeyi kontrollü öne eğ.','Dirsekleri yana açarak çek.','Üst sırtı sıkıp yavaş indir.'],['Boynu kaldırma.','Belden savurma.'],'ACE Shoulder Guide','https://www.acefitness.org/continuing-education/prosource/september-2014/4972/dynamite-delts-ace-research-identifies-top-shoulder-exercises/'],
+['Tek Kol Dambıl Row','Sırt • arka omuz • biceps',3,'8–12/kol','row',['Bench üzerinde destek al.','Dambılı kaburgaya doğru çek.','Gövdeyi sabit tut.'],['Gövdeyi döndürme.','Momentumla savurma.'],'ACE Workout Builder','https://www.acefitness.org/continuing-education/certified/april-2025/8841/the-ace-workout-builder-for-high-intensity-resistance-training/'],
+['Dambıl Romanian Deadlift','Arka bacak • kalça',2,'10–12','hinge',['Dizleri hafif bük, kalçayı geriye gönder.','Dambılları bacaklara yakın indir.','Kalçayı öne getirerek kalk.'],['Belden kamburlaşma.','Ağırlığı öne savurma.'],'ACE Workout Builder','https://www.acefitness.org/continuing-education/certified/april-2025/8841/the-ace-workout-builder-for-high-intensity-resistance-training/'],
 ['Lateral Raise','Yan omuz',2,'10–15','raise',['Kollar hafif bükülü.','Dambılları omuz hizasına kadar kontrollü kaldır.','İnerken ağırlığı bırakma.'],['Omuzları shrug yapma.','Ağırlığı savurma.'],'ACE Shoulder Guide','https://www.acefitness.org/continuing-education/prosource/september-2014/4972/dynamite-delts-ace-research-identifies-top-shoulder-exercises/'],
-['Dead Bug','Core',2,'8–10/yan','core',['Karın bölgesini kontrollü sık.','Karşı kol ve bacağı yavaş uzat.','Nefesi tutma.'],['Bel kontrolünü kaybetme.','Hızı artırma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/']]}}
+['Bench Glute Bridge','Kalça • arka bacak',3,'10–15','bridge',['Omuzları bench üzerine sabitle.','Kalçayı kontrollü kaldır.','Üstte kalçayı sık, belden aşırı yaylanma.'],['Hareketi belden yapma.','Savurma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/equipment/dumbbells/'],
+['Dead Bug','Karın • core',2,'8–10/yan','core',['Belini kontrollü şekilde yere yakın tut.','Karşı kol ve bacağı yavaş uzat.','Nefesi tutma.'],['Bel kontrolünü kaybetme.','Hızı artırma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/']]}}
 let S=load();
 let day=1;
 let selected=null;
@@ -102,23 +101,27 @@ function persistSession(status='active'){
 function clearElapsedTicker(){
   if(elapsedTicker){clearInterval(elapsedTicker);elapsedTicker=null}
 }
+function updateWorkoutControl(){
+  const button=document.getElementById('startWorkoutButton');
+  if(!button)return;
+  const icon=button.querySelector('.workout-play');
+  const copy=button.querySelector('.workout-start-copy strong');
+  const small=button.querySelector('.workout-start-copy small');
+  const status=S.session?.day===day ? S.session?.status : null;
+  button.classList.remove('is-running','is-paused','is-finished');
+  if(active){ if(icon)icon.textContent='⏸'; if(copy)copy.textContent='Antrenmanı Duraklat'; if(small)small.textContent='Durdur ve kaldığın yerden devam et'; button.classList.add('is-running'); }
+  else if(status==='paused'){ if(icon)icon.textContent='▶'; if(copy)copy.textContent='Antrenmana Devam Et'; if(small)small.textContent='Süre kaldığın yerden devam eder'; button.classList.add('is-paused'); }
+  else if(status==='finished'){ if(icon)icon.textContent='✓'; if(copy)copy.textContent='Antrenman Tamamlandı'; if(small)small.textContent='Yeni antrenman için tekrar başlatabilirsin'; button.classList.add('is-finished'); }
+  else { if(icon)icon.textContent='▶'; if(copy)copy.textContent='Antrenmanı Başlat'; if(small)small.textContent='Süreyi başlat ve setlerini kaydet'; }
+  const timer=document.getElementById('workoutElapsed'); if(timer)timer.textContent=formatDuration(sessionElapsedMs());
+}
 function startElapsedTicker(){
   clearElapsedTicker();
   elapsedTicker=setInterval(()=>{
-    if(active){
-      const timer=document.getElementById('workoutElapsed');
-      if(timer)timer.textContent=formatDuration(sessionElapsedMs());
-      const liveKcal=document.querySelector('[data-stat="kcal"]');
-      if(liveKcal)liveKcal.textContent=workoutLoggedKcal();
-      const liveTime=document.querySelector('[data-stat="time"]');
-      if(liveTime)liveTime.textContent=(active?Math.max(0,Math.round(sessionElapsedMs()/60000)):stateWorkoutMinutes())+' dk';
-      const button=document.getElementById('startWorkoutButton');
-      if(button){
-        const copy=button.querySelector('.workout-start-copy strong');
-        if(copy)copy.textContent='Antrenmana Devam Ediyor';
-        else button.textContent='Antrenmana Devam Ediyor';
-      }
-    }
+    const timer=document.getElementById('workoutElapsed'); if(timer)timer.textContent=formatDuration(sessionElapsedMs());
+    const liveKcal=document.querySelector('[data-stat="kcal"]'); if(liveKcal)liveKcal.textContent=workoutLoggedKcal();
+    const liveTime=document.querySelector('[data-stat="time"]'); if(liveTime)liveTime.textContent=stateWorkoutMinutes()+' dk';
+    updateWorkoutControl();
   },1000);
 }
 function initWorkout(){
@@ -129,8 +132,8 @@ function initWorkout(){
   if(timerControl)timerControl.onclick=()=>document.getElementById('startWorkoutButton')?.click();
   syncSessionFromStorage();
   render();
-  history();
   renderActive();
+  updateWorkoutControl();
 
   document.getElementById('workoutDayTabs').onclick=e=>{
     const b=e.target.closest('[data-day]');
@@ -145,17 +148,6 @@ function initWorkout(){
     render();
     renderActive();
   };
-
-  const historyEl=document.getElementById('workoutHistory');
-  if(historyEl){
-    historyEl.onclick=e=>{
-      const btn=e.target.closest('[data-delete-history]');
-      if(!btn)return;
-      e.preventDefault();
-      e.stopPropagation();
-      deleteHistory(btn.dataset.deleteHistory);
-    };
-  }
 
   document.getElementById('workoutDetail').onclick=e=>{
     const add=e.target.closest('[data-add-set]');
@@ -176,6 +168,7 @@ function initWorkout(){
 
   const finishButton=document.getElementById('finishWorkoutButton');
   if(finishButton) finishButton.onclick=()=>completeWorkout();
+  updateWorkoutControl();
 
   document.getElementById('startWorkoutButton').onclick=()=>{
     if(active){pauseWorkout();return;}
@@ -335,7 +328,7 @@ function finishSession(autoComplete=false){
   }
   render();
   renderActive();
-  history();
+  updateWorkoutControl();
   if(typeof updateDashboard==='function')updateDashboard();
 
   if(autoComplete)alert('Antrenman tamamlandı 🎉');
@@ -507,7 +500,9 @@ function render(){
     const reps=saved?.reps ?? Number((x[3].match(/^\\d+/)||['10'])[0]);
     const isDone=S.done[k]===today();
     const muscles=(MUSCLE_TARGETS[x[0]]||x[1].split(' • ')).slice(0,3);
-    const image=exerciseImage(x[0],'peak')||exerciseImage(x[0],'start');
+    const startImg=exerciseImage(x[0],'start');
+    const peakImg=exerciseImage(x[0],'peak');
+    const image=(startImg?'<img src="'+startImg+'" alt="'+x[0]+' başlangıç" loading="lazy">':'')+(peakImg?'<img src="'+peakImg+'" alt="" class="reference-exercise-image-peak" loading="lazy">':'');
     return '<button class="reference-exercise-card '+(isDone?'done':'')+'" type="button" data-open="'+i+'">'+
       '<span class="reference-exercise-number">'+(i+1)+'</span>'+
       '<span class="reference-exercise-image"><img src="'+image+'" alt="'+x[0]+'" loading="lazy"></span>'+
@@ -526,6 +521,14 @@ function render(){
     stats.querySelector('[data-stat="sets"]').textContent=totalSets;
     stats.querySelector('[data-stat="time"]').textContent=stateWorkoutMinutes()+' dk';
     stats.querySelector('[data-stat="kcal"]').textContent=workoutLoggedKcal();
+  }
+  updateWorkoutControl();
+  const finishButton=document.getElementById('finishWorkoutButton');
+  if(finishButton){
+    const hasLogs=(S.logs||[]).some(isCurrentWorkoutLog);
+    finishButton.style.display=(active || hasLogs || S.session?.day===day) ? 'block' : 'none';
+    finishButton.textContent=S.session?.status==='finished' ? '✓ Antrenman Tamamlandı' : '✓ Antrenmanı Bitir';
+    finishButton.disabled=S.session?.status==='finished';
   }
 }
 function stateWorkoutMinutes(){
@@ -593,6 +596,7 @@ function saveExerciseValues(i,weight,sets,reps,setDetails=null){
     ? setDetails.map(s=>({weight:Math.max(0,Number(s.weight)||0),reps:Math.max(1,Number(s.reps)||10)}))
     : null;
   if(normalizedDetails) sets=normalizedDetails.length;
+  if(!normalizedDetails || !normalizedDetails.length)return;
   S.logs.unshift({date:today(),at:Date.now(),sessionId:activeSessionId||S.session?.id||null,day,exercise:x[0],weight,sets,reps,rpe:7,setDetails:normalizedDetails});
   if(weight)S.weights[k]=weight;
   S.done[k]=today();
@@ -606,26 +610,11 @@ function saveExerciseValues(i,weight,sets,reps,setDetails=null){
   }
 
   const allDone=W[day].ex.every(ex=>S.done[key(ex[0])]===today());
-  if(allDone){
+  if(allDone && active){
     const todayLogs=S.logs.filter(isCurrentWorkoutLog);
-    const totalSets=todayLogs.reduce((sum,log)=>sum+(Number(log.sets)||0),0);
-    const avgReps=todayLogs.length?todayLogs.reduce((sum,log)=>sum+(Number(log.reps)||0),0)/todayLogs.length:10;
-    const sessionMinutes=active && activeStartedAt ? Math.max(5,(Date.now()-activeStartedAt+activePausedMs)/60000) : Math.max(20,totalSets*2.5+avgReps);
-    const density=totalSets/Math.max(1,sessionMinutes);
-    const met=density>=0.50?5.8:(density>=0.30?5.0:3.5);
-
-    if(active){
-      activeSessionSets=totalSets;
-      if(S.session){S.session.sets=totalSets;S.session.elapsedMs=sessionElapsedMs();S.session.status='active'}
-      finishSession(true);
-    }else{
-      // Doğrudan hareket kaydıyla tamamlandıysa da aynı seans kimliğini tüm setlere bağla.
-      const directId='direct_'+today()+'_'+day;
-      S.logs.forEach(log=>{if(isCurrentWorkoutLog(log))log.sessionId=directId});
-      W[day].ex.forEach(ex=>{S.done[key(ex[0])]=today()});
-      saveWorkoutState();
-      syncWorkoutBurnToDashboard();
-    }
+    activeSessionSets=todayLogs.reduce((sum,log)=>sum+(Number(log.sets)||0),0);
+    if(S.session){S.session.sets=activeSessionSets;S.session.elapsedMs=sessionElapsedMs();S.session.status='active'}
+    finishSession(true);
   }
 
   syncWorkoutBurnToDashboard();
@@ -672,15 +661,9 @@ function saveExerciseFromModal(){
   const i=W[day].ex.findIndex(x=>x[0]===selected[0]);
   if(i<0)return;
   const details=collectModalSetDetails();
-  if(!details.length){
-    alert('Önce en az 1 set ekle.');
-    return;
-  }
-  const first=details[0]||{};
-  const weight=first.weight||0;
-  const reps=first.reps||10;
-  const sets=Math.min(10,details.length);
-  saveExerciseValues(i,weight,sets,reps,details);
+  if(!details.length){alert('Önce + Set ekle ile en az bir set gir.');return;}
+  const first=details[0];
+  saveExerciseValues(i,first.weight,details.length,first.reps,details);
   close();
 }
 function addModalSetRow(weight='',reps=10){
@@ -734,7 +717,7 @@ function open(i){
     const details=Array.isArray(saved?.setDetails)&&saved.setDetails.length ? saved.setDetails : [];
     setList.innerHTML=details.length ? details.map((d,n)=>
       '<div class="modal-set-row"><span>'+(n+1)+'. Set</span><input class="modal-set-weight" type="number" min="0" step="0.5" value="'+(d.weight||0)+'" placeholder="kg"><input class="modal-set-reps" type="number" min="1" max="50" value="'+(d.reps||10)+'" placeholder="tekrar"><button type="button" class="modal-remove-set" data-remove-set aria-label="Seti sil">×</button></div>'
-    ).join('') : '<div class="modal-empty-sets">Henüz set eklenmedi. <b>+ Set ekle</b> ile ilk setini gir.</div>';
+    ).join('') : '<div class="modal-empty-sets">Henüz set eklenmedi. Her seti aşağıdaki <b>+ Set ekle</b> ile kendin gir.</div>';
   }
 
   document.getElementById('workoutSource').innerHTML='<a target="_blank" rel="noopener" href="https://repdb.co">Exercise data by RepDB ↗</a>';
