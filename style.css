@@ -1538,3 +1538,196 @@ body{min-height:100vh}
   .workout-quick-stats>div{padding:9px 2px!important}
   .modern-exercise-card{padding:10px!important}
 }
+
+
+/* ===== iPhone 11 first: fixed mobile canvas ===== */
+html,body{
+  width:100%;
+  min-width:0!important;
+  max-width:100%!important;
+  overflow-x:hidden!important;
+  -webkit-text-size-adjust:100%!important;
+  touch-action:manipulation!important;
+}
+body{
+  margin:0!important;
+  padding-bottom:86px!important;
+}
+.app{
+  width:100%!important;
+  max-width:414px!important;
+  min-width:0!important;
+  margin:0 auto!important;
+  padding:10px 14px 24px!important;
+}
+*{
+  max-width:100%;
+}
+button,input,select,textarea{
+  touch-action:manipulation!important;
+}
+.modern-header{
+  min-height:62px!important;
+  margin-bottom:8px!important;
+}
+.modern-header .brand{
+  width:137px!important;
+  max-width:137px!important;
+  height:58px!important;
+}
+.modern-header .brand .vk-logo-img{
+  width:137px!important;
+  max-width:137px!important;
+  height:58px!important;
+}
+.bottom-nav{
+  left:50%!important;
+  right:auto!important;
+  transform:translateX(-50%)!important;
+  width:min(100% - 20px,390px)!important;
+  max-width:390px!important;
+}
+
+/* Never expand workout into desktop/tablet cards */
+body:has(#workoutPage.active) .app{
+  max-width:414px!important;
+  width:100%!important;
+  padding:10px 14px 24px!important;
+}
+body:has(#workoutPage.active) #workoutPage{
+  width:100%!important;
+  max-width:100%!important;
+}
+body:has(#workoutPage.active) .workout-day-tabs{
+  width:100%!important;
+  max-width:none!important;
+  margin-left:0!important;
+  margin-right:0!important;
+}
+body:has(#workoutPage.active) .modern-exercise-card>.exercise-main{
+  grid-template-columns:82px minmax(0,1fr) auto!important;
+  gap:10px!important;
+}
+body:has(#workoutPage.active) .modern-exercise-card{
+  padding:10px!important;
+  border-radius:17px!important;
+}
+body:has(#workoutPage.active) .modern-exercise-card .exercise-visual,
+body:has(#workoutPage.active) .modern-exercise-card .exercise-visual .exercise-image-wrap,
+body:has(#workoutPage.active) .modern-exercise-card .exercise-visual .exercise-image-fallback{
+  width:82px!important;
+  height:82px!important;
+  border-radius:14px!important;
+}
+body:has(#workoutPage.active) .modern-exercise-card .exercise-title-row h3{
+  font-size:15px!important;
+  line-height:1.2!important;
+}
+body:has(#workoutPage.active) .modern-exercise-card .exercise-prescription{
+  margin-top:7px!important;
+}
+body:has(#workoutPage.active) .modern-exercise-card .exercise-prescription span{
+  padding:5px 7px!important;
+  font-size:9px!important;
+}
+body:has(#workoutPage.active) .exercise-result{
+  display:none!important;
+}
+body:has(#workoutPage.active) .exercise-actions-large{
+  gap:5px!important;
+}
+body:has(#workoutPage.active) .exercise-actions-large .inline-add,
+body:has(#workoutPage.active) .exercise-actions-large .inline-complete{
+  width:36px!important;
+  height:36px!important;
+  border-radius:10px!important;
+  font-size:20px!important;
+}
+body:has(#workoutPage.active) .exercise-inline-controls{
+  padding-left:92px!important;
+  margin-top:8px!important;
+  gap:5px!important;
+  grid-template-columns:1.25fr .8fr .9fr!important;
+}
+body:has(#workoutPage.active) .exercise-inline-controls input{
+  height:40px!important;
+  font-size:13px!important;
+}
+body:has(#workoutPage.active) .exercise-inline-controls .inline-field small{
+  font-size:8px!important;
+}
+
+/* Compact workout header/start/stats for 414px */
+body:has(#workoutPage.active) .workout-screen-head{
+  margin:2px 0 8px!important;
+}
+body:has(#workoutPage.active) .workout-screen-head h2{
+  font-size:20px!important;
+}
+body:has(#workoutPage.active) .workout-screen-head p{
+  font-size:8px!important;
+}
+body:has(#workoutPage.active) .workout-back,
+body:has(#workoutPage.active) .workout-timer-icon{
+  width:36px!important;
+  height:36px!important;
+  border-radius:11px!important;
+}
+body:has(#workoutPage.active) .workout-start-panel{
+  padding:9px 10px!important;
+  border-radius:16px!important;
+  gap:8px!important;
+}
+body:has(#workoutPage.active) .workout-play{
+  width:42px!important;
+  height:42px!important;
+}
+body:has(#workoutPage.active) .workout-start-copy strong{
+  font-size:13px!important;
+}
+body:has(#workoutPage.active) .workout-start-copy small{
+  font-size:8px!important;
+}
+body:has(#workoutPage.active) .workout-elapsed-top{
+  min-width:68px!important;
+  padding:7px 8px!important;
+}
+body:has(#workoutPage.active) .workout-elapsed-top strong{
+  font-size:18px!important;
+}
+body:has(#workoutPage.active) .workout-quick-stats>div{
+  padding:8px 2px!important;
+}
+body:has(#workoutPage.active) .workout-quick-stats strong{
+  font-size:14px!important;
+}
+body:has(#workoutPage.active) .workout-quick-stats span{
+  font-size:7px!important;
+}
+
+/* Remove the desktop-only expansion added for the reference screenshot */
+@media(min-width:800px){
+  body:has(#workoutPage.active) .app{
+    max-width:414px!important;
+    padding:10px 14px 24px!important;
+  }
+  body:has(#workoutPage.active) #workoutPage{
+    max-width:100%!important;
+  }
+  body:has(#workoutPage.active) .workout-day-tabs{
+    max-width:none!important;
+  }
+  body:has(#workoutPage.active) .modern-exercise-card>.exercise-main{
+    grid-template-columns:82px minmax(0,1fr) auto!important;
+    gap:10px!important;
+  }
+  body:has(#workoutPage.active) .modern-exercise-card .exercise-visual,
+  body:has(#workoutPage.active) .modern-exercise-card .exercise-visual .exercise-image-wrap,
+  body:has(#workoutPage.active) .modern-exercise-card .exercise-visual .exercise-image-fallback{
+    width:82px!important;
+    height:82px!important;
+  }
+  body:has(#workoutPage.active) .exercise-result{
+    display:none!important;
+  }
+}
