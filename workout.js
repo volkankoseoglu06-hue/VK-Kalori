@@ -18,7 +18,6 @@ const W={
 ['Rear-Delt Row','Arka omuz • üst sırt',2,'10–15','row',['Gövdeyi kontrollü öne eğ.','Dirsekleri yana açarak çek.','Üst sırtı sıkıp yavaş indir.'],['Boynu kaldırma.','Belden savurma.'],'ACE Shoulder Guide','https://www.acefitness.org/continuing-education/prosource/september-2014/4972/dynamite-delts-ace-research-identifies-top-shoulder-exercises/'],
 ['Lateral Raise','Yan omuz',2,'10–15','raise',['Kollar hafif bükülü.','Dambılları omuz hizasına kadar kontrollü kaldır.','İnerken ağırlığı bırakma.'],['Omuzları shrug yapma.','Ağırlığı savurma.'],'ACE Shoulder Guide','https://www.acefitness.org/continuing-education/prosource/september-2014/4972/dynamite-delts-ace-research-identifies-top-shoulder-exercises/'],
 ['Dead Bug','Core',2,'8–10/yan','core',['Karın bölgesini kontrollü sık.','Karşı kol ve bacağı yavaş uzat.','Nefesi tutma.'],['Bel kontrolünü kaybetme.','Hızı artırma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/']]}}
-Object.values(W).forEach(dayPlan=>dayPlan.ex.forEach(exercise=>{exercise[2]=3;}));
 let S=load();
 let day=1;
 let selected=null;
@@ -568,7 +567,7 @@ function syncWorkoutBurnToDashboard(){
     entry.calories=kcal;
   }
   state.burned=Math.max(0,(Number(state.burned)||0)-old+kcal);
-  if(typeof save==='function')saveWorkoutState();
+  if(typeof save==='function')save();
   if(typeof updateDashboard==='function')updateDashboard();
   if(typeof renderSports==='function')renderSports();
 }
