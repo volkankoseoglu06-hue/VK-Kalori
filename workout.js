@@ -21,7 +21,13 @@ const W={
 let S=load();let day=1;let selected=null;let timer=null;let sec=90;let active=false;let activeSet=1;let activeExercise=0;
 function load(){try{return JSON.parse(localStorage.getItem(WORKOUT_KEY))||{logs:[],weights:{},done:{}}}catch(e){return{logs:[],weights:{},done:{}}}}
 function save(){localStorage.setItem(WORKOUT_KEY,JSON.stringify(S))}
-function today(){return new Date().toISOString().slice(0,10)}
+function today(){
+ const d=new Date();
+ const y=d.getFullYear();
+ const m=String(d.getMonth()+1).padStart(2,'0');
+ const day=String(d.getDate()).padStart(2,'0');
+ return `${y}-${m}-${day}`;
+}
 function key(id){return day+'_'+id}
 function initWorkout(){
  if(!document.getElementById('workoutPage'))return;
