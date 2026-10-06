@@ -183,7 +183,7 @@ function initWorkout(){
 function tabs(){
   const icons=['🅰️','🅱️','🆑'];
   document.getElementById('workoutDayTabs').innerHTML=[1,2,3].map((d,i)=>
-    '<button class="workout-day '+(d===day?'active':'')+'" data-day="'+d+'"><span class="day-icon">'+icons[i]+'</span><span class="day-label"><strong>Gün '+d+'</strong><small>'+W[d].name.replace('Full Body ','')+'</small></span><span class="day-arrow">›</span></button>'
+    '<button class="workout-day '+(d===day?'active':'')+'" data-day="'+d+'"><span class="day-label"><strong>Gün '+d+'</strong></span></button>'
   ).join('');
 }
 function startGuided(){
@@ -391,7 +391,7 @@ function exerciseRepsLabel(log){
 }
 function workoutLoggedKcal(){
   return (S.logs||[])
-    .filter(log=>log.date===today()&&log.day===day&&!log.autoDone&&S.done[key(log.exercise)]===today())
+    .filter(log=>log.date===today()&&log.day===day&&!log.autoDone)
     .reduce((sum,log)=>sum+exerciseKcalForLog(log),0);
 }
 function render(){
