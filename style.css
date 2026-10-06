@@ -1321,3 +1321,24 @@ body{min-height:100vh}
   .modern-header .brand{width:129px!important;height:61px!important}
   .modern-header .brand .vk-logo{width:129px!important;height:61px!important}
 }
+
+
+/* Uploaded reference logo: render the exact supplied mark */
+.modern-header .brand{
+  width:137px!important;
+  height:62px!important;
+  padding:0!important;
+  gap:0!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+}
+.modern-header .brand .vk-logo-img{
+  width:137px!important;
+  height:62px!important;
+  object-fit:contain!important;
+  display:block!important;
+  flex:none!important;
+}
+.modern-header .brand .vk-logo,
+.modern-header .brand>span{display:none!important}
