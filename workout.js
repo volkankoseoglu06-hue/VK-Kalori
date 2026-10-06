@@ -331,7 +331,10 @@ function finishSession(autoComplete=false){
   updateWorkoutControl();
   if(typeof updateDashboard==='function')updateDashboard();
 
-  if(autoComplete)alert('Antrenman tamamlandı 🎉');
+  if(autoComplete){
+    const b=document.getElementById('finishWorkoutButton');
+    if(b){b.textContent='✓ Antrenman Tamamlandı';b.classList.add('completed');b.disabled=true;}
+  }
 }
 function completeActiveSet(){
   if(!active)return;
