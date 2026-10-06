@@ -4,24 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>VK Life</title>
-<link rel="stylesheet" href="style.css?v=20261006-logo7">
+<link rel="stylesheet" href="style.css?v=20261006-logo8">
 </head>
 <body>
 <div class="app">
 <header class="header modern-header">
   <button class="brand" data-page="homePage" aria-label="VK Life ana sayfa">
-    <svg class="vk-logo" viewBox="0 0 82 58" aria-hidden="true">
+    <svg class="vk-logo" viewBox="0 0 129 61" aria-hidden="true">
       <defs>
-        <linearGradient id="vkLogoBlue" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#60a5fa"/>
-          <stop offset=".45" stop-color="#2563eb"/>
-          <stop offset="1" stop-color="#1d4ed8"/>
+        <linearGradient id="vkRefA" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#7db5ff"/>
+          <stop offset=".48" stop-color="#2563eb"/>
+          <stop offset="1" stop-color="#1746c2"/>
+        </linearGradient>
+        <linearGradient id="vkRefB" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="0" stop-color="#2563eb"/>
+          <stop offset=".55" stop-color="#4f8df7"/>
+          <stop offset="1" stop-color="#6da8ff"/>
         </linearGradient>
       </defs>
-      <!-- Clean VK monogram matching the reference mark -->
-      <path d="M4 5h18l18 24L57 5h20L49 38l13 15H43L4 17z" fill="url(#vkLogoBlue)"/>
-      <path d="M22 5h17L27 25 10 45H4V17z" fill="#2563eb"/>
-      <path d="M39 29 54 11h18L49 37z" fill="#3b82f6"/>
+      <path d="M4 17L17 17 29 38 53 0 69 0 43 43 34 57z" fill="url(#vkRefA)"/>
+      <path d="M31 39L51 13 65 13 47 39 65 58 47 58z" fill="url(#vkRefB)"/>
+      <path d="M16 17L30 17 39 31 30 45z" fill="#2563eb" opacity=".92"/>
+      <text x="69" y="40" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" letter-spacing="6" fill="#18234a">LIFE</text>
     </svg>
     <span>LIFE</span>
   </button>
@@ -114,6 +119,6 @@
 <section id="profilePage" class="page"><div class="card"><h3>👤 Profil</h3><label>⚖️ Vücut ağırlığı (kg)<input id="profileWeight" type="number" min="30" max="300" step="0.1" placeholder="Örn. 90"></label><input id="profileCalories" type="number" placeholder="Kalori hedefi"><input id="profileProtein" type="number" placeholder="Protein hedefi"><input id="profileWater" type="number" placeholder="Su hedefi"><p class="profile-note">Ağırlık antrenmanı kalorisi, vücut ağırlığın + gerçek antrenman süresi + set yoğunluğuna göre hesaplanır.</p><button class="primary" id="saveProfileButton">💾 Kaydet</button><p class="repdb-credit">Egzersiz görselleri: <a href="https://repdb.co" target="_blank" rel="noopener">Exercise data by RepDB (repdb.co)</a></p></div></section>
 </div>
 <div id="workoutModal" class="workout-modal"><div class="workout-modal-box"><button class="modal-close" data-close>×</button><h2 id="workoutModalTitle"></h2><div id="workoutModalMuscle" class="modal-muscle-tags"></div><div id="workoutAnimation"></div><div class="modal-cues"><ul id="workoutCues"></ul></div><div class="modal-entry-grid"><label>Ağırlık (kg)<input id="modalWeight" type="number" min="0" step="0.5" value="" placeholder="0"></label><label>Set<input id="modalSets" type="number" min="1" max="10" value="3"></label><label>Tekrar<input id="modalReps" type="number" min="1" max="50" value="10"></label></div><button class="modal-save-exercise" type="button" data-modal-save>✓ Hareketi Kaydet</button><div class="modal-set-actions"><button type="button" class="modal-add-set" data-add-modal-set>+ Set ekle</button></div><div class="modal-set-list" id="modalSetList"></div><div class="source-line">Kaynak: <span id="workoutSource"></span></div></div></div>
-<script src="foods.js"></script><script src="app.js"></script><script src="workout.js?v=20261006-logo7"></script>
+<script src="foods.js"></script><script src="app.js"></script><script src="workout.js?v=20261006-logo8"></script>
 </body>
 </html>
