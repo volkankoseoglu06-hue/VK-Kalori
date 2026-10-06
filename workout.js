@@ -493,6 +493,30 @@ function renderActive(){
   const panel=document.getElementById('activeWorkoutPanel');
   if(panel)panel.innerHTML='';
 }
+function syncWorkoutBurnToDashboard(){
+  if(typeof state==='undefined')return;
+  const kcal=workoutLoggedKcal();
+  const logs=(S.logs||[]).filter(log=>log.date===today()&&log.day===day&&!log.autoDone);
+  const sets=logs.reduce((sum,log)=>sum+(Number(log.sets)||0),0);
+  const duration=stateWorkoutMinutes();
+  state.dailySports=Array.isArray(state.dailySports)?state.dailySports:[];
+  let entry=state.dailySports.find(x=>x.name==='Ağırlık Antrenmanı' && x.workoutDay===day && x.workoutDate===today());
+  const old=Number(entry?.calories)||0;
+  if(!entry){
+    entry={name:'Ağırlık Antrenmanı',duration,sets,met:0,weight:Number(state.weight)||0,calories:kcal,workoutDay:day,workoutDate:today(),sessionId:activeSessionId||S.session?.id||('workout_'+today()+'_'+day)};
+    state.dailySports.push(entry);
+  }else{
+    entry.duration=duration;
+    entry.sets=sets;
+    entry.weight=Number(state.weight)||entry.weight||0;
+    entry.calories=kcal;
+  }
+  state.burned=Math.max(0,(Number(state.burned)||0)-old+kcal);
+  if(typeof save==='function')save();
+  if(typeof updateDashboard==='function')updateDashboard();
+  if(typeof renderSports==='function')renderSports();
+}
+
 function saveExerciseValues(i,weight,sets,reps,setDetails=null){
   const x=W[day].ex[i],k=key(x[0]);
   weight=Math.max(0,Number(weight)||0);
@@ -532,6 +556,7 @@ function saveExerciseValues(i,weight,sets,reps,setDetails=null){
     }
   }
 
+  syncWorkoutBurnToDashboard();
   render();
   history();
   if(typeof updateDashboard==='function')updateDashboard();
