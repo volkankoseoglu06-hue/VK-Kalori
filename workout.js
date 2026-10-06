@@ -378,8 +378,26 @@ function exerciseCardImage(name){
   const start=exerciseImage(name,'start');
   const peak=exerciseImage(name,'peak');
   if(!start)return '<div class="exercise-image-fallback">🏋️</div>';
-  const muscles=(MUSCLE_TARGETS[name]||[]).slice(0,2).join(' • ');
-  return '<div class="exercise-image-wrap"><img src="'+start+'" alt="'+name+' başlangıç" loading="lazy"><img src="'+peak+'" alt="" class="exercise-image-peak" loading="lazy"><span class="muscle-hotspot">'+muscles+'</span></div>';
+  const zoneMap={
+  'Goblet Squat':'lower glute thigh',
+  'Dambıl Bench Press':'chest shoulder triceps',
+  'Tek Kol Dambıl Row':'back biceps rear',
+  'Dambıl Romanian Deadlift':'hamstring glute back',
+  'Hammer Curl':'biceps forearm',
+  'Destekli Split Squat':'lower glute thigh',
+  'Eğimli Dambıl Press':'chest shoulder triceps',
+  'Bench Destekli Dambıl Row':'back biceps rear',
+  'Bench Glute Bridge':'glute hamstring',
+  'Oturarak Dambıl Shoulder Press':'shoulder triceps',
+  'Dambıl Front Squat':'lower glute core',
+  'Dambıl Floor Press':'chest shoulder triceps',
+  'Bench Destekli Rear-Delt Row':'rear back',
+  'Lateral Raise':'shoulder',
+  'Dead Bug':'core'
+  };
+  const zones=(zoneMap[name]||'').split(' ').filter(Boolean);
+  const hot=zones.map(z=>'<span class="muscle-hotspot muscle-hotspot-'+z+'"></span>').join('');
+  return '<div class="exercise-image-wrap"><img src="'+start+'" alt="'+name+' başlangıç" loading="lazy"><img src="'+peak+'" alt="" class="exercise-image-peak" loading="lazy"><span class="muscle-hotspots" aria-hidden="true">'+hot+'</span></div>';
 }
 function exerciseKcalForLog(log){
   const bodyWeight=Math.max(40,Math.min(220,Number(state?.weight)||109));
