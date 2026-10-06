@@ -652,3 +652,336 @@ body{min-height:100vh}
 .workout-quick-stats strong{display:block;font-size:15px;line-height:1.15;color:#0f172a}
 .workout-quick-stats span{display:block;margin-top:3px;font-size:8px;font-weight:700;color:#64748b}
 @media(max-width:430px){.workout-quick-stats strong{font-size:14px}.workout-quick-stats span{font-size:7px}}
+
+
+/* ===== Workout reference UI v2 ===== */
+.workout-screen-head{
+  display:grid;
+  grid-template-columns:42px 1fr 42px;
+  align-items:center;
+  gap:8px;
+  margin:2px 0 12px;
+}
+.workout-screen-head h2{
+  margin:0;
+  text-align:center;
+  font-size:24px;
+  line-height:1.1;
+  letter-spacing:-.7px;
+  color:#0f172a;
+}
+.workout-screen-head p{
+  margin:4px 0 0;
+  text-align:center;
+  color:#64748b;
+  font-size:11px;
+  font-weight:700;
+}
+.workout-back,.workout-timer-icon{
+  width:40px;
+  height:40px;
+  border:0;
+  border-radius:13px;
+  background:#fff;
+  display:grid;
+  place-items:center;
+  color:#0f172a;
+  font-size:25px;
+  box-shadow:0 5px 16px rgba(15,23,42,.06);
+}
+.workout-timer-icon{font-size:22px;color:#0f172a}
+.workout-back{cursor:pointer}
+
+.workout-start-panel{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:10px;
+  align-items:center;
+  background:#fff;
+  border-radius:18px;
+  padding:11px 13px;
+  margin-bottom:10px;
+  box-shadow:0 6px 20px rgba(15,23,42,.055);
+  border:1px solid #edf2f7;
+}
+.workout-start-main{
+  border:0;
+  background:transparent;
+  padding:5px 0;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-align:left;
+  cursor:pointer;
+  min-width:0;
+}
+.workout-play{
+  width:48px;
+  height:48px;
+  flex:none;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#16a34a;
+  color:#fff;
+  font-size:18px;
+  padding-left:2px;
+  box-shadow:0 6px 14px rgba(22,163,74,.18);
+}
+.workout-start-copy{display:flex;flex-direction:column;gap:3px;min-width:0}
+.workout-start-copy strong{font-size:15px;color:#16a34a;line-height:1.2}
+.workout-start-copy small{font-size:10px;color:#64748b;font-weight:700;white-space:nowrap}
+.workout-start-main.is-running .workout-play{background:#2563eb}
+.workout-start-main.is-running .workout-start-copy strong{color:#2563eb}
+.workout-elapsed-top{
+  min-width:64px;
+  text-align:center;
+  padding:8px 9px;
+  border-radius:13px;
+  background:#eff6ff;
+}
+.workout-elapsed-top strong{display:block;color:#111827;font-size:20px;line-height:1}
+.workout-elapsed-top small{display:block;margin-top:4px;color:#64748b;font-size:9px;font-weight:800}
+
+.workout-quick-stats{
+  margin-bottom:10px!important;
+  border:1px solid #edf2f7;
+  box-shadow:0 4px 14px rgba(15,23,42,.035);
+}
+.workout-quick-stats>div{padding:9px 3px!important}
+.workout-quick-stats strong{font-size:15px!important}
+.workout-quick-stats span{font-size:8px!important}
+
+.workout-day-tabs{
+  display:flex!important;
+  gap:7px!important;
+  margin:0 0 10px!important;
+}
+.workout-day{
+  flex:1;
+  min-height:40px!important;
+  padding:8px 10px!important;
+  justify-content:center;
+  text-align:center!important;
+  border-radius:12px!important;
+  box-shadow:none!important;
+}
+.workout-day .day-icon,.workout-day .day-arrow{display:none!important}
+.workout-day .day-label{align-items:center}
+.workout-day .day-label strong{font-size:11px!important}
+.workout-day .day-label small{font-size:8px!important}
+.workout-day.active{background:#0f172a!important;border-color:#0f172a!important}
+
+.modern-exercise-card{
+  padding:10px!important;
+  margin:8px 0!important;
+  border-radius:18px!important;
+  min-height:110px;
+  box-sizing:border-box;
+}
+.modern-exercise-card.done{
+  background:#fff!important;
+  border-color:#e3ebf5!important;
+}
+.exercise-main{
+  display:grid!important;
+  grid-template-columns:92px minmax(0,1fr) 18px!important;
+  gap:12px!important;
+  align-items:center!important;
+  width:100%!important;
+  min-width:0!important;
+}
+.exercise-image-wrap,.exercise-image-fallback{
+  width:92px!important;
+  height:92px!important;
+  border-radius:15px!important;
+  background:#f4f8fc!important;
+}
+.exercise-info{min-width:0}
+.exercise-title-row{
+  width:100%;
+  min-width:0;
+  gap:7px!important;
+}
+.exercise-title-row h3{
+  min-width:0;
+  overflow:visible;
+  white-space:normal;
+  word-break:normal;
+  overflow-wrap:anywhere;
+  font-size:16px!important;
+  line-height:1.15!important;
+  color:#0f172a;
+}
+.exercise-check{
+  width:30px!important;
+  height:30px!important;
+  border-radius:50%!important;
+  border:2px solid #cbd5e1!important;
+  color:#94a3b8!important;
+  background:#fff!important;
+}
+.modern-exercise-card.done .exercise-check{
+  background:#16a34a!important;
+  border-color:#16a34a!important;
+  color:#fff!important;
+}
+.muscle-tags{gap:5px!important;margin-top:7px!important}
+.muscle-tags span{
+  padding:5px 8px!important;
+  font-size:9px!important;
+  border-radius:999px!important;
+  white-space:nowrap;
+}
+.exercise-prescription{margin-top:7px!important;gap:6px!important}
+.exercise-prescription span{
+  padding:5px 8px!important;
+  border-radius:8px!important;
+  background:#f5f7fa!important;
+  font-size:10px!important;
+}
+.exercise-chevron{
+  color:#64748b;
+  font-size:23px;
+  line-height:1;
+  align-self:center;
+}
+.workout-entry-grid,.exercise-actions{display:none!important}
+
+.workout-history-card{margin-top:12px!important}
+.workout-history-card h3{font-size:14px!important}
+
+#workoutModal{
+  align-items:flex-end!important;
+  padding:8px!important;
+}
+.workout-modal-box{
+  width:min(560px,100%)!important;
+  max-height:96vh!important;
+  overflow:auto;
+  border-radius:26px 26px 16px 16px!important;
+  padding:18px!important;
+}
+.modal-close{
+  width:38px!important;
+  height:38px!important;
+  right:12px!important;
+  top:12px!important;
+  background:#fff!important;
+  border:1px solid #e2e8f0!important;
+  z-index:3;
+}
+#workoutModalTitle{
+  margin:3px 42px 8px 0!important;
+  font-size:24px!important;
+  line-height:1.1!important;
+  color:#111936;
+}
+.modal-muscle-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-bottom:10px;
+}
+.modal-muscle-tag{
+  padding:5px 9px;
+  border-radius:999px;
+  background:#eaf3ff;
+  color:#2563eb;
+  font-size:10px;
+  font-weight:800;
+}
+#workoutAnimation{
+  height:270px!important;
+  margin:0 0 10px!important;
+  border-radius:18px!important;
+  background:#fff!important;
+}
+.real-exercise-view{background:#fff!important}
+.real-exercise-labels{bottom:5px!important}
+.modal-cues{
+  background:#eff6ff;
+  border-radius:14px;
+  padding:11px 14px;
+  margin-bottom:10px;
+}
+.modal-cues ul{margin:0;padding-left:18px}
+.modal-cues li{
+  margin:5px 0;
+  color:#1e293b;
+  font-size:12px;
+  line-height:1.35;
+}
+.modal-entry-grid{
+  display:grid;
+  grid-template-columns:1.1fr .8fr .9fr;
+  gap:8px;
+  margin:10px 0;
+}
+.modal-entry-grid label{
+  margin:0;
+  font-size:10px;
+  font-weight:800;
+  color:#334155;
+}
+.modal-entry-grid input{
+  width:100%;
+  box-sizing:border-box;
+  margin-top:4px;
+  padding:11px 9px;
+  border:1px solid #dbe5f1;
+  border-radius:11px;
+  background:#fbfdff;
+  font-weight:800;
+  color:#0f172a;
+}
+.modal-save-exercise{
+  width:100%;
+  min-height:48px;
+  border:0;
+  border-radius:13px;
+  background:#2563eb;
+  color:#fff;
+  font-weight:900;
+  font-size:14px;
+  cursor:pointer;
+}
+.modal-set-list{
+  margin-top:9px;
+  display:grid;
+  gap:5px;
+}
+.modal-set-list>div{
+  display:grid;
+  grid-template-columns:1fr 1.4fr 24px;
+  gap:8px;
+  align-items:center;
+  padding:8px 10px;
+  border-radius:10px;
+  background:#f8fafc;
+  font-size:10px;
+  color:#334155;
+}
+.modal-set-list b{color:#16a34a;text-align:right}
+.source-line{margin-top:10px!important;font-size:9px!important;text-align:center}
+
+@media(max-width:430px){
+  .workout-screen-head{grid-template-columns:38px 1fr 38px}
+  .workout-screen-head h2{font-size:22px}
+  .workout-back,.workout-timer-icon{width:36px;height:36px}
+  .workout-start-panel{padding:10px}
+  .workout-play{width:46px;height:46px}
+  .workout-start-copy strong{font-size:14px}
+  .workout-start-copy small{font-size:9px}
+  .workout-elapsed-top{min-width:59px}
+  .workout-elapsed-top strong{font-size:18px}
+  .modern-exercise-card{min-height:104px}
+  .exercise-main{grid-template-columns:82px minmax(0,1fr) 15px!important;gap:10px!important}
+  .exercise-image-wrap,.exercise-image-fallback{width:82px!important;height:82px!important}
+  .exercise-title-row h3{font-size:14px!important}
+  .exercise-check{width:27px!important;height:27px!important}
+  .muscle-tags span{font-size:8px!important;padding:4px 7px!important}
+  .exercise-prescription span{font-size:9px!important;padding:5px 7px!important}
+  #workoutAnimation{height:230px!important}
+  .modal-entry-grid{grid-template-columns:1.1fr .8fr .9fr}
+}
