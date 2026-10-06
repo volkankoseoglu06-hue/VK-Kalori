@@ -311,8 +311,9 @@ function renderSports(){
     const div = document.createElement('div');
     div.className = 'food-item';
 
+    const sportIcon = sport.name==='Koşu' ? '🏃' : sport.name==='Bisiklet' ? '🚴' : sport.name==='Yürüyüş' ? '🚶' : '🏋️';
     div.innerHTML = `
-      <strong>💪 ${sport.name}</strong>
+      <strong>${sportIcon} ${sport.name}</strong>
       <br>
       ⏱️ ${sport.duration} dk
       <br>
