@@ -16,7 +16,7 @@ const W={
 3:{name:'Full Body C',focus:'Hareket kalitesi • omuz • core',ex:[
 ['Dambıl Front Squat','Bacak • kalça • core',3,'8–12','dumbbell-front-squat','squat'],
 ['Dambıl Floor Press','Göğüs • triceps',3,'8–12','dumbbell-floor-press','press'],
-['Rear-Delt Row','Arka omuz • üst sırt',2,'10–15','rear-delt-fly','row'],
+['Bench Destekli Rear-Delt Row','Arka omuz • üst sırt',2,'10–15','rear-delt-fly','row'],
 ['Lateral Raise','Yan omuz',2,'10–15','lateral-raise','raise'],
 ['Dead Bug','Core',2,'8–10/yan','dead-bug','core']]}}
 let S=load();let day=1;let selected=null;let active=false;let timerId=null;let sessionStartedAt=0;let elapsed=0;
