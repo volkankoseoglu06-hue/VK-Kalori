@@ -61,11 +61,15 @@
 <button class="primary workout-start" id="startWorkoutButton">▶️ Bugünkü Antrenmanı Başlat</button><div id="activeWorkoutPanel"></div>
 <div class="card workout-tip"><strong>💡 Nasıl ilerleyeceğiz?</strong><p>İlk hedef ağırlığı artırmak değil, hareketleri temiz teknikle yapmak. Tüm tekrarlar rahatça tamamlanıyorsa bir sonraki seansta küçük bir artış yap.</p><button id="restTimerBtn" class="timer-btn">⏱️ 90 sn dinlenme</button></div>
 <div class="card walking-card">
-  <div class="walking-head"><div><span class="eyebrow">🚶 HER GÜN</span><h3>30 dk Yürüyüş</h3></div><span class="walking-badge">Günlük hedef</span></div>
-  <p><strong>Hedef:</strong> Her gün 30 dk, yaklaşık 5 km/sa tempoda yürüyüş bandı.</p>
-  <p><strong>Kuvvet günleri:</strong> Ağırlık antrenmanından sonra veya ayrı bir saatte yap.</p>
-  <p class="walking-note">Yürüyüşü ayrıca kaydettiğinde ana ekrandaki yakılan kalori otomatik artar.</p>
-  <button class="primary walking-go" id="walkingGoButton">🚶 Kardiyo → Yürüyüşü Aç</button>
+  <div class="walking-head"><div><span class="eyebrow">🚶 HER GÜN</span><h3>Günlük Yürüyüş Planı</h3></div><span class="walking-badge">30 dk hedef</span></div>
+  <p><strong>Kuvvet günü:</strong> 10 dk antrenman öncesi + 20 dk antrenman sonrası.</p>
+  <p><strong>Dinlenme günü:</strong> Tek seferde 30 dk yürüyüş.</p>
+  <p class="walking-note">Her bölümü ayrıca günlüğe ekleyebilirsin. Ana ekrandaki spor süresi ve yakılan kalori buna göre güncellenir.</p>
+  <div class="walking-plan-grid">
+    <button class="walking-plan-btn" id="walkingPreButton"><span>🔥 10 dk</span><small>Antrenman öncesi</small></button>
+    <button class="walking-plan-btn" id="walkingPostButton"><span>🔥 20 dk</span><small>Antrenman sonrası</small></button>
+    <button class="walking-plan-btn full" id="walkingRestButton"><span>🚶 30 dk</span><small>Dinlenme günü</small></button>
+  </div>
 </div>
 <div id="workoutDetail"></div>
 <div class="card"><h3>📋 Antrenman geçmişi</h3><div id="workoutHistory"></div></div>
