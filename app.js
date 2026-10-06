@@ -179,6 +179,7 @@ function updateDashboard(){
   setText('summaryWorkoutDetail',workout.sets+' set / '+Math.round(workout.minutes)+' dk');
   setText('summaryWorkoutSets',workout.sets);
   setText('summaryEaten',eaten);
+  setText('summaryEatenLabel',eaten+' kcal');
   setText('summaryBurned',burned);
   setText('summaryNet',net);
   setText('summaryWater',state.water.toFixed(1));
@@ -194,6 +195,20 @@ function updateDashboard(){
   setText('homeCalorieGoal',Math.round(calorieGoal));
   setText('homeProteinGoal',Math.round(proteinGoal));
   setText('homeWaterGoal',waterGoal.toFixed(1));
+  const aiAdvice=$('aiAdvice');
+  if(aiAdvice){
+    const caloriePct=eaten/calorieGoal;
+    const proteinPct=state.protein/proteinGoal;
+    const waterPct=state.water/waterGoal;
+    let msg='';
+    if(caloriePct<0.35 && proteinPct<0.35) msg='Günün ilk yarısındaysan kalorini aceleyle doldurma; sonraki öğünde protein ağırlıklı bir seçim yap. Su hedefinin de gerisindesin, şimdi 250 ml eklemek iyi olur.';
+    else if(proteinPct<0.7) msg='Kalorin iyi gidiyor ancak protein geride; sonraki öğünde et, tavuk, yumurta veya yoğurt gibi protein ağırlıklı bir seçim yap. Böylece kilo verirken kaslarını korumaya daha iyi destek olursun.';
+    else if(waterPct<0.7) msg='Protein durumun iyi görünüyor; bugün su tüketimini biraz artırmaya odaklan. Bir sonraki hedefin 250–500 ml su olsun.';
+    else if(burned>=250 && caloriePct<1.0) msg='Bugün hareket tarafın güçlü görünüyor ve kalori bütçen de kontrol altında. Akşam öğününde proteinini tamamlayıp ölçülü devam etmen yeterli.';
+    else if(caloriePct>1.0) msg='Bugün kalori hedefini aştın; bunu telafi etmek için aç kalmana gerek yok. Kalan öğünlerde porsiyonu küçültüp protein ve suya odaklan.';
+    else msg='Bugünkü değerlerin dengeli ilerliyor. Protein ve suyu tamamlayıp planındaki antrenman veya yürüyüşü yaparsan gününü güçlü kapatırsın.';
+    aiAdvice.textContent=msg;
+  }
   const headerWeight=$('headerWeightValue');
   if(headerWeight) headerWeight.textContent = state.weight>0 ? Number(state.weight).toLocaleString('tr-TR',{maximumFractionDigits:1}) : '—';
 
