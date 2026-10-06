@@ -25,7 +25,7 @@
 <div class="circle-card"><div class="circle cyan"><div id="currentWater">0</div><small>/ <span id="targetWater">3</span> L</small></div><b>💧 Su</b></div>
 <div class="circle-card"><div class="circle orange"><div id="currentSport">0</div><small>kcal</small></div><b>💪 Spor</b></div>
 </div>
-<div class="card net-card"><div>🔥 Alınan<strong id="eatenCalories">0</strong></div><div>💪 Yakılan<strong id="burnedCalories">0</strong></div><div>⚖️ Net<strong id="netCalories">0</strong></div></div>
+<div class="card net-card compact-summary"><div>🔥 Alınan<strong id="eatenCalories">0</strong><small>kcal</small></div><div>💪 Yakılan<strong id="burnedCalories">0</strong><small>kcal</small></div><div>⚖️ Net<strong id="netCalories">0</strong><small>kcal</small></div></div><div class="card daily-summary"><h3>📋 Bugünün Özeti</h3><div class="summary-grid"><div><span>🍽️ Besin</span><b id="summaryFoodCount">0</b></div><div><span>🥩 Protein</span><b id="summaryProtein">0 g</b></div><div><span>💧 Su</span><b id="summaryWater">0 L</b></div><div><span>💪 Antrenman</span><b id="summaryWorkout">Hazır</b></div></div></div>
 <div class="card"><h3>Bugünkü Besinler</h3><div id="dailyFoods"></div><h3 class="section-gap">Bugünkü Sporlar</h3><div id="dailySports"></div></div>
 <button class="primary" id="waterButton">💧 +250 ml Su</button><button class="primary secondary" id="finishDayButton">📅 Günü Bitir</button>
 </section>
@@ -38,7 +38,7 @@
 <div class="card"><h3>🚴 Kardiyo</h3><label>Aktivite</label><select id="sportType"><option value="walk">🚶 Yürüyüş</option><option value="run">🏃 Koşu</option><option value="bike">🚴 Bisiklet</option><option value="weights">🏋️ Ağırlık</option><option value="stairs">🪜 Merdiven</option></select><label>Süre: <span id="durationLabel">45</span> dk</label><input id="sportDuration" type="range" min="5" max="180" value="45"><label>Hız: <span id="speedLabel">5</span> km/sa</label><input id="sportSpeed" type="range" min="3" max="15" value="5"><label>Eğim: <span id="inclineLabel">5</span> %</label><input id="sportIncline" type="range" min="0" max="20" value="5"><div id="sportResult">Yakılan kalori: 0 kcal</div><div class="grid-2"><button class="primary" id="calculateSportButton">🧮 Hesapla</button><button class="primary" id="addSportButton">➕ Günlüğe Ekle</button></div></div>
 </section>
 <section id="workoutPage" class="page">
-<div class="workout-hero card"><div><span class="eyebrow">🏋️ 3 GÜN FULL BODY</span><h2 id="workoutTitle">Full Body A</h2><p id="workoutSubtitle"></p></div><div class="workout-progress" id="workoutProgress"></div></div>
+<div class="workout-hero card"><div><span class="eyebrow">🏋️ 3 GÜN FULL BODY</span><h2 id="workoutTitle">Full Body A</h2><p id="workoutSubtitle"></p></div><div class="workout-progress" id="workoutProgress"></div></div><button class="primary workout-start" id="startWorkoutButton">▶️ Bugünkü Antrenmanı Başlat</button><div id="activeWorkoutPanel"></div>
 <div class="workout-day-tabs" id="workoutDayTabs"></div>
 <div class="card workout-tip"><strong>💡 Nasıl ilerleyeceğiz?</strong><p>İlk hedef ağırlığı artırmak değil, hareketleri temiz teknikle yapmak. Tüm tekrarlar rahatça tamamlanıyorsa bir sonraki seansta küçük bir artış yap.</p><button id="restTimerBtn" class="timer-btn">⏱️ 90 sn dinlenme</button></div>
 <div id="workoutDetail"></div>
