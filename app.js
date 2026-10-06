@@ -493,6 +493,8 @@ function addWater(){
 }
 
 function showPage(pageId){
+  const header=$('brandHeader');
+  if(header) header.style.display=pageId==='homePage'?'grid':'none';
   document.querySelectorAll('.page').forEach(page=>page.classList.remove('active'));
   const page=$(pageId);
   if(page) page.classList.add('active');
