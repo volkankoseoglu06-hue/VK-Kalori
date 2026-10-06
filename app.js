@@ -160,6 +160,9 @@ function updateDashboard(){
   setText('summaryProtein',Math.round(state.protein));
   setText('summaryCalorieGoal',Math.round(calorieGoal));
   setText('summaryWaterGoal',waterGoal.toFixed(1));
+  setText('homeCalorieGoal',Math.round(calorieGoal));
+  setText('homeProteinGoal',Math.round(proteinGoal));
+  setText('homeWaterGoal',waterGoal.toFixed(1));
 
   const setRing=(selector,pct)=>{
     const el=document.querySelector(selector);
@@ -602,6 +605,16 @@ function setupDayButtons(){
 }
 
 function setupEvents(){
+  const editGoalsButton=$('editGoalsButton');
+  if(editGoalsButton){
+    editGoalsButton.onclick=()=>{
+      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+      const profile=$('profilePage');
+      if(profile)profile.classList.add('active');
+      document.querySelectorAll('.top-nav button').forEach(b=>b.classList.toggle('active',b.dataset.page==='profilePage'));
+    };
+  }
+
 
   $('foodSearch').addEventListener('input', event=>{
     searchFood(event.target.value);
