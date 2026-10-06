@@ -357,11 +357,29 @@ function exerciseImage(name,pose='start'){
   const id=ids[name];
   return id ? 'https://exercise-dataset.com/images/flat/'+id+'-'+pose+'.webp' : '';
 }
+const MUSCLE_TARGETS={
+  'Goblet Squat':['Quadriceps','Gluteus','Hamstring'],
+  'Dambıl Bench Press':['Göğüs','Ön omuz','Triceps'],
+  'Tek Kol Dambıl Row':['Sırt','Arka omuz','Biceps'],
+  'Dambıl Romanian Deadlift':['Hamstring','Gluteus','Bel'],
+  'Hammer Curl':['Biceps','Brachialis','Ön kol'],
+  'Destekli Split Squat':['Quadriceps','Gluteus','Hamstring'],
+  'Eğimli Dambıl Press':['Üst göğüs','Ön omuz','Triceps'],
+  'Bench Destekli Dambıl Row':['Sırt','Rhomboid','Arka omuz'],
+  'Bench Glute Bridge':['Gluteus','Hamstring','Core'],
+  'Oturarak Dambıl Shoulder Press':['Ön omuz','Yan omuz','Triceps'],
+  'Dambıl Front Squat':['Quadriceps','Gluteus','Core'],
+  'Dambıl Floor Press':['Göğüs','Triceps','Ön omuz'],
+  'Bench Destekli Rear-Delt Row':['Arka omuz','Üst sırt','Rhomboid'],
+  'Lateral Raise':['Yan omuz','Deltoid'],
+  'Dead Bug':['Karın','Core']
+};
 function exerciseCardImage(name){
   const start=exerciseImage(name,'start');
   const peak=exerciseImage(name,'peak');
   if(!start)return '<div class="exercise-image-fallback">🏋️</div>';
-  return '<div class="exercise-image-wrap"><img src="'+start+'" alt="'+name+' başlangıç" loading="lazy"><img src="'+peak+'" alt="" class="exercise-image-peak" loading="lazy"></div>';
+  const muscles=(MUSCLE_TARGETS[name]||[]).slice(0,2).join(' • ');
+  return '<div class="exercise-image-wrap"><img src="'+start+'" alt="'+name+' başlangıç" loading="lazy"><img src="'+peak+'" alt="" class="exercise-image-peak" loading="lazy"><span class="muscle-hotspot">'+muscles+'</span></div>';
 }
 function exerciseKcalForLog(log){
   const bodyWeight=Math.max(40,Math.min(220,Number(state?.weight)||109));
@@ -610,7 +628,7 @@ function addSetFromCard(i){
   if(w)S.weights[k]=w;
   S.done[k]=false;
   if(active){activeSessionSets=(S.logs||[]).filter(log=>log.date===today()&&log.day===day&&!log.autoDone).reduce((sum,log)=>sum+(Number(log.sets)||0),0);persistSession('active')}
-  saveWorkoutState(); render(); history(); if(typeof updateDashboard==='function')updateDashboard();
+  saveWorkoutState(); render(); history(); if(typeof syncWorkoutBurnToDashboard==='function')syncWorkoutBurnToDashboard(); if(typeof updateDashboard==='function')updateDashboard();
 }
 function completeExerciseFromCard(i){
   const existing=(S.logs||[]).find(log=>log.date===today()&&log.day===day&&log.exercise===W[day].ex[i][0]&&!log.autoDone);
