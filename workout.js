@@ -74,7 +74,7 @@ function close(){document.getElementById('workoutModal').classList.remove('open'
 function history(){document.getElementById('workoutHistory').innerHTML=S.logs.slice(0,15).map(x=>'<div class="workout-history-item"><strong>'+new Date(x.date+'T12:00:00').toLocaleDateString('tr-TR')+'</strong><span>Gün '+x.day+' • '+x.exercise+'</span><span>'+x.weight+' kg × '+x.sets+' × '+x.reps+' • RPE '+x.rpe+'</span></div>').join('')||'<div class="empty-state">Henüz kayıt yok. İlk antrenmandan sonra burada görünecek.</div>'};
 return '<svg class="exercise-svg exercise-'+t+'" viewBox="0 0 240 200" role="img" aria-label="Animasyonlu '+t+' hareketi"><line class="ground" x1="30" y1="182" x2="210" y2="182"/><g class="body-move">'+(figures[t]||figures.squat)+'</g></svg>';
 }
-document.addEventListener('DOMContentLoaded',initWorkout)function svg(t){
+function svg(t){
  const muscles={
   squat:['Quadriceps','Gluteus maximus','Hamstrings','Core'],
   press:['Göğüs','Ön omuz','Triceps'],
