@@ -315,8 +315,8 @@ function render(){
   const todayLogs=(S.logs||[]).filter(log=>log.date===today()&&log.day===day&&!log.autoDone);
   const totalSets=todayLogs.reduce((sum,log)=>sum+(Number(log.sets)||0),0);
   const minutes=stateWorkoutMinutes();
-  title.textContent=plan.name;
-  subtitle.textContent=plan.focus;
+  title.textContent='Antrenman';
+  subtitle.textContent=plan.name+' • '+plan.focus;
   progress.innerHTML='<strong>'+doneCount+'/5</strong><span>hareket</span>';
 
   const startButton=document.getElementById('startWorkoutButton');
