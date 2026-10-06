@@ -714,7 +714,7 @@ function open(i){
   const saved=(S.logs||[]).find(log=>isCurrentWorkoutLog(log)&&log.exercise===selected[0]);
   const weight=saved?.weight ?? S.weights[key(selected[0])] ?? '';
   const sets=saved?.sets ?? 0;
-  const reps=saved?.reps ?? Number((selected[3].match(/^\\d+/)||['10'])[0]);
+  const reps=saved?.reps ?? 10;
 
   document.getElementById('workoutModalTitle').textContent=selected[0];
   document.getElementById('workoutModalMuscle').innerHTML=selected[1].split(' • ').map(x=>'<span class="modal-muscle-tag">'+x+'</span>').join('');
@@ -795,6 +795,7 @@ function resetWorkoutDay(){
   activeSessionSets=0;
   activeSessionId='';
   S.done={};
+  S.logs=(S.logs||[]).filter(log=>!(log.date===today() && !log.autoDone));
   // Gün sıfırlanınca bugünkü set kayıtlarını ve ağırlık antrenmanı yakımını sıfırla.
   S.logs=(S.logs||[]).filter(log=>!(log.date===today() && !log.autoDone));
   if(typeof state!=='undefined'){
