@@ -172,7 +172,7 @@ function updateDashboard(){
   const workoutBurned=Math.round((state.dailySports||[])
     .filter(s=>String(s.name||'')==='Ağırlık Antrenmanı')
     .reduce((sum,s)=>sum+(Number(s.calories)||0),0));
-  const otherBurned=Math.max(0,burned-walkBurned-workoutBurned);
+  const runBikeBurned=Math.round((state.dailySports||[]).filter(s=>['Koşu','Bisiklet'].includes(String(s.name||''))).reduce((sum,s)=>sum+(Number(s.calories)||0),0));
 
   const setText=(id,value)=>{const el=$(id);if(el)el.textContent=value};
   setText('currentCalories',eaten);
@@ -191,7 +191,7 @@ function updateDashboard(){
   setText('summaryBurned',burned);
   setText('summaryWalkCalories',walkBurned+' kcal');
   setText('summaryWorkoutCalories',workoutBurned+' kcal');
-  setText('summaryOtherBurned',otherBurned+' kcal');
+  setText('summaryOtherBurned',runBikeBurned+' kcal');
   setText('summaryNet',net);
   setText('summaryWater',state.water.toFixed(1));
   setText('summaryProtein',Math.round(state.protein));
@@ -641,6 +641,34 @@ function finishDay(){
 
   alert('Gün kaydedildi. Antrenman ekranı da sıfırlandı.');
 }
+function resetAllData(){
+  if(!confirm('Beslenme, kardiyo, antrenman geçmişi, kilo ve tüm kayıtlar silinsin mi?'))return;
+  localStorage.removeItem('vk_yasam_kocu');
+  localStorage.removeItem('vk_workout_log_v1');
+  state=structuredClone(DEFAULTS);
+  selectedFood=null;
+  lastFoodCalc=null;
+  lastSportCalc=0;
+  foodPeriod='today';
+  if(typeof load==='function')S=load();
+  if(typeof day!=='undefined')day=1;
+  if(typeof active!=='undefined')active=false;
+  if(typeof activeSessionId!=='undefined')activeSessionId='';
+  if(typeof activePausedMs!=='undefined')activePausedMs=0;
+  if(typeof activeStartedAt!=='undefined')activeStartedAt=0;
+  if(typeof clearElapsedTicker==='function')clearElapsedTicker();
+  save();
+  if(typeof renderSports==='function')renderSports();
+  if(typeof renderHistory==='function')renderHistory();
+  if(typeof render==='function')render();
+  if(typeof history==='function')history();
+  refreshAll();
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  $('homePage')?.classList.add('active');
+  document.querySelectorAll('.bottom-nav button').forEach(b=>b.classList.toggle('active',b.dataset.page==='homePage'));
+  alert('Tüm veriler sıfırlandı. Baştan başlayabilirsin.');
+}
+
 function saveProfile(){
   const calories = safeNum($('profileCalories').value);
   const protein = safeNum($('profileProtein').value);
@@ -749,7 +777,7 @@ function setupEvents(){
     tab.addEventListener('click',()=>{
       sportTabs.forEach(x=>x.classList.remove('active'));
       tab.classList.add('active');
-      const typeMap=['walk','run','bike','stairs'];
+      const typeMap=['walk','run','bike'];
       const type=typeMap[index]||'walk';
       const hidden=$('sportType');
       if(hidden) hidden.value=type;
@@ -786,6 +814,9 @@ function setupEvents(){
     'click',
     saveProfile
   );
+
+  const resetAllButton=$('resetAllButton');
+  if(resetAllButton) resetAllButton.addEventListener('click',resetAllData);
 }
 
 function refreshAll(){
