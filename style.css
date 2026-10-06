@@ -2997,3 +2997,13 @@ body:has(#homePage.active) .modern-header{
   #workoutModal #workoutAnimation{height:205px!important}
   #workoutModal .modal-set-row{grid-template-columns:46px minmax(0,1fr) minmax(0,1fr) 32px!important}
 }
+
+
+/* FINAL MODAL FIX */
+#workoutModal{z-index:1000!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important}
+#workoutModal .workout-modal-box{max-height:calc(100dvh - 16px)!important;overflow-y:auto!important;overscroll-behavior:contain!important}
+#workoutModal .modal-set-row{display:grid!important;grid-template-columns:52px minmax(0,1fr) minmax(0,1fr) 34px!important;gap:7px!important;align-items:center!important}
+#workoutModal .modal-set-row input{width:100%!important;min-width:0!important;box-sizing:border-box!important;padding:10px 8px!important;border:1px solid #dbe5f1!important;border-radius:10px!important;background:#fff!important;font-weight:800!important}
+#workoutModal .modal-remove-set{width:34px!important;height:34px!important;border:0!important;border-radius:10px!important;background:#fee2e2!important;color:#dc2626!important;font-size:20px!important}
+#workoutModal .modal-add-set{width:100%!important;min-height:44px!important;border:1px dashed #93c5fd!important;border-radius:12px!important;background:#eff6ff!important;color:#2563eb!important;font-weight:900!important}
+@media(max-width:430px){#workoutModal .workout-modal-box{max-height:calc(100dvh - 4px)!important;padding-bottom:40px!important}#workoutModal .modal-set-row{grid-template-columns:46px minmax(0,1fr) minmax(0,1fr) 32px!important}}
