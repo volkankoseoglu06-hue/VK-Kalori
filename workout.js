@@ -495,15 +495,16 @@ function render(){
       '<div class="exercise-main">'+
         '<button class="exercise-visual" type="button" data-open="'+i+'">'+exerciseCardImage(x[0])+'</button>'+
         '<div class="exercise-info">'+
-          '<button class="exercise-open exercise-title-button" type="button" data-open="'+i+'"><h3>'+x[0]+'</h3></button>'+
+          '<div class="exercise-title-row"><button class="exercise-open exercise-title-button" type="button" data-open="'+i+'"><h3>'+x[0]+'</h3></button><div class="exercise-actions-large"><button class="inline-add" type="button" data-add-set="'+i+'" aria-label="Set ekle">+</button><button class="inline-complete '+(isDone?'completed':'')+'" type="button" data-complete="'+i+'" aria-label="Hareketi tamamla">✓</button></div></div>'+
           '<div class="exercise-result">'+
             '<span class="compact-metric">🔥 <b>'+kcal+' kcal</b></span>'+
             '<span class="compact-metric">🏋️ <b>'+volume+' kg</b></span>'+
             '<span class="compact-metric">▱ <b>'+sets+' × '+reps+'</b></span>'+
           '</div>'+
-          '<div class="exercise-actions-large">'+
-            '<button class="inline-add" type="button" data-add-set="'+i+'" aria-label="Set ekle">+</button>'+
-            '<button class="inline-complete '+(isDone?'completed':'')+'" type="button" data-complete="'+i+'" aria-label="Hareketi tamamla">✓</button>'+
+          '<div class="exercise-inline-controls">'+
+            '<label class="inline-field"><small>Ağırlık (kg)</small><input aria-label="Ağırlık kg" data-weight="'+i+'" type="number" min="0" step="0.5" value="'+weight+'" placeholder="0"></label>'+
+            '<label class="inline-field"><small>Set</small><input aria-label="Set" data-sets="'+i+'" type="number" min="1" max="10" value="'+sets+'" placeholder="1"></label>'+
+            '<label class="inline-field"><small>Tekrar</small><input aria-label="Tekrar" data-reps="'+i+'" type="number" min="1" max="50" value="'+reps+'" placeholder="10"></label>'+
           '</div>'+
         '</div>'+
       '</div>'+
