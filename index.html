@@ -4,18 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>VK Life</title>
-<link rel="stylesheet" href="style.css?v=20261006-workout5">
+<link rel="stylesheet" href="style.css?v=20261006-workout6">
 </head>
 <body>
 <div class="app">
 <header class="header modern-header">
   <button class="brand" data-page="homePage" aria-label="VK Life ana sayfa">
-    <svg class="vk-logo" viewBox="0 0 64 52" aria-hidden="true">
-      <path d="M4 4h14l14 19L45 4h15L38 34l9 14H32L4 12z" fill="url(#vkG)"/>
-      <path d="M19 4h14L22 23l-8 11H4z" fill="#1d4ed8" opacity=".88"/>
-      <defs><linearGradient id="vkG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#60a5fa"/><stop offset=".55" stop-color="#2563eb"/><stop offset="1" stop-color="#4f46e5"/></linearGradient></defs>
+    <svg class="vk-logo" viewBox="0 0 76 56" aria-hidden="true">
+      <path d="M5 5h15l16 22L51 5h16L43 37l11 14H38L5 14z" fill="url(#vkG2)"/>
+      <path d="M20 5h16L27 22 13 38H5z" fill="#2563eb"/>
+      <path d="M36 27 48 12h15L46 31z" fill="#60a5fa" opacity=".9"/>
+      <defs><linearGradient id="vkG2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7dd3fc"/><stop offset=".45" stop-color="#2563eb"/><stop offset="1" stop-color="#4338ca"/></linearGradient></defs>
     </svg>
-    <span>VK<span>Life</span></span>
+    <span>VK <span>LIFE</span></span>
   </button>
   <button id="profileHeaderButton" class="header-settings" aria-label="Profil">⚙</button>
 </header>
@@ -106,6 +107,6 @@
 <section id="profilePage" class="page"><div class="card"><h3>👤 Profil</h3><label>⚖️ Vücut ağırlığı (kg)<input id="profileWeight" type="number" min="30" max="300" step="0.1" placeholder="Örn. 90"></label><input id="profileCalories" type="number" placeholder="Kalori hedefi"><input id="profileProtein" type="number" placeholder="Protein hedefi"><input id="profileWater" type="number" placeholder="Su hedefi"><p class="profile-note">Ağırlık antrenmanı kalorisi, vücut ağırlığın + gerçek antrenman süresi + set yoğunluğuna göre hesaplanır.</p><button class="primary" id="saveProfileButton">💾 Kaydet</button><p class="repdb-credit">Egzersiz görselleri: <a href="https://repdb.co" target="_blank" rel="noopener">Exercise data by RepDB (repdb.co)</a></p></div></section>
 </div>
 <div id="workoutModal" class="workout-modal"><div class="workout-modal-box"><button class="modal-close" data-close>×</button><h2 id="workoutModalTitle"></h2><div id="workoutModalMuscle" class="modal-muscle-tags"></div><div id="workoutAnimation"></div><div class="modal-cues"><ul id="workoutCues"></ul></div><div class="modal-entry-grid"><label>Ağırlık (kg)<input id="modalWeight" type="number" min="0" step="0.5" value="" placeholder="0"></label><label>Set<input id="modalSets" type="number" min="1" max="10" value="3"></label><label>Tekrar<input id="modalReps" type="number" min="1" max="50" value="10"></label></div><button class="modal-save-exercise" type="button" data-modal-save>✓ Hareketi Kaydet</button><div class="modal-set-actions"><button type="button" class="modal-add-set" data-add-modal-set>+ Set ekle</button></div><div class="modal-set-list" id="modalSetList"></div><div class="source-line">Kaynak: <span id="workoutSource"></span></div></div></div>
-<script src="foods.js"></script><script src="app.js"></script><script src="workout.js?v=20261006-workout5"></script>
+<script src="foods.js"></script><script src="app.js"></script><script src="workout.js?v=20261006-workout6"></script>
 </body>
 </html>
