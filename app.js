@@ -96,6 +96,18 @@ function getTodayWorkoutSummary(){
   }
 }
 
+function addWorkoutBurn(minutes){
+  const exists=state.dailySports.some(x=>x.name==='Ağırlık Antrenmanı'||x.name==='Ağırlık');
+  if(exists)return false;
+  const mins=Math.max(20,Number(minutes)||45);
+  const kcal=Math.round(mins*5*0.9);
+  state.burned+=kcal;
+  state.dailySports.push({name:'Ağırlık Antrenmanı',duration:mins,calories:kcal});
+  save();
+  updateDashboard();
+  renderSports();
+  return true;
+}
 function updateDashboard(){
   const calorieGoal=Math.max(1,state.goals.calories);
   const proteinGoal=Math.max(1,state.goals.protein);
