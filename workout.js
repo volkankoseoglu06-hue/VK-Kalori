@@ -352,6 +352,23 @@ function exerciseCardImage(name){
   if(!start)return '<div class="exercise-image-fallback">🏋️</div>';
   return '<div class="exercise-image-wrap"><img src="'+start+'" alt="'+name+' başlangıç" loading="lazy"><img src="'+peak+'" alt="" class="exercise-image-peak" loading="lazy"></div>';
 }
+function exerciseKcalForLog(log){
+  const weight=Number(state?.weight)||109;
+  const bodyWeight=Math.max(40,Math.min(220,weight));
+  const sets=Math.max(1,Number(log?.sets)||1);
+  const reps=Math.max(1,Number(log?.reps)||10);
+  const load=Math.max(0,Number(log?.weight)||0);
+  const volume=sets*reps*Math.max(1,load);
+  const base=sets*reps*0.18;
+  const loadFactor=Math.min(2.2,1+(load/bodyWeight)*1.8);
+  const volumeFactor=Math.min(2.2,1+volume/(bodyWeight*40));
+  return Math.max(3,Math.round(base*loadFactor*volumeFactor));
+}
+function workoutLoggedKcal(){
+  return (S.logs||[])
+    .filter(log=>log.date===today()&&log.day===day&&!log.autoDone&&S.done[key(log.exercise)]===today())
+    .reduce((sum,log)=>sum+exerciseKcalForLog(log),0);
+}
 function render(){
   const title=document.getElementById('workoutTitle');
   const subtitle=document.getElementById('workoutSubtitle');
@@ -373,7 +390,7 @@ function render(){
     const small=startButton.querySelector('.workout-start-copy small');
     const panel=startButton.closest('.workout-start-panel');
     let actions=panel?.querySelector('.workout-session-actions');
-    if(!actions && panel){
+    if(!actions&&panel){
       actions=document.createElement('div');
       actions.className='workout-session-actions';
       actions.innerHTML='<button type="button" class="session-pause-btn">Durdur</button><button type="button" class="session-finish-btn">Antrenmanı Tamamla</button>';
@@ -382,13 +399,11 @@ function render(){
       actions.querySelector('.session-finish-btn').onclick=(ev)=>{ev.stopPropagation();completeWorkout();};
     }
     if(active){
-      if(copy)copy.textContent='Antrenman Devam Ediyor';
+      if(copy)copy.textContent='Antrenmana Devam Ediyor';
       if(small)small.textContent='Süreyi takip et ve setlerini kaydet';
       startButton.classList.add('is-running');
       if(timer)timer.textContent=formatDuration(sessionElapsedMs());
       if(actions)actions.style.display='flex';
-      const pauseBtn=actions?.querySelector('.session-pause-btn');
-      if(pauseBtn)pauseBtn.textContent='Durdur';
     }else if(S.session?.status==='paused'&&S.session.day===day){
       if(copy)copy.textContent='Antrenmana Devam Et';
       if(small)small.textContent='Kaldığın yerden devam et';
@@ -413,23 +428,29 @@ function render(){
     const reps=saved?.reps ?? Number((x[3].match(/^\\d+/)||['10'])[0]);
     const weight=saved?.weight ?? S.weights[k] ?? '';
     const isDone=S.done[k]===today();
-    const muscles=x[1].split(' • ').map(m=>'<span>'+m+'</span>').join('');
+    const kcal=isDone&&saved?exerciseKcalForLog(saved):0;
+    const volume=isDone&&saved?Math.round((Number(saved.weight)||0)*(Number(saved.sets)||0)*(Number(saved.reps)||0)):0;
     return '<article class="exercise-card modern-exercise-card '+(isDone?'done':'')+'">'+
       '<div class="exercise-main">'+
         '<button class="exercise-visual" type="button" data-open="'+i+'">'+exerciseCardImage(x[0])+'</button>'+
         '<button class="exercise-info exercise-open" type="button" data-open="'+i+'">'+
           '<div class="exercise-title-row"><h3>'+x[0]+'</h3></div>'+
-          '<div class="muscle-tags">'+muscles+'</div>'+
           '<div class="exercise-prescription"><span>'+sets+' set</span><span>'+reps+' tekrar</span></div>'+
         '</button>'+
-        '<span class="exercise-check '+(isDone?'checked':'')+'">'+(isDone?'✓':'')+'</span>'+
+        '<div class="exercise-result">'+
+          '<div class="result-line"><span class="result-fire">🔥</span><div><small>Tahmini Yakım</small><b>'+kcal+' kcal</b></div></div>'+
+          '<div class="result-line"><span class="result-icon">🏋️</span><div><small>Toplam Hacim</small><b>'+volume+' kg</b></div></div>'+
+          '<div class="result-line"><span class="result-icon">▱</span><div><small>Set × Tekrar</small><b>'+sets+' × '+reps+'</b></div></div>'+
+        '</div>'+
+        '<div class="exercise-actions-large">'+
+          '<button class="inline-add" type="button" data-add-set="'+i+'" aria-label="Set ekle">+</button>'+
+          '<button class="inline-complete '+(isDone?'completed':'')+'" type="button" data-complete="'+i+'" aria-label="Hareketi tamamla">✓</button>'+
+        '</div>'+
       '</div>'+
       '<div class="exercise-inline-controls">'+
-        '<input aria-label="Ağırlık kg" data-weight="'+i+'" type="number" min="0" step="0.5" value="'+weight+'" placeholder="kg">'+
-        '<input aria-label="Set" data-sets="'+i+'" type="number" min="1" max="10" value="'+sets+'" placeholder="set">'+
-        '<input aria-label="Tekrar" data-reps="'+i+'" type="number" min="1" max="50" value="'+reps+'" placeholder="tekrar">'+
-        '<button class="inline-add" type="button" data-add-set="'+i+'" aria-label="Set ekle">+</button>'+
-        '<button class="inline-complete '+(isDone?'completed':'')+'" type="button" data-complete="'+i+'" aria-label="Hareketi tamamla">'+(isDone?'✓':'✓')+'</button>'+
+        '<label class="inline-field"><small>Ağırlık (kg)</small><input aria-label="Ağırlık kg" data-weight="'+i+'" type="number" min="0" step="0.5" value="'+weight+'" placeholder="0"></label>'+
+        '<label class="inline-field"><small>Set</small><input aria-label="Set" data-sets="'+i+'" type="number" min="1" max="10" value="'+sets+'" placeholder="1"></label>'+
+        '<label class="inline-field"><small>Tekrar</small><input aria-label="Tekrar" data-reps="'+i+'" type="number" min="1" max="50" value="'+reps+'" placeholder="10"></label>'+
       '</div>'+
     '</article>';
   }).join('');
@@ -439,7 +460,7 @@ function render(){
     stats.querySelector('[data-stat="moves"]').textContent=doneCount+'/5';
     stats.querySelector('[data-stat="sets"]').textContent=totalSets;
     stats.querySelector('[data-stat="time"]').textContent=stateWorkoutMinutes()+' dk';
-    stats.querySelector('[data-stat="kcal"]').textContent=workoutKcalToday();
+    stats.querySelector('[data-stat="kcal"]').textContent=workoutLoggedKcal();
   }
 }
 function stateWorkoutMinutes(){
