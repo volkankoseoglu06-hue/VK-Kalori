@@ -104,26 +104,32 @@ function updateDashboard(){
   const sportDetailEl=$('summarySportDetail');
   const workoutEl=$('summaryWorkout');
   const workoutDetailEl=$('summaryWorkoutDetail');
+  const calorieGoalEl=$('summaryCalorieGoal');
+  const waterGoalEl=$('summaryWaterGoal');
   const badge=$('dailyStatusBadge');
 
-  if(calorieEl) calorieEl.textContent=`${Math.round(Math.max(0,netCalories()))} kcal`;
+  const netCal=Math.round(Math.max(0,netCalories()));
+  if(calorieEl) calorieEl.textContent=netCal;
   if(proteinEl) proteinEl.textContent=`${Math.round(state.protein)} g`;
-  if(waterEl) waterEl.textContent=`${state.water.toFixed(1)} L`;
+  if(waterEl) waterEl.textContent=state.water.toFixed(1);
+  if(calorieGoalEl) calorieGoalEl.textContent=Math.round(calorieGoal);
+  if(waterGoalEl) waterGoalEl.textContent=waterGoal.toFixed(1);
   if(foodCountEl) foodCountEl.textContent=state.dailyFoods.length;
   if(sportDurationEl) sportDurationEl.textContent=`${sportMinutes} dk`;
   if(sportDetailEl) sportDetailEl.textContent=`${sportCalories} kcal yakılan`;
 
-  if(workoutEl){
-    workoutEl.textContent=workout.done ? `${workout.done} hareket` : 'Hazır';
-  }
-  if(workoutDetailEl){
-    workoutDetailEl.textContent=workout.sets ? `${workout.sets} set tamamlandı` : 'Henüz kayıt yok';
-  }
+  if(workoutEl) workoutEl.textContent=workout.done;
+  if(workoutDetailEl) workoutDetailEl.textContent=`${workout.sets} set`;
 
   const caloriePct=Math.min(100,Math.round((Math.max(0,netCalories())/calorieGoal)*100));
   const proteinPct=Math.min(100,Math.round((state.protein/proteinGoal)*100));
   const waterPct=Math.min(100,Math.round((state.water/waterGoal)*100));
   const overall=Math.round((caloriePct+proteinPct+waterPct)/3);
+  const setRing=(selector,pct)=>{const el=document.querySelector(selector);if(el)el.style.setProperty('--ring-pct',Math.max(0,Math.min(100,pct))+'%')};
+  setRing('.calorie-ring',caloriePct);
+  setRing('.water-ring',waterPct);
+  setRing('.sport-ring',Math.min(100,(sportMinutes/30)*100));
+  setRing('.strength-ring',Math.min(100,(workout.done/5)*100));
 
   if(badge){
     badge.textContent=overall>=90?'Harika gidiyor':overall>=60?'İyi gidiyor':'Başlayalım';
