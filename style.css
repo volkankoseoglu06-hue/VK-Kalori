@@ -453,6 +453,7 @@ button{
 .net-ring{background:conic-gradient(#8b5cf6 var(--ring-pct),#ede9fe 0)}
 .water-ring{background:conic-gradient(#06b6d4 var(--ring-pct),#cffafe 0)}
 .protein-ring{background:conic-gradient(#eab308 var(--ring-pct),#fef9c3 0)}
+.sets-ring{background:conic-gradient(#0ea5e9 var(--ring-pct),#e0f2fe 0)}
 #dailyFoods{max-height:180px;overflow:auto}
 .food-item.compact-food{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 0;margin:0;border:0;border-bottom:1px solid #eef2f7;border-radius:0;background:transparent;font-size:12px}
 .food-item.compact-food:last-child{border-bottom:0}
