@@ -149,7 +149,10 @@ function initWorkout(){
   };
 
   document.getElementById('workoutModal').onclick=e=>{
-    if(e.target.closest('[data-modal-save]'))saveExerciseFromModal();
+    if(e.target.closest('[data-modal-save]')){saveExerciseFromModal();return}
+    if(e.target.closest('[data-add-modal-set]')){addModalSetRow();return}
+    const remove=e.target.closest('[data-remove-set]');
+    if(remove){remove.closest('.modal-set-row')?.remove();syncModalSetCount();return}
     if(e.target.closest('[data-close]'))close();
   };
 
@@ -411,14 +414,14 @@ function renderActive(){
   const panel=document.getElementById('activeWorkoutPanel');
   if(panel)panel.innerHTML='';
 }
-function saveExerciseValues(i,weight,sets,reps){
+function saveExerciseValues(i,weight,sets,reps,setDetails=null){
   const x=W[day].ex[i],k=key(x[0]);
   weight=Math.max(0,Number(weight)||0);
   sets=Math.max(1,Math.min(10,Number(sets)||x[2]));
   reps=Math.max(1,Math.min(50,Number(reps)||10));
 
   S.logs=(S.logs||[]).filter(log=>!(log.date===today()&&log.day===day&&log.exercise===x[0]&&!log.autoDone));
-  S.logs.unshift({date:today(),at:Date.now(),day,exercise:x[0],weight,sets,reps,rpe:7});
+  S.logs.unshift({date:today(),at:Date.now(),day,exercise:x[0],weight,sets,reps,rpe:7,setDetails:Array.isArray(setDetails)&&setDetails.length?setDetails:null});
   if(weight)S.weights[k]=weight;
   S.done[k]=today();
   save();
@@ -476,13 +479,36 @@ function saveExerciseFromModal(){
   if(!selected)return;
   const i=W[day].ex.findIndex(x=>x[0]===selected[0]);
   if(i<0)return;
-  saveExerciseValues(
-    i,
-    document.getElementById('modalWeight')?.value||0,
-    document.getElementById('modalSets')?.value||3,
-    document.getElementById('modalReps')?.value||10
-  );
+  const details=collectModalSetDetails();
+  const first=details[0]||{};
+  const weight=first.weight ?? document.getElementById('modalWeight')?.value ?? 0;
+  const reps=first.reps ?? document.getElementById('modalReps')?.value ?? 10;
+  const sets=Math.max(1,Math.min(10,details.length || Number(document.getElementById('modalSets')?.value)||3));
+  saveExerciseValues(i,weight,sets,reps,details);
   close();
+}
+function addModalSetRow(weight='',reps=10){
+  const list=document.getElementById('modalSetList');
+  if(!list)return;
+  const n=list.querySelectorAll('.modal-set-row').length+1;
+  const row=document.createElement('div');
+  row.className='modal-set-row';
+  row.innerHTML='<span>'+n+'. Set</span><input class="modal-set-weight" type="number" min="0" step="0.5" value="'+weight+'" placeholder="kg"><input class="modal-set-reps" type="number" min="1" max="50" value="'+reps+'" placeholder="tekrar"><button type="button" class="modal-remove-set" data-remove-set aria-label="Seti sil">×</button>';
+  list.appendChild(row);
+  syncModalSetCount();
+}
+function syncModalSetCount(){
+  const list=document.getElementById('modalSetList');
+  const input=document.getElementById('modalSets');
+  if(list&&input)input.value=Math.max(1,list.querySelectorAll('.modal-set-row').length);
+}
+function collectModalSetDetails(){
+  const list=document.getElementById('modalSetList');
+  if(!list)return [];
+  return [...list.querySelectorAll('.modal-set-row')].map(row=>({
+    weight:Math.max(0,Number(row.querySelector('.modal-set-weight')?.value)||0),
+    reps:Math.max(1,Number(row.querySelector('.modal-set-reps')?.value)||10)
+  }));
 }
 function open(i){
   selected=W[day].ex[i];
@@ -510,8 +536,11 @@ function open(i){
 
   const setList=document.getElementById('modalSetList');
   if(setList){
-    setList.innerHTML=Array.from({length:Number(sets)||3},(_,n)=>
-      '<div><span>'+ (n+1) +'. Set</span><span>'+(weight||0)+' kg × '+reps+' tekrar</span><b>'+(S.done[key(selected[0])]===today()?'✓':'')+'</b></div>'
+    const details=Array.isArray(saved?.setDetails)&&saved.setDetails.length
+      ? saved.setDetails
+      : Array.from({length:Number(sets)||3},()=>({weight:Number(weight)||0,reps:Number(reps)||10}));
+    setList.innerHTML=details.map((d,n)=>
+      '<div class="modal-set-row"><span>'+(n+1)+'. Set</span><input class="modal-set-weight" type="number" min="0" step="0.5" value="'+(d.weight||0)+'" placeholder="kg"><input class="modal-set-reps" type="number" min="1" max="50" value="'+(d.reps||10)+'" placeholder="tekrar"><button type="button" class="modal-remove-set" data-remove-set aria-label="Seti sil">×</button></div>'
     ).join('');
   }
 
