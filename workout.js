@@ -205,6 +205,8 @@ function startGuided(){
   activePausedMs=0;
   activeSessionSets=0;
   activeSessionId='session_'+Date.now();
+  const finishButton=document.getElementById('finishWorkoutButton');
+  if(finishButton){finishButton.disabled=false;finishButton.classList.remove('completed');finishButton.textContent='✓ Antrenmanı Bitir ve Kaydet';}
   S.session={id:activeSessionId,day,status:'active',startedAt:activeStartedAt,elapsedMs:0,activeSet,activeExercise,sets:0};
   saveWorkoutState();
   render();
@@ -275,6 +277,12 @@ function completeWorkout(){
     history();
     if(typeof updateDashboard==='function')updateDashboard();
   }
+  const finishButton=document.getElementById('finishWorkoutButton');
+  if(finishButton){
+    finishButton.textContent='✓ Antrenman Tamamlandı';
+    finishButton.disabled=true;
+    finishButton.classList.add('completed');
+  }
   alert('Antrenman tamamlandı 🎉');
 }
 function finishSession(autoComplete=false){
@@ -315,8 +323,15 @@ function finishSession(autoComplete=false){
 
   const b=document.getElementById('startWorkoutButton');
   if(b){
-    b.textContent='▶️ Antrenmana Devam Et • '+formatDuration(elapsed);
+    b.textContent='✓ Antrenman Tamamlandı';
     b.classList.remove('stop-workout');
+    b.classList.add('completed');
+  }
+  const finishButton=document.getElementById('finishWorkoutButton');
+  if(finishButton){
+    finishButton.textContent='✓ Antrenman Tamamlandı';
+    finishButton.disabled=true;
+    finishButton.classList.add('completed');
   }
   render();
   renderActive();
