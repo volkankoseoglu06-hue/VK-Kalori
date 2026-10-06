@@ -29,7 +29,12 @@ function initWorkout(){
  document.getElementById('workoutDayTabs').onclick=e=>{let b=e.target.closest('[data-day]');if(!b)return;day=+b.dataset.day;tabs();render()};
  document.getElementById('workoutDetail').onclick=e=>{let b=e.target.closest('[data-open]');if(b)open(+b.dataset.open);let d=e.target.closest('[data-done]');if(d)toggle(+d.dataset.done)};
  document.getElementById('workoutModal').onclick=e=>{if(e.target.id==='workoutModal'||e.target.matches('[data-close]'))close();if(e.target.matches('[data-save]'))log()};
- document.getElementById('restTimerBtn').onclick=()=>rest(90); document.getElementById('walkingGoButton').onclick=()=>{document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('sportPage').classList.add('active');document.getElementById('sportType').value='walk';document.getElementById('sportDuration').value=30;document.getElementById('sportSpeed').value=5;document.getElementById('sportIncline').value=0;if(typeof calculateSport==='function')calculateSport();}; document.getElementById('startWorkoutButton').onclick=()=>{if(active){stopWorkout()}else startGuided()};
+ document.getElementById('restTimerBtn').onclick=()=>rest(90);
+ const planWalk=(minutes)=>{document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('sportPage').classList.add('active');document.getElementById('sportType').value='walk';document.getElementById('sportDuration').value=minutes;document.getElementById('sportSpeed').value=5;document.getElementById('sportIncline').value=0;if(typeof calculateSport==='function')calculateSport();};
+ document.getElementById('walkingPreButton').onclick=()=>planWalk(10);
+ document.getElementById('walkingPostButton').onclick=()=>planWalk(20);
+ document.getElementById('walkingRestButton').onclick=()=>planWalk(30);
+ document.getElementById('startWorkoutButton').onclick=()=>{if(active){stopWorkout()}else startGuided()};
  ['workoutWeight','workoutSetsDone','workoutRepsDone'].forEach(id=>document.getElementById(id).oninput=preview);
 }
 function tabs(){const icons=['🅰️','🅱️','🆑'];document.getElementById('workoutDayTabs').innerHTML=[1,2,3].map((d,i)=>'<button class="workout-day '+(d===day?'active':'')+'" data-day="'+d+'"><span class="day-icon">'+icons[i]+'</span><span class="day-label"><strong>Gün '+d+'</strong><small>'+W[d].name.replace('Full Body ','')+'</small></span><span class="day-arrow">›</span></button>').join('')}
