@@ -103,7 +103,10 @@ function addWorkoutBurn(minutes,sets=13,met=3.5){
   if(exists)return false;
 
   const weight=Number(state.weight)||0;
-  if(weight<=0)return false;
+  if(weight<=0){
+    alert('Ağırlık kalorisi için Profil bölümünden vücut ağırlığını gir.');
+    return false;
+  }
 
   const mins=Math.max(20,Math.min(120,Number(minutes)||45));
   const setCount=Math.max(1,Number(sets)||13);
