@@ -392,3 +392,28 @@ button{
   .sport-summary{grid-template-columns:1fr 1fr}
   .sport-summary strong{font-size:16px}
 }
+
+/* VK Life circular activity dashboard */
+.activity-rings{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:4px}
+.activity-ring-card{text-align:center;min-width:0}
+.activity-ring{--ring-pct:0%;width:88px;height:88px;margin:0 auto 7px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#111827 var(--ring-pct),#e5e7eb 0);position:relative}
+.activity-ring:after{content:"";position:absolute;inset:8px;border-radius:50%;background:#fff}
+.activity-ring>div{position:relative;z-index:1;display:flex;align-items:baseline;justify-content:center;gap:2px}
+.activity-ring strong{font-size:19px;line-height:1}
+.activity-ring small{font-size:10px;font-weight:800;color:#6b7280}
+.activity-ring-card b{display:block;font-size:11px;margin-top:2px}
+.activity-ring-card>span{display:block;font-size:10px;color:#6b7280;margin-top:3px}
+.sport-ring{background:conic-gradient(#2563eb var(--ring-pct),#dbeafe 0)}
+.strength-ring{background:conic-gradient(#16a34a var(--ring-pct),#dcfce7 0)}
+.calorie-ring{background:conic-gradient(#f97316 var(--ring-pct),#ffedd5 0)}
+.water-ring{background:conic-gradient(#06b6d4 var(--ring-pct),#cffafe 0)}
+.summary-foot{display:flex;justify-content:space-between;gap:8px;margin-top:12px;padding-top:10px;border-top:1px solid #eef2f7;color:#6b7280;font-size:11px}
+.summary-foot b{color:#111827}
+@media(max-width:430px){
+  .activity-rings{gap:5px}
+  .activity-ring{width:72px;height:72px}
+  .activity-ring:after{inset:7px}
+  .activity-ring strong{font-size:16px}
+  .activity-ring-card b{font-size:10px}
+  .summary-foot{font-size:10px}
+}
