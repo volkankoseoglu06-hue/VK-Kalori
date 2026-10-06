@@ -22,6 +22,7 @@ let state = loadState();
 let selectedFood = null;
 let lastFoodCalc = null;
 let lastSportCalc = 0;
+let foodPeriod = 'today';
 
 function safeNum(value){
   const number = Number(value);
@@ -254,6 +255,31 @@ function setDayType(type){
   updateDashboard();
 }
 
+function updateFoodPeriod(){
+  const tabs=document.querySelectorAll('.food-tabs button');
+  tabs.forEach((tab,index)=>tab.classList.toggle('active',(['today','yesterday','week'][index]||'today')===foodPeriod));
+
+  const today={calories:Math.round(state.eaten),protein:Math.round(state.protein),water:Number(state.water.toFixed(1))};
+  const history=Array.isArray(state.history)?state.history:[];
+  let summary=today;
+  if(foodPeriod==='yesterday'){
+    const h=history[0];
+    summary=h?{calories:Number(h.eaten)||0,protein:Number(h.protein)||0,water:Number(h.water)||0}:{calories:0,protein:0,water:0};
+  }else if(foodPeriod==='week'){
+    const rows=history.slice(0,6);
+    summary={
+      calories:rows.reduce((s,h)=>s+(Number(h.eaten)||0),today.calories),
+      protein:rows.reduce((s,h)=>s+(Number(h.protein)||0),today.protein),
+      water:Number((rows.reduce((s,h)=>s+(Number(h.water)||0),today.water)).toFixed(1))
+    };
+  }
+  const set=(id,v)=>{const el=$(id);if(el)el.textContent=v};
+  set('foodPageCalories',Math.round(summary.calories));
+  set('foodPageProtein',Math.round(summary.protein));
+  set('foodPageWater',Number(summary.water).toFixed(1));
+  const title=document.querySelector('.food-tabs');
+  if(title) title.setAttribute('data-period',foodPeriod);
+}
 function renderFoods(){
   const box = $('dailyFoods');
   if(!box) return;
@@ -676,6 +702,14 @@ function setupEvents(){
   }
 
 
+  const foodTabs=document.querySelectorAll('.food-tabs button');
+  foodTabs.forEach((tab,index)=>{
+    tab.addEventListener('click',()=>{
+      foodPeriod=['today','yesterday','week'][index]||'today';
+      updateFoodPeriod();
+    });
+  });
+
   $('foodSearch').addEventListener('input', event=>{
     searchFood(event.target.value);
   });
@@ -761,6 +795,7 @@ function refreshAll(){
   if($('profileWater')) $('profileWater').value = state.goals.water || '';
   updateDashboard();
   renderFoods();
+  updateFoodPeriod();
   renderSports();
   renderHistory();
 }
