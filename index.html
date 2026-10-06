@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>VK Yaşam Koçu</title>
+<title>VK Life</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="app">
-<header class="header"><h1>VK Yaşam Koçu</h1><p id="today"></p></header>
+<header class="header"><h1>VK Life</h1><p id="today"></p></header>
 <nav class="top-nav">
 <button data-page="homePage">🏠<span>Ana Sayfa</span></button>
 <button data-page="foodPage">🍽️<span>Beslenme</span></button>
@@ -24,24 +24,25 @@
     <div><span class="eyebrow">BUGÜN</span><h3>Bugünkü Özet</h3></div>
     <span id="dailyStatusBadge" class="status-badge">Başlayalım</span>
   </div>
-  <div class="summary-main-grid">
-    <div class="summary-stat"><span>🔥 Kalori</span><strong id="summaryCalories">0 kcal</strong><small>/ 1800 hedef</small></div>
-    <div class="summary-stat"><span>🥩 Protein</span><strong id="summaryProtein">0 g</strong><small>/ 165 g hedef</small></div>
-    <div class="summary-stat"><span>💧 Su</span><strong id="summaryWater">0.0 L</strong><small>/ 3.0 L hedef</small></div>
-    <div class="summary-stat"><span>🍽️ Besin</span><strong id="summaryFoodCount">0</strong><small>kayıt</small></div>
-  </div>
-  <div class="sport-summary">
-    <div class="sport-summary-main">
-      <span>🔥 Bugünkü Spor</span>
-      <strong id="summarySportDuration">0 dk</strong>
-      <small id="summarySportDetail">0 kcal yakılan</small>
+  <div class="activity-rings">
+    <div class="activity-ring-card">
+      <div class="activity-ring sport-ring"><div><strong id="summarySportDuration">0</strong><small>dk</small></div></div>
+      <b>🔥 Spor</b><span id="summarySportDetail">0 kcal</span>
     </div>
-    <div class="sport-summary-side">
-      <span>🏋️ Kuvvet</span>
-      <strong id="summaryWorkout">Hazır</strong>
-      <small id="summaryWorkoutDetail">Henüz kayıt yok</small>
+    <div class="activity-ring-card">
+      <div class="activity-ring strength-ring"><div><strong id="summaryWorkout">0</strong><small>hareket</small></div></div>
+      <b>🏋️ Kuvvet</b><span id="summaryWorkoutDetail">0 set</span>
+    </div>
+    <div class="activity-ring-card">
+      <div class="activity-ring calorie-ring"><div><strong id="summaryCalories">0</strong><small>kcal</small></div></div>
+      <b>🍽️ Kalori</b><span>/ <span id="summaryCalorieGoal">1800</span></span>
+    </div>
+    <div class="activity-ring-card">
+      <div class="activity-ring water-ring"><div><strong id="summaryWater">0.0</strong><small>L</small></div></div>
+      <b>💧 Su</b><span>/ <span id="summaryWaterGoal">3.0</span> L</span>
     </div>
   </div>
+  <div class="summary-foot"><span>🥩 Protein <b id="summaryProtein">0 g</b></span><span>🍽️ <b id="summaryFoodCount">0</b> besin kaydı</span></div>
 </div>
 <div class="card"><h3>Bugünkü Besinler</h3><div id="dailyFoods"></div><h3 class="section-gap">Bugünkü Sporlar</h3><div id="dailySports"></div></div>
 <button class="primary" id="waterButton">💧 +250 ml Su</button><button class="primary secondary" id="finishDayButton">📅 Günü Bitir</button>
