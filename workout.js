@@ -430,9 +430,12 @@ function exerciseRepsLabel(log){
   const vals=details.map(s=>Number(s.reps)||10);
   return vals.every(v=>v===vals[0]) ? String(vals[0]) : 'farklı';
 }
+function isCurrentWorkoutLog(log){
+  return log && log.date===today() && log.day===day && !log.autoDone && Number(log.at||0)>Number(S.dayResetAt||0);
+}
 function workoutLoggedKcal(){
   return (S.logs||[])
-    .filter(log=>log.date===today()&&log.day===day&&!log.autoDone)
+    .filter(isCurrentWorkoutLog)
     .reduce((sum,log)=>sum+exerciseKcalForLog(log),0);
 }
 function render(){
@@ -443,7 +446,7 @@ function render(){
 
   const plan=W[day];
   const doneCount=plan.ex.filter(ex=>S.done[key(ex[0])]===today()).length;
-  const todayLogs=(S.logs||[]).filter(log=>log.date===today()&&log.day===day&&!log.autoDone);
+  const todayLogs=(S.logs||[]).filter(isCurrentWorkoutLog);
   const totalSets=todayLogs.reduce((sum,log)=>sum+(Number(log.sets)||0),0);
 
   title.textContent='Antrenman';
@@ -519,7 +522,7 @@ function renderActive(){
 function syncWorkoutBurnToDashboard(){
   if(typeof state==='undefined')return;
   const kcal=workoutLoggedKcal();
-  const logs=(S.logs||[]).filter(log=>log.date===today()&&log.day===day&&!log.autoDone);
+  const logs=(S.logs||[]).filter(isCurrentWorkoutLog);
   const sets=logs.reduce((sum,log)=>sum+(Number(log.sets)||0),0);
   const duration=stateWorkoutMinutes();
   state.dailySports=Array.isArray(state.dailySports)?state.dailySports:[];
@@ -555,7 +558,7 @@ function saveExerciseValues(i,weight,sets,reps,setDetails=null){
   if(weight)S.weights[k]=weight;
   S.done[k]=today();
   if(active){
-    const currentTotal=(S.logs||[]).filter(log=>log.date===today()&&log.day===day&&!log.autoDone)
+    const currentTotal=(S.logs||[]).filter(isCurrentWorkoutLog)
       .reduce((sum,log)=>sum+(Number(log.sets)||0),0);
     activeSessionSets=currentTotal;
     persistSession('active');
@@ -565,7 +568,7 @@ function saveExerciseValues(i,weight,sets,reps,setDetails=null){
 
   const allDone=W[day].ex.every(ex=>S.done[key(ex[0])]===today());
   if(allDone){
-    const todayLogs=S.logs.filter(log=>log.date===today()&&log.day===day&&!log.autoDone);
+    const todayLogs=S.logs.filter(isCurrentWorkoutLog);
     const totalSets=todayLogs.reduce((sum,log)=>sum+(Number(log.sets)||0),0);
     const avgReps=todayLogs.length?todayLogs.reduce((sum,log)=>sum+(Number(log.reps)||0),0)/todayLogs.length:10;
     const sessionMinutes=active && activeStartedAt ? Math.max(5,(Date.now()-activeStartedAt+activePausedMs)/60000) : Math.max(20,totalSets*2.5+avgReps);
@@ -576,10 +579,13 @@ function saveExerciseValues(i,weight,sets,reps,setDetails=null){
       activeSessionSets=totalSets;
       if(S.session){S.session.sets=totalSets;S.session.elapsedMs=sessionElapsedMs();S.session.status='active'}
       finishSession(true);
-    }else if(typeof addWorkoutBurn==='function'){
-      addWorkoutBurn(sessionMinutes,totalSets,met,'direct_'+today()+'_'+day);
+    }else{
+      // Doğrudan hareket kaydıyla tamamlandıysa da aynı seans kimliğini tüm setlere bağla.
+      const directId='direct_'+today()+'_'+day;
+      S.logs.forEach(log=>{if(isCurrentWorkoutLog(log))log.sessionId=directId});
       W[day].ex.forEach(ex=>{S.done[key(ex[0])]=today()});
       saveWorkoutState();
+      syncWorkoutBurnToDashboard();
     }
   }
 
@@ -592,7 +598,7 @@ function addSetFromCard(i){
   const w=Number(document.querySelector('[data-weight="'+i+'"]')?.value)||0;
   const reps=Number(document.querySelector('[data-reps="'+i+'"]')?.value)||10;
   const x=W[day].ex[i], k=key(x[0]);
-  const existing=(S.logs||[]).find(log=>log.date===today()&&log.day===day&&log.exercise===x[0]&&!log.autoDone);
+  const existing=(S.logs||[]).find(log=>isCurrentWorkoutLog(log)&&log.exercise===x[0]);
   const details=Array.isArray(existing?.setDetails)&&existing.setDetails.length
     ? existing.setDetails.map(s=>({weight:Number(s.weight)||0,reps:Number(s.reps)||10}))
     : [];
@@ -606,11 +612,11 @@ function addSetFromCard(i){
   });
   if(w)S.weights[k]=w;
   S.done[k]=false;
-  if(active){activeSessionSets=(S.logs||[]).filter(log=>log.date===today()&&log.day===day&&!log.autoDone).reduce((sum,log)=>sum+(Number(log.sets)||0),0);persistSession('active')}
+  if(active){activeSessionSets=(S.logs||[]).filter(isCurrentWorkoutLog).reduce((sum,log)=>sum+(Number(log.sets)||0),0);persistSession('active')}
   saveWorkoutState(); render(); history(); if(typeof syncWorkoutBurnToDashboard==='function')syncWorkoutBurnToDashboard(); if(typeof updateDashboard==='function')updateDashboard();
 }
 function completeExerciseFromCard(i){
-  const existing=(S.logs||[]).find(log=>log.date===today()&&log.day===day&&log.exercise===W[day].ex[i][0]&&!log.autoDone);
+  const existing=(S.logs||[]).find(log=>isCurrentWorkoutLog(log)&&log.exercise===W[day].ex[i][0]);
   const weight=document.querySelector('[data-weight="'+i+'"]')?.value||0;
   const sets=document.querySelector('[data-sets="'+i+'"]')?.value||W[day].ex[i][2];
   const reps=document.querySelector('[data-reps="'+i+'"]')?.value||10;
@@ -659,7 +665,7 @@ function collectModalSetDetails(){
 }
 function open(i){
   selected=W[day].ex[i];
-  const saved=(S.logs||[]).find(log=>log.date===today()&&log.day===day&&log.exercise===selected[0]&&!log.autoDone);
+  const saved=(S.logs||[]).find(log=>isCurrentWorkoutLog(log)&&log.exercise===selected[0]);
   const weight=saved?.weight ?? S.weights[key(selected[0])] ?? '';
   const sets=saved?.sets ?? selected[2];
   const reps=saved?.reps ?? Number((selected[3].match(/^\\d+/)||['10'])[0]);
@@ -699,10 +705,15 @@ function deleteHistory(id){
   if(!id)return;
   const sports=Array.isArray(state?.dailySports)?state.dailySports:[];
   const removed=sports.filter(x=>(x.sessionId||'')===id && x.name==='Ağırlık Antrenmanı');
+  const target=removed[0]||null;
   const removedKcal=removed.reduce((sum,x)=>sum+(Number(x.calories)||0),0);
   state.dailySports=sports.filter(x=>!((x.sessionId||'')===id && x.name==='Ağırlık Antrenmanı'));
   if(removedKcal)state.burned=Math.max(0,(Number(state.burned)||0)-removedKcal);
-  S.logs=(S.logs||[]).filter(log=>(log.sessionId||'')!==id);
+  S.logs=(S.logs||[]).filter(log=>{
+    if((log.sessionId||'')===id)return false;
+    if(target && log.date===target.date && Number(log.day)===Number(target.day))return false;
+    return true;
+  });
   if(S.session?.id===id)S.session=null;
   saveWorkoutState();
   if(typeof save==='function')save();
@@ -744,6 +755,7 @@ function resetWorkoutDay(){
   activeSessionSets=0;
   activeSessionId='';
   S.done={};
+  // Eski kayıtları silme: sadece bugünün ekranından ayır. Böylece geçmiş set/ağırlık kayıtları korunur.
   S.dayResetAt=Date.now();
   S.session=null;
   saveWorkoutState();
