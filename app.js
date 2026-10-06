@@ -85,6 +85,34 @@ function updateDashboard(){
   $('targetCalories').textContent = state.goals.calories;
   $('targetProtein').textContent = state.goals.protein;
   $('targetWater').textContent = state.goals.water;
+
+  const calorieGoal = Math.max(1, state.goals.calories);
+  const proteinGoal = Math.max(1, state.goals.protein);
+  const waterGoal = Math.max(0.1, state.goals.water);
+  const caloriePct = Math.min(100, Math.round((Math.max(0, netCalories()) / calorieGoal) * 100));
+  const proteinPct = Math.min(100, Math.round((state.protein / proteinGoal) * 100));
+  const waterPct = Math.min(100, Math.round((state.water / waterGoal) * 100));
+
+  const calorieProgress = $('calorieProgress');
+  const proteinProgress = $('proteinProgress');
+  const waterProgress = $('waterProgress');
+  if(calorieProgress) calorieProgress.style.width = caloriePct + '%';
+  if(proteinProgress) proteinProgress.style.width = proteinPct + '%';
+  if(waterProgress) waterProgress.style.width = waterPct + '%';
+
+  const calorieText = $('calorieProgressText');
+  const proteinText = $('proteinProgressText');
+  const waterText = $('waterProgressText');
+  if(calorieText) calorieText.textContent = `${Math.round(Math.max(0, netCalories()))} / ${Math.round(calorieGoal)} kcal`;
+  if(proteinText) proteinText.textContent = `${Math.round(state.protein)} / ${Math.round(proteinGoal)} g`;
+  if(waterText) waterText.textContent = `${state.water.toFixed(1)} / ${waterGoal.toFixed(1)} L`;
+
+  const badge = $('dailyStatusBadge');
+  if(badge){
+    const overall = Math.round((caloriePct + proteinPct + waterPct) / 3);
+    badge.textContent = overall >= 90 ? 'Harika gidiyor' : overall >= 60 ? 'İyi gidiyor' : 'Başlayalım';
+  }
+
   $('today').textContent = new Date().toLocaleDateString('tr-TR');
   updateDayButtons();
 }
