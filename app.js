@@ -126,6 +126,8 @@ function addWorkoutBurn(minutes,sets=13,met=3.5,sessionId=''){
       duration:mins,
       sets:setCount,
       met:intensity,
+      date:state.dailySports[existingIndex].date||localDateKey(),
+      day:state.dailySports[existingIndex].day||window.__vkWorkoutDay||null,
       weight,
       calories:kcal
     };
