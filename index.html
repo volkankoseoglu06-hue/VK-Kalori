@@ -25,7 +25,7 @@
 <div class="circle-card"><div class="circle cyan"><div id="currentWater">0</div><small>/ <span id="targetWater">3</span> L</small></div><b>💧 Su</b></div>
 <div class="circle-card"><div class="circle orange"><div id="currentSport">0</div><small>kcal</small></div><b>💪 Spor</b></div>
 </div>
-<div class="card net-card compact-summary"><div>🔥 Alınan<strong id="eatenCalories">0</strong><small>kcal</small></div><div>💪 Yakılan<strong id="burnedCalories">0</strong><small>kcal</small></div><div>⚖️ Net<strong id="netCalories">0</strong><small>kcal</small></div></div><div class="card daily-summary"><h3>📋 Bugünün Özeti</h3><div class="summary-grid"><div><span>🍽️ Besin</span><b id="summaryFoodCount">0</b></div><div><span>🥩 Protein</span><b id="summaryProtein">0 g</b></div><div><span>💧 Su</span><b id="summaryWater">0 L</b></div><div><span>💪 Antrenman</span><b id="summaryWorkout">Hazır</b></div></div></div>
+<div class="card daily-summary"><h3>📋 Bugünün Özeti</h3><div class="summary-grid"><div><span>🍽️ Besin</span><b id="summaryFoodCount">0</b></div><div><span>🥩 Protein</span><b id="summaryProtein">0 g</b></div><div><span>💧 Su</span><b id="summaryWater">0 L</b></div><div><span>💪 Antrenman</span><b id="summaryWorkout">Hazır</b></div></div></div>
 <div class="card"><h3>Bugünkü Besinler</h3><div id="dailyFoods"></div><h3 class="section-gap">Bugünkü Sporlar</h3><div id="dailySports"></div></div>
 <button class="primary" id="waterButton">💧 +250 ml Su</button><button class="primary secondary" id="finishDayButton">📅 Günü Bitir</button>
 </section>
@@ -41,6 +41,13 @@
 <div class="workout-hero card"><div><span class="eyebrow">🏋️ 3 GÜN FULL BODY</span><h2 id="workoutTitle">Full Body A</h2><p id="workoutSubtitle"></p></div><div class="workout-progress" id="workoutProgress"></div></div><button class="primary workout-start" id="startWorkoutButton">▶️ Bugünkü Antrenmanı Başlat</button><div id="activeWorkoutPanel"></div>
 <div class="workout-day-tabs" id="workoutDayTabs"></div>
 <div class="card workout-tip"><strong>💡 Nasıl ilerleyeceğiz?</strong><p>İlk hedef ağırlığı artırmak değil, hareketleri temiz teknikle yapmak. Tüm tekrarlar rahatça tamamlanıyorsa bir sonraki seansta küçük bir artış yap.</p><button id="restTimerBtn" class="timer-btn">⏱️ 90 sn dinlenme</button></div>
+<div class="card walking-card">
+  <div class="walking-head"><div><span class="eyebrow">🚶 KARDİYO EKİ</span><h3>Yürüyüş</h3></div><span class="walking-badge">Opsiyonel</span></div>
+  <p><strong>Kuvvet günleri:</strong> 15–20 dk rahat/orta tempo.</p>
+  <p><strong>Dinlenme günleri:</strong> 30–45 dk tempolu yürüyüş.</p>
+  <p class="walking-note">Yürüyüşü ağırlık antrenmanından ayrı bir kardiyo olarak takip ediyoruz; böylece Full Body programı gereksiz uzamıyor.</p>
+  <button class="primary walking-go" id="walkingGoButton">🚶 Kardiyo → Yürüyüşü Aç</button>
+</div>
 <div id="workoutDetail"></div>
 <div class="card"><h3>📋 Antrenman geçmişi</h3><div id="workoutHistory"></div></div>
 </section>
