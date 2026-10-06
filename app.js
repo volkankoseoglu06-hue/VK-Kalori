@@ -179,7 +179,7 @@ function updateDashboard(){
   const workoutBurned=Math.round((state.dailySports||[])
     .filter(s=>String(s.name||'')==='Ağırlık Antrenmanı')
     .reduce((sum,s)=>sum+(Number(s.calories)||0),0));
-  const runBikeBurned=Math.round((state.dailySports||[]).filter(s=>['Koşu','Bisiklet'].includes(String(s.name||''))).reduce((sum,s)=>sum+(Number(s.calories)||0),0));
+  const cardioBurned=Math.round((state.dailySports||[]).filter(s=>['Yürüyüş','Koşu','Bisiklet'].includes(String(s.name||''))).reduce((sum,s)=>sum+(Number(s.calories)||0),0));
 
   const setText=(id,value)=>{const el=$(id);if(el)el.textContent=value};
   const homeDate=$('homeDateBox'); if(homeDate){homeDate.textContent=new Date().toLocaleDateString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric'});} 
@@ -197,9 +197,8 @@ function updateDashboard(){
   setText('summaryEaten',eaten);
   setText('summaryEatenLabel',eaten+' kcal');
   setText('summaryBurned',burned);
-  setText('summaryWalkCalories',walkBurned+' kcal');
+  setText('summaryCardioCalories',cardioBurned+' kcal');
   setText('summaryWorkoutCalories',workoutBurned+' kcal');
-  setText('summaryOtherBurned',runBikeBurned+' kcal');
   setText('summaryNet',net);
   setText('summaryWater',state.water.toFixed(1));
   setText('summaryProtein',Math.round(state.protein));
