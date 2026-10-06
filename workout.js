@@ -107,6 +107,10 @@ function startElapsedTicker(){
     if(active){
       const timer=document.getElementById('workoutElapsed');
       if(timer)timer.textContent=formatDuration(sessionElapsedMs());
+      const liveKcal=document.querySelector('[data-stat="kcal"]');
+      if(liveKcal)liveKcal.textContent=workoutKcalToday();
+      const liveTime=document.querySelector('[data-stat="time"]');
+      if(liveTime)liveTime.textContent=stateWorkoutMinutes()+' dk';
       const button=document.getElementById('startWorkoutButton');
       if(button){
         const copy=button.querySelector('.workout-start-copy strong');
