@@ -2619,3 +2619,6 @@ body:has(#homePage.active) .modern-header .brand{left:calc(50% - 10px)!important
  .home-vk-mini{width:105px;height:29px}
  .home-date-box{font-size:10px;padding:7px 8px}
 }
+
+.finish-workout-button.completed{background:#16a34a!important;opacity:.92;cursor:default}
+.workout-start-main.completed{background:#ecfdf5!important}
