@@ -505,7 +505,7 @@ function render(){
     const image=(startImg?'<img src="'+startImg+'" alt="'+x[0]+' başlangıç" loading="lazy">':'')+(peakImg?'<img src="'+peakImg+'" alt="" class="reference-exercise-image-peak" loading="lazy">':'');
     return '<button class="reference-exercise-card '+(isDone?'done':'')+'" type="button" data-open="'+i+'">'+
       '<span class="reference-exercise-number">'+(i+1)+'</span>'+
-      '<span class="reference-exercise-image"><img src="'+image+'" alt="'+x[0]+'" loading="lazy"></span>'+
+      '<span class="reference-exercise-image">'+image+'</span>'+
       '<span class="reference-exercise-content">'+
         '<strong class="reference-exercise-title">'+x[0]+'</strong>'+
         '<span class="reference-exercise-meta">'+sets+' set • '+x[3]+' tekrar</span>'+
