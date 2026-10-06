@@ -2142,3 +2142,16 @@ body:has(#homePage.active) .ai-advice-card p{
   min-height:44px!important;
   font-size:11px!important;
 }
+
+/* Single profile/settings control: top-right, no duplicate gear on home. */
+.modern-header{
+  grid-template-columns:1fr auto 1fr!important;
+}
+.modern-header .brand{
+  grid-column:2!important;
+  justify-self:center!important;
+}
+.modern-header .header-settings{
+  grid-column:3!important;
+  justify-self:end!important;
+}
