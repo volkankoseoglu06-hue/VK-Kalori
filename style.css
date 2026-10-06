@@ -1829,3 +1829,29 @@ body:has(#workoutPage.active) .workout-quick-stats span{
   .modern-header .brand,.modern-header .brand .vk-logo-img{width:128px!important}
   .header-weight{min-width:68px!important;padding:0 6px!important}
 }
+
+
+/* ===== Clean workout cards + mobile stats ===== */
+.exercise-prescription{display:none!important}
+.exercise-mobile-result{
+  display:none!important;
+  align-items:center!important;
+  gap:8px!important;
+  flex-wrap:wrap!important;
+  margin-top:7px!important;
+  color:#64748b!important;
+  font-size:9px!important;
+  font-weight:800!important;
+}
+.exercise-mobile-result span{
+  padding:4px 6px!important;
+  background:#f8fafc!important;
+  border:1px solid #e8edf3!important;
+  border-radius:7px!important;
+}
+@media(max-width:799px){
+  body:has(#workoutPage.active) .exercise-mobile-result{display:flex!important}
+  body:has(#workoutPage.active) .modern-exercise-card .exercise-title-row h3{
+    margin-bottom:0!important;
+  }
+}
