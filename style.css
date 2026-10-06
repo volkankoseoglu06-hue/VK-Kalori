@@ -154,6 +154,14 @@ border-color:#19b8c8;
 border-color:#ff8a32;
 }
 
+.circle.green{
+border-color:#22a06b;
+}
+
+.circle.purple{
+border-color:#8b5cf6;
+}
+
 .card{
 background:#ffffff;
 padding:16px;
