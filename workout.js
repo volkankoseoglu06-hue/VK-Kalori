@@ -351,7 +351,7 @@ function exerciseImage(name,pose='start'){
     'Dambıl Front Squat':'dumbbell-front-squat',
     'Dambıl Floor Press':'dumbbell-floor-press',
     'Rear-Delt Row':'rear-delt-fly',
-    'Lateral Raise':'dumbbell-lateral-raise',
+    'Lateral Raise':'lateral-raise',
     'Dead Bug':'dead-bug'
   };
   const id=ids[name];
