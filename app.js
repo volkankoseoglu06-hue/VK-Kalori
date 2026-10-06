@@ -130,6 +130,7 @@ function updateDashboard(){
   setText('summaryWalk',walkMinutes);
   setText('summaryWorkout',workout.done);
   setText('summaryWorkoutDetail',workout.sets+' set');
+  setText('summaryWorkoutSets',workout.sets);
   setText('summaryEaten',eaten);
   setText('summaryBurned',burned);
   setText('summaryNet',net);
@@ -149,6 +150,7 @@ function updateDashboard(){
   setRing('.net-ring',(net/calorieGoal)*100);
   setRing('.water-ring',(state.water/waterGoal)*100);
   setRing('.protein-ring',(state.protein/proteinGoal)*100);
+  setRing('.sets-ring',Math.min(100,(workout.sets/13)*100));
 
   $('today').textContent=new Date().toLocaleDateString('tr-TR');
   updateDayButtons();
