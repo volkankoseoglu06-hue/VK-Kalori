@@ -485,6 +485,17 @@ function finishDay(){
   state.dailyFoods = [];
   state.dailySports = [];
 
+  // Gün bittiğinde antrenman tiklerini de temizle.
+  // Geçmiş set kayıtları (S.logs) korunur; sadece aktif günün tamamlandı işaretleri sıfırlanır.
+  try{
+    const raw=localStorage.getItem('vk_workout_log_v1');
+    if(raw){
+      const workoutData=JSON.parse(raw)||{};
+      workoutData.done={};
+      localStorage.setItem('vk_workout_log_v1',JSON.stringify(workoutData));
+    }
+  }catch(e){}
+
   save();
   refreshAll();
 
