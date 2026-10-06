@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>VK Life</title>
-<link rel="stylesheet" href="style.css?v=20261006-header">
+<link rel="stylesheet" href="style.css?v=20261006-final">
 </head>
 <body>
 <div class="app">
@@ -25,7 +25,7 @@
 </nav>
 <section id="homePage" class="page active">
   <div class="vk-home-head">
-    <div><p class="eyebrow">VK LIFE</p><p id="today"></p></div>
+    <div><p id="today"></p></div>
     <button class="round-settings" id="homeProfileButton" data-page="profilePage" type="button">⚙</button>
   </div>
   <div class="home-goal-grid home-four-metrics">
@@ -34,13 +34,27 @@
     <div class="goal-card"><span class="goal-icon burned">🔥</span><strong id="currentBurned">0</strong><b> kcal</b><small>Yakılan</small></div>
     <div class="goal-card" id="homeWaterCard" role="button" tabindex="0" aria-label="Su ekle"><span class="goal-icon water">💧</span><strong id="currentWater">0.0</strong><b> L</b><small>Su · +250 ml</small></div>
   </div>
-  <div class="modern-section-title"><h2>Gün Özeti</h2></div>
+  <div class="home-calorie-card compact-calorie-card">
+    <div class="home-calorie-top"><div><small>Kalan Kalori</small><strong id="homeRemainingCalories">1800</strong><span> kcal</span></div><div class="meal-orb">🍗</div></div>
+    <div class="home-progress"><span id="homeCalorieProgress"></span></div>
+    <small><span id="summaryEaten">0</span> / <span id="summaryCalorieGoal">1800</span> kcal</small>
+  </div>
+  <div class="home-actions-grid">
+    <button class="action-orange" data-page="foodPage">🍽️<span>Besin Ekle</span></button>
+    <button class="action-blue" data-page="sportPage">🚶<span>Yürüyüş Ekle</span></button>
+    <button class="action-green" data-page="workoutPage">🏋️<span>Antrenman Başlat</span></button>
+  </div>
+  <div class="modern-section-title"><h2>Günün Özeti</h2></div>
   <div class="home-summary-card home-summary-compact">
-    <div><span>🍽️ Alınan Kalori</span><b id="summaryEaten">0 kcal</b></div>
+    <div><span>🍽️ Alınan Kalori</span><b id="summaryEatenLabel">0 kcal</b></div>
     <div><span>🔥 Yakılan Kalori</span><b id="summaryBurned">0 kcal</b></div>
     <div><span>⚖️ Net Kalori</span><b id="summaryNet">0 kcal</b></div>
     <div><span>🥩 Protein</span><b id="summaryProtein">0 g</b></div>
     <div><span>💧 Su</span><b id="summaryWater">0.0 L</b></div>
+  </div>
+  <div class="ai-advice-card">
+    <div class="ai-advice-head"><span>✦</span><strong>VK AI • Günlük Tavsiye</strong></div>
+    <p id="aiAdvice">Bugünkü verilerin değerlendiriliyor.</p>
   </div>
   <button id="finishDayButton" class="finish-day-button">✓ Günü Bitir</button>
   <div class="hidden-data" id="dailyFoods"></div><div class="hidden-data" id="dailySports"></div>
@@ -75,6 +89,6 @@
 <section id="profilePage" class="page"><div class="modern-page-head"><p class="eyebrow">PROFİL</p><h1>Profil</h1><p>Hedeflerini ve vücut bilgilerini güncelle.</p></div><div class="card modern-card profile-card"><div class="profile-avatar">VK</div><h2>Volkan</h2><p>Hedef: yağ kaybı + kas gelişimi</p><label>Vücut ağırlığı (kg)<input id="profileWeight" type="number" min="30" max="300" step="0.1" placeholder="Örn. 109"></label><div class="grid-2"><label>Kalori<input id="profileCalories" type="number" placeholder="1800"></label><label>Protein<input id="profileProtein" type="number" placeholder="165"></label></div><label>Su hedefi (L)<input id="profileWater" type="number" placeholder="3"></label><button class="primary" id="saveProfileButton">Kaydet</button><p class="profile-note">Ağırlık antrenmanı kalorisi vücut ağırlığı ve antrenman yoğunluğuna göre hesaplanır.</p><p class="repdb-credit">Egzersiz görselleri: <a href="https://repdb.co" target="_blank" rel="noopener">Exercise data by RepDB</a></p></div></section>
 </div>
 <div id="workoutModal" class="workout-modal"><div class="workout-modal-box"><button class="modal-close" data-close>×</button><h2 id="workoutModalTitle"></h2><div id="workoutModalMuscle" class="modal-muscle-tags"></div><div id="workoutAnimation"></div><div class="modal-cues"><ul id="workoutCues"></ul></div><div class="modal-entry-grid"><label>Ağırlık (kg)<input id="modalWeight" type="number" min="0" step="0.5" value="" placeholder="0"></label><label>Set<input id="modalSets" type="number" min="1" max="10" value="3"></label><label>Tekrar<input id="modalReps" type="number" min="1" max="50" value="10"></label></div><button class="modal-save-exercise" type="button" data-modal-save>✓ Hareketi Kaydet</button><div class="modal-set-actions"><button type="button" class="modal-add-set" data-add-modal-set>+ Set ekle</button></div><div class="modal-set-list" id="modalSetList"></div><div class="source-line">Kaynak: <span id="workoutSource"></span></div></div></div>
-<script src="foods.js"></script><script src="app.js"></script><script src="workout.js?v=20261006-workout3"></script>
+<script src="foods.js"></script><script src="app.js"></script><script src="workout.js?v=20261006-final"></script>
 </body>
 </html>
