@@ -167,7 +167,7 @@ function updateDashboard(){
   const net=eaten-burned;
 
   const setText=(id,value)=>{const el=$(id);if(el)el.textContent=value};
-  setText('currentCalories',net);
+  setText('currentCalories',eaten);
   setText('currentProtein',Math.round(state.protein));
   setText('currentWater',state.water.toFixed(1));
   setText('currentSport',burned);
@@ -182,6 +182,12 @@ function updateDashboard(){
   setText('summaryNet',net);
   setText('summaryWater',state.water.toFixed(1));
   setText('summaryProtein',Math.round(state.protein));
+  setText('summaryFoodCount',eaten+' kcal');
+  setText('homeRemainingCalories',Math.max(0,Math.round(calorieGoal-eaten)));
+  const progressEl=$('homeCalorieProgress'); if(progressEl)progressEl.style.width=Math.max(0,Math.min(100,(eaten/calorieGoal)*100))+'%';
+  setText('foodPageCalories',eaten);
+  setText('foodPageProtein',Math.round(state.protein));
+  setText('foodPageWater',state.water.toFixed(1));
   setText('summaryCalorieGoal',Math.round(calorieGoal));
   setText('summaryWaterGoal',waterGoal.toFixed(1));
   setText('homeCalorieGoal',Math.round(calorieGoal));
