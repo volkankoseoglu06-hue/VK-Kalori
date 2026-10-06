@@ -25,6 +25,15 @@
 <div class="circle-card"><div class="circle cyan"><div id="currentWater">0</div><small>/ <span id="targetWater">3</span> L</small></div><b>💧 Su</b></div>
 <div class="circle-card"><div class="circle orange"><div id="currentSport">0</div><small>kcal</small></div><b>🔥 Yakılan</b></div>
 </div>
+<div class="card today-focus">
+  <div class="today-focus-head">
+    <div><span class="eyebrow">BUGÜN</span><h3>Günün Durumu</h3></div>
+    <span id="dailyStatusBadge" class="status-badge">Başlayalım</span>
+  </div>
+  <div class="focus-row"><div class="focus-label"><span>🔥 Kalori</span><b id="calorieProgressText">0 / 1800 kcal</b></div><div class="progress-track"><div id="calorieProgress" class="progress-fill"></div></div></div>
+  <div class="focus-row"><div class="focus-label"><span>🥩 Protein</span><b id="proteinProgressText">0 / 165 g</b></div><div class="progress-track"><div id="proteinProgress" class="progress-fill"></div></div></div>
+  <div class="focus-row"><div class="focus-label"><span>💧 Su</span><b id="waterProgressText">0 / 3 L</b></div><div class="progress-track"><div id="waterProgress" class="progress-fill"></div></div></div>
+</div>
 <div class="card daily-summary"><h3>📋 Bugünün Özeti</h3><div class="summary-grid"><div><span>🍽️ Besin</span><b id="summaryFoodCount">0</b></div><div><span>🥩 Protein</span><b id="summaryProtein">0 g</b></div><div><span>💧 Su</span><b id="summaryWater">0 L</b></div><div><span>💪 Antrenman</span><b id="summaryWorkout">Hazır</b></div></div></div>
 <div class="card"><h3>Bugünkü Besinler</h3><div id="dailyFoods"></div><h3 class="section-gap">Bugünkü Sporlar</h3><div id="dailySports"></div></div>
 <button class="primary" id="waterButton">💧 +250 ml Su</button><button class="primary secondary" id="finishDayButton">📅 Günü Bitir</button>
