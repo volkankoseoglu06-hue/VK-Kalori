@@ -171,6 +171,7 @@ function updateDashboard(){
   setText('currentProtein',Math.round(state.protein));
   setText('currentWater',state.water.toFixed(1));
   setText('currentSport',burned);
+  setText('currentBurned',burned);
   setText('currentWorkout',workout.done);
   setText('currentNet',net);
   setText('summaryWalk',walkMinutes);
