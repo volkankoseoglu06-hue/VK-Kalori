@@ -92,48 +92,37 @@ function updateDashboard(){
   const calorieGoal=Math.max(1,state.goals.calories);
   const proteinGoal=Math.max(1,state.goals.protein);
   const waterGoal=Math.max(0.1,state.goals.water);
-  const sportMinutes=state.dailySports.reduce((sum,s)=>sum+(Number(s.duration)||0),0);
-  const sportCalories=Math.round(state.burned);
+  const walkMinutes=state.dailySports
+    .filter(s=>String(s.name||'').toLocaleLowerCase('tr-TR').includes('yürüy'))
+    .reduce((sum,s)=>sum+(Number(s.duration)||0),0);
   const workout=getTodayWorkoutSummary();
+  const eaten=Math.round(state.eaten);
+  const burned=Math.round(state.burned);
+  const net=Math.max(0,eaten-burned);
 
-  const calorieEl=$('summaryCalories');
-  const proteinEl=$('summaryProtein');
-  const waterEl=$('summaryWater');
-  const foodCountEl=$('summaryFoodCount');
-  const sportDurationEl=$('summarySportDuration');
-  const sportDetailEl=$('summarySportDetail');
-  const workoutEl=$('summaryWorkout');
-  const workoutDetailEl=$('summaryWorkoutDetail');
-  const calorieGoalEl=$('summaryCalorieGoal');
-  const waterGoalEl=$('summaryWaterGoal');
-  const badge=$('dailyStatusBadge');
+  const setText=(id,value)=>{const el=$(id);if(el)el.textContent=value};
+  setText('summaryWalk',walkMinutes);
+  setText('summaryWorkout',workout.done);
+  setText('summaryWorkoutDetail',workout.sets+' set');
+  setText('summaryEaten',eaten);
+  setText('summaryBurned',burned);
+  setText('summaryNet',net);
+  setText('summaryWater',state.water.toFixed(1));
+  setText('summaryProtein',Math.round(state.protein));
+  setText('summaryCalorieGoal',Math.round(calorieGoal));
+  setText('summaryWaterGoal',waterGoal.toFixed(1));
 
-  const netCal=Math.round(Math.max(0,netCalories()));
-  if(calorieEl) calorieEl.textContent=netCal;
-  if(proteinEl) proteinEl.textContent=`${Math.round(state.protein)} g`;
-  if(waterEl) waterEl.textContent=state.water.toFixed(1);
-  if(calorieGoalEl) calorieGoalEl.textContent=Math.round(calorieGoal);
-  if(waterGoalEl) waterGoalEl.textContent=waterGoal.toFixed(1);
-  if(foodCountEl) foodCountEl.textContent=state.dailyFoods.length;
-  if(sportDurationEl) sportDurationEl.textContent=`${sportMinutes} dk`;
-  if(sportDetailEl) sportDetailEl.textContent=`${sportCalories} kcal yakılan`;
-
-  if(workoutEl) workoutEl.textContent=workout.done;
-  if(workoutDetailEl) workoutDetailEl.textContent=`${workout.sets} set`;
-
-  const caloriePct=Math.min(100,Math.round((Math.max(0,netCalories())/calorieGoal)*100));
-  const proteinPct=Math.min(100,Math.round((state.protein/proteinGoal)*100));
-  const waterPct=Math.min(100,Math.round((state.water/waterGoal)*100));
-  const overall=Math.round((caloriePct+proteinPct+waterPct)/3);
-  const setRing=(selector,pct)=>{const el=document.querySelector(selector);if(el)el.style.setProperty('--ring-pct',Math.max(0,Math.min(100,pct))+'%')};
-  setRing('.calorie-ring',caloriePct);
-  setRing('.water-ring',waterPct);
-  setRing('.sport-ring',Math.min(100,(sportMinutes/30)*100));
-  setRing('.strength-ring',Math.min(100,(workout.done/5)*100));
-
-  if(badge){
-    badge.textContent=overall>=90?'Harika gidiyor':overall>=60?'İyi gidiyor':'Başlayalım';
-  }
+  const setRing=(selector,pct)=>{
+    const el=document.querySelector(selector);
+    if(el)el.style.setProperty('--ring-pct',Math.max(0,Math.min(100,pct))+'%');
+  };
+  setRing('.walk-ring',(walkMinutes/30)*100);
+  setRing('.strength-ring',(workout.done/5)*100);
+  setRing('.calorie-ring',(eaten/calorieGoal)*100);
+  setRing('.burned-ring',Math.min(100,(burned/500)*100));
+  setRing('.net-ring',(net/calorieGoal)*100);
+  setRing('.water-ring',(state.water/waterGoal)*100);
+  setRing('.protein-ring',(state.protein/proteinGoal)*100);
 
   $('today').textContent=new Date().toLocaleDateString('tr-TR');
   updateDayButtons();
@@ -157,38 +146,21 @@ function setDayType(type){
 function renderFoods(){
   const box = $('dailyFoods');
   if(!box) return;
-
   box.innerHTML = '';
-
   if(!state.dailyFoods.length){
-    box.innerHTML = '<div class="food-item">Henüz besin eklenmedi.</div>';
+    box.innerHTML = '<div class="empty-state">Henüz besin eklenmedi.</div>';
     return;
   }
-
   state.dailyFoods.forEach((food,index)=>{
-    const div = document.createElement('div');
-    div.className = 'food-item';
-
-    div.innerHTML = `
-      <strong>${food.name}</strong>
-      <br>
-      ⚖️ ${food.amount} ${food.unit}
-      <br>
-      🔥 ${Math.round(food.calories)} kcal
-      <br>
-      🥩 ${Math.round(food.protein)} g
-      <button class="remove-food">❌ Sil</button>
-    `;
-
-    div.querySelector('.remove-food').onclick = ()=>{
-      state.eaten = Math.max(0, state.eaten - safeNum(food.calories));
-      state.protein = Math.max(0, state.protein - safeNum(food.protein));
+    const div=document.createElement('div');
+    div.className='food-item compact-food';
+    div.innerHTML='<span class="food-name">'+food.name+'</span><span class="food-meta">'+food.amount+' '+food.unit+' • '+Math.round(food.calories)+' kcal • '+Math.round(food.protein)+' g</span><button class="remove-food" aria-label="Besini sil">×</button>';
+    div.querySelector('.remove-food').onclick=()=>{
+      state.eaten=Math.max(0,state.eaten-safeNum(food.calories));
+      state.protein=Math.max(0,state.protein-safeNum(food.protein));
       state.dailyFoods.splice(index,1);
-      save();
-      updateDashboard();
-      renderFoods();
+      save();updateDashboard();renderFoods();
     };
-
     box.appendChild(div);
   });
 }
@@ -512,6 +484,17 @@ function finishDay(){
   state.water = 0;
   state.dailyFoods = [];
   state.dailySports = [];
+
+  // Gün bittiğinde antrenman tiklerini de temizle.
+  // Geçmiş set kayıtları (S.logs) korunur; sadece aktif günün tamamlandı işaretleri sıfırlanır.
+  try{
+    const raw=localStorage.getItem('vk_workout_log_v1');
+    if(raw){
+      const workoutData=JSON.parse(raw)||{};
+      workoutData.done={};
+      localStorage.setItem('vk_workout_log_v1',JSON.stringify(workoutData));
+    }
+  }catch(e){}
 
   save();
   refreshAll();

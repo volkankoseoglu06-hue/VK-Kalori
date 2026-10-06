@@ -22,29 +22,39 @@
 <div class="card today-summary">
   <div class="today-summary-head">
     <div><span class="eyebrow">BUGÜN</span><h3>Bugünkü Özet</h3></div>
-    <span id="dailyStatusBadge" class="status-badge">Başlayalım</span>
   </div>
   <div class="activity-rings">
     <div class="activity-ring-card">
-      <div class="activity-ring sport-ring"><div><strong id="summarySportDuration">0</strong><small>dk</small></div></div>
-      <b>🔥 Spor</b><span id="summarySportDetail">0 kcal</span>
+      <div class="activity-ring walk-ring"><div><strong id="summaryWalk">0</strong><small>dk</small></div></div>
+      <b>🚶 Yürüyüş</b><span>30 dk hedef</span>
     </div>
     <div class="activity-ring-card">
       <div class="activity-ring strength-ring"><div><strong id="summaryWorkout">0</strong><small>hareket</small></div></div>
-      <b>🏋️ Kuvvet</b><span id="summaryWorkoutDetail">0 set</span>
+      <b>🏋️ Ağırlık</b><span id="summaryWorkoutDetail">0 set</span>
     </div>
     <div class="activity-ring-card">
-      <div class="activity-ring calorie-ring"><div><strong id="summaryCalories">0</strong><small>kcal</small></div></div>
+      <div class="activity-ring calorie-ring"><div><strong id="summaryEaten">0</strong><small>kcal</small></div></div>
       <b>🍽️ Kalori</b><span>/ <span id="summaryCalorieGoal">1800</span></span>
+    </div>
+    <div class="activity-ring-card">
+      <div class="activity-ring burned-ring"><div><strong id="summaryBurned">0</strong><small>kcal</small></div></div>
+      <b>🔥 Yakılan</b><span>spor kalorisi</span>
+    </div>
+    <div class="activity-ring-card">
+      <div class="activity-ring net-ring"><div><strong id="summaryNet">0</strong><small>kcal</small></div></div>
+      <b>⚖️ Net Kalori</b><span>alınan − yakılan</span>
     </div>
     <div class="activity-ring-card">
       <div class="activity-ring water-ring"><div><strong id="summaryWater">0.0</strong><small>L</small></div></div>
       <b>💧 Su</b><span>/ <span id="summaryWaterGoal">3.0</span> L</span>
     </div>
+    <div class="activity-ring-card">
+      <div class="activity-ring protein-ring"><div><strong id="summaryProtein">0</strong><small>g</small></div></div>
+      <b>🥩 Protein</b><span>günlük hedef</span>
+    </div>
   </div>
-  <div class="summary-foot"><span>🥩 Protein <b id="summaryProtein">0 g</b></span><span>🍽️ <b id="summaryFoodCount">0</b> besin kaydı</span></div>
 </div>
-<div class="card"><h3>Bugünkü Besinler</h3><div id="dailyFoods"></div><h3 class="section-gap">Bugünkü Sporlar</h3><div id="dailySports"></div></div>
+<div class="card"><h3>🍽️ Bugünkü Besinler</h3><div id="dailyFoods"></div><div id="dailyFoods"></div><h3 class="section-gap">Bugünkü Sporlar</h3><div id="dailySports"></div></div>
 <button class="primary" id="waterButton">💧 +250 ml Su</button><button class="primary secondary" id="finishDayButton">📅 Günü Bitir</button>
 </section>
 <section id="foodPage" class="page">
@@ -60,15 +70,24 @@
 <div class="workout-day-tabs" id="workoutDayTabs"></div>
 <button class="primary workout-start" id="startWorkoutButton">▶️ Bugünkü Antrenmanı Başlat</button><div id="activeWorkoutPanel"></div>
 <div class="card workout-tip"><strong>💡 Nasıl ilerleyeceğiz?</strong><p>İlk hedef ağırlığı artırmak değil, hareketleri temiz teknikle yapmak. Tüm tekrarlar rahatça tamamlanıyorsa bir sonraki seansta küçük bir artış yap.</p><button id="restTimerBtn" class="timer-btn">⏱️ 90 sn dinlenme</button></div>
-<div class="card walking-card">
-  <div class="walking-head"><div><span class="eyebrow">🚶 HER GÜN</span><h3>Günlük Yürüyüş Planı</h3></div><span class="walking-badge">30 dk hedef</span></div>
-  <p><strong>Kuvvet günü:</strong> 10 dk antrenman öncesi + 20 dk antrenman sonrası.</p>
-  <p><strong>Dinlenme günü:</strong> Tek seferde 30 dk yürüyüş.</p>
-  <p class="walking-note">Her bölümü ayrıca günlüğe ekleyebilirsin. Ana ekrandaki spor süresi ve yakılan kalori buna göre güncellenir.</p>
-  <div class="walking-plan-grid">
-    <button class="walking-plan-btn" id="walkingPreButton"><span>🔥 10 dk</span><small>Antrenman öncesi</small></button>
-    <button class="walking-plan-btn" id="walkingPostButton"><span>🔥 20 dk</span><small>Antrenman sonrası</small></button>
-    <button class="walking-plan-btn full" id="walkingRestButton"><span>🚶 30 dk</span><small>Dinlenme günü</small></button>
+<div class="card workout-plans">
+  <div class="plan-section-title"><span class="eyebrow">BUGÜNKÜ PLAN</span><h3>🏋️ Ağırlık + 🚶 Yürüyüş</h3></div>
+  <div class="plan-grid">
+    <div class="plan-box strength-plan-box">
+      <strong>🏋️ Ağırlık Antrenmanı</strong>
+      <span>3 gün Full Body • 5 hareket</span>
+      <small>Hareketleri aşağıdaki listeden yap, setleri tamamla.</small>
+    </div>
+    <div class="plan-box walk-plan-box">
+      <strong>🚶 Yürüyüş</strong>
+      <span>Her gün 30 dk</span>
+      <small>Kuvvet günü: 10 dk önce + 20 dk sonra<br>Dinlenme günü: 30 dk tek sefer</small>
+      <div class="walking-plan-grid">
+        <button class="walking-plan-btn" id="walkingPreButton"><span>10 dk</span><small>Öncesi</small></button>
+        <button class="walking-plan-btn" id="walkingPostButton"><span>20 dk</span><small>Sonrası</small></button>
+        <button class="walking-plan-btn full" id="walkingRestButton"><span>30 dk</span><small>Dinlenme günü</small></button>
+      </div>
+    </div>
   </div>
 </div>
 <div id="workoutDetail"></div>
