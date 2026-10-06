@@ -428,7 +428,14 @@ function saveExerciseValues(i,weight,sets,reps,setDetails=null){
   S.logs.unshift({date:today(),at:Date.now(),day,exercise:x[0],weight,sets,reps,rpe:7,setDetails:Array.isArray(setDetails)&&setDetails.length?setDetails:null});
   if(weight)S.weights[k]=weight;
   S.done[k]=today();
-  save();
+  if(active){
+    const currentTotal=(S.logs||[]).filter(log=>log.date===today()&&log.day===day&&!log.autoDone)
+      .reduce((sum,log)=>sum+(Number(log.sets)||0),0);
+    activeSessionSets=currentTotal;
+    persistSession('active');
+  }else{
+    save();
+  }
 
   const allDone=W[day].ex.every(ex=>S.done[key(ex[0])]===today());
   if(allDone){
