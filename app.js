@@ -165,6 +165,13 @@ function updateDashboard(){
   const eaten=Math.round(state.eaten);
   const burned=Math.round(state.burned);
   const net=eaten-burned;
+  const walkBurned=Math.round((state.dailySports||[])
+    .filter(s=>String(s.name||'').toLocaleLowerCase('tr-TR').includes('yürüy'))
+    .reduce((sum,s)=>sum+(Number(s.calories)||0),0));
+  const workoutBurned=Math.round((state.dailySports||[])
+    .filter(s=>String(s.name||'')==='Ağırlık Antrenmanı')
+    .reduce((sum,s)=>sum+(Number(s.calories)||0),0));
+  const otherBurned=Math.max(0,burned-walkBurned-workoutBurned);
 
   const setText=(id,value)=>{const el=$(id);if(el)el.textContent=value};
   setText('currentCalories',eaten);
@@ -181,6 +188,9 @@ function updateDashboard(){
   setText('summaryEaten',eaten);
   setText('summaryEatenLabel',eaten+' kcal');
   setText('summaryBurned',burned);
+  setText('summaryWalkCalories',walkBurned+' kcal');
+  setText('summaryWorkoutCalories',workoutBurned+' kcal');
+  setText('summaryOtherBurned',otherBurned+' kcal');
   setText('summaryNet',net);
   setText('summaryWater',state.water.toFixed(1));
   setText('summaryProtein',Math.round(state.protein));
@@ -697,6 +707,26 @@ function setupEvents(){
   ].forEach(id=>{
     $(id).addEventListener('input', calculateSport);
     $(id).addEventListener('change', calculateSport);
+  });
+
+  // Kardiyo sekmeleri gerçek spor tipini değiştirir.
+  const sportTabs=document.querySelectorAll('.sport-type-tabs button');
+  sportTabs.forEach((tab,index)=>{
+    tab.addEventListener('click',()=>{
+      sportTabs.forEach(x=>x.classList.remove('active'));
+      tab.classList.add('active');
+      const typeMap=['walk','run','bike','stairs'];
+      const type=typeMap[index]||'walk';
+      const hidden=$('sportType');
+      if(hidden) hidden.value=type;
+      const speed=$('sportSpeed');
+      const incline=$('sportIncline');
+      if(type==='walk'){speed.min=3;speed.max=8;speed.value=Math.min(8,Math.max(3,Number(speed.value)||5));}
+      if(type==='run'){speed.min=6;speed.max=15;speed.value=Math.min(15,Math.max(6,Number(speed.value)||8));}
+      if(type==='bike'){speed.min=8;speed.max=35;speed.value=Math.min(35,Math.max(8,Number(speed.value)||18));}
+      if(type==='stairs'){speed.min=3;speed.max=8;speed.value=Math.min(8,Math.max(3,Number(speed.value)||5));}
+      calculateSport();
+    });
   });
 
   $('calculateSportButton').addEventListener(
