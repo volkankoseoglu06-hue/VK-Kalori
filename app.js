@@ -113,7 +113,7 @@ function addWorkoutBurn(minutes,sets=13,met=3.5,sessionId=''){
   const intensity=Number(met)||3.5;
 
   // Net aktif enerji: (MET - 1) x kg x saat.
-  const kcal=Math.max(0,Math.round((intensity-1)*weight*(mins/60)));
+  const kcal=Math.max(0,Math.round(intensity*weight*(mins/60)));
 
   const existingIndex=sessionId
     ? state.dailySports.findIndex(x=>x.name==='Ağırlık Antrenmanı'&&x.sessionId===sessionId)
