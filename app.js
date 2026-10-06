@@ -96,6 +96,18 @@ function getTodayWorkoutSummary(){
   }
 }
 
+function addWorkoutBurn(minutes){
+  const exists=state.dailySports.some(x=>x.name==='Ağırlık Antrenmanı'||x.name==='Ağırlık');
+  if(exists)return false;
+  const mins=Math.max(20,Number(minutes)||45);
+  const kcal=Math.round(mins*5*0.9);
+  state.burned+=kcal;
+  state.dailySports.push({name:'Ağırlık Antrenmanı',duration:mins,calories:kcal});
+  save();
+  updateDashboard();
+  renderSports();
+  return true;
+}
 function updateDashboard(){
   const calorieGoal=Math.max(1,state.goals.calories);
   const proteinGoal=Math.max(1,state.goals.protein);
@@ -109,9 +121,16 @@ function updateDashboard(){
   const net=eaten-burned;
 
   const setText=(id,value)=>{const el=$(id);if(el)el.textContent=value};
+  setText('currentCalories',net);
+  setText('currentProtein',Math.round(state.protein));
+  setText('currentWater',state.water.toFixed(1));
+  setText('currentSport',burned);
+  setText('currentWorkout',workout.done);
+  setText('currentNet',net);
   setText('summaryWalk',walkMinutes);
   setText('summaryWorkout',workout.done);
   setText('summaryWorkoutDetail',workout.sets+' set');
+  setText('summaryWorkoutSets',workout.sets);
   setText('summaryEaten',eaten);
   setText('summaryBurned',burned);
   setText('summaryNet',net);
@@ -131,6 +150,7 @@ function updateDashboard(){
   setRing('.net-ring',(net/calorieGoal)*100);
   setRing('.water-ring',(state.water/waterGoal)*100);
   setRing('.protein-ring',(state.protein/proteinGoal)*100);
+  setRing('.sets-ring',Math.min(100,(workout.sets/13)*100));
 
   $('today').textContent=new Date().toLocaleDateString('tr-TR');
   updateDayButtons();
