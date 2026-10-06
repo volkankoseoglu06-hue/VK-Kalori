@@ -54,7 +54,30 @@ function render(){
  const icons={squat:'🦵',press:'🏋️',row:'🪽',hinge:'🍑',curl:'💪',bridge:'🍑',raise:'💪',core:'🧱'};
  document.getElementById('workoutDetail').innerHTML=w.ex.map((x,i)=>{let k=key(x[0]),ok=S.done[k]===today(),wt=S.weights[k]||'',icon=icons[x[4]]||'🏋️';return '<article class="exercise-card '+(ok?'done':'')+'"><div class="exercise-icon">'+icon+'</div><div class="exercise-main" data-open="'+i+'"><div class="exercise-head"><div><h3>'+x[0]+'</h3><div class="muscle-tags">'+x[1].split(' • ').map(m=>'<span>'+m+'</span>').join('')+'</div></div><span class="exercise-check">'+(ok?'✓':'○')+'</span></div><div class="exercise-meta"><span>'+x[2]+' set</span><span>'+x[3]+' tekrar</span><span>'+x[6]+' sn</span>'+(wt?'<span>'+wt+' kg</span>':'')+'</div><button class="technique-btn" data-open="'+i+'">▶ Nasıl yapılır?</button></div><button class="done-btn" data-done="'+i+'">'+(ok?'✓ Yapıldı':'Yaptım')+'</button></article>'}).join('')
 }
-function toggle(i){let x=W[day].ex[i];let k=key(x[0]);S.done[k]=S.done[k]===today()?null:today();if(!S.done[k])delete S.done[k];save();render();if(typeof updateDashboard==='function')updateDashboard();const allDone=W[day].ex.every(ex=>S.done[key(ex[0])]===today());if(allDone&&typeof addWorkoutBurn==='function'){const sets=W[day].ex.reduce((sum,ex)=>sum+Number(ex[2]||0),0);addWorkoutBurn(Math.max(20,Math.round(sets*3.3)),sets,3.5)}}
+function toggle(i){
+ let x=W[day].ex[i];
+ let k=key(x[0]);
+ const isDone=S.done[k]===today();
+ if(isDone){
+   delete S.done[k];
+   S.logs=(S.logs||[]).filter(log=>!(log.autoDone&&log.date===today()&&log.day===day&&log.exercise===x[0]));
+ }else{
+   S.done[k]=today();
+   const wt=S.weights[k]||0;
+   const reps=Number((x[3].match(/^\\d+/)||['10'])[0]);
+   S.logs=S.logs||[];
+   S.logs.unshift({date:today(),day,exercise:x[0],weight:wt,sets:3,reps,rpe:7,autoDone:true});
+ }
+ save();
+ render();
+ history();
+ if(typeof updateDashboard==='function')updateDashboard();
+ const allDone=W[day].ex.every(ex=>S.done[key(ex[0])]===today());
+ if(allDone&&typeof addWorkoutBurn==='function'){
+   const sets=W[day].ex.length*3;
+   addWorkoutBurn(Math.max(20,Math.round(sets*3.3)),sets,3.5)
+ }
+}
 function open(i){
  selected=W[day].ex[i];let k=key(selected[0]);
  document.getElementById('workoutModalTitle').textContent=selected[0];document.getElementById('workoutModalMuscle').textContent=selected[1];
