@@ -88,10 +88,12 @@ function getTodayWorkoutSummary(){
     if(!raw)return empty;
     const data=JSON.parse(raw)||{};
     const todayKey=localDateKey();
+    const resetAt=Number(data.dayResetAt)||0;
     const done=Object.values(data.done||{}).filter(v=>v===todayKey).length;
     const sets=(data.logs||[])
-      .filter(x=>x.date===todayKey)
+      .filter(x=>x.date===todayKey && (!resetAt || Number(x.at||0)>resetAt))
       .reduce((sum,x)=>sum+(Number(x.sets)||0),0);
+    if(resetAt && done===0 && sets===0)return empty;
     return {done,sets};
   }catch(e){
     return empty;
@@ -545,6 +547,7 @@ function finishDay(){
     if(raw){
       const workoutData=JSON.parse(raw)||{};
       workoutData.done={};
+      workoutData.dayResetAt=Date.now();
       localStorage.setItem('vk_workout_log_v1',JSON.stringify(workoutData));
     }
   }catch(e){}
