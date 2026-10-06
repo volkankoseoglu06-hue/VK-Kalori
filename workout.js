@@ -364,16 +364,30 @@ function exerciseCardImage(name){
   return '<div class="exercise-image-wrap"><img src="'+start+'" alt="'+name+' başlangıç" loading="lazy"><img src="'+peak+'" alt="" class="exercise-image-peak" loading="lazy"></div>';
 }
 function exerciseKcalForLog(log){
-  const weight=Number(state?.weight)||109;
-  const bodyWeight=Math.max(40,Math.min(220,weight));
-  const sets=Math.max(1,Number(log?.sets)||1);
-  const reps=Math.max(1,Number(log?.reps)||10);
-  const load=Math.max(0,Number(log?.weight)||0);
-  const volume=sets*reps*Math.max(1,load);
-  const base=sets*reps*0.18;
-  const loadFactor=Math.min(2.2,1+(load/bodyWeight)*1.8);
-  const volumeFactor=Math.min(2.2,1+volume/(bodyWeight*40));
-  return Math.max(3,Math.round(base*loadFactor*volumeFactor));
+  const bodyWeight=Math.max(40,Math.min(220,Number(state?.weight)||109));
+  const details=Array.isArray(log?.setDetails)&&log.setDetails.length
+    ? log.setDetails
+    : [{weight:Number(log?.weight)||0,reps:Number(log?.reps)||10}];
+  return Math.max(3,Math.round(details.reduce((sum,set)=>{
+    const reps=Math.max(1,Number(set.reps)||10);
+    const load=Math.max(0,Number(set.weight)||0);
+    const volume=reps*Math.max(1,load);
+    const base=reps*0.18;
+    const loadFactor=Math.min(2.2,1+(load/bodyWeight)*1.8);
+    const volumeFactor=Math.min(2.2,1+volume/(bodyWeight*40));
+    return sum+(base*loadFactor*volumeFactor);
+  },0)));
+}
+function exerciseVolumeForLog(log){
+  const details=Array.isArray(log?.setDetails)&&log.setDetails.length
+    ? log.setDetails
+    : [{weight:Number(log?.weight)||0,reps:Number(log?.reps)||10}];
+  return Math.round(details.reduce((sum,set)=>sum+(Math.max(0,Number(set.weight)||0)*Math.max(1,Number(set.reps)||10)),0));
+}
+function exerciseRepsLabel(log){
+  const details=Array.isArray(log?.setDetails)&&log.setDetails.length?log.setDetails:[{reps:Number(log?.reps)||10}];
+  const vals=details.map(s=>Number(s.reps)||10);
+  return vals.every(v=>v===vals[0]) ? String(vals[0]) : 'farklı';
 }
 function workoutLoggedKcal(){
   return (S.logs||[])
@@ -440,19 +454,20 @@ function render(){
     const weight=saved?.weight ?? S.weights[k] ?? '';
     const isDone=S.done[k]===today();
     const kcal=isDone&&saved?exerciseKcalForLog(saved):0;
-    const volume=isDone&&saved?Math.round((Number(saved.weight)||0)*(Number(saved.sets)||0)*(Number(saved.reps)||0)):0;
+    const volume=isDone&&saved?exerciseVolumeForLog(saved):0;
     return '<article class="exercise-card modern-exercise-card '+(isDone?'done':'')+'">'+
       '<div class="exercise-main">'+
         '<button class="exercise-visual" type="button" data-open="'+i+'">'+exerciseCardImage(x[0])+'</button>'+
         '<button class="exercise-info exercise-open" type="button" data-open="'+i+'">'+
           '<div class="exercise-title-row"><h3>'+x[0]+'</h3></div>'+
-          '<div class="exercise-prescription"><span>'+sets+' set</span><span>'+reps+' tekrar</span></div>'+
+
         '</button>'+
         '<div class="exercise-result">'+
           '<div class="result-line"><span class="result-fire">🔥</span><div><small>Tahmini Yakım</small><b>'+kcal+' kcal</b></div></div>'+
           '<div class="result-line"><span class="result-icon">🏋️</span><div><small>Toplam Hacim</small><b>'+volume+' kg</b></div></div>'+
           '<div class="result-line"><span class="result-icon">▱</span><div><small>Set × Tekrar</small><b>'+sets+' × '+reps+'</b></div></div>'+
         '</div>'+
+        '<div class="exercise-mobile-result"><span>🔥 '+kcal+' kcal</span><span>🏋️ '+volume+' kg</span><span>▱ '+sets+' set</span></div>'+
         '<div class="exercise-actions-large">'+
           '<button class="inline-add" type="button" data-add-set="'+i+'" aria-label="Set ekle">+</button>'+
           '<button class="inline-complete '+(isDone?'completed':'')+'" type="button" data-complete="'+i+'" aria-label="Hareketi tamamla">✓</button>'+
@@ -535,7 +550,11 @@ function saveExerciseValues(i,weight,sets,reps,setDetails=null){
   reps=Math.max(1,Math.min(50,Number(reps)||10));
 
   S.logs=(S.logs||[]).filter(log=>!(log.date===today()&&log.day===day&&log.exercise===x[0]&&!log.autoDone));
-  S.logs.unshift({date:today(),at:Date.now(),sessionId:activeSessionId||S.session?.id||null,day,exercise:x[0],weight,sets,reps,rpe:7,setDetails:Array.isArray(setDetails)&&setDetails.length?setDetails:null});
+  let normalizedDetails=Array.isArray(setDetails)&&setDetails.length
+    ? setDetails.map(s=>({weight:Math.max(0,Number(s.weight)||0),reps:Math.max(1,Number(s.reps)||10)}))
+    : null;
+  if(normalizedDetails) sets=normalizedDetails.length;
+  S.logs.unshift({date:today(),at:Date.now(),sessionId:activeSessionId||S.session?.id||null,day,exercise:x[0],weight,sets,reps,rpe:7,setDetails:normalizedDetails});
   if(weight)S.weights[k]=weight;
   S.done[k]=today();
   if(active){
@@ -575,21 +594,30 @@ function saveExerciseValues(i,weight,sets,reps,setDetails=null){
 function addSetFromCard(i){
   const w=Number(document.querySelector('[data-weight="'+i+'"]')?.value)||0;
   const reps=Number(document.querySelector('[data-reps="'+i+'"]')?.value)||10;
-  const sets=Math.min(10,(Number(document.querySelector('[data-sets="'+i+'"]')?.value)||0)+1);
   const x=W[day].ex[i], k=key(x[0]);
   const existing=(S.logs||[]).find(log=>log.date===today()&&log.day===day&&log.exercise===x[0]&&!log.autoDone);
+  const details=Array.isArray(existing?.setDetails)&&existing.setDetails.length
+    ? existing.setDetails.map(s=>({weight:Number(s.weight)||0,reps:Number(s.reps)||10}))
+    : [];
+  details.push({weight:w,reps});
+  const sets=details.length;
+  const first=details[0]||{weight:w,reps};
   S.logs=(S.logs||[]).filter(log=>!(log.date===today()&&log.day===day&&log.exercise===x[0]&&!log.autoDone));
-  S.logs.unshift({date:today(),at:Date.now(),sessionId:activeSessionId||S.session?.id||null,day,exercise:x[0],weight:w,sets,reps,rpe:7});
+  S.logs.unshift({
+    date:today(),at:Date.now(),sessionId:activeSessionId||S.session?.id||null,
+    day,exercise:x[0],weight:first.weight,sets,reps:first.reps,rpe:7,setDetails:details
+  });
   if(w)S.weights[k]=w;
-  if(existing?.setDetails)S.logs[0].setDetails=existing.setDetails;
-  if(active){activeSessionSets=Math.max(activeSessionSets,sets);persistSession('active')}
+  S.done[k]=false;
+  if(active){activeSessionSets=(S.logs||[]).filter(log=>log.date===today()&&log.day===day&&!log.autoDone).reduce((sum,log)=>sum+(Number(log.sets)||0),0);persistSession('active')}
   saveWorkoutState(); render(); history(); if(typeof updateDashboard==='function')updateDashboard();
 }
 function completeExerciseFromCard(i){
+  const existing=(S.logs||[]).find(log=>log.date===today()&&log.day===day&&log.exercise===W[day].ex[i][0]&&!log.autoDone);
   const weight=document.querySelector('[data-weight="'+i+'"]')?.value||0;
   const sets=document.querySelector('[data-sets="'+i+'"]')?.value||W[day].ex[i][2];
   const reps=document.querySelector('[data-reps="'+i+'"]')?.value||10;
-  saveExerciseValues(i,weight,sets,reps);
+  saveExerciseValues(i,weight,sets,reps,existing?.setDetails||null);
 }
 function saveExerciseFromCard(i){
   const weight=document.querySelector('[data-weight="'+i+'"]')?.value||0;
