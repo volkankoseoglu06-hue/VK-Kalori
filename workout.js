@@ -124,6 +124,8 @@ function initWorkout(){
   if(!document.getElementById('workoutPage'))return;
 
   tabs();
+  const timerControl=document.querySelector('.workout-timer-icon');
+  if(timerControl)timerControl.onclick=()=>document.getElementById('startWorkoutButton')?.click();
   syncSessionFromStorage();
   render();
   history();
@@ -359,11 +361,11 @@ function exerciseImage(name,pose='start'){
   return id ? 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+id+'-'+pose+'.webp' : '';
 }
 const MUSCLE_TARGETS={
-  'Goblet Squat':['Quadriceps','Gluteus','Hamstring'],
-  'Dambıl Bench Press':['Göğüs','Ön omuz','Triceps'],
-  'Tek Kol Dambıl Row':['Sırt','Arka omuz','Biceps'],
+  'Goblet Squat':['Quadriceps','Gluteus','Core'],
+  'Dambıl Bench Press':['Göğüs','Triceps','Ön Omuz'],
+  'Tek Kol Dambıl Row':['Sırt','Biceps','Arka Omuz'],
   'Dambıl Romanian Deadlift':['Hamstring','Gluteus','Bel'],
-  'Hammer Curl':['Biceps','Brachialis','Ön kol'],
+  'Hammer Curl':['Biceps','Ön Kol'],
   'Destekli Split Squat':['Quadriceps','Gluteus','Hamstring'],
   'Eğimli Dambıl Press':['Üst göğüs','Ön omuz','Triceps'],
   'Bench Destekli Dambıl Row':['Sırt','Rhomboid','Arka omuz'],
