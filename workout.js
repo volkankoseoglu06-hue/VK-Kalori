@@ -173,6 +173,9 @@ function initWorkout(){
     if(e.target.closest('[data-close]'))close();
   };
 
+  const finishButton=document.getElementById('finishWorkoutButton');
+  if(finishButton) finishButton.onclick=()=>completeWorkout();
+
   document.getElementById('startWorkoutButton').onclick=()=>{
     if(active){pauseWorkout();return;}
     if(S.session && S.session.status==='paused' && S.session.day===day)resumeWorkout();
@@ -247,8 +250,11 @@ function pauseWorkout(){
 }
 function completeWorkout(){
   window.__vkWorkoutDay=day;
-  if(!S.session && !active)return;
-  finishSession(true);
+  if(!S.session && !active){
+    syncWorkoutBurnToDashboard();
+    return;
+  }
+  finishSession(false);
 }
 function finishSession(autoComplete=false){
   if(!S.session && !active)return;
@@ -633,10 +639,14 @@ function saveExerciseFromModal(){
   const i=W[day].ex.findIndex(x=>x[0]===selected[0]);
   if(i<0)return;
   const details=collectModalSetDetails();
+  if(!details.length){
+    alert('Önce en az 1 set ekle.');
+    return;
+  }
   const first=details[0]||{};
-  const weight=first.weight ?? document.getElementById('modalWeight')?.value ?? 0;
-  const reps=first.reps ?? document.getElementById('modalReps')?.value ?? 10;
-  const sets=Math.max(1,Math.min(10,details.length || Number(document.getElementById('modalSets')?.value)||3));
+  const weight=first.weight||0;
+  const reps=first.reps||10;
+  const sets=Math.min(10,details.length);
   saveExerciseValues(i,weight,sets,reps,details);
   close();
 }
@@ -667,7 +677,7 @@ function open(i){
   selected=W[day].ex[i];
   const saved=(S.logs||[]).find(log=>isCurrentWorkoutLog(log)&&log.exercise===selected[0]);
   const weight=saved?.weight ?? S.weights[key(selected[0])] ?? '';
-  const sets=saved?.sets ?? selected[2];
+  const sets=saved?.sets ?? 0;
   const reps=saved?.reps ?? Number((selected[3].match(/^\\d+/)||['10'])[0]);
 
   document.getElementById('workoutModalTitle').textContent=selected[0];
@@ -689,9 +699,7 @@ function open(i){
 
   const setList=document.getElementById('modalSetList');
   if(setList){
-    const details=Array.isArray(saved?.setDetails)&&saved.setDetails.length
-      ? saved.setDetails
-      : Array.from({length:Number(sets)||3},()=>({weight:Number(weight)||0,reps:Number(reps)||10}));
+    const details=Array.isArray(saved?.setDetails)&&saved.setDetails.length ? saved.setDetails : [];
     setList.innerHTML=details.map((d,n)=>
       '<div class="modal-set-row"><span>'+(n+1)+'. Set</span><input class="modal-set-weight" type="number" min="0" step="0.5" value="'+(d.weight||0)+'" placeholder="kg"><input class="modal-set-reps" type="number" min="1" max="50" value="'+(d.reps||10)+'" placeholder="tekrar"><button type="button" class="modal-remove-set" data-remove-set aria-label="Seti sil">×</button></div>'
     ).join('');
@@ -755,7 +763,8 @@ function resetWorkoutDay(){
   activeSessionSets=0;
   activeSessionId='';
   S.done={};
-  // Eski kayıtları silme: sadece bugünün ekranından ayır. Böylece geçmiş set/ağırlık kayıtları korunur.
+  // Gün sıfırlanınca bugünkü set kayıtlarını da sıfırla; geçmiş antrenmanlar korunur.
+  S.logs=(S.logs||[]).filter(log=>!(log.date===today() && !log.autoDone));
   S.dayResetAt=Date.now();
   S.session=null;
   saveWorkoutState();
