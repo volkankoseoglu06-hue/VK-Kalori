@@ -2565,3 +2565,34 @@ body:has(#homePage.active) .modern-header .header-weight{display:none!important;
   #workoutModal .workout-modal-box{padding-bottom:130px!important}
   #workoutModal .modal-set-list>div{grid-template-columns:52px minmax(0,1fr) minmax(0,1fr) 28px!important}
 }
+
+/* Final workout interaction fixes */
+#workoutModal{z-index:200!important;touch-action:auto!important;overscroll-behavior:contain!important}
+#workoutModal .workout-modal-box{
+  max-height:calc(100dvh - 8px)!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  -webkit-overflow-scrolling:touch!important;
+  padding-bottom:120px!important;
+}
+#workoutModal .modal-set-actions{margin-top:10px;display:flex;justify-content:flex-end}
+#workoutModal .modal-add-set{
+  border:0;background:#eff6ff;color:#2563eb;border-radius:12px;padding:10px 14px;font-weight:900;cursor:pointer;
+}
+#workoutModal .modal-empty-sets{
+  margin-top:9px;padding:12px;border-radius:12px;background:#f8fafc;color:#64748b;font-size:11px;line-height:1.4;text-align:center;
+}
+#workoutModal .modal-save-exercise{margin-top:10px}
+.danger-outline{
+  width:100%;margin-top:9px;min-height:44px;border:1px solid #fecaca;background:#fff5f5;color:#dc2626;border-radius:13px;font-weight:900;cursor:pointer;
+}
+@media(max-width:430px){
+  #workoutModal{padding:0!important}
+  #workoutModal .workout-modal-box{max-height:100dvh!important;border-radius:24px 24px 0 0!important;padding-bottom:125px!important}
+}
+/* Keep VK Life visually centered, with the logo aligned to the date block. */
+.vk-home-head{display:flex!important;align-items:center!important;justify-content:center!important;margin:0 0 10px!important}
+.vk-home-head>div{width:100%!important;text-align:center!important}
+.vk-home-head #today{margin:0!important;text-align:center!important}
+.modern-header .brand{left:calc(50% - 10px)!important}
+body:has(#homePage.active) .modern-header .brand{left:calc(50% - 10px)!important}
