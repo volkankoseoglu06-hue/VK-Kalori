@@ -363,3 +363,6 @@ button{
   .today-focus h3{font-size:17px}
   .status-badge{font-size:10px;padding:6px 8px}
 }
+
+
+.stop-workout{background:#b91c1c!important}.workout-start.stop-workout:hover{background:#991b1b!important}
