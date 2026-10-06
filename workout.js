@@ -34,14 +34,14 @@ function initWorkout(){
  if(!document.getElementById('workoutPage'))return;
  tabs();render();history();
  document.getElementById('workoutDayTabs').onclick=e=>{let b=e.target.closest('[data-day]');if(!b)return;day=+b.dataset.day;tabs();render()};
- document.getElementById('workoutDetail').onclick=e=>{let b=e.target.closest('[data-open]');if(b)open(+b.dataset.open);let d=e.target.closest('[data-done]');if(d)toggle(+d.dataset.done)};
+ document.getElementById('workoutDetail').onclick=e=>{let b=e.target.closest('[data-open]');if(b)open(+b.dataset.open);let d=e.target.closest('[data-done]');if(d)saveExerciseFromCard(+d.dataset.done)};
  document.getElementById('workoutModal').onclick=e=>{if(e.target.id==='workoutModal'||e.target.matches('[data-close]'))close();if(e.target.matches('[data-save]'))log()};
  const planWalk=(minutes)=>{document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('sportPage').classList.add('active');document.getElementById('sportType').value='walk';document.getElementById('sportDuration').value=minutes;document.getElementById('sportSpeed').value=5;document.getElementById('sportIncline').value=0;if(typeof calculateSport==='function')calculateSport();};
  document.getElementById('walkingPreButton').onclick=()=>planWalk(10);
  document.getElementById('walkingPostButton').onclick=()=>planWalk(20);
  document.getElementById('walkingRestButton').onclick=()=>planWalk(30); if(document.getElementById('walkingVisual'))document.getElementById('walkingVisual').innerHTML=svg('walk');
  document.getElementById('startWorkoutButton').onclick=()=>{if(active){stopWorkout()}else startGuided()};
- ['workoutWeight','workoutSetsDone','workoutRepsDone'].forEach(id=>document.getElementById(id).oninput=preview);
+
 }
 function tabs(){const icons=['🅰️','🅱️','🆑'];document.getElementById('workoutDayTabs').innerHTML=[1,2,3].map((d,i)=>'<button class="workout-day '+(d===day?'active':'')+'" data-day="'+d+'"><span class="day-icon">'+icons[i]+'</span><span class="day-label"><strong>Gün '+d+'</strong><small>'+W[d].name.replace('Full Body ','')+'</small></span><span class="day-arrow">›</span></button>').join('')}
 function startGuided(){Object.keys(S.done).forEach(k=>{if(S.done[k]===today())delete S.done[k]});save();active=true;activeExercise=0;activeSet=1;activeStartedAt=Date.now();activeSessionSets=0;render();renderActive();const b=document.getElementById('startWorkoutButton');b.textContent='⏹️ Antrenmanı Durdur';b.classList.add('stop-workout')}
@@ -51,42 +51,52 @@ function renderActive(){let panel=document.getElementById('activeWorkoutPanel');
 function completeActiveSet(){let x=W[day].ex[activeExercise],wt=+document.getElementById('activeWeight').value||0,reps=+document.getElementById('activeReps').value||10;activeSessionSets++;S.logs.unshift({date:today(),at:Date.now(),day,exercise:x[0],weight:wt,sets:1,reps,rpe:7});if(wt)S.weights[key(x[0])]=wt;save();if(activeSet<x[2])activeSet++;else if(activeExercise<W[day].ex.length-1){activeExercise++;activeSet=1}else{active=false;W[day].ex.forEach(ex=>{S.done[key(ex[0])]=today()});save();const b=document.getElementById('startWorkoutButton');b.textContent='🔄 Yeni Antrenman';b.classList.remove('stop-workout');const elapsed=activeStartedAt?((Date.now()-activeStartedAt)/60000):45;const mins=Math.max(20,Math.min(120,elapsed));const density=activeSessionSets/Math.max(1,mins);const met=density>=0.5?5.8:(density>=0.35?5:3.5);if(typeof addWorkoutBurn==='function')addWorkoutBurn(mins,activeSessionSets,met);activeStartedAt=0;activeSessionSets=0;alert('Antrenman tamamlandı 🎉')}render();history();renderActive();if(typeof updateDashboard==='function')updateDashboard()}
 function render(){
  let w=W[day],done=w.ex.filter(x=>S.done[key(x[0])]===today()).length;
- document.getElementById('workoutTitle').textContent=w.name;document.getElementById('workoutSubtitle').textContent=w.focus;document.getElementById('workoutProgress').textContent=done+'/'+w.ex.length+' hareket';
- const icons={
-  squat:'🏋️',
-  press:'🏋️',
-  row:'🏋️',
-  hinge:'🏋️',
-  curl:'💪',
-  bridge:'🦵',
-  raise:'🏋️',
-  core:'🤸'
-};
- document.getElementById('workoutDetail').innerHTML=w.ex.map((x,i)=>{let k=key(x[0]),ok=S.done[k]===today(),wt=S.weights[k]||'',icon=icons[x[4]]||'🏋️';return '<article class="exercise-card '+(ok?'done':'')+'"><div class="exercise-icon">'+icon+'</div><div class="exercise-main" data-open="'+i+'"><div class="exercise-head"><div><h3>'+x[0]+'</h3><div class="muscle-tags">'+x[1].split(' • ').map(m=>'<span>'+m+'</span>').join('')+'</div></div><span class="exercise-check">'+(ok?'✓':'○')+'</span></div><div class="exercise-meta"><span>'+x[2]+' set</span><span>'+x[3]+' tekrar</span><span>'+x[6]+' sn</span>'+(wt?'<span>'+wt+' kg</span>':'')+'</div><button class="technique-btn" data-open="'+i+'">▶ Nasıl yapılır?</button></div><button class="done-btn" data-done="'+i+'">'+(ok?'✓ Yapıldı':'Yaptım')+'</button></article>'}).join('')
+ document.getElementById('workoutTitle').textContent=w.name;
+ document.getElementById('workoutSubtitle').textContent=w.focus;
+ document.getElementById('workoutProgress').textContent=done+'/'+w.ex.length+' hareket';
+ const icons={squat:'🏋️',press:'🏋️',row:'🏋️',hinge:'🏋️',curl:'💪',bridge:'🦵',raise:'🏋️',core:'🤸'};
+ document.getElementById('workoutDetail').innerHTML=w.ex.map((x,i)=>{
+   const k=key(x[0]),ok=S.done[k]===today(),saved=S.logs.find(log=>log.date===today()&&log.day===day&&log.exercise===x[0]&&!log.autoDone);
+   const wt=saved?.weight ?? S.weights[k] ?? '';
+   const sets=saved?.sets ?? x[2];
+   const reps=saved?.reps ?? Number((x[3].match(/^\\d+/)||['10'])[0]);
+   const icon=icons[x[4]]||'🏋️';
+   return '<article class="exercise-card '+(ok?'done':'')+'">'+
+     '<div class="exercise-icon">'+icon+'</div>'+
+     '<div class="exercise-main">'+
+       '<div class="exercise-head"><div><h3>'+x[0]+'</h3><div class="muscle-tags">'+x[1].split(' • ').map(m=>'<span>'+m+'</span>').join('')+'</div></div><span class="exercise-check">'+(ok?'✓':'○')+'</span></div>'+
+       '<div class="exercise-meta"><span>'+x[6]+' sn dinlenme</span></div>'+
+       '<div class="workout-entry-grid">'+
+         '<label>Ağırlık (kg)<input class="exercise-weight" data-weight="'+i+'" type="number" min="0" step="0.5" value="'+wt+'" placeholder="0"></label>'+
+         '<label>Set<input class="exercise-sets" data-sets="'+i+'" type="number" min="1" max="10" step="1" value="'+sets+'"></label>'+
+         '<label>Tekrar<input class="exercise-reps" data-reps="'+i+'" type="number" min="1" max="50" step="1" value="'+reps+'"></label>'+
+       '</div>'+
+       '<button class="technique-btn" data-open="'+i+'">▶ Nasıl yapılır?</button>'+
+     '</div>'+
+     '<button class="done-btn" data-done="'+i+'">'+(ok?'✓ Kaydedildi':'Kaydet ve Yaptım')+'</button>'+
+   '</article>';
+ }).join('');
 }
-function toggle(i){
- let x=W[day].ex[i];
- let k=key(x[0]);
- const isDone=S.done[k]===today();
- if(isDone){
-   delete S.done[k];
-   S.logs=(S.logs||[]).filter(log=>!(log.autoDone&&log.date===today()&&log.day===day&&log.exercise===x[0]));
- }else{
-   S.done[k]=today();
-   const wt=S.weights[k]||0;
-   const reps=Number((x[3].match(/^\\d+/)||['10'])[0]);
-   S.logs=S.logs||[];
-   S.logs.unshift({date:today(),at:Date.now(),day,exercise:x[0],weight:wt,sets:3,reps,rpe:7,autoDone:true});
- }
+
+function saveExerciseFromCard(i){
+ const x=W[day].ex[i],k=key(x[0]);
+ const weight=Math.max(0,Number(document.querySelector('[data-weight="'+i+'"]')?.value)||0);
+ const sets=Math.max(1,Math.min(10,Number(document.querySelector('[data-sets="'+i+'"]')?.value)||x[2]));
+ const reps=Math.max(1,Math.min(50,Number(document.querySelector('[data-reps="'+i+'"]')?.value)||10));
+ S.logs=(S.logs||[]).filter(log=>!(log.date===today()&&log.day===day&&log.exercise===x[0]&&!log.autoDone));
+ S.logs.unshift({date:today(),at:Date.now(),day,exercise:x[0],weight,sets,reps,rpe:7});
+ if(weight)S.weights[k]=weight;
+ S.done[k]=today();
  save();
- render();
- history();
- if(typeof updateDashboard==='function')updateDashboard();
  const allDone=W[day].ex.every(ex=>S.done[key(ex[0])]===today());
  if(allDone&&typeof addWorkoutBurn==='function'){
-   const sets=W[day].ex.length*3;
-   addWorkoutBurn(Math.max(20,Math.round(sets*3.3)),sets,3.5)
+   const todayLogs=S.logs.filter(log=>log.date===today()&&log.day===day&&!log.autoDone);
+   const totalSets=todayLogs.reduce((sum,log)=>sum+(Number(log.sets)||0),0);
+   const avgReps=todayLogs.length?todayLogs.reduce((sum,log)=>sum+(Number(log.reps)||0),0)/todayLogs.length:10;
+   const minutes=Math.max(20,Math.min(120,totalSets*2.5+avgReps));
+   addWorkoutBurn(minutes,totalSets,4.5);
  }
+ render();history();if(typeof updateDashboard==='function')updateDashboard();
 }
 function open(i){
  selected=W[day].ex[i];let k=key(selected[0]);
