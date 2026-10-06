@@ -108,7 +108,11 @@ function startElapsedTicker(){
       const timer=document.getElementById('workoutElapsed');
       if(timer)timer.textContent=formatDuration(sessionElapsedMs());
       const button=document.getElementById('startWorkoutButton');
-      if(button)button.textContent='⏹️ Antrenmanı Bitir • '+formatDuration(sessionElapsedMs());
+      if(button){
+        const copy=button.querySelector('.workout-start-copy strong');
+        if(copy)copy.textContent='Antrenmana Devam Ediyor';
+        else button.textContent='Antrenmana Devam Ediyor';
+      }
     }
   },1000);
 }
@@ -140,6 +144,11 @@ function initWorkout(){
     if(b)open(+b.dataset.open);
     const d=e.target.closest('[data-done]');
     if(d)saveExerciseFromCard(+d.dataset.done);
+  };
+
+  document.getElementById('workoutModal').onclick=e=>{
+    if(e.target.closest('[data-modal-save]'))saveExerciseFromModal();
+    if(e.target.closest('[data-close]'))close();
   };
 
   document.getElementById('startWorkoutButton').onclick=()=>{
@@ -308,36 +317,56 @@ function render(){
   const subtitle=document.getElementById('workoutSubtitle');
   const progress=document.getElementById('workoutProgress');
   const detail=document.getElementById('workoutDetail');
-  if(!title||!subtitle||!progress||!detail)return;
+  if(!title||!subtitle||!detail)return;
 
   const plan=W[day];
   const doneCount=plan.ex.filter(ex=>S.done[key(ex[0])]===today()).length;
   const todayLogs=(S.logs||[]).filter(log=>log.date===today()&&log.day===day&&!log.autoDone);
   const totalSets=todayLogs.reduce((sum,log)=>sum+(Number(log.sets)||0),0);
-  const minutes=stateWorkoutMinutes();
+
   title.textContent='Antrenman';
   subtitle.textContent=plan.name+' • '+plan.focus;
-  progress.innerHTML='<strong>'+doneCount+'/5</strong><span>hareket</span>';
 
   const startButton=document.getElementById('startWorkoutButton');
+  const timer=document.getElementById('workoutElapsed');
   if(startButton){
-    if(active)startButton.textContent='⏹ Antrenmanı Bitir • '+formatDuration(sessionElapsedMs());
-    else if(S.session?.status==='paused'&&S.session.day===day)startButton.textContent='▶ Antrenmana Devam Et • '+formatDuration(Number(S.session.elapsedMs)||0);
-    else startButton.textContent='▶ Antrenmanı Başlat';
+    const copy=startButton.querySelector('.workout-start-copy strong');
+    const small=startButton.querySelector('.workout-start-copy small');
+    if(active){
+      if(copy)copy.textContent='Antrenmana Devam Ediyor';
+      if(small)small.textContent='Süreyi takip et ve setlerini kaydet';
+      startButton.classList.add('is-running');
+      if(timer)timer.textContent=formatDuration(sessionElapsedMs());
+    }else if(S.session?.status==='paused'&&S.session.day===day){
+      if(copy)copy.textContent='Antrenmana Devam Et';
+      if(small)small.textContent='Kaldığın yerden devam et';
+      startButton.classList.remove('is-running');
+      if(timer)timer.textContent=formatDuration(Number(S.session.elapsedMs)||0);
+    }else{
+      if(copy)copy.textContent='Antrenmanı Başlat';
+      if(small)small.textContent='Süreyi başlat ve setlerini kaydet';
+      startButton.classList.remove('is-running');
+      if(timer)timer.textContent='00:00';
+    }
   }
 
   detail.innerHTML=plan.ex.map((x,i)=>{
     const k=key(x[0]);
     const saved=(S.logs||[]).find(log=>log.date===today()&&log.day===day&&log.exercise===x[0]&&!log.autoDone);
-    const wt=saved?.weight ?? S.weights[k] ?? '';
     const sets=saved?.sets ?? x[2];
-    const reps=saved?.reps ?? Number((x[3].match(/^\d+/)||['10'])[0]);
+    const reps=saved?.reps ?? Number((x[3].match(/^\\d+/)||['10'])[0]);
     const isDone=S.done[k]===today();
     const muscles=x[1].split(' • ').map(m=>'<span>'+m+'</span>').join('');
     return '<article class="exercise-card modern-exercise-card '+(isDone?'done':'')+'">'+
-      '<button class="exercise-main" type="button" data-open="'+i+'">'+exerciseCardImage(x[0])+'<div class="exercise-info"><div class="exercise-title-row"><h3>'+x[0]+'</h3><span class="exercise-check">'+(isDone?'✓':'○')+'</span></div><div class="muscle-tags">'+muscles+'</div><div class="exercise-prescription"><span>3 set</span><span>'+x[3]+' tekrar</span></div></div></button>'+
-      '<div class="workout-entry-grid"><label>Ağırlık (kg)<input data-weight="'+i+'" type="number" min="0" step="0.5" value="'+wt+'" placeholder="0"></label><label>Set<input data-sets="'+i+'" type="number" min="1" max="10" value="'+sets+'"></label><label>Tekrar<input data-reps="'+i+'" type="number" min="1" max="50" value="'+reps+'"></label></div>'+
-      '<div class="exercise-actions"><button class="technique-btn" data-open="'+i+'">Detay / Nasıl yapılır</button><button class="done-btn" data-done="'+i+'">'+(isDone?'✓ Kaydedildi':'Setleri Kaydet')+'</button></div>'+
+      '<button class="exercise-main" type="button" data-open="'+i+'">'+
+        exerciseCardImage(x[0])+
+        '<div class="exercise-info">'+
+          '<div class="exercise-title-row"><h3>'+x[0]+'</h3><span class="exercise-check">'+(isDone?'✓':'')+'</span></div>'+
+          '<div class="muscle-tags">'+muscles+'</div>'+
+          '<div class="exercise-prescription"><span>'+sets+' set</span><span>'+reps+' tekrar</span></div>'+
+        '</div>'+
+        '<span class="exercise-chevron">⌄</span>'+
+      '</button>'+
     '</article>';
   }).join('');
 
@@ -345,7 +374,7 @@ function render(){
   if(stats){
     stats.querySelector('[data-stat="moves"]').textContent=doneCount+'/5';
     stats.querySelector('[data-stat="sets"]').textContent=totalSets;
-    stats.querySelector('[data-stat="time"]').textContent=minutes+' dk';
+    stats.querySelector('[data-stat="time"]').textContent=stateWorkoutMinutes()+' dk';
     stats.querySelector('[data-stat="kcal"]').textContent=workoutKcalToday();
   }
 }
@@ -362,39 +391,13 @@ function workoutKcalToday(){
 }
 function renderActive(){
   const panel=document.getElementById('activeWorkoutPanel');
-  if(!panel)return;
-
-  if(!active){
-    const paused=S.session&&S.session.status==='paused'&&S.session.day===day;
-    panel.innerHTML=paused
-      ? '<div class="active-workout paused-workout"><div><strong>⏸️ Antrenman durduruldu</strong><span id="pausedWorkoutInfo">'+formatDuration(Number(S.session.elapsedMs)||0)+' • '+(Number(S.session.sets)||0)+' set tamamlandı</span></div><button class="resume-inline" type="button">▶️ Devam Et</button></div>'
-      : '';
-    const resume=panel.querySelector('.resume-inline');
-    if(resume)resume.onclick=resumeWorkout;
-    return;
-  }
-
-  const x=W[day].ex[activeExercise];
-  const total=W[day].ex.length;
-  const defaultWeight=S.weights[key(x[0])]||'';
-  const defaultReps=(x[3].match(/^\d+/)||['10'])[0];
-
-  panel.innerHTML='<div class="active-workout">'+
-    '<div class="active-workout-head"><div><span class="eyebrow">AKTİF ANTRENMAN</span><h3>'+x[0]+'</h3><p>'+x[1]+' • '+(activeExercise+1)+'/'+total+' hareket</p></div><div class="elapsed-box"><small>Süre</small><strong id="workoutElapsed">'+formatDuration(sessionElapsedMs())+'</strong></div></div>'+
-    '<div class="set-controls three"><label>Ağırlık (kg)<input id="activeWeight" type="number" min="0" step="0.5" placeholder="0" value="'+defaultWeight+'"></label><label>Set<input id="activeSetInput" type="number" min="1" max="3" value="'+activeSet+'" readonly></label><label>Tekrar<input id="activeReps" type="number" min="1" max="50" value="'+defaultReps+'"></label></div>'+
-    '<div class="active-set"><span>Set '+activeSet+' / '+x[2]+'</span><button id="completeActiveSet">✓ Seti Tamamla</button></div>'+
-    '<div class="active-next">Sonraki: '+(W[day].ex[activeExercise+1]?.[0]||'Antrenman biter')+'</div>'+
-    '<button class="technique-btn" id="activeTechnique">▶ Tekniği göster</button>'+
-  '</div>';
-
-  document.getElementById('completeActiveSet').onclick=completeActiveSet;
-  document.getElementById('activeTechnique').onclick=()=>open(activeExercise);
+  if(panel)panel.innerHTML='';
 }
-function saveExerciseFromCard(i){
+function saveExerciseValues(i,weight,sets,reps){
   const x=W[day].ex[i],k=key(x[0]);
-  const weight=Math.max(0,Number(document.querySelector('[data-weight="'+i+'"]')?.value)||0);
-  const sets=Math.max(1,Math.min(10,Number(document.querySelector('[data-sets="'+i+'"]')?.value)||x[2]));
-  const reps=Math.max(1,Math.min(50,Number(document.querySelector('[data-reps="'+i+'"]')?.value)||10));
+  weight=Math.max(0,Number(weight)||0);
+  sets=Math.max(1,Math.min(10,Number(sets)||x[2]));
+  reps=Math.max(1,Math.min(50,Number(reps)||10));
 
   S.logs=(S.logs||[]).filter(log=>!(log.date===today()&&log.day===day&&log.exercise===x[0]&&!log.autoDone));
   S.logs.unshift({date:today(),at:Date.now(),day,exercise:x[0],weight,sets,reps,rpe:7});
@@ -413,7 +416,7 @@ function saveExerciseFromCard(i){
 
     if(active){
       activeSessionSets=totalSets;
-      if(S.session){S.session.sets=totalSets;S.session.elapsedMs=Date.now()-activeStartedAt+activePausedMs;S.session.status='active'}
+      if(S.session){S.session.sets=totalSets;S.session.elapsedMs=sessionElapsedMs();S.session.status='active'}
       finishSession(true);
     }else if(typeof addWorkoutBurn==='function'){
       addWorkoutBurn(sessionMinutes,totalSets,met,'direct_'+today()+'_'+day);
@@ -426,10 +429,34 @@ function saveExerciseFromCard(i){
   history();
   if(typeof updateDashboard==='function')updateDashboard();
 }
+function saveExerciseFromCard(i){
+  const weight=document.querySelector('[data-weight="'+i+'"]')?.value||0;
+  const sets=document.querySelector('[data-sets="'+i+'"]')?.value||W[day].ex[i][2];
+  const reps=document.querySelector('[data-reps="'+i+'"]')?.value||10;
+  saveExerciseValues(i,weight,sets,reps);
+}
+function saveExerciseFromModal(){
+  if(!selected)return;
+  const i=W[day].ex.findIndex(x=>x[0]===selected[0]);
+  if(i<0)return;
+  saveExerciseValues(
+    i,
+    document.getElementById('modalWeight')?.value||0,
+    document.getElementById('modalSets')?.value||3,
+    document.getElementById('modalReps')?.value||10
+  );
+  close();
+}
 function open(i){
   selected=W[day].ex[i];
+  const saved=(S.logs||[]).find(log=>log.date===today()&&log.day===day&&log.exercise===selected[0]&&!log.autoDone);
+  const weight=saved?.weight ?? S.weights[key(selected[0])] ?? '';
+  const sets=saved?.sets ?? selected[2];
+  const reps=saved?.reps ?? Number((selected[3].match(/^\\d+/)||['10'])[0]);
+
   document.getElementById('workoutModalTitle').textContent=selected[0];
-  document.getElementById('workoutModalMuscle').textContent=selected[1];
+  document.getElementById('workoutModalMuscle').innerHTML=selected[1].split(' • ').map(x=>'<span class="modal-muscle-tag">'+x+'</span>').join('');
+
   const start=exerciseImage(selected[0],'start');
   const peak=exerciseImage(selected[0],'peak');
   document.getElementById('workoutAnimation').innerHTML=
@@ -438,8 +465,19 @@ function open(i){
       '<img src="'+peak+'" alt="'+selected[0]+' hareket" class="real-exercise-img peak-img">'+
       '<div class="real-exercise-labels"><span>BAŞLANGIÇ</span><b>↕</b><span>HAREKET</span></div>'+
     '</div>';
+
   document.getElementById('workoutCues').innerHTML=selected[5].map(x=>'<li>'+x+'</li>').join('');
-  document.getElementById('workoutMistakes').innerHTML=selected[6].map(x=>'<li>'+x+'</li>').join('');
+  document.getElementById('modalWeight').value=weight;
+  document.getElementById('modalSets').value=sets;
+  document.getElementById('modalReps').value=reps;
+
+  const setList=document.getElementById('modalSetList');
+  if(setList){
+    setList.innerHTML=Array.from({length:Number(sets)||3},(_,n)=>
+      '<div><span>'+ (n+1) +'. Set</span><span>'+(weight||0)+' kg × '+reps+' tekrar</span><b>'+(S.done[key(selected[0])]===today()?'✓':'')+'</b></div>'
+    ).join('');
+  }
+
   document.getElementById('workoutSource').innerHTML='<a target="_blank" rel="noopener" href="https://repdb.co">Exercise data by RepDB ↗</a>';
   document.getElementById('workoutModal').classList.add('open');
 }
