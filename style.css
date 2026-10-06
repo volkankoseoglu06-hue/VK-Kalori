@@ -2017,3 +2017,41 @@ body:has(#homePage.active) .vk-home-head .round-settings{position:absolute!impor
 .inline-field small{font-size:7px!important;margin-bottom:2px!important}
 .inline-field input{height:34px!important;min-height:34px!important;font-size:13px!important;border-radius:11px!important}
 @media(max-width:390px){.modern-exercise-card .exercise-main{grid-template-columns:72px 1fr!important}.exercise-visual{width:72px!important;height:84px!important}.exercise-result{left:80px!important}.exercise-inline-controls{padding-left:80px!important}}
+
+/* Final exercise thumbnail fix: show RepDB peak pose with highlighted muscles */
+.modern-exercise-card .exercise-visual{
+  overflow:hidden!important;
+  padding:0!important;
+  background:#eaf6fc!important;
+  border:0!important;
+}
+.modern-exercise-card .exercise-image-wrap{
+  position:relative!important;
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  overflow:hidden!important;
+  border-radius:13px!important;
+}
+.modern-exercise-card .exercise-image-wrap img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center!important;
+  margin:0!important;
+  border:0!important;
+}
+.modern-exercise-card .exercise-image-wrap img:first-child{
+  display:none!important;
+}
+.modern-exercise-card .exercise-image-wrap .exercise-image-peak{
+  position:static!important;
+  opacity:1!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+}
+.modern-exercise-card .muscle-hotspot{
+  display:none!important;
+}
