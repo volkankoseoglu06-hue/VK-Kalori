@@ -140,10 +140,12 @@ function initWorkout(){
   };
 
   document.getElementById('workoutDetail').onclick=e=>{
+    const add=e.target.closest('[data-add-set]');
+    if(add){ addSetFromCard(+add.dataset.addSet); return; }
+    const complete=e.target.closest('[data-complete]');
+    if(complete){ completeExerciseFromCard(+complete.dataset.complete); return; }
     const b=e.target.closest('[data-open]');
     if(b)open(+b.dataset.open);
-    const d=e.target.closest('[data-done]');
-    if(d)saveExerciseFromCard(+d.dataset.done);
   };
 
   document.getElementById('workoutModal').onclick=e=>{
@@ -152,8 +154,8 @@ function initWorkout(){
   };
 
   document.getElementById('startWorkoutButton').onclick=()=>{
-    if(active)finishSession(false);
-    else if(S.session && S.session.status==='paused' && S.session.day===day)resumeWorkout();
+    if(active)return;
+    if(S.session && S.session.status==='paused' && S.session.day===day)resumeWorkout();
     else startGuided();
   };
 
@@ -315,7 +317,6 @@ function exerciseCardImage(name){
 function render(){
   const title=document.getElementById('workoutTitle');
   const subtitle=document.getElementById('workoutSubtitle');
-  const progress=document.getElementById('workoutProgress');
   const detail=document.getElementById('workoutDetail');
   if(!title||!subtitle||!detail)return;
 
@@ -355,18 +356,26 @@ function render(){
     const saved=(S.logs||[]).find(log=>log.date===today()&&log.day===day&&log.exercise===x[0]&&!log.autoDone);
     const sets=saved?.sets ?? x[2];
     const reps=saved?.reps ?? Number((x[3].match(/^\\d+/)||['10'])[0]);
+    const weight=saved?.weight ?? S.weights[k] ?? '';
     const isDone=S.done[k]===today();
     const muscles=x[1].split(' • ').map(m=>'<span>'+m+'</span>').join('');
     return '<article class="exercise-card modern-exercise-card '+(isDone?'done':'')+'">'+
-      '<button class="exercise-main" type="button" data-open="'+i+'">'+
-        exerciseCardImage(x[0])+
-        '<div class="exercise-info">'+
-          '<div class="exercise-title-row"><h3>'+x[0]+'</h3><span class="exercise-check">'+(isDone?'✓':'')+'</span></div>'+
+      '<div class="exercise-main">'+
+        '<button class="exercise-visual" type="button" data-open="'+i+'">'+exerciseCardImage(x[0])+'</button>'+
+        '<button class="exercise-info exercise-open" type="button" data-open="'+i+'">'+
+          '<div class="exercise-title-row"><h3>'+x[0]+'</h3></div>'+
           '<div class="muscle-tags">'+muscles+'</div>'+
           '<div class="exercise-prescription"><span>'+sets+' set</span><span>'+reps+' tekrar</span></div>'+
-        '</div>'+
-        '<span class="exercise-chevron">⌄</span>'+
-      '</button>'+
+        '</button>'+
+        '<span class="exercise-check '+(isDone?'checked':'')+'">'+(isDone?'✓':'')+'</span>'+
+      '</div>'+
+      '<div class="exercise-inline-controls">'+
+        '<input aria-label="Ağırlık kg" data-weight="'+i+'" type="number" min="0" step="0.5" value="'+weight+'" placeholder="kg">'+
+        '<input aria-label="Set" data-sets="'+i+'" type="number" min="1" max="10" value="'+sets+'" placeholder="set">'+
+        '<input aria-label="Tekrar" data-reps="'+i+'" type="number" min="1" max="50" value="'+reps+'" placeholder="tekrar">'+
+        '<button class="inline-add" type="button" data-add-set="'+i+'" aria-label="Set ekle">+</button>'+
+        '<button class="inline-complete '+(isDone?'completed':'')+'" type="button" data-complete="'+i+'" aria-label="Hareketi tamamla">'+(isDone?'✓':'✓')+'</button>'+
+      '</div>'+
     '</article>';
   }).join('');
 
@@ -387,7 +396,16 @@ function todayWorkoutLoggedMinutes(){
   return Math.round(sport.filter(x=>x.name==='Ağırlık Antrenmanı').reduce((s,x)=>s+(Number(x.duration)||0),0));
 }
 function workoutKcalToday(){
-  return Math.round((state?.dailySports||[]).filter(x=>x.name==='Ağırlık Antrenmanı').reduce((s,x)=>s+(Number(x.calories)||0),0));
+  const committed=Math.round((state?.dailySports||[]).filter(x=>x.name==='Ağırlık Antrenmanı').reduce((s,x)=>s+(Number(x.calories)||0),0));
+  if(!active)return committed;
+  const mins=sessionElapsedMs()/60000;
+  if(mins<=0)return committed;
+  const weight=Number(state?.weight)||0;
+  if(weight<=0)return committed;
+  const sets=activeSessionSets||Number(S.session?.sets)||0;
+  const density=sets/Math.max(1,mins);
+  const met=density>=0.50?5.8:(density>=0.30?5.0:3.5);
+  return committed+Math.max(0,Math.round((met-1)*weight*(mins/60)));
 }
 function renderActive(){
   const panel=document.getElementById('activeWorkoutPanel');
@@ -428,6 +446,25 @@ function saveExerciseValues(i,weight,sets,reps){
   render();
   history();
   if(typeof updateDashboard==='function')updateDashboard();
+}
+function addSetFromCard(i){
+  const w=Number(document.querySelector('[data-weight="'+i+'"]')?.value)||0;
+  const reps=Number(document.querySelector('[data-reps="'+i+'"]')?.value)||10;
+  const sets=Math.min(10,(Number(document.querySelector('[data-sets="'+i+'"]')?.value)||0)+1);
+  const x=W[day].ex[i], k=key(x[0]);
+  const existing=(S.logs||[]).find(log=>log.date===today()&&log.day===day&&log.exercise===x[0]&&!log.autoDone);
+  S.logs=(S.logs||[]).filter(log=>!(log.date===today()&&log.day===day&&log.exercise===x[0]&&!log.autoDone));
+  S.logs.unshift({date:today(),at:Date.now(),day,exercise:x[0],weight:w,sets,reps,rpe:7});
+  if(w)S.weights[k]=w;
+  if(existing?.setDetails)S.logs[0].setDetails=existing.setDetails;
+  if(active){activeSessionSets=Math.max(activeSessionSets,sets);persistSession('active')}
+  save(); render(); history(); if(typeof updateDashboard==='function')updateDashboard();
+}
+function completeExerciseFromCard(i){
+  const weight=document.querySelector('[data-weight="'+i+'"]')?.value||0;
+  const sets=document.querySelector('[data-sets="'+i+'"]')?.value||W[day].ex[i][2];
+  const reps=document.querySelector('[data-reps="'+i+'"]')?.value||10;
+  saveExerciseValues(i,weight,sets,reps);
 }
 function saveExerciseFromCard(i){
   const weight=document.querySelector('[data-weight="'+i+'"]')?.value||0;
