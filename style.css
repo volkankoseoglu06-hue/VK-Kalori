@@ -2973,3 +2973,27 @@ body:has(#homePage.active) .modern-header{
   .modern-header .vk-logo-img{width:116px!important}
   .modern-header .header-date{right:1px!important;font-size:10px!important}
 }
+
+/* FINAL workout layout: timer beside start, stats at bottom, finish button visible */
+#workoutPage .workout-start-panel{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:8px!important}
+#workoutPage .workout-start-main{flex:1 1 auto!important;min-width:0!important}
+#workoutPage .workout-elapsed-top{flex:0 0 72px!important}
+#workoutPage .finish-workout-button{display:block!important;margin:12px 0 10px!important}
+#workoutPage .compact-workout-stats{margin-top:0!important;margin-bottom:10px!important}
+#workoutPage .compact-workout-stats>div{padding:9px 3px!important}
+#workoutPage .compact-workout-stats strong{font-size:14px!important}
+#workoutPage .compact-workout-stats span{font-size:8px!important}
+#workoutModal{overflow:hidden!important}
+#workoutModal.open{align-items:flex-end!important}
+#workoutModal .workout-modal-box{max-height:calc(100vh - 10px)!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;padding-bottom:34px!important;-webkit-overflow-scrolling:touch!important}
+#workoutModal .modal-set-list{padding-bottom:8px!important}
+#workoutModal .modal-set-row{display:grid!important;grid-template-columns:52px minmax(0,1fr) minmax(0,1fr) 34px!important;gap:7px!important;align-items:center!important}
+#workoutModal .modal-set-row input{min-width:0!important}
+#workoutModal .modal-empty-sets{padding:12px!important;border-radius:12px!important;background:#f8fafc!important;color:#64748b!important;font-size:11px!important;line-height:1.4!important}
+@media(max-width:430px){
+  #workoutPage .workout-start-panel{padding:9px!important}
+  #workoutPage .workout-elapsed-top{flex-basis:64px!important;min-width:64px!important}
+  #workoutModal .workout-modal-box{max-height:calc(100vh - 4px)!important;padding:16px 14px 40px!important}
+  #workoutModal #workoutAnimation{height:205px!important}
+  #workoutModal .modal-set-row{grid-template-columns:46px minmax(0,1fr) minmax(0,1fr) 32px!important}
+}
