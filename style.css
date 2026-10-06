@@ -71,3 +71,13 @@ input[type=range]{padding:0}
 #workoutAnimation{height:145px;border-radius:14px;background:#f4f8fc;display:grid;place-items:center;overflow:hidden;margin-bottom:12px}.exercise-svg{width:190px;height:140px}.exercise-svg path{fill:none;stroke:#111a35;stroke-width:7;stroke-linecap:round;stroke-linejoin:round}.exercise-svg circle{fill:#111a35}.exercise-svg .ground{stroke:#cbd5e1;stroke-width:3}
 @media(max-width:390px){.app{padding-left:9px;padding-right:9px}.exercise-card{grid-template-columns:92px 1fr}.exercise-image{width:92px;height:92px}.exercise-title-row h3{font-size:14px}.workout-stats strong{font-size:14px}}
 @media(min-width:700px){.app{width:414px}.top-nav{position:static}}
+
+/* Final mobile polish */
+#brandHeader{transition:none}
+body:not(:has(#homePage.active)) #brandHeader{display:none!important}
+body:has(#workoutPage.active) .workout-heading{display:none!important}
+body:has(#workoutPage.active) .workout-active{margin-top:2px}
+body:has(#workoutPage.active) .top-nav{margin-top:0}
+.exercise-card{min-height:0}
+.exercise-title-row h3{font-weight:900}
+.exercise-results span{font-size:8px}
