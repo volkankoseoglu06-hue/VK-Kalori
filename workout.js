@@ -763,8 +763,17 @@ function resetWorkoutDay(){
   activeSessionSets=0;
   activeSessionId='';
   S.done={};
-  // Gün sıfırlanınca bugünkü set kayıtlarını da sıfırla; geçmiş antrenmanlar korunur.
+  // Gün sıfırlanınca bugünkü set kayıtlarını ve ağırlık antrenmanı yakımını sıfırla.
   S.logs=(S.logs||[]).filter(log=>!(log.date===today() && !log.autoDone));
+  if(typeof state!=='undefined'){
+    const sports=Array.isArray(state.dailySports)?state.dailySports:[];
+    const removedKcal=sports
+      .filter(x=>x.name==='Ağırlık Antrenmanı' && (x.workoutDate===today() || x.date===today()))
+      .reduce((sum,x)=>sum+(Number(x.calories)||0),0);
+    state.dailySports=sports.filter(x=>!(x.name==='Ağırlık Antrenmanı' && (x.workoutDate===today() || x.date===today())));
+    state.burned=Math.max(0,(Number(state.burned)||0)-removedKcal);
+    if(typeof save==='function')save();
+  }
   S.dayResetAt=Date.now();
   S.session=null;
   saveWorkoutState();
