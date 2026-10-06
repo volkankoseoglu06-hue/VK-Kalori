@@ -90,3 +90,21 @@ body:has(#workoutPage.active) .top-nav{margin-top:0}
 .muscle-tags{display:flex;justify-content:center;gap:4px;flex-wrap:wrap;margin-top:4px}
 .muscle-tags span{font-size:8px;font-weight:800;color:#b42318;background:#fff1f0;border:1px solid #ffd6d2;border-radius:7px;padding:3px 5px}
 @media(max-width:390px){.muscle-visual img{width:138px;height:104px}}
+
+/* VK LIFE premium mobile system */
+body{background:radial-gradient(circle at 50% -10%,#ffffff 0,#f4f8fc 42%,#edf4fa 100%)}
+.app{padding-top:8px}
+.brand-header{height:56px}
+.top-nav{backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 10px 28px rgba(24,50,82,.09)}
+.top-nav button{font-size:17px}
+.page-heading h1,.section-title h1,.workout-heading h1{font-weight:900}
+.page-heading,.section-title{margin-bottom:10px}
+.home-grid{gap:7px}
+.home-metric{min-height:101px;padding:12px;background:linear-gradient(145deg,#fff,#f9fbfd)}
+.home-metric strong{font-size:24px}
+.home-net{padding:11px!important}
+.home-summary{padding:8px!important}
+.home-actions{margin-top:8px}
+.home-quick button{background:linear-gradient(145deg,#fff,#f6f9fc);box-shadow:0 4px 12px rgba(30,57,90,.05)}
+#foodPage .card,#sportPage .card,#historyPage .card,#profilePage .card{border:1px solid #e8edf4;box-shadow:0 8px 24px rgba(30,57,90,.06)}
+#foodPage .primary,#sportPage .primary,#profilePage .primary{border-radius:14px}
