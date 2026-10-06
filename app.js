@@ -83,6 +83,10 @@ function updateDashboard(){
   $('targetProtein').textContent = state.goals.protein;
   $('targetWater').textContent = state.goals.water;
   $('today').textContent = new Date().toLocaleDateString('tr-TR');
+  if($('summaryFoodCount')) $('summaryFoodCount').textContent = state.dailyFoods.length;
+  if($('summaryProtein')) $('summaryProtein').textContent = Math.round(state.protein) + ' g';
+  if($('summaryWater')) $('summaryWater').textContent = state.water.toFixed(1) + ' L';
+  if($('summaryWorkout')) $('summaryWorkout').textContent = state.dailySports.some(x => x.workoutDay) ? 'Tamamlandı' : 'Hazır';
   updateDayButtons();
 }
 
@@ -488,20 +492,17 @@ function addWater(){
   updateDashboard();
 }
 
+function showPage(pageId){
+  document.querySelectorAll('.page').forEach(page=>page.classList.remove('active'));
+  const page=$(pageId);
+  if(page) page.classList.add('active');
+  document.querySelectorAll('.top-nav button').forEach(btn=>btn.classList.toggle('active',btn.dataset.page===pageId));
+}
 function setupNavigation(){
-  document.querySelectorAll('.top-nav button').forEach(button=>{
-    button.addEventListener('click', ()=>{
-      document.querySelectorAll('.page').forEach(page=>{
-        page.classList.remove('active');
-      });
-
-      const page = $(button.dataset.page);
-
-      if(page){
-        page.classList.add('active');
-      }
-    });
-  });
+  document.querySelectorAll('.top-nav button').forEach(button=>button.addEventListener('click',()=>showPage(button.dataset.page)));
+  document.querySelectorAll('.home-quick button').forEach(button=>button.addEventListener('click',()=>showPage(button.dataset.page)));
+  const settings=$('settingsButton');
+  if(settings) settings.addEventListener('click',()=>showPage('profilePage'));
 }
 
 function setupDayButtons(){
