@@ -18,7 +18,7 @@ const DEFAULTS = {
   }
 };
 
-const FRESH_START_VERSION='20261006-final13';
+const FRESH_START_VERSION='20261006-final17';
 if(localStorage.getItem('vk_fresh_start_version')!==FRESH_START_VERSION){
   localStorage.removeItem('vk_yasam_kocu');
   localStorage.removeItem('vk_workout_log_v1');
@@ -230,7 +230,7 @@ function updateDashboard(){
   setRing('.sets-ring',Math.min(100,(workout.sets/13)*100));
 
   const headerToday=$('headerToday');
-  if(headerToday) headerToday.textContent=new Date().toLocaleDateString('tr-TR');
+  if(headerToday) headerToday.textContent=new Date().toLocaleDateString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric'});
   updateDayButtons();
 }
 function updateDayButtons(){
