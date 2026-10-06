@@ -2596,3 +2596,11 @@ body:has(#homePage.active) .modern-header .header-weight{display:none!important;
 .vk-home-head #today{margin:0!important;text-align:center!important}
 .modern-header .brand{left:calc(50% - 10px)!important}
 body:has(#homePage.active) .modern-header .brand{left:calc(50% - 10px)!important}
+
+
+/* HEADER FINAL: settings + centered VK LIFE + date on one line */
+.modern-header{position:relative!important;height:58px!important;display:grid!important;grid-template-columns:44px 1fr 92px!important;align-items:center!important;padding:0 2px 8px!important}
+.modern-header .brand{position:static!important;transform:none!important;justify-self:center!important;width:auto!important}
+.modern-header .header-settings{position:static!important;justify-self:start!important}
+.header-date{justify-self:end;color:#64748b;font-size:11px;font-weight:800;white-space:nowrap;letter-spacing:-.1px}
+@media(max-width:430px){.modern-header{grid-template-columns:40px 1fr 84px!important;height:56px!important;padding-bottom:6px!important}.header-date{font-size:10px}}
