@@ -4,16 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>VK Life</title>
-<link rel="stylesheet" href="style.css?v=20261006-vk-final12">
+<link rel="stylesheet" href="style.css?v=20261006-vk-final13">
 </head>
 <body>
 <div class="app">
 <header class="header modern-header">
+  <button id="profileHeaderButton" class="header-settings" aria-label="Profil">⚙</button>
   <button class="brand" data-page="homePage" aria-label="VK Life ana sayfa">
     <img class="vk-logo-img" alt="VK Life" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20360%2092%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22b%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%238aa9ff%22%2F%3E%3Cstop%20offset%3D%22.48%22%20stop-color%3D%22%232563eb%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231736a8%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Cg%20fill%3D%22url(%23b)%22%3E%3Cpath%20d%3D%22M15%206h42l35%2052L126%206h42l-50%2078H82z%22%2F%3E%3Cpath%20d%3D%22M91%2084l42-78h38l-29%2052%2034%2026h-48l-17-17-9%2017z%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%22181%22%20y%3D%2267%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2246%22%20letter-spacing%3D%2210%22%20fill%3D%22%2317213d%22%3ELIFE%3C%2Ftext%3E%3C%2Fsvg%3E">
     <span>LIFE</span>
   </button>
-  <button id="profileHeaderButton" class="header-settings" aria-label="Profil">⚙</button>
+  <span id="headerToday" class="header-date" aria-label="Tarih"></span>
 </header>
 <nav class="bottom-nav">
   <button data-page="homePage" class="active"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5"/><path d="M6.5 10.5V20h11v-9.5"/><path d="M10 20v-5h4v5"/></svg></span><small>Ana Sayfa</small></button>
@@ -23,10 +24,6 @@
   <button data-page="historyPage"><span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2"/><path d="M8 8h8M8 12h5M8 16h3"/></svg></span><small>Geçmiş</small></button>
 </nav>
 <section id="homePage" class="page active">
-  <div class="vk-home-head">
-    <div><p id="today"></p></div>
-
-  </div>
   <div class="home-goal-grid home-four-metrics">
     <div class="goal-card"><div class="goal-ring-top"><span class="goal-icon fire">🔥</span><strong id="currentCalories">0</strong><b> kcal</b></div><small>Kalori</small><em>Hedef 1.800 kcal</em></div>
     <div class="goal-card"><div class="goal-ring-top"><span class="goal-icon protein">🥩</span><strong id="currentProtein">0</strong><b> g</b></div><small>Protein</small><em>Hedef 165 g</em></div>
@@ -88,6 +85,6 @@
 <section id="profilePage" class="page"><div class="modern-page-head"><p class="eyebrow">PROFİL</p><h1>Profil</h1><p>Hedeflerini ve vücut bilgilerini güncelle.</p></div><div class="card modern-card profile-card"><div class="profile-avatar">VK</div><h2>Volkan</h2><p>Hedef: yağ kaybı + kas gelişimi</p><label>Vücut ağırlığı (kg)<input id="profileWeight" type="number" min="30" max="300" step="0.1" placeholder="Örn. 109"></label><div class="grid-2"><label>Kalori<input id="profileCalories" type="number" placeholder="1800"></label><label>Protein<input id="profileProtein" type="number" placeholder="165"></label></div><label>Su hedefi (L)<input id="profileWater" type="number" placeholder="3"></label><button class="primary" id="saveProfileButton">Kaydet</button><button class="danger-outline" id="resetAllButton" type="button">↺ Tüm Verileri Sıfırla</button><p class="profile-note">Ağırlık antrenmanı kalorisi vücut ağırlığı ve antrenman yoğunluğuna göre hesaplanır.</p><p class="repdb-credit">Egzersiz görselleri: <a href="https://repdb.co" target="_blank" rel="noopener">Exercise data by RepDB</a></p></div></section>
 </div>
 <div id="workoutModal" class="workout-modal"><div class="workout-modal-box"><button class="modal-close" data-close>×</button><h2 id="workoutModalTitle"></h2><div id="workoutModalMuscle" class="modal-muscle-tags"></div><div id="workoutAnimation"></div><div class="modal-cues"><ul id="workoutCues"></ul></div><div class="modal-set-actions"><button type="button" class="modal-add-set" data-add-modal-set>+ Set ekle</button></div><div class="modal-set-list" id="modalSetList"><div class="modal-empty-sets">Henüz set eklenmedi. Her seti aşağıdaki <b>+ Set ekle</b> ile kendin gir.</div></div><button class="modal-save-exercise" type="button" data-modal-save>✓ Hareketi Tamamla</button><div class="source-line">Kaynak: <span id="workoutSource"></span></div></div></div>
-<script src="foods.js"></script><script src="app.js"></script><script src="workout.js?v=20261006-vk-final12"></script>
+<script src="foods.js"></script><script src="app.js"></script><script src="workout.js?v=20261006-vk-final13"></script>
 </body>
 </html>
