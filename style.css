@@ -985,3 +985,36 @@ body{min-height:100vh}
   #workoutAnimation{height:230px!important}
   .modal-entry-grid{grid-template-columns:1.1fr .8fr .9fr}
 }
+
+
+/* Fix: modern exercise cards must not inherit the legacy 3-column card grid. */
+.modern-exercise-card{
+  display:block!important;
+  width:100%!important;
+}
+.modern-exercise-card > .exercise-main{
+  display:grid!important;
+  grid-template-columns:92px minmax(0,1fr) 30px!important;
+  width:100%!important;
+  min-width:0!important;
+}
+.modern-exercise-card .exercise-info{
+  min-width:0!important;
+  width:100%!important;
+}
+.modern-exercise-card .exercise-title-row{
+  display:flex!important;
+  align-items:center!important;
+  width:100%!important;
+  min-width:0!important;
+}
+.modern-exercise-card .exercise-title-row h3{
+  flex:1 1 auto!important;
+  min-width:0!important;
+}
+@media(max-width:430px){
+  .modern-exercise-card > .exercise-main{
+    grid-template-columns:82px minmax(0,1fr) 27px!important;
+    gap:10px!important;
+  }
+}
