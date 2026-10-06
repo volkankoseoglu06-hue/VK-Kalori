@@ -2291,3 +2291,19 @@ body:has(#homePage.active) .home-four-metrics .goal-card small{font-size:7px!imp
   .modern-exercise-card .compact-metric b{font-size:8px!important}
   .modern-exercise-card .inline-field input{height:35px!important;min-height:35px!important;font-size:13px!important}
 }
+
+/* HOME FINAL: four ring metrics in one compact row, number + label inside. */
+.home-goal-grid.home-four-metrics{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:8px!important;padding:12px 10px!important;align-items:center!important}
+.home-goal-grid.home-four-metrics .goal-card{width:72px!important;height:72px!important;min-width:0!important;min-height:72px!important;margin:auto!important;padding:7px 2px!important;border-radius:50%!important;background:#fff!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;box-sizing:border-box!important;border:7px solid #dbeafe!important;box-shadow:none!important}
+.home-goal-grid.home-four-metrics .goal-card:nth-child(2){border-color:#d9fbe8!important}
+.home-goal-grid.home-four-metrics .goal-card:nth-child(3){border-color:#ffe9c8!important}
+.home-goal-grid.home-four-metrics .goal-card:nth-child(4){border-color:#d7f7fb!important}
+.home-goal-grid.home-four-metrics .goal-icon{width:auto!important;height:auto!important;background:none!important;margin:0!important;font-size:10px!important;line-height:1!important}
+.home-goal-grid.home-four-metrics .goal-card strong{font-size:17px!important;line-height:1!important;color:#10182d!important;margin-top:2px!important}
+.home-goal-grid.home-four-metrics .goal-card b{font-size:7px!important;line-height:1!important;color:#69788f!important;margin-left:1px!important}
+.home-goal-grid.home-four-metrics .goal-card small{font-size:7px!important;line-height:1!important;color:#61718a!important;margin-top:3px!important;font-weight:800!important}
+@media(max-width:430px){
+ .home-goal-grid.home-four-metrics{gap:5px!important;padding:10px 6px!important}
+ .home-goal-grid.home-four-metrics .goal-card{width:69px!important;height:69px!important;min-height:69px!important;border-width:6px!important}
+ .home-goal-grid.home-four-metrics .goal-card strong{font-size:16px!important}
+}
