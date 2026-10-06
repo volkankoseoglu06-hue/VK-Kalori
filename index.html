@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>VK Life</title>
-<link rel="stylesheet" href="style.css?v=20261006-workout3">
+<link rel="stylesheet" href="style.css?v=20261006-workout4">
 </head>
 <body>
 <div class="app">
@@ -20,11 +20,11 @@
   <button id="profileHeaderButton" class="header-settings" aria-label="Profil">⚙</button>
 </header>
 <nav class="bottom-nav">
-  <button data-page="homePage" class="active"><span>⌂</span><small>Ana Sayfa</small></button>
-  <button data-page="foodPage"><span>♜</span><small>Beslenme</small></button>
-  <button data-page="workoutPage"><span>⌁</span><small>Antrenman</small></button>
-  <button data-page="sportPage"><span>♡</span><small>Kardiyo</small></button>
-  <button data-page="historyPage"><span>▣</span><small>Geçmiş</small></button>
+  <button data-page="homePage" class="active"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5"/><path d="M6.5 10.5V20h11v-9.5"/><path d="M10 20v-5h4v5"/></svg></span><small>Ana Sayfa</small></button>
+  <button data-page="foodPage"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M7 3v7"/><path d="M4.5 3v7a2.5 2.5 0 0 0 5 0V3"/><path d="M7 12v9"/><path d="M15 3v18"/><path d="M15 3c3.5 0 5 2.2 5 5v2h-5"/></svg></span><small>Beslenme</small></button>
+  <button data-page="workoutPage"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 9v6"/><path d="M6 7v10"/><path d="M9 10v4"/><path d="M15 10v4"/><path d="M18 7v10"/><path d="M21 9v6"/><path d="M9 12h6"/></svg></span><small>Antrenman</small></button>
+  <button data-page="sportPage"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10Z"/></svg></span><small>Kardiyo</small></button>
+  <button data-page="historyPage"><span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="16" rx="2"/><path d="M8 8h8M8 12h5M8 16h3"/></svg></span><small>Geçmiş</small></button>
 </nav>
 <section id="homePage" class="page active">
 <div class="card today-summary">
@@ -105,7 +105,7 @@
 <section id="historyPage" class="page"><div class="card"><h3>📈 Beslenme Geçmişi</h3><div id="historyList"></div></div></section>
 <section id="profilePage" class="page"><div class="card"><h3>👤 Profil</h3><label>⚖️ Vücut ağırlığı (kg)<input id="profileWeight" type="number" min="30" max="300" step="0.1" placeholder="Örn. 90"></label><input id="profileCalories" type="number" placeholder="Kalori hedefi"><input id="profileProtein" type="number" placeholder="Protein hedefi"><input id="profileWater" type="number" placeholder="Su hedefi"><p class="profile-note">Ağırlık antrenmanı kalorisi, vücut ağırlığın + gerçek antrenman süresi + set yoğunluğuna göre hesaplanır.</p><button class="primary" id="saveProfileButton">💾 Kaydet</button><p class="repdb-credit">Egzersiz görselleri: <a href="https://repdb.co" target="_blank" rel="noopener">Exercise data by RepDB (repdb.co)</a></p></div></section>
 </div>
-<div id="workoutModal" class="workout-modal"><div class="workout-modal-box"><button class="modal-close" data-close>×</button><h2 id="workoutModalTitle"></h2><div id="workoutModalMuscle" class="modal-muscle-tags"></div><div id="workoutAnimation"></div><div class="modal-cues"><ul id="workoutCues"></ul></div><div class="modal-entry-grid"><label>Ağırlık (kg)<input id="modalWeight" type="number" min="0" step="0.5" value="" placeholder="0"></label><label>Set<input id="modalSets" type="number" min="1" max="10" value="3"></label><label>Tekrar<input id="modalReps" type="number" min="1" max="50" value="10"></label></div><button class="modal-save-exercise" type="button" data-modal-save>✓ Hareketi Kaydet</button><div class="modal-set-list" id="modalSetList"></div><div class="source-line">Kaynak: <span id="workoutSource"></span></div></div></div>
-<script src="foods.js"></script><script src="app.js"></script><script src="workout.js?v=20261006-workout2"></script>
+<div id="workoutModal" class="workout-modal"><div class="workout-modal-box"><button class="modal-close" data-close>×</button><h2 id="workoutModalTitle"></h2><div id="workoutModalMuscle" class="modal-muscle-tags"></div><div id="workoutAnimation"></div><div class="modal-cues"><ul id="workoutCues"></ul></div><div class="modal-entry-grid"><label>Ağırlık (kg)<input id="modalWeight" type="number" min="0" step="0.5" value="" placeholder="0"></label><label>Set<input id="modalSets" type="number" min="1" max="10" value="3"></label><label>Tekrar<input id="modalReps" type="number" min="1" max="50" value="10"></label></div><button class="modal-save-exercise" type="button" data-modal-save>✓ Hareketi Kaydet</button><div class="modal-set-actions"><button type="button" class="modal-add-set" data-add-modal-set>+ Set ekle</button></div><div class="modal-set-list" id="modalSetList"></div><div class="source-line">Kaynak: <span id="workoutSource"></span></div></div></div>
+<script src="foods.js"></script><script src="app.js"></script><script src="workout.js?v=20261006-workout4"></script>
 </body>
 </html>
