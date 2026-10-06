@@ -1,18 +1,19 @@
 const WORKOUT_KEY='vk_workout_log_v1';
 const W={
-1:{name:'Full Body A',focus:'Temel kuvvet • kontrollü tempo',ex:[
+1:{name:'Tüm vücut A',focus:'Temel kuvvet • kontrollü tempo',ex:[
 ['Goblet Squat','Bacak • kalça',3,'8–12','squat',['Dambılı göğüste tut.','Kalça ve dizleri birlikte bükerek kontrollü in.','Topuklardan kuvvet alarak kalk.'],['Dizleri içeri düşürme.','Ağırlığı öne savurma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/equipment/dumbbells/'],
 ['Dambıl Bench Press','Göğüs • ön omuz • triceps',3,'8–12','press',['Ayaklar yere sağlam bassın; baş, omuz ve kalça bench ile temaslı kalsın.','Dambılları kontrollü göğsün orta hattına indir.','Bilekleri nötr tutup yukarı it.'],['Dambılları zıplatma.','Belini aşırı çukurlaştırma.'],'ACE Chest Press','https://www.acefitness.org/resources/everyone/exercise-library/19/chest-press/'],
 ['Tek Kol Dambıl Row','Sırt • arka omuz • biceps',3,'8–12/kol','row',['Bir el ve aynı taraftaki diz bench üzerinde destek olsun.','Dambılı kalçaya doğru çek.','Gövdeyi sabit tut.'],['Gövdeyi döndürme.','Momentumla savurma.'],'ACE Workout Builder','https://www.acefitness.org/continuing-education/certified/april-2025/8841/the-ace-workout-builder-for-high-intensity-resistance-training/'],
 ['Dambıl Romanian Deadlift','Arka bacak • kalça',2,'8–12','hinge',['Dizleri hafif bük, kalçayı geriye gönder.','Dambılları bacaklara yakın indir.','Kalçayı öne getirerek kalk.'],['Belden kamburlaşma.','Ağırlığı öne savurma.'],'ACE Workout Builder','https://www.acefitness.org/continuing-education/certified/april-2025/8841/the-ace-workout-builder-for-high-intensity-resistance-training/'],
-['Hammer Curl','Biceps • ön kol',2,'10–12','curl',['Avuçlar birbirine bakacak.','Dirsekleri gövdeye yakın tut.','Yukarı kontrollü, aşağı yavaş.'],['Belden momentum alma.','Dirsekleri öne kaçırma.'],'ACE Workout Builder','https://www.acefitness.org/continuing-education/certified/april-2025/8841/the-ace-workout-builder-for-high-intensity-resistance-training/']]},
-2:{name:'Full Body B',focus:'Çekiş • omuz • tek taraflı bacak',ex:[
+['Hammer Curl','Biceps • ön kol',2,'10–12','curl',['Avuçlar birbirine bakacak.','Dirsekleri gövdeye yakın tut.','Yukarı kontrollü, aşağı yavaş.'],['Belden momentum alma.','Dirsekleri öne kaçırma.'],'ACE Workout Builder','https://www.acefitness.org/continuing-education/certified/april-2025/8841/the-ace-workout-builder-for-high-intensity-resistance-training/']],
+['Bench Crunch','Karın • core',2,'12–15','core',['Bench üzerinde sırtını destekle.','Karnını sıkarak gövdeyi kontrollü kıvır.','Yavaşça başlangıç pozisyonuna dön.'],['Boynundan çekme.','Hareketi savurma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/']]},
+2:{name:'Tüm vücut B',focus:'Çekiş • omuz • tek taraflı bacak',ex:[
 ['Destekli Split Squat','Bacak • kalça',3,'8–10/kol','squat',['Bench yanında hafif destek kullan.','Ön ayağın tamamı yerde kalsın.','Kontrollü alçal ve öndeki bacaktan yüksel.'],['Dizi içeri kaçırma.','Denge bozuluyorsa ağırlığı azalt.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/equipment/dumbbells/'],
 ['Eğimli Dambıl Press','Üst göğüs • omuz • triceps',3,'8–12','press',['Bench açısını orta seviyede ayarla.','Kürek kemiklerini geriye-aşağı al.','Dambılları üst göğse indirip dengeli it.'],['Omuzları öne düşürme.','Ağırlığı kontrolsüz bırakma.'],'ACE Incline Chest Press','https://www.acefitness.org/resources/everyone/exercise-library/25/incline-chest-press/'],
 ['Bench Destekli Dambıl Row','Sırt • arka omuz',3,'10–12','row',['Göğsü eğimli bench üzerine destekle.','Dambılları kaburgalara doğru çek.','Üst noktada kısa sıkıştırıp yavaş bırak.'],['Boynu öne uzatma.','Omuzları kulaklara kaldırma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/'],
 ['Bench Glute Bridge','Kalça • arka bacak',3,'10–15','bridge',['Omuzları bench üzerine sabitle.','Kalçayı kontrollü kaldır.','Üstte kalçayı sık, belden aşırı yaylanma.'],['Hareketi belden yapma.','Savurma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/equipment/dumbbells/'],
 ['Oturarak Dambıl Shoulder Press','Omuz • triceps',2,'8–12','press',['Sırtlığı destek olarak kullan.','Dambılları omuz hizasından başlat.','Momentum almadan yukarı it.'],['Belden aşırı geriye yatma.','Dambılları çarpıştırma.'],'ACE Shoulder Guide','https://www.acefitness.org/continuing-education/prosource/september-2014/4972/dynamite-delts-ace-research-identifies-top-shoulder-exercises/']]},
-3:{name:'Full Body C',focus:'Hareket kalitesi • omuz • core',ex:[
+3:{name:'Tüm vücut C',focus:'Hareket kalitesi • omuz • core',ex:[
 ['Dambıl Front Squat','Bacak • kalça • core',3,'8–12','squat',['Dambılları omuzlarda güvenli konumda tut.','Gövdeyi kontrollü dik tut.','Topuklardan iterek kalk.'],['Dizleri içeri bırakma.','Gövdeyi öne yığma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/equipment/dumbbells/'],
 ['Dambıl Floor Press','Göğüs • triceps',3,'8–12','press',['Sırtüstü yat, dizleri bük.','Üst kollar yere hafifçe temas edince dur.','Dambılları kontrollü yukarı it.'],['Dirsekleri sertçe yere çarptırma.','Bilekleri bükme.'],'ACE Chest Press','https://www.acefitness.org/resources/everyone/exercise-library/19/chest-press/'],
 ['Rear-Delt Row','Arka omuz • üst sırt',2,'10–15','row',['Gövdeyi kontrollü öne eğ.','Dirsekleri yana açarak çek.','Üst sırtı sıkıp yavaş indir.'],['Boynu kaldırma.','Belden savurma.'],'ACE Shoulder Guide','https://www.acefitness.org/continuing-education/prosource/september-2014/4972/dynamite-delts-ace-research-identifies-top-shoulder-exercises/'],
@@ -180,9 +181,9 @@ function initWorkout(){
 }
 
 function tabs(){
-  const icons=['🅰️','🅱️','🆑'];
-  document.getElementById('workoutDayTabs').innerHTML=[1,2,3].map((d,i)=>
-    '<button class="workout-day '+(d===day?'active':'')+'" data-day="'+d+'"><span class="day-label"><strong>Gün '+d+'</strong></span></button>'
+  const labels={1:'Tüm vücut A',2:'Tüm vücut B',3:'Tüm vücut C'};
+  document.getElementById('workoutDayTabs').innerHTML=[1,2,3].map(d=>
+    '<button class="workout-day '+(d===day?'active':'')+'" data-day="'+d+'"><span class="day-label"><strong>'+labels[d]+'</strong></span></button>'
   ).join('');
 }
 function startGuided(){
@@ -351,7 +352,8 @@ function exerciseImage(name,pose='start'){
     'Dambıl Floor Press':'dumbbell-floor-press',
     'Rear-Delt Row':'rear-delt-fly',
     'Lateral Raise':'lateral-raise',
-    'Dead Bug':'dead-bug'
+    'Dead Bug':'dead-bug',
+    'Bench Crunch':'crunches'
   };
   const id=ids[name];
   return id ? 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+id+'-'+pose+'.webp' : '';
@@ -371,7 +373,8 @@ const MUSCLE_TARGETS={
   'Dambıl Floor Press':['Göğüs','Triceps','Ön omuz'],
   'Bench Destekli Rear-Delt Row':['Arka omuz','Üst sırt','Rhomboid'],
   'Lateral Raise':['Yan omuz','Deltoid'],
-  'Dead Bug':['Karın','Core']
+  'Dead Bug':['Karın','Core'],
+  'Bench Crunch':['Karın','Core']
 };
 function exerciseCardImage(name){
   const start=exerciseImage(name,'start');
@@ -392,7 +395,8 @@ function exerciseCardImage(name){
   'Dambıl Floor Press':'chest shoulder triceps',
   'Bench Destekli Rear-Delt Row':'rear back',
   'Lateral Raise':'shoulder',
-  'Dead Bug':'core'
+  'Dead Bug':'core',
+  'Bench Crunch':'core'
   };
   const zones=(zoneMap[name]||'').split(' ').filter(Boolean);
   const hot=zones.map(z=>'<span class="muscle-hotspot muscle-hotspot-'+z+'"></span>').join('');
@@ -441,44 +445,15 @@ function render(){
   const totalSets=todayLogs.reduce((sum,log)=>sum+(Number(log.sets)||0),0);
 
   title.textContent='Antrenman';
-  subtitle.textContent=plan.name+' • '+plan.focus;
+  subtitle.textContent=plan.name;
 
+  // The reference design uses the timer icon as the session control.
   const startButton=document.getElementById('startWorkoutButton');
   const timer=document.getElementById('workoutElapsed');
   if(startButton){
     const copy=startButton.querySelector('.workout-start-copy strong');
-    const small=startButton.querySelector('.workout-start-copy small');
-    const panel=startButton.closest('.workout-start-panel');
-    let actions=panel?.querySelector('.workout-session-actions');
-    if(!actions&&panel){
-      actions=document.createElement('div');
-      actions.className='workout-session-actions';
-      actions.innerHTML='<button type="button" class="session-pause-btn">Durdur</button><button type="button" class="session-finish-btn">Antrenmanı Tamamla</button>';
-      panel.appendChild(actions);
-      actions.querySelector('.session-pause-btn').onclick=(ev)=>{ev.stopPropagation();pauseWorkout();};
-      actions.querySelector('.session-finish-btn').onclick=(ev)=>{ev.stopPropagation();completeWorkout();};
-    }
-    if(active){
-      if(copy)copy.textContent='Antrenmana Devam Ediyor';
-      if(small)small.textContent='Süreyi takip et ve setlerini kaydet';
-      startButton.classList.add('is-running');
-      if(timer)timer.textContent=formatDuration(sessionElapsedMs());
-      if(actions)actions.style.display='flex';
-    }else if(S.session?.status==='paused'&&S.session.day===day){
-      if(copy)copy.textContent='Antrenmana Devam Et';
-      if(small)small.textContent='Kaldığın yerden devam et';
-      startButton.classList.remove('is-running');
-      if(timer)timer.textContent=formatDuration(Number(S.session.elapsedMs)||0);
-      if(actions)actions.style.display='flex';
-      const pauseBtn=actions?.querySelector('.session-pause-btn');
-      if(pauseBtn)pauseBtn.textContent='Devam Et';
-    }else{
-      if(copy)copy.textContent='Antrenmanı Başlat';
-      if(small)small.textContent='Süreyi başlat ve setlerini kaydet';
-      startButton.classList.remove('is-running');
-      if(timer)timer.textContent='00:00';
-      if(actions)actions.style.display='none';
-    }
+    if(copy)copy.textContent=active?'Antrenman devam ediyor':'Antrenmanı Başlat';
+    if(timer)timer.textContent=active?formatDuration(sessionElapsedMs()):'00:00';
   }
 
   detail.innerHTML=plan.ex.map((x,i)=>{
@@ -486,33 +461,24 @@ function render(){
     const saved=(S.logs||[]).find(log=>log.date===today()&&log.day===day&&log.exercise===x[0]&&!log.autoDone);
     const sets=saved?.sets ?? x[2];
     const reps=saved?.reps ?? Number((x[3].match(/^\\d+/)||['10'])[0]);
-    const weight=saved?.weight ?? S.weights[k] ?? '';
     const isDone=S.done[k]===today();
-    const kcal=saved?exerciseKcalForLog(saved):0;
-    const volume=saved?exerciseVolumeForLog(saved):0;
-    return '<article class="exercise-card modern-exercise-card '+(isDone?'done':'')+'">'+
-      '<div class="exercise-main">'+
-        '<button class="exercise-visual" type="button" data-open="'+i+'">'+exerciseCardImage(x[0])+'</button>'+
-        '<div class="exercise-info">'+
-          '<div class="exercise-title-row"><button class="exercise-open exercise-title-button" type="button" data-open="'+i+'"><h3>'+x[0]+'</h3></button><div class="exercise-actions-large"><button class="inline-add" type="button" data-add-set="'+i+'" aria-label="Set ekle">+</button><button class="inline-complete '+(isDone?'completed':'')+'" type="button" data-complete="'+i+'" aria-label="Hareketi tamamla">✓</button></div></div>'+
-          '<div class="exercise-result">'+
-            '<span class="compact-metric">🔥 <b>'+kcal+' kcal</b></span>'+
-            '<span class="compact-metric">🏋️ <b>'+volume+' kg</b></span>'+
-            '<span class="compact-metric">▱ <b>'+sets+' × '+reps+'</b></span>'+
-          '</div>'+
-          '<div class="exercise-inline-controls">'+
-            '<label class="inline-field"><small>Ağırlık (kg)</small><input aria-label="Ağırlık kg" data-weight="'+i+'" type="number" min="0" step="0.5" value="'+weight+'" placeholder="0"></label>'+
-            '<label class="inline-field"><small>Set</small><input aria-label="Set" data-sets="'+i+'" type="number" min="1" max="10" value="'+sets+'" placeholder="1"></label>'+
-            '<label class="inline-field"><small>Tekrar</small><input aria-label="Tekrar" data-reps="'+i+'" type="number" min="1" max="50" value="'+reps+'" placeholder="10"></label>'+
-          '</div>'+
-        '</div>'+
-      '</div>'+
-    '</article>';
+    const muscles=(MUSCLE_TARGETS[x[0]]||x[1].split(' • ')).slice(0,3);
+    const image=exerciseImage(x[0],'peak')||exerciseImage(x[0],'start');
+    return '<button class="reference-exercise-card '+(isDone?'done':'')+'" type="button" data-open="'+i+'">'+
+      '<span class="reference-exercise-number">'+(i+1)+'</span>'+
+      '<span class="reference-exercise-image"><img src="'+image+'" alt="'+x[0]+'" loading="lazy"></span>'+
+      '<span class="reference-exercise-content">'+
+        '<strong class="reference-exercise-title">'+x[0]+'</strong>'+
+        '<span class="reference-exercise-meta">'+sets+' set • '+x[3]+' tekrar</span>'+
+        '<span class="reference-exercise-tags">'+muscles.map(m=>'<em>'+m+'</em>').join('')+'</span>'+ 
+      '</span>'+ 
+      '<span class="reference-exercise-chevron">›</span>'+ 
+    '</button>';
   }).join('');
 
   const stats=document.querySelector('.workout-quick-stats');
   if(stats){
-    stats.querySelector('[data-stat="moves"]').textContent=doneCount+'/5';
+    stats.querySelector('[data-stat="moves"]').textContent=doneCount+'/'+plan.ex.length;
     stats.querySelector('[data-stat="sets"]').textContent=totalSets;
     stats.querySelector('[data-stat="time"]').textContent=stateWorkoutMinutes()+' dk';
     stats.querySelector('[data-stat="kcal"]').textContent=workoutLoggedKcal();
