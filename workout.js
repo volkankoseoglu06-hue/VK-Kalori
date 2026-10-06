@@ -453,8 +453,10 @@ function open(i){
   const weight=saved?.weight ?? S.weights[key(selected[0])] ?? '';
   const sets=saved?.sets ?? selected[2];
   const reps=saved?.reps ?? Number((selected[3].match(/^\\d+/)||['10'])[0]);
+
   document.getElementById('workoutModalTitle').textContent=selected[0];
   document.getElementById('workoutModalMuscle').innerHTML=selected[1].split(' • ').map(x=>'<span class="modal-muscle-tag">'+x+'</span>').join('');
+
   const start=exerciseImage(selected[0],'start');
   const peak=exerciseImage(selected[0],'peak');
   document.getElementById('workoutAnimation').innerHTML=
@@ -462,16 +464,20 @@ function open(i){
       '<img src="'+start+'" alt="'+selected[0]+' başlangıç" class="real-exercise-img start-img">'+
       '<img src="'+peak+'" alt="'+selected[0]+' hareket" class="real-exercise-img peak-img">'+
       '<div class="real-exercise-labels"><span>BAŞLANGIÇ</span><b>↕</b><span>HAREKET</span></div>'+
-    '</div>'+
-    '<div class="modal-cues"><ul>'+selected[5].map(x=>'<li>'+x+'</li>').join('')+'</ul></div>'+
-    '<div class="modal-entry-grid">'+
-      '<label>Ağırlık (kg)<input id="modalWeight" type="number" min="0" step="0.5" value="'+weight+'" placeholder="0"></label>'+
-      '<label>Set<input id="modalSets" type="number" min="1" max="10" value="'+sets+'"></label>'+
-      '<label>Tekrar<input id="modalReps" type="number" min="1" max="50" value="'+reps+'"></label>'+
-    '</div>'+
-    '<button class="modal-save-exercise" type="button" data-modal-save>✓ Hareketi Kaydet</button>';
+    '</div>';
+
   document.getElementById('workoutCues').innerHTML=selected[5].map(x=>'<li>'+x+'</li>').join('');
-  document.getElementById('workoutMistakes').innerHTML=selected[6].map(x=>'<li>'+x+'</li>').join('');
+  document.getElementById('modalWeight').value=weight;
+  document.getElementById('modalSets').value=sets;
+  document.getElementById('modalReps').value=reps;
+
+  const setList=document.getElementById('modalSetList');
+  if(setList){
+    setList.innerHTML=Array.from({length:Number(sets)||3},(_,n)=>
+      '<div><span>'+ (n+1) +'. Set</span><span>'+(weight||0)+' kg × '+reps+' tekrar</span><b>'+(S.done[key(selected[0])]===today()?'✓':'')+'</b></div>'
+    ).join('');
+  }
+
   document.getElementById('workoutSource').innerHTML='<a target="_blank" rel="noopener" href="https://repdb.co">Exercise data by RepDB ↗</a>';
   document.getElementById('workoutModal').classList.add('open');
 }
