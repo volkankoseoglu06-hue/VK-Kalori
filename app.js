@@ -182,6 +182,7 @@ function updateDashboard(){
   const runBikeBurned=Math.round((state.dailySports||[]).filter(s=>['Koşu','Bisiklet'].includes(String(s.name||''))).reduce((sum,s)=>sum+(Number(s.calories)||0),0));
 
   const setText=(id,value)=>{const el=$(id);if(el)el.textContent=value};
+  const homeDate=$('homeDateBox'); if(homeDate){homeDate.textContent=new Date().toLocaleDateString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric'});} 
   setText('currentCalories',eaten);
   setText('currentProtein',Math.round(state.protein));
   setText('currentWater',state.water.toFixed(1));
@@ -556,46 +557,40 @@ function addSport(){
   renderSports();
 }
 
-function renderHistory(){
-  const box = $('historyList');
-  if(!box) return;
+function renderHistory(filter='daily'){
+  const box=$('historyList');
+  if(!box)return;
+  const tabs=document.querySelectorAll('.history-tabs button');
+  tabs.forEach((b,i)=>b.classList.toggle('active',['daily','workout','cardio','weight'][i]===filter));
 
-  box.innerHTML = '';
-
-  if(!state.history.length){
-    box.innerHTML =
-      '<div class="history-item">Henüz geçmiş kaydı yok.</div>';
+  if(filter==='daily'){
+    if(!state.history.length){box.innerHTML='<div class="history-item">Henüz geçmiş kaydı yok.</div>';return;}
+    box.innerHTML=state.history.map((item,index)=>'<div class="history-item"><strong>'+item.date+'</strong><br>🔥 Alınan: '+item.eaten+' kcal<br>💪 Yakılan: '+item.burned+' kcal<br>⚖️ Net: '+item.net+' kcal<br>🥩 Protein: '+item.protein+' g<br>💧 Su: '+item.water+' L <button class="remove-history" data-history-index="'+index+'">❌ Sil</button></div>').join('');
+    box.querySelectorAll('[data-history-index]').forEach(btn=>btn.onclick=()=>{state.history.splice(Number(btn.dataset.historyIndex),1);save();renderHistory('daily');});
     return;
   }
 
-  state.history.forEach((item,index)=>{
-    const div = document.createElement('div');
-    div.className = 'history-item';
+  if(filter==='cardio'){
+    const rows=(state.dailySports||[]).filter(x=>['Yürüyüş','Koşu','Bisiklet'].includes(x.name));
+    box.innerHTML=rows.length?rows.slice().reverse().map(x=>'<div class="history-item"><strong>'+x.name+'</strong><br>⏱️ '+(x.duration||0)+' dk<br>🔥 '+(x.calories||0)+' kcal</div>').join(''):'<div class="history-item">Henüz kardiyo kaydı yok.</div>';
+    return;
+  }
 
-    div.innerHTML = `
-      <strong>${item.date}</strong>
-      <br>
-      🔥 Alınan: ${item.eaten} kcal
-      <br>
-      💪 Yakılan: ${item.burned} kcal
-      <br>
-      ⚖️ Net: ${item.net} kcal
-      <br>
-      🥩 Protein: ${item.protein} g
-      <br>
-      💧 Su: ${item.water} L
-      <button class="remove-history">❌ Sil</button>
-    `;
-
-    div.querySelector('.remove-history').onclick = ()=>{
-      state.history.splice(index,1);
-      save();
-      renderHistory();
-    };
-
-    box.appendChild(div);
-  });
+  if(filter==='workout' || filter==='weight'){
+    const raw=localStorage.getItem('vk_workout_log_v1');
+    let data={logs:[],weights:{},done:{}};
+    try{data=raw?JSON.parse(raw):data;}catch(e){}
+    if(filter==='workout'){
+      const logs=(data.logs||[]).filter(x=>!x.autoDone);
+      box.innerHTML=logs.length?logs.slice().reverse().slice(0,30).map(x=>'<div class="history-item"><strong>'+x.exercise+'</strong><br>📅 '+x.date+' • Gün '+x.day+'<br>🏋️ '+(x.sets||0)+' set • '+(x.reps||'-')+' tekrar</div>').join(''):'<div class="history-item">Henüz antrenman kaydı yok.</div>';
+    }else{
+      const weight=Number(state.weight)||0;
+      box.innerHTML='<div class="history-item"><strong>⚖️ Güncel Ağırlık</strong><br>'+ (weight?weight.toFixed(1)+' kg':'Henüz kilo girilmedi.') +'</div>';
+    }
+    return;
+  }
 }
+
 
 function finishDay(){
   const record = {
@@ -723,6 +718,14 @@ function setupEvents(){
     };
   }
 
+
+  const historyTabs=document.querySelectorAll('.history-tabs button');
+  historyTabs.forEach((tab,index)=>{
+    tab.addEventListener('click',()=>{
+      const types=['daily','workout','cardio','weight'];
+      renderHistory(types[index]);
+    });
+  });
 
   const foodTabs=document.querySelectorAll('.food-tabs button');
   foodTabs.forEach((tab,index)=>{
