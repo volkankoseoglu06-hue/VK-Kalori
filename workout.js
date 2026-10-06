@@ -41,7 +41,7 @@ function initWorkout(){
  document.getElementById('walkingPostButton').onclick=()=>planWalk(20);
  document.getElementById('walkingRestButton').onclick=()=>planWalk(30); if(document.getElementById('walkingVisual'))document.getElementById('walkingVisual').innerHTML=svg('walk');
  document.getElementById('startWorkoutButton').onclick=()=>{if(active){stopWorkout()}else startGuided()};
- ['workoutWeight','workoutSetsDone','workoutRepsDone'].forEach(id=>document.getElementById(id).oninput=preview);
+
 }
 function tabs(){const icons=['🅰️','🅱️','🆑'];document.getElementById('workoutDayTabs').innerHTML=[1,2,3].map((d,i)=>'<button class="workout-day '+(d===day?'active':'')+'" data-day="'+d+'"><span class="day-icon">'+icons[i]+'</span><span class="day-label"><strong>Gün '+d+'</strong><small>'+W[d].name.replace('Full Body ','')+'</small></span><span class="day-arrow">›</span></button>').join('')}
 function startGuided(){Object.keys(S.done).forEach(k=>{if(S.done[k]===today())delete S.done[k]});save();active=true;activeExercise=0;activeSet=1;activeStartedAt=Date.now();activeSessionSets=0;render();renderActive();const b=document.getElementById('startWorkoutButton');b.textContent='⏹️ Antrenmanı Durdur';b.classList.add('stop-workout')}
