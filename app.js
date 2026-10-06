@@ -67,6 +67,14 @@ function save(){
   localStorage.setItem('vk_yasam_kocu', JSON.stringify(state));
 }
 
+function localDateKey(){
+  const d=new Date();
+  const y=d.getFullYear();
+  const m=String(d.getMonth()+1).padStart(2,'0');
+  const day=String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
+
 function netCalories(){
   return state.eaten - state.burned;
 }
@@ -77,7 +85,7 @@ function getTodayWorkoutSummary(){
     const raw=localStorage.getItem('vk_workout_log_v1');
     if(!raw)return empty;
     const data=JSON.parse(raw)||{};
-    const todayKey=new Date().toISOString().slice(0,10);
+    const todayKey=localDateKey();
     const done=Object.values(data.done||{}).filter(v=>v===todayKey).length;
     const sets=(data.logs||[])
       .filter(x=>x.date===todayKey)
@@ -98,7 +106,7 @@ function updateDashboard(){
   const workout=getTodayWorkoutSummary();
   const eaten=Math.round(state.eaten);
   const burned=Math.round(state.burned);
-  const net=Math.max(0,eaten-burned);
+  const net=eaten-burned;
 
   const setText=(id,value)=>{const el=$(id);if(el)el.textContent=value};
   setText('summaryWalk',walkMinutes);
