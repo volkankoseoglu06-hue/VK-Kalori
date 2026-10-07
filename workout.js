@@ -115,15 +115,15 @@ function updateWorkoutControl(){
   button.classList.remove('is-running','is-paused','is-finished');
   if(active){
     button.classList.add('is-running');
-    button.innerHTML='<span class="workout-play">⏸</span><span class="workout-start-copy"><strong>Durdur</strong><small>Antrenmanı duraklat</small></span>';
+    button.innerHTML='<span class="workout-play">⏸️</span><span class="workout-start-copy"><strong>Durdur</strong></span>';
   }else if(status==='paused'){
     button.classList.add('is-paused');
-    button.innerHTML='<span class="workout-play">▶</span><span class="workout-start-copy"><strong>Devam Et</strong><small>Kaldığın yerden devam et</small></span>';
+    button.innerHTML='<span class="workout-play">▶️</span><span class="workout-start-copy"><strong>Devam Et</strong></span>';
   }else if(status==='finished'){
     button.classList.add('is-finished');
-    button.innerHTML='<span class="workout-play">✓</span><span class="workout-start-copy"><strong>Tamamlandı</strong><small>Bugünkü antrenman tamamlandı</small></span>';
+    button.innerHTML='<span class="workout-play">✅</span><span class="workout-start-copy"><strong>Tamamlandı</strong></span>';
   }else{
-    button.innerHTML='<span class="workout-play">▶</span><span class="workout-start-copy"><strong>Başlat</strong><small>Süreyi başlat ve setlerini kaydet</small></span>';
+    button.innerHTML='<span class="workout-play">▶️</span><span class="workout-start-copy"><strong>Başlat</strong></span>';
   }
   const hasLogs=(S.logs||[]).some(isCurrentWorkoutLog);
   const canFinish=active || hasLogs || S.session?.day===day;
@@ -199,7 +199,15 @@ function initWorkout(){
     if(e.target.closest('[data-modal-save]')){saveExerciseFromModal();return}
     if(e.target.closest('[data-add-modal-set]')){addModalSetRow();return}
     const remove=e.target.closest('[data-remove-set]');
-    if(remove){remove.closest('.modal-set-row')?.remove();syncModalSetCount();return}
+    if(remove){
+      remove.closest('.modal-set-row')?.remove();
+      const list=document.getElementById('modalSetList');
+      if(list && !list.querySelector('.modal-set-row')){
+        list.innerHTML='<div class="modal-empty-sets">Henüz set eklenmedi. <b>+ Set ekle</b> ile kendin gir.</div>';
+      }
+      syncModalSetCount();
+      return;
+    }
     if(e.target.closest('[data-close]'))close();
   };
 
