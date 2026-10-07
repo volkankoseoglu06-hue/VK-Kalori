@@ -314,9 +314,12 @@ function updateFoodPeriod(){
     summary=data.average;
   }
   const set=(id,v)=>{const el=$(id);if(el)el.textContent=v};
-  set('foodPageCalories',Math.round(summary.calories));
-  set('foodPageProtein',Math.round(summary.protein));
-  set('foodPageWater',Number(summary.water).toFixed(1));
+  const periodCalories=safeNum(summary.calories);
+  const periodProtein=safeNum(summary.protein);
+  const periodWater=safeNum(summary.water);
+  set('foodPageCalories',Math.round(periodCalories));
+  set('foodPageProtein',Math.round(periodProtein));
+  set('foodPageWater',periodWater.toFixed(1));
   const label=document.querySelector('.nutrition-period-label');
   if(label)label.textContent=foodPeriod==='today'?'BUGÜNÜN BESLENMESİ':foodPeriod==='yesterday'?'DÜNÜN BESLENMESİ':'SON 7 GÜN ORTALAMASI';
 }
@@ -565,6 +568,7 @@ function addFood(){
   save();
   updateDashboard();
   renderFoods();
+  renderNutritionPage();
 }
 
 function saveCustomFood(){
@@ -590,6 +594,10 @@ function saveCustomFood(){
   $('newFoodName').value = '';
   $('newFoodCalories').value = '';
   $('newFoodProtein').value = '';
+  renderNutritionPage();
+  searchFood('');
+  $('newFoodCard').style.display='none';
+  $('toggleNewFoodButton').textContent='＋ Yeni Besin';
 
   alert('Besin kaydedildi. Aratarak kullanabilirsin.');
 }
