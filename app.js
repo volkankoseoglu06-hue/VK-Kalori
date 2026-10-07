@@ -186,8 +186,11 @@ function updateDashboard(){
   const setText=(id,value)=>{const el=$(id);if(el)el.textContent=value};
   const homeDate=$('homeDateBox'); if(homeDate){homeDate.textContent=new Date().toLocaleDateString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric'});} 
   setText('currentCalories',eaten);
+  setText('currentCaloriesGoal',Math.round(calorieGoal).toLocaleString('tr-TR'));
   setText('currentProtein',Math.round(state.protein));
+  setText('currentProteinGoal',Math.round(proteinGoal).toLocaleString('tr-TR'));
   setText('currentWater',state.water.toFixed(1));
+  setText('currentWaterGoal',waterGoal.toLocaleString('tr-TR',{minimumFractionDigits:1,maximumFractionDigits:1}));
   setText('currentSport',burned);
   setText('currentBurned',burned);
   setText('currentWorkout',workout.done);
