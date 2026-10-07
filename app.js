@@ -752,6 +752,8 @@ function resetAllData(){
   if(!confirm('Beslenme, kardiyo, antrenman geçmişi, kilo ve tüm kayıtlar silinsin mi?'))return;
   localStorage.removeItem('vk_yasam_kocu');
   localStorage.removeItem('vk_workout_log_v2');
+  // Eski antrenman verisi yeniden migrate edilmesin.
+  localStorage.removeItem('vk_workout_log_v1');
   state=structuredClone(DEFAULTS);
   selectedFood=null;
   lastFoodCalc=null;
