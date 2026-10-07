@@ -750,23 +750,24 @@ function benchEquipmentMarkup(name){
   if(name!=='Bench Mekik')return '';
   return '<div class="bench-equipment-card">'+
     '<div class="bench-equipment-visual">'+
-      '<svg viewBox="0 0 520 190" role="img" aria-label="Ayarlanabilir bench, düz konum">'+
-        '<defs><linearGradient id="benchPad" x1="0" x2="1"><stop offset="0" stop-color="#151515"/><stop offset="1" stop-color="#3a3a3a"/></linearGradient></defs>'+
-        '<rect x="82" y="54" width="310" height="28" rx="12" fill="url(#benchPad)"/>'+
-        '<rect x="54" y="50" width="45" height="36" rx="17" fill="#202020"/>'+
-        '<rect x="58" y="83" width="20" height="57" rx="8" fill="#4b5563"/>'+
-        '<rect x="42" y="138" width="105" height="10" rx="5" fill="#111827"/>'+
-        '<rect x="392" y="78" width="14" height="62" rx="7" fill="#4b5563"/>'+
-        '<rect x="374" y="138" width="78" height="10" rx="5" fill="#111827"/>'+
-        '<rect x="198" y="82" width="16" height="52" rx="7" fill="#4b5563"/>'+
-        '<path d="M207 132 L257 145 L303 145" stroke="#4b5563" stroke-width="9" stroke-linecap="round" fill="none"/>'+
-        '<path d="M256 145 L256 157" stroke="#4b5563" stroke-width="9" stroke-linecap="round"/>'+
-        '<rect x="222" y="154" width="72" height="9" rx="4.5" fill="#111827"/>'+
-        '<circle cx="390" cy="104" r="7" fill="#111827"/>'+
-        '<path d="M391 104 L420 104" stroke="#111827" stroke-width="8" stroke-linecap="round"/>'+
+      '<svg viewBox="0 0 520 190" role="img" aria-label="Bench üzerinde mekik gösterimi">'+
+        '<rect x="82" y="78" width="310" height="24" rx="10" fill="#20252b"/>'+
+        '<rect x="48" y="72" width="55" height="34" rx="14" fill="#2b3138"/>'+
+        '<rect x="72" y="100" width="16" height="48" rx="7" fill="#66707c"/>'+
+        '<rect x="48" y="145" width="110" height="9" rx="4" fill="#1f2937"/>'+
+        '<rect x="382" y="99" width="16" height="49" rx="7" fill="#66707c"/>'+
+        '<rect x="360" y="145" width="100" height="9" rx="4" fill="#1f2937"/>'+
+        '<path d="M250 78 C225 64 195 57 168 62 C151 65 141 76 146 87 C152 99 173 102 193 101 L241 100" fill="none" stroke="#2563eb" stroke-width="18" stroke-linecap="round"/>'+
+        '<circle cx="154" cy="58" r="13" fill="#f2b18e"/>'+
+        '<path d="M145 54 Q154 43 165 53" fill="none" stroke="#1f2937" stroke-width="7" stroke-linecap="round"/>'+
+        '<path d="M242 97 Q265 88 281 100 L309 120" fill="none" stroke="#2563eb" stroke-width="14" stroke-linecap="round"/>'+
+        '<path d="M309 120 L352 82" fill="none" stroke="#f2b18e" stroke-width="11" stroke-linecap="round"/>'+
+        '<path d="M352 82 L386 82" fill="none" stroke="#f2b18e" stroke-width="10" stroke-linecap="round"/>'+
+        '<path d="M210 99 L239 125 L281 132" fill="none" stroke="#2563eb" stroke-width="15" stroke-linecap="round"/>'+
+        '<path d="M281 132 L319 132" fill="none" stroke="#f2b18e" stroke-width="11" stroke-linecap="round"/>'+
       '</svg>'+
     '</div>'+
-    '<div class="bench-equipment-copy"><strong>Bench ayarı: Düz</strong><span>0° • Sırt kısmını düz konuma getir. Ayaklarını yere sağlam bas.</span></div>'+
+    '<div class="bench-equipment-copy"><strong>Bench üzerinde mekik</strong><span>Bench düz konumda. Sırtını destekle, ayaklarını yere sağlam bas ve kontrollü kalk.</span></div>'+
   '</div>';
 }
 
