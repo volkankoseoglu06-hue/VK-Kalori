@@ -3156,3 +3156,26 @@ body:has(#homePage.active) .modern-header{
   .reference-exercise-title{font-size:13px}
   .reference-exercise-tags em{font-size:7px;padding:4px 6px}
 }
+
+/* ===== Workout modal mobile fix ===== */
+#workoutModal{z-index:200!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;align-items:flex-end!important;}
+#workoutModal .workout-modal-box{max-height:calc(100dvh - 8px)!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;padding-bottom:32px!important;}
+#workoutModal .modal-set-list{padding-bottom:4px!important;}
+#workoutModal .modal-add-set{display:inline-flex!important;align-items:center;justify-content:center;min-height:42px;padding:9px 14px;border:0;border-radius:12px;background:#eff6ff;color:#2563eb;font:800 13px Manrope, sans-serif;cursor:pointer;}
+#workoutModal .modal-set-row{display:grid!important;grid-template-columns:58px minmax(0,1fr) minmax(0,1fr) 34px!important;gap:7px!important;align-items:center!important;}
+#workoutModal .modal-set-row input{width:100%!important;box-sizing:border-box!important;min-width:0!important;padding:10px 8px!important;border:1px solid #dbe5f1!important;border-radius:10px!important;background:#fff!important;font:800 13px Manrope,sans-serif!important;}
+#workoutModal .modal-remove-set{width:34px;height:34px;border:0;border-radius:10px;background:#fee2e2;color:#dc2626;font-size:20px;cursor:pointer;}
+#workoutModal .modal-empty-sets{padding:11px;border-radius:12px;background:#f8fafc;color:#64748b;font-size:11px;line-height:1.4;}
+.finish-workout-button{width:100%;margin:14px 0 0;min-height:52px;border:0;border-radius:16px;background:#16a34a;color:#fff;font:900 15px Manrope,sans-serif;box-shadow:0 7px 18px rgba(22,163,74,.16);cursor:pointer;}
+.finish-workout-button:disabled{opacity:.55;cursor:not-allowed;}
+.workout-history-card{margin-top:18px;padding-bottom:110px;}
+.workout-history-list{display:grid;gap:8px;}
+.workout-history-summary{position:relative;background:#fff;border:1px solid #e3ebf5;border-radius:16px;padding:12px;box-shadow:0 5px 16px rgba(15,23,42,.045);}
+.history-delete{position:absolute;right:9px;top:9px;width:32px;height:32px;border:0;border-radius:10px;background:#fff1f2;color:#dc2626;font-size:20px;line-height:1;cursor:pointer;}
+.history-summary-head{display:flex;justify-content:space-between;gap:10px;padding-right:40px;font-size:12px;color:#0f172a;}
+.history-summary-head span{color:#64748b;font-weight:800;}
+.history-summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:10px;}
+.history-summary-grid div{background:#f8fafc;border-radius:10px;padding:8px 4px;text-align:center;}
+.history-summary-grid b{display:block;font-size:12px;color:#0f172a;}
+.history-summary-grid small{display:block;margin-top:2px;font-size:8px;color:#64748b;font-weight:700;}
+@media(max-width:430px){#workoutModal .workout-modal-box{max-height:calc(100dvh - 4px)!important;border-radius:24px 24px 0 0!important;padding:16px 14px 30px!important;}.history-summary-grid{grid-template-columns:repeat(2,1fr);}.workout-history-card{padding-bottom:105px;}}
