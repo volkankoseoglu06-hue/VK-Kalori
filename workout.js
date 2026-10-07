@@ -133,6 +133,10 @@ function performanceMarkup(ex){
   return '<div class="exercise-performance"><div><small>Son antrenman</small><strong>'+new Date(rec.last.date+'T12:00:00').toLocaleDateString('tr-TR',{day:'2-digit',month:'short'})+'</strong></div><div class="performance-sets">'+sets+'</div><div class="performance-recommendation">'+suggestion+'<small>'+rec.reason+'</small></div></div>';
 }
 
+function exerciseHistory(name){return S.logs.filter(x=>x.exercise===name&&Number(x.day)===workoutDay&&x.date!==todayKey()).sort((a,b)=>(Number(b.at)||0)-(Number(a.at)||0));}
+function lastPerformance(name){const log=exerciseHistory(name)[0];return log?.setDetails?.length?log:null;}
+function progressionRecommendation(ex){const last=lastPerformance(ex.name);if(!last)return null;const sets=last.setDetails||[];const m=String(ex.reps).match(/(\d+)/);const max=m?Number(m[1]):12;const top=sets.length>0&&sets.every(s=>Number(s.reps)>=max);const avg=sets.reduce((n,s)=>n+Number(s.weight||0),0)/Math.max(1,sets.length);const step=avg>=10?2:1;return {last,suggested:Math.round((top?avg+step:avg)*10)/10,reason:top?'Tekrar hedefinin üst sınırına ulaştın.':'Önce geçen antrenmandaki ağırlıkla tekrarları tamamla.'};}
+function performanceMarkup(ex){const r=progressionRecommendation(ex);if(!r)return '<div class="exercise-performance empty">İlk kaydın olacak. Sonraki antrenmanda burada geçmiş performansını göreceksin.</div>';const sets=r.last.setDetails.map((s,n)=>'<span>'+(n+1)+'. '+Number(s.weight||0)+' kg × '+Number(s.reps||0)+'</span>').join('');return '<div class="exercise-performance"><div><small>Son antrenman</small><strong>'+new Date(r.last.date+'T12:00:00').toLocaleDateString('tr-TR',{day:'2-digit',month:'short'})+'</strong></div><div class="performance-sets">'+sets+'</div><div class="performance-recommendation"><b>Öneri: '+r.suggested+' kg</b><small>'+r.reason+'</small></div></div>';}
 function renderWorkout(){
   const host=document.getElementById('workoutDetail');if(!host)return;
   const plan=WORKOUTS[workoutDay];
