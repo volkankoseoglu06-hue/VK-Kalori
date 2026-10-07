@@ -114,15 +114,15 @@ function updateWorkoutControl(){
   button.classList.remove('is-running','is-paused','is-finished');
   if(active){
     button.classList.add('is-running');
-    button.innerHTML='<span class="workout-start-copy"><strong>⏸ Durdur</strong></span>';
+    button.innerHTML='<span class="workout-play">⏸</span><span class="workout-start-copy"><strong>Durdur</strong><small>Antrenmanı duraklat</small></span>';
   }else if(status==='paused'){
     button.classList.add('is-paused');
-    button.innerHTML='<span class="workout-start-copy"><strong>Devam Et</strong></span>';
+    button.innerHTML='<span class="workout-play">▶</span><span class="workout-start-copy"><strong>Devam Et</strong><small>Kaldığın yerden devam et</small></span>';
   }else if(status==='finished'){
     button.classList.add('is-finished');
-    button.innerHTML='<span class="workout-start-copy"><strong>✓ Tamamlandı</strong></span>';
+    button.innerHTML='<span class="workout-play">✓</span><span class="workout-start-copy"><strong>Tamamlandı</strong><small>Bugünkü antrenman tamamlandı</small></span>';
   }else{
-    button.innerHTML='<span class="workout-start-copy"><strong>Başlat</strong></span>';
+    button.innerHTML='<span class="workout-play">▶</span><span class="workout-start-copy"><strong>Başlat</strong><small>Süreyi başlat ve setlerini kaydet</small></span>';
   }
   if(finishButton){
     const hasLogs=(S.logs||[]).some(isCurrentWorkoutLog);
