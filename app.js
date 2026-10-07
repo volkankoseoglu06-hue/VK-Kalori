@@ -355,6 +355,19 @@ function renderNutritionPage(){
   const calorieBar=$('nutritionCalorieBar');if(calorieBar)calorieBar.style.width=caloriePct+'%';
   const proteinBar=$('nutritionProteinBar');if(proteinBar)proteinBar.style.width=proteinPct+'%';
 
+  const waterGoal=Math.max(0.1,Number(state.goals.water)||3);
+  const waterPct=Math.min(100,Math.round((summary.water/waterGoal)*100));
+  set('nutritionWaterGoal',waterGoal.toFixed(1)+' L');
+  set('nutritionWaterPct',waterPct+'%');
+  set('nutritionWaterValue',Number(summary.water).toFixed(1)+' L');
+  const waterBar=$('nutritionWaterBar');if(waterBar)waterBar.style.width=waterPct+'%';
+  const waterActions=$('nutritionWaterActions');
+  if(waterActions){
+    waterActions.innerHTML=foodPeriod==='today'
+      ? '<button type="button" data-water-add="0.25">+250 ml</button><button type="button" data-water-add="0.5">+500 ml</button>'
+      : '<small>Geçmiş kayıt · ekleme kapalı</small>';
+    waterActions.querySelectorAll('[data-water-add]').forEach(btn=>btn.onclick=()=>addWater(Number(btn.dataset.waterAdd)));
+  }
   const list=$('nutritionFoodList');
   if(list){
     if(foodPeriod==='week'){
@@ -800,10 +813,12 @@ function saveProfile(){
   alert('Profil ve hedefler kaydedildi.');
 }
 
-function addWater(){
-  state.water = Number((state.water + 0.25).toFixed(2));
+function addWater(amount=0.25){
+  const ml=Math.max(0,safeNum(amount));
+  state.water=Number((state.water+ml).toFixed(2));
   save();
   updateDashboard();
+  renderNutritionPage();
 }
 
 function setupNavigation(){
@@ -928,6 +943,14 @@ function setupEvents(){
     'click',
     addSport
   );
+
+  const nutritionWaterActions=$('nutritionWaterActions');
+  if(nutritionWaterActions){
+    nutritionWaterActions.addEventListener('click',e=>{
+      const button=e.target.closest('[data-water-add]');
+      if(button)addWater(Number(button.dataset.waterAdd));
+    });
+  }
 
   const waterTargets = [$('waterButton'), $('homeWaterCard')].filter(Boolean);
   waterTargets.forEach(el=>el.addEventListener('click', addWater));
