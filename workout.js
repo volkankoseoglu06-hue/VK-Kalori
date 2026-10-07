@@ -108,17 +108,33 @@ function clearElapsedTicker(){
 }
 function updateWorkoutControl(){
   const button=document.getElementById('startWorkoutButton');
+  const finishButton=document.getElementById('finishWorkoutButton');
   if(!button)return;
-  const icon=button.querySelector('.workout-play');
-  const copy=button.querySelector('.workout-start-copy strong');
-  const small=button.querySelector('.workout-start-copy small');
   const status=S.session?.day===day ? S.session?.status : null;
   button.classList.remove('is-running','is-paused','is-finished');
-  if(active){ if(icon)icon.textContent='⏸'; if(copy)copy.textContent='Antrenmanı Duraklat'; if(small)small.textContent='Durdur ve kaldığın yerden devam et'; button.classList.add('is-running'); }
-  else if(status==='paused'){ if(icon)icon.textContent='▶'; if(copy)copy.textContent='Antrenmana Devam Et'; if(small)small.textContent='Süre kaldığın yerden devam eder'; button.classList.add('is-paused'); }
-  else if(status==='finished'){ if(icon)icon.textContent='✓'; if(copy)copy.textContent='Antrenman Tamamlandı'; if(small)small.textContent='Yeni antrenman için tekrar başlatabilirsin'; button.classList.add('is-finished'); }
-  else { if(icon)icon.textContent='▶'; if(copy)copy.textContent='Antrenmanı Başlat'; if(small)small.textContent='Süreyi başlat ve setlerini kaydet'; }
-  const timer=document.getElementById('workoutElapsed'); if(timer)timer.textContent=formatDuration(sessionElapsedMs()); const headerTimer=document.getElementById('headerWorkoutElapsed'); if(headerTimer)headerTimer.textContent=formatDuration(sessionElapsedMs());
+  if(active){
+    button.classList.add('is-running');
+    button.innerHTML='<span class="workout-start-copy"><strong>Devam Et</strong></span>';
+  }else if(status==='paused'){
+    button.classList.add('is-paused');
+    button.innerHTML='<span class="workout-start-copy"><strong>Devam Et</strong></span>';
+  }else if(status==='finished'){
+    button.classList.add('is-finished');
+    button.innerHTML='<span class="workout-start-copy"><strong>✓ Tamamlandı</strong></span>';
+  }else{
+    button.innerHTML='<span class="workout-start-copy"><strong>Başlat</strong></span>';
+  }
+  if(finishButton){
+    const hasLogs=(S.logs||[]).some(isCurrentWorkoutLog);
+    const canFinish=active || hasLogs || S.session?.day===day;
+    finishButton.disabled=!canFinish || status==='finished';
+    finishButton.classList.toggle('completed',status==='finished');
+    finishButton.textContent=status==='finished' ? '✓ Antrenman Tamamlandı' : 'Antrenmanı Bitir';
+  }
+  const timer=document.getElementById('workoutElapsed');
+  if(timer)timer.textContent=formatDuration(sessionElapsedMs());
+  const headerTimer=document.getElementById('headerWorkoutElapsed');
+  if(headerTimer)headerTimer.textContent=formatDuration(sessionElapsedMs());
 }
 function startElapsedTicker(){
   clearElapsedTicker();
