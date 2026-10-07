@@ -37,7 +37,7 @@ let sessionTimer=null;
 let sessionStartedAt=0;
 let sessionElapsedBeforeStart=0;
 
-function emptyState(){return {logs:[],weights:{},done:{},session:null,history:[]};}
+function emptyState(){return {logs:[],weights:{},done:{},session:null,sessions:{},history:[]};}
 function loadWorkout(){
   try{
     const v2=JSON.parse(localStorage.getItem(WORKOUT_KEY));
@@ -63,11 +63,24 @@ function normalizeWorkout(v){
   s.logs=Array.isArray(v.logs)?v.logs:[];
   s.weights=v.weights&&typeof v.weights==='object'?v.weights:{};
   s.done=v.done&&typeof v.done==='object'?v.done:{};
-  s.session=v.session||null;
+  s.sessions=v.sessions&&typeof v.sessions==='object'?v.sessions:{};
+  if(v.session && v.session.day && !s.sessions[v.session.day]) s.sessions[v.session.day]=v.session;
+  s.session=s.sessions[1]||null;
   s.history=Array.isArray(v.history)?v.history:[];
   return s;
 }
-function saveWorkout(){localStorage.setItem(WORKOUT_KEY,JSON.stringify(S));}
+function saveWorkout(){
+  if(!S.sessions||typeof S.sessions!=='object')S.sessions={};
+  if(S.session?.day)S.sessions[S.session.day]=S.session;
+  const payload={...S,session:S.sessions[workoutDay]||null,sessions:S.sessions};
+  localStorage.setItem(WORKOUT_KEY,JSON.stringify(payload));
+}
+function loadSelectedSession(){
+  S.session=S.sessions?.[workoutDay]||null;
+  sessionStartedAt=0;
+  sessionElapsedBeforeStart=Number(S.session?.elapsedMs)||0;
+  if(S.session?.status==='active'){sessionStartedAt=Date.now();startTicker();}else stopTicker();
+}
 function todayKey(){const d=new Date();const y=d.getFullYear();const m=String(d.getMonth()+1).padStart(2,'0');const day=String(d.getDate()).padStart(2,'0');return y+'-'+m+'-'+day;}
 function exerciseKey(name){return workoutDay+'_'+name;}
 function currentLogs(){return S.logs.filter(x=>x.date===todayKey()&&Number(x.day)===workoutDay);}
@@ -291,11 +304,20 @@ function finishWorkout(){
   openWorkoutSummary({duration,sets,reps,volume,kcal,moves:completedMoves});
   if(typeof window.updateDashboard==='function')window.updateDashboard();
 }
-function resetWorkoutDay(){
+function resetWorkoutDay(day=workoutDay){
+  if(Number(day)!==Number(workoutDay)){
+    S.done=Object.fromEntries(Object.entries(S.done||{}).filter(([k])=>!k.startsWith(String(day)+'_')));
+    S.logs=S.logs.filter(x=>!(x.date===todayKey()&&Number(x.day)===Number(day)));
+    if(S.sessions)delete S.sessions[day];
+    saveWorkout();
+    return;
+  }
   stopTicker();sessionStartedAt=0;sessionElapsedBeforeStart=0;
-  S.done={};S.session=null;
+  S.done=Object.fromEntries(Object.entries(S.done||{}).filter(([k])=>!k.startsWith(String(day)+'_')));
+  S.session=null;
+  if(S.sessions)delete S.sessions[day];
   const today=todayKey();
-  S.logs=S.logs.filter(x=>x.date!==today);
+  S.logs=S.logs.filter(x=>!(x.date===today&&Number(x.day)===Number(day)));
   saveWorkout();renderWorkout();renderHistory();updateStats();
 }
 
@@ -429,13 +451,31 @@ function renderHistory(){
   host.innerHTML=rows.length?rows.map(x=>'<article class="history-session"><div><strong>'+new Date(x.date+'T12:00:00').toLocaleDateString('tr-TR',{day:'2-digit',month:'short',year:'numeric'})+'</strong><span>Full Body '+x.day+'</span></div><div><b>'+x.sets+'</b><small>Set</small></div><div><b>'+x.volume+' kg</b><small>Hacim</small></div><div><b>'+x.minutes+' dk</b><small>Süre</small></div></article>').join(''):'<div class="empty-state">Henüz tamamlanan antrenman yok.</div>';
 }
 
+function bindHistoryTabs(){
+  const host=document.getElementById('historyTabs');
+  if(!host||host.dataset.bound==='1')return;
+  host.dataset.bound='1';
+  host.addEventListener('click',event=>{
+    const tab=event.target.closest('[data-history-filter]');
+    if(!tab)return;
+    const filter=tab.dataset.historyFilter||'daily';
+    if(typeof window.renderHistory==='function')window.renderHistory(filter);
+  });
+}
+
 function bindWorkout(){
   const page=document.getElementById('workoutPage');if(!page)return;
-  renderDayTabs();renderWorkout();renderHistory();
+  renderDayTabs();renderWorkout();renderHistory();bindHistoryTabs();
   document.getElementById('startWorkoutButton')?.addEventListener('click',startWorkout);
   document.querySelector('.workout-timer-icon')?.addEventListener('click',startWorkout);
   document.getElementById('finishWorkoutButton')?.addEventListener('click',finishWorkout);
-  document.getElementById('workoutDayTabs')?.addEventListener('click',e=>{const b=e.target.closest('[data-day]');if(!b)return;if(S.session?.status==='active'){alert('Önce antrenmanı durdur.');return;}workoutDay=Number(b.dataset.day);renderDayTabs();renderWorkout();updateStats();});
+  document.getElementById('workoutDayTabs')?.addEventListener('click',e=>{
+    const b=e.target.closest('[data-day]');
+    if(!b)return;
+    workoutDay=Number(b.dataset.day)||1;
+    loadSelectedSession();
+    renderDayTabs();renderWorkout();updateStats();
+  });
   document.getElementById('workoutDetail')?.addEventListener('click',e=>{const b=e.target.closest('[data-open-exercise]');if(b)openExercise(Number(b.dataset.openExercise));});
   document.getElementById('workoutSummaryModal')?.addEventListener('click',e=>{
     if(e.target.closest('[data-summary-close]')||e.target.id==='workoutSummaryModal')closeWorkoutSummary();
@@ -446,10 +486,7 @@ function bindWorkout(){
     else if(e.target.closest('[data-remove-set]')){e.target.closest('.modal-set-row')?.remove();relabelModalSets();}
     else if(e.target.closest('[data-close]')||e.target.id==='workoutModal')closeExercise();
   });
-  if(S.session?.day===workoutDay){
-    sessionElapsedBeforeStart=Number(S.session.elapsedMs)||0;
-    if(S.session.status==='active'){sessionStartedAt=Date.now();startTicker();}
-  }
+  loadSelectedSession();
   updateTimerUI();
 }
 function relabelModalSets(){

@@ -737,14 +737,7 @@ function setupEvents(){
   }
 
 
-  const historyTabs=$('historyTabs');
-  if(historyTabs){
-    historyTabs.addEventListener('click',event=>{
-      const tab=event.target.closest('[data-history-filter]');
-      if(!tab)return;
-      renderHistory(tab.dataset.historyFilter||'daily');
-    });
-  }
+
 
   const foodTabs=document.querySelectorAll('.food-tabs button');
   foodTabs.forEach((tab,index)=>{
