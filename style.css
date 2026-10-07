@@ -253,3 +253,43 @@ input:focus,select:focus{border-color:#98b9ff;box-shadow:0 0 0 3px #eff6ff}
 #foodResults.food-results-open .food-search-result{margin:3px 2px;width:calc(100% - 4px)}
 #foodResults.food-results-open::-webkit-scrollbar{width:5px}
 #foodResults.food-results-open::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:10px}
+
+/* Nutrition + Cardio typography aligned with History */
+#foodPage .food-tabs button,
+#sportPage .sport-type-tabs button{font-size:9px;padding:9px 5px}
+#foodPage .nutrition-period-title{margin:10px 3px 6px}
+#foodPage .nutrition-period-title strong{font-size:13px}
+#foodPage .nutrition-period-title span{font-size:8px}
+#foodPage .nutrition-summary-card{border-radius:15px;margin-bottom:9px}
+#foodPage .nutrition-summary-stats>div{padding:10px 3px}
+#foodPage .nutrition-summary-stats span{font-size:12px}
+#foodPage .nutrition-summary-stats b{font-size:11px}
+#foodPage .nutrition-summary-stats small{font-size:8px}
+#foodPage .nutrition-food-log .modern-section-title{margin:14px 2px 8px}
+#foodPage .nutrition-food-log .modern-section-title h2{font-size:15px}
+#foodPage .nutrition-food-log .modern-section-title small{font-size:8px}
+#foodPage .search-card{min-height:42px}
+#foodPage .search-card input{font-size:11px}
+#foodPage .food-search-result{padding:8px 10px}
+#foodPage .food-search-result strong{font-size:10px}
+#foodPage .food-search-result b{font-size:9px}
+#foodPage .meal-group-head strong{font-size:10px}
+#foodPage .meal-group-head span{font-size:8px}
+#foodPage .nutrition-food-row strong{font-size:10px}
+#foodPage .nutrition-food-row>span{font-size:9px}
+#foodPage #newFoodCard h3{font-size:13px}
+#sportPage .sport-type-tabs{margin-bottom:8px}
+#sportPage .cardio-hero{padding:13px;border-radius:15px}
+#sportPage .card-head h2{font-size:16px;letter-spacing:-.2px;margin:2px 0}
+#sportPage .card-head small{font-size:8px}
+#sportPage .card-head>span{font-size:24px}
+#sportPage .cardio-hero label{font-size:10px;margin:8px 0}
+#sportPage .cardio-hero label b{font-size:10px}
+#sportPage .cardio-hero .primary{font-size:10px;padding:10px;margin-top:6px}
+#sportPage .sport-result{font-size:10px!important;padding:8px!important}
+#sportPage .modern-section-title{margin:14px 2px 8px}
+#sportPage .modern-section-title h2{font-size:15px}
+#sportPage .modern-section-title small{font-size:8px}
+#sportPage #dailySports{padding:10px}
+#sportPage #dailySports .food-item{font-size:10px;line-height:1.5;padding:10px}
+#sportPage #dailySports .food-item strong{font-size:11px}
