@@ -3054,3 +3054,31 @@ body:has(#homePage.active) .modern-header{
 #workoutModal.open .modal-set-list{padding-bottom:4px!important}
 #workoutPage #workoutDetail{position:relative!important;z-index:1!important}
 #workoutPage .reference-exercise-card{position:relative!important;z-index:1!important}
+
+
+/* HOME FINAL: iPhone 11 two-by-two goal circles */
+@media(max-width:430px){
+  body:has(#homePage.active) .home-goal-grid.home-four-metrics{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:14px 18px!important;
+    padding:12px 18px 14px!important;
+  }
+  body:has(#homePage.active) .home-goal-grid.home-four-metrics .goal-card{
+    width:112px!important;
+    height:112px!important;
+    min-height:112px!important;
+    border-width:7px!important;
+  }
+  body:has(#homePage.active) .home-goal-grid.home-four-metrics .goal-card strong{font-size:23px!important}
+  body:has(#homePage.active) .home-goal-grid.home-four-metrics .goal-card small{font-size:10px!important}
+  body:has(#homePage.active) .home-goal-grid.home-four-metrics .goal-card em{
+    display:block!important;
+    margin-top:5px!important;
+    font-style:normal!important;
+    font-size:9px!important;
+    line-height:1.15!important;
+    color:#64748b!important;
+    text-align:center!important;
+    width:100%!important;
+  }
+}
