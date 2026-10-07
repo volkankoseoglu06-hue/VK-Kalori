@@ -109,6 +109,7 @@ function clearElapsedTicker(){
 function updateWorkoutControl(){
   const button=document.getElementById('startWorkoutButton');
   const finishButton=document.getElementById('finishWorkoutButton');
+  const finishBottom=document.getElementById('finishWorkoutBottomButton');
   if(!button)return;
   const status=S.session?.day===day ? S.session?.status : null;
   button.classList.remove('is-running','is-paused','is-finished');
@@ -124,12 +125,17 @@ function updateWorkoutControl(){
   }else{
     button.innerHTML='<span class="workout-play">▶</span><span class="workout-start-copy"><strong>Başlat</strong><small>Süreyi başlat ve setlerini kaydet</small></span>';
   }
+  const hasLogs=(S.logs||[]).some(isCurrentWorkoutLog);
+  const canFinish=active || hasLogs || S.session?.day===day;
   if(finishButton){
-    const hasLogs=(S.logs||[]).some(isCurrentWorkoutLog);
-    const canFinish=active || hasLogs || S.session?.day===day;
     finishButton.disabled=!canFinish || status==='finished';
     finishButton.classList.toggle('completed',status==='finished');
     finishButton.textContent=status==='finished' ? '✓ Antrenman Tamamlandı' : 'Antrenmanı Tamamla';
+  }
+  if(finishBottom){
+    finishBottom.disabled=!canFinish || status==='finished';
+    finishBottom.classList.toggle('completed',status==='finished');
+    finishBottom.textContent=status==='finished' ? '✓ Antrenman Tamamlandı' : '✓ Antrenmanı Bitir';
   }
   const timer=document.getElementById('workoutElapsed');
   if(timer)timer.textContent=formatDuration(sessionElapsedMs());
