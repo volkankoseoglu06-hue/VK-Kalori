@@ -3968,3 +3968,17 @@ body:has(#workoutModal.open){overflow:hidden!important;}
     font-size:13px;
   }
 }
+
+
+/* Workout modal must sit above the fixed bottom navigation and remain scrollable */
+#workoutModal{
+  z-index:1000!important;
+  overscroll-behavior:contain;
+}
+#workoutModal .workout-modal-box{
+  max-height:calc(100dvh - 16px)!important;
+  overflow-y:auto!important;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  padding-bottom:24px!important;
+}
