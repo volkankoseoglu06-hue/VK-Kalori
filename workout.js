@@ -94,6 +94,47 @@ function getSets(index){return getExerciseLog(index)?.setDetails||[];}
 function totalSets(){return currentLogs().reduce((n,x)=>n+(Number(x.sets)||0),0);}
 function totalReps(){return currentLogs().reduce((n,x)=>n+(x.setDetails||[]).reduce((m,s)=>m+(Number(s.reps)||0),0),0);}
 function totalVolume(){return Math.round(currentLogs().reduce((n,x)=>n+(x.setDetails||[]).reduce((m,s)=>m+(Number(s.weight)||0)*(Number(s.reps)||0),0),0)*10)/10;}
+function previousMaxWeight(name){
+  return S.logs
+    .filter(x=>x.exercise===name&&x.date!==todayKey())
+    .flatMap(x=>x.setDetails||[])
+    .reduce((m,s)=>Math.max(m,Number(s.weight)||0),0);
+}
+function currentWorkoutPRs(){
+  return currentLogs().map(log=>{
+    const current=Math.max(...(log.setDetails||[]).map(s=>Number(s.weight)||0),0);
+    const previous=previousMaxWeight(log.exercise);
+    return current>previous&&current>0?{name:log.exercise,weight:current,previous}:null;
+  }).filter(Boolean);
+}
+function allPersonalRecords(){
+  const best={};
+  const prs=[];
+  [...S.logs].sort((a,b)=>(Number(a.at)||0)-(Number(b.at)||0)).forEach(log=>{
+    const current=Math.max(...(log.setDetails||[]).map(s=>Number(s.weight)||0),0);
+    if(!current)return;
+    const previous=Number(best[log.exercise])||0;
+    if(current>previous){
+      prs.push({name:log.exercise,weight:current,date:log.date,at:Number(log.at)||0});
+      best[log.exercise]=current;
+    }
+  });
+  return prs;
+}
+function achievementBadges(rows,totalVolume,prCount){
+  const workoutCount=rows.length;
+  return [
+    workoutCount>=1?{icon:'🏁',title:'İlk Antrenman',text:'İlk antrenmanını tamamladın.'}:null,
+    workoutCount>=5?{icon:'🔥',title:'5 Antrenman',text:'5 antrenmanı geride bıraktın.'}:null,
+    workoutCount>=10?{icon:'💪',title:'10 Antrenman',text:'10 antrenman tamamlandı.'}:null,
+    workoutCount>=25?{icon:'🏆',title:'25 Antrenman',text:'Düzenlilik seviyen yükseliyor.'}:null,
+    totalVolume>=1000?{icon:'⚡',title:'1 Ton Hacim',text:'Toplam 1.000 kg hacmi geçtin.'}:null,
+    totalVolume>=5000?{icon:'🚀',title:'5 Ton Hacim',text:'Toplam 5.000 kg hacmi geçtin.'}:null,
+    prCount>=1?{icon:'🥇',title:'İlk Rekor',text:'İlk kişisel rekorunu kırdın.'}:null,
+    prCount>=5?{icon:'🏅',title:'5 Rekor',text:'5 kişisel rekor kırdın.'}:null
+  ].filter(Boolean);
+}
+
 function previousWorkoutSummary(){
   const previous=(S.history||[]).filter(x=>Number(x.day)===workoutDay&&x.date!==todayKey()).sort((a,b)=>(Number(b.at)||0)-(Number(a.at)||0))[0];
   return previous||null;
@@ -231,7 +272,8 @@ function pauseWorkout(){
 function finishWorkout(){
   if(S.session?.status==='finished'){return;}
   if(!currentLogs().length){alert('Önce en az 1 set ekle.');return;}
-  const duration=Math.max(1,sessionMinutes());
+  const duration=S.session?Math.max(1,sessionMinutes()):0;
+  const prs=currentWorkoutPRs();
   const id=S.session?.id||'session_'+Date.now();
   const sets=totalSets();
   const kcal=workoutCalories();
@@ -321,6 +363,10 @@ function openWorkoutSummary(data){
   const modal=document.getElementById('workoutSummaryModal');
   if(!modal)return;
   const comparison=workoutComparison();
+  const prs=currentWorkoutPRs();
+  const prHtml=prs.length
+    ? '<div class="summary-pr-card"><div><strong>🏆 '+prs.length+' yeni rekor</strong><span>Bu antrenmanda kişisel en yüksek ağırlıkların</span></div><div class="summary-pr-list">'+prs.map(x=>'<span>'+x.name+' <b>'+x.weight+' kg</b></span>').join('')+'</div></div>'
+    : '';
   const compareHtml=comparison
     ? '<div class="summary-comparison '+(comparison.volumeDiff>=0?'positive':'negative')+'"><strong>'+(comparison.volumeDiff>=0?'↗':'↘')+' '+Math.abs(comparison.volumePct)+'%</strong><span>Toplam hacim '+(comparison.volumeDiff>=0?'arttı':'azaldı')+'</span></div>'
     : '<div class="summary-comparison"><strong>İlk kayıt</strong><span>Bir sonraki antrenmanda gelişimini burada göreceksin.</span></div>';
@@ -328,7 +374,7 @@ function openWorkoutSummary(data){
   document.getElementById('summaryWorkoutStats').innerHTML=[
     ['Süre',formatTime(data.duration*60000)],['Hareket',data.moves],['Set',data.sets],['Tekrar',data.reps],['Hacim',data.volume+' kg'],['Yakım',data.kcal+' kcal']
   ].map(x=>'<div class="summary-stat"><strong>'+x[1]+'</strong><span>'+x[0]+'</span></div>').join('');
-  document.getElementById('summaryWorkoutCompare').innerHTML=compareHtml;
+  document.getElementById('summaryWorkoutCompare').innerHTML=compareHtml+prHtml;
   modal.classList.add('open');
 }
 function closeWorkoutSummary(){document.getElementById('workoutSummaryModal')?.classList.remove('open');}
@@ -363,10 +409,17 @@ function renderWorkoutProgress(){
     return {name,bestSet};
   }).filter(x=>x.bestSet>0).sort((a,b)=>b.bestSet-a.bestSet).slice(0,5);
   const bestHtml=best.length?best.map(x=>'<div class="progress-exercise-row"><span>'+x.name+'</span><strong>'+x.bestSet+' kg</strong></div>').join(''):'<div class="empty-state">Hareket kaydı oluştukça burada en yüksek ağırlıkların görünecek.</div>';
-  box.innerHTML='<div class="progress-hero"><div><small>ANTRENMAN PERFORMANSI</small><h2>Gücünü takip et</h2><p>Hacim ve ağırlık değişimini tek ekranda gör.</p></div><span>📈</span></div>'+
+  const prRows=allPersonalRecords().sort((a,b)=>(b.at||0)-(a.at||0));
+  const prCount=prRows.length;
+  const badges=achievementBadges(rows,totalVolume,prCount);
+  const badgeHtml=badges.length?badges.map(x=>'<div class="achievement-badge"><span>'+x.icon+'</span><div><strong>'+x.title+'</strong><small>'+x.text+'</small></div></div>').join(''):'<div class="empty-state">İlk antrenmanını tamamladığında rozetlerin burada açılacak.</div>';
+  const recentPrHtml=prRows.slice(0,5).map(x=>'<div class="progress-pr-row"><span><b>'+x.name+'</b><small>'+new Date(x.date+'T12:00:00').toLocaleDateString('tr-TR',{day:'2-digit',month:'short'})+'</small></span><strong>'+x.weight+' kg</strong></div>').join('')||'<div class="empty-state">Yeni kişisel rekorların burada görünecek.</div>';
+  box.innerHTML='<div class="progress-hero"><div><small>ANTRENMAN PERFORMANSI</small><h2>Gücünü takip et</h2><p>Hacim, rekor ve gelişimini tek ekranda gör.</p></div><span>📈</span></div>'+
     '<div class="progress-kpi-grid"><div><strong>'+rows.length+'</strong><span>Antrenman</span></div><div><strong>'+Math.round(totalVolume)+'</strong><span>Toplam kg</span></div><div><strong>'+totalSets+'</strong><span>Toplam set</span></div><div><strong>'+maxWeight+'</strong><span>En yüksek kg</span></div></div>'+
     (change!==null?'<div class="progress-change '+(change>=0?'up':'down')+'"><strong>'+(change>=0?'↗':'↘')+' '+Math.abs(change)+'%</strong><span>Son antrenman hacim değişimi</span></div>':'')+
     '<div class="progress-card"><div class="progress-card-head"><strong>Hacim trendi</strong><small>Son 8 antrenman</small></div><div class="progress-chart">'+chart+'</div></div>'+
+    '<div class="progress-card"><div class="progress-card-head"><strong>Kazanılan rozetler</strong><small>'+badges.length+' adet</small></div><div class="achievement-grid">'+badgeHtml+'</div></div>'+
+    '<div class="progress-card"><div class="progress-card-head"><strong>Son kişisel rekorlar</strong><small>'+prCount+' toplam</small></div>'+recentPrHtml+'</div>'+
     '<div class="progress-card"><div class="progress-card-head"><strong>En yüksek ağırlıklar</strong><small>Hareket bazında</small></div>'+bestHtml+'</div>';
 }
 
