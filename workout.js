@@ -451,9 +451,21 @@ function renderHistory(){
   host.innerHTML=rows.length?rows.map(x=>'<article class="history-session"><div><strong>'+new Date(x.date+'T12:00:00').toLocaleDateString('tr-TR',{day:'2-digit',month:'short',year:'numeric'})+'</strong><span>Full Body '+x.day+'</span></div><div><b>'+x.sets+'</b><small>Set</small></div><div><b>'+x.volume+' kg</b><small>Hacim</small></div><div><b>'+x.minutes+' dk</b><small>Süre</small></div></article>').join(''):'<div class="empty-state">Henüz tamamlanan antrenman yok.</div>';
 }
 
+function bindHistoryTabs(){
+  const host=document.getElementById('historyTabs');
+  if(!host||host.dataset.bound==='1')return;
+  host.dataset.bound='1';
+  host.addEventListener('click',event=>{
+    const tab=event.target.closest('[data-history-filter]');
+    if(!tab)return;
+    const filter=tab.dataset.historyFilter||'daily';
+    if(typeof window.renderHistory==='function')window.renderHistory(filter);
+  });
+}
+
 function bindWorkout(){
   const page=document.getElementById('workoutPage');if(!page)return;
-  renderDayTabs();renderWorkout();renderHistory();
+  renderDayTabs();renderWorkout();renderHistory();bindHistoryTabs();
   document.getElementById('startWorkoutButton')?.addEventListener('click',startWorkout);
   document.querySelector('.workout-timer-icon')?.addEventListener('click',startWorkout);
   document.getElementById('finishWorkoutButton')?.addEventListener('click',finishWorkout);
