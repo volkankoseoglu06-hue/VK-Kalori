@@ -304,3 +304,20 @@ input:focus,select:focus{border-color:#98b9ff;box-shadow:0 0 0 3px #eff6ff}
 .new-food-form .grid-2{gap:6px;margin-top:6px}
 .new-food-form select{margin-top:6px}
 .new-food-form .primary{height:41px;font-size:10px;margin-top:7px}
+
+/* Compact home dashboard */
+#homePage .home-goal-grid{gap:8px}
+#homePage .goal-card{min-height:108px;padding:12px;border-radius:15px}
+#homePage .goal-ring-top{column-gap:4px}
+#homePage .goal-icon{font-size:16px}
+#homePage .goal-ring-top strong{font-size:22px}
+#homePage .goal-ring-top b{font-size:9px}
+#homePage .goal-ring-top em{font-size:8px;margin-top:6px}
+#homePage .goal-ring-top small{font-size:8px;margin-top:2px}
+#homePage .home-summary-heading{margin:13px 2px 7px}
+#homePage .home-summary-heading h2{font-size:15px}
+#homePage .home-summary-heading small{font-size:8px}
+#homePage .home-summary-card>div{padding:9px 12px;font-size:10px}
+#homePage .home-summary-card b{font-size:10px}
+#homePage .finish-day-button{padding:11px;font-size:10px;margin-top:10px}
+#homePage .home-settings-button{padding:9px;font-size:9px;margin-top:6px}
