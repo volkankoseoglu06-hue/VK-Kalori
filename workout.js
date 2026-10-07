@@ -17,7 +17,8 @@ const WORKOUTS={
     {name:'Bench Destekli Dambıl Row',muscles:['Sırt','Rhomboid','Arka omuz'],sets:3,reps:'10–12',image:'single-arm-chest-supported-dumbbell-row',cues:['Göğsünü eğimli bench üzerine destekle.','Dambılları kaburgalara doğru çek.','Üst noktada kısa sıkıştır.']},
     {name:'Dambıl Biceps Curl',muscles:['Biceps','Ön kol'],sets:2,reps:'10–12',image:'bicep-curl',cues:['Dirsekleri sabit tut.','Dambılları kontrollü kıvır.','Aşağı inerken ağırlığı bırakma.']},
     {name:'Oturarak Dambıl Shoulder Press',muscles:['Ön omuz','Yan omuz','Triceps'],sets:2,reps:'8–12',image:'seated-db-press',cues:['Sırtını bench ile destekle.','Dambılları omuz hizasından başlat.','Momentum almadan yukarı it.']},
-    {name:'Dambıl Overhead Triceps Extension',muscles:['Triceps'],sets:2,reps:'10–12',image:'overhead-tricep-extension',cues:['Dambılı iki elinle baş üstünde tut.','Dirsekleri sabit tut.','Kontrollü indirip triceps ile uzat.']}
+    {name:'Dambıl Overhead Triceps Extension',muscles:['Triceps'],sets:2,reps:'10–12',image:'overhead-tricep-extension',cues:['Dambılı iki elinle baş üstünde tut.','Dirsekleri sabit tut.','Kontrollü indirip triceps ile uzat.']},
+    {name:'Dambıl Baldır Kaldırma',muscles:['Baldır'],sets:2,reps:'12–20',image:'standing-calf-raise',cues:['Dik dur ve dambılları yanlarında tut.','Topuklarını kontrollü şekilde kaldır.','Yukarıda kısa sıkıştırıp yavaşça in.']}
   ]},
   3:{name:'Full Body 3',focus:'Bacak • göğüs • sırt • omuz • kol • core',exercises:[
     {name:'Dambıl Floor Press',muscles:['Göğüs','Triceps','Ön omuz'],sets:3,reps:'8–12',image:'dumbbell-floor-press',cues:['Sırtüstü yat ve dizleri bük.','Üst kollar yere yaklaşınca dur.','Dambılları kontrollü yukarı it.']},
