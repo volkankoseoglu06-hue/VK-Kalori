@@ -199,6 +199,8 @@ function initWorkout(){
 
   const finishButton=document.getElementById('finishWorkoutButton');
   if(finishButton) finishButton.onclick=()=>completeWorkout();
+  const finishBottom=document.getElementById('finishWorkoutBottomButton');
+  if(finishBottom) finishBottom.onclick=()=>completeWorkout();
   updateWorkoutControl();
 
   document.getElementById('startWorkoutButton').onclick=()=>{
@@ -211,7 +213,7 @@ function initWorkout(){
 }
 
 function tabs(){
-  const labels={1:'Full Body 1',2:'Full Body 2',3:'Full Body 3'};
+  const labels={1:'Tüm vücut A',2:'Tüm vücut B',3:'Tüm vücut C'};
   document.getElementById('workoutDayTabs').innerHTML=[1,2,3].map(d=>
     '<button class="workout-day '+(d===day?'active':'')+'" data-day="'+d+'"><span class="day-label"><strong>'+labels[d]+'</strong></span></button>'
   ).join('');
@@ -711,6 +713,10 @@ function saveExerciseFromModal(){
   const i=W[day].ex.findIndex(x=>x[0]===selected[0]);
   if(i<0)return;
   const details=collectModalSetDetails();
+  if(!details.length){
+    alert('Önce en az 1 set ekle.');
+    return;
+  }
   if(!details.length){
     alert('Önce en az 1 set ekle.');
     return;
