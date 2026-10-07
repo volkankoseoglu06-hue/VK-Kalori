@@ -3082,3 +3082,46 @@ body:has(#homePage.active) .modern-header{
     width:100%!important;
   }
 }
+
+
+/* ===== Workout interaction fixes ===== */
+.reference-exercise-card.done{
+  border-color:#86efac!important;
+  background:#f0fdf4!important;
+  box-shadow:0 5px 18px rgba(22,163,74,.10)!important;
+}
+.reference-exercise-card.done .reference-exercise-number{
+  background:#16a34a!important;color:#fff!important;
+}
+.reference-exercise-card.done .reference-exercise-title{color:#15803d!important}
+.reference-exercise-card.done .reference-exercise-chevron{color:#16a34a!important}
+#workoutModal{z-index:250!important;padding:8px 8px 12px!important}
+#workoutModal.open{overflow-y:auto!important;-webkit-overflow-scrolling:touch}
+#workoutModal .workout-modal-box{
+  max-height:calc(100dvh - 16px)!important;
+  overflow-y:auto!important;
+  -webkit-overflow-scrolling:touch;
+  padding-bottom:32px!important;
+}
+#workoutModal .modal-set-row{
+  display:grid!important;
+  grid-template-columns:62px minmax(0,1fr) minmax(0,1fr) 30px!important;
+  gap:7px!important;align-items:center!important;
+}
+#workoutModal .modal-set-row input{
+  min-width:0!important;width:100%!important;box-sizing:border-box!important;
+}
+#workoutModal .modal-remove-set{
+  width:30px!important;height:30px!important;border:0!important;border-radius:9px!important;
+  background:#fee2e2!important;color:#dc2626!important;font-weight:900!important;
+}
+.finish-workout-button{
+  width:100%!important;min-height:52px!important;margin:12px 0 24px!important;
+  border:0!important;border-radius:16px!important;background:#0f172a!important;color:#fff!important;
+  font-weight:900!important;font-size:15px!important;
+}
+@media(max-width:430px){
+  #workoutModal{padding:4px 4px 10px!important}
+  #workoutModal .workout-modal-box{max-height:calc(100dvh - 8px)!important;padding:16px 14px 36px!important}
+  #workoutModal .modal-set-row{grid-template-columns:55px minmax(0,1fr) minmax(0,1fr) 30px!important;gap:5px!important}
+}
