@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>VK LIFE</title>
-<link rel="stylesheet" href="style.css?v=20261007-v8">
+<link rel="stylesheet" href="style.css?v=20261007-v9">
 </head>
 <body>
 <div class="app">
@@ -58,6 +58,13 @@
     <div class="grid-2"><button class="primary" id="calculateFoodButton">Hesapla</button><button class="primary" id="addFoodButton">Günlüğe Ekle</button></div>
   </div>
   
+  <div class="nutrition-add-food-row"><button type="button" id="toggleNewFoodButton">＋ Yeni Besin</button></div>
+  <div class="card modern-card new-food-form" id="newFoodCard" style="display:none"><h3>Yeni Besin</h3><input id="newFoodName" placeholder="Besin adı"><div class="grid-2"><input id="newFoodCalories" type="number" placeholder="Kalori"><input id="newFoodProtein" type="number" placeholder="Protein (g)"></div><select id="newFoodUnit"><option>Gram</option><option>ml</option><option>Adet</option><option>Dilim</option><option>Porsiyon</option><option>Kase</option><option>25 g</option></select><button class="primary" id="saveFoodButton">Besini Kaydet</button></div>
+  <div class="nutrition-food-log">
+    <div class="modern-section-title"><h2 id="nutritionFoodTitle">Bugünün besinleri</h2><small id="nutritionFoodCount">0 kayıt</small></div>
+    <div id="nutritionFoodList"></div>
+  </div>
+
 </section>
   <div class="nutrition-add-food-row"><button type="button" id="toggleNewFoodButton">＋ Yeni Besin</button></div>
   <div class="card modern-card new-food-form" id="newFoodCard" style="display:none"><h3>Yeni Besin</h3><input id="newFoodName" placeholder="Besin adı"><div class="grid-2"><input id="newFoodCalories" type="number" placeholder="Kalori"><input id="newFoodProtein" type="number" placeholder="Protein (g)"></div><select id="newFoodUnit"><option>Gram</option><option>ml</option><option>Adet</option><option>Dilim</option><option>Porsiyon</option><option>Kase</option><option>25 g</option></select><button class="primary" id="saveFoodButton">Besini Kaydet</button></div>
@@ -66,6 +73,7 @@
     <div id="nutritionFoodList"></div>
   </div>
 
+</section>
 <section id="sportPage" class="page"><div class="sport-type-tabs"><button class="active">Yürüyüş</button><button>Koşu</button><button>Bisiklet</button></div><div class="card cardio-hero"><div class="card-head"><div><small id="sportHeroLabel">Bugünkü yürüyüş</small><h2>30 dk hedef</h2></div><span id="sportIcon">🚶</span></div><label>Süre <b><span id="durationLabel">45</span> dk</b><input id="sportDuration" type="range" min="5" max="180" value="45"></label><label>Hız <b><span id="speedLabel">5</span> km/sa</b><input id="sportSpeed" type="range" min="3" max="15" value="5"></label><label>Eğim <b>%<span id="inclineLabel">5</span></b><input id="sportIncline" type="range" min="0" max="20" value="5"></label><div id="sportResult" class="sport-result">Yakılan kalori: 0 kcal</div><button class="primary" id="calculateSportButton">Hesapla</button><button class="primary green-button" id="addSportButton">▶ Başlat / Kaydet</button></div><div class="modern-section-title"><h2>Son Kardiyo Kayıtları</h2></div><div class="card modern-card" id="dailySports"></div><select id="sportType" class="hidden-control"><option value="walk">Yürüyüş</option><option value="run">Koşu</option><option value="bike">Bisiklet</option><option value="weights">Ağırlık</option></select></section>
 <section id="workoutPage" class="page">
 <div class="workout-screen-head">
