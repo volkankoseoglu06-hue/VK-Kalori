@@ -434,18 +434,18 @@ function exerciseImage(name,pose='start'){
   return id ? 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+id+'-'+pose+'.webp' : '';
 }
 const MUSCLE_TARGETS={
-  'Goblet Squat':['Quadriceps','Gluteus','Core'],
+  'Goblet Squat':['Quadriceps','Gluteus','Baldır'],
   'Dambıl Bench Press':['Göğüs','Triceps','Ön Omuz'],
   'Tek Kol Dambıl Row':['Sırt','Biceps','Arka Omuz'],
   'Dambıl Romanian Deadlift':['Hamstring','Gluteus','Bel'],
   'Hammer Curl':['Biceps','Ön Kol'],
-  'Destekli Split Squat':['Quadriceps','Gluteus','Hamstring'],
+  'Destekli Split Squat':['Quadriceps','Gluteus','Baldır'],
   'Eğimli Dambıl Press':['Üst göğüs','Ön omuz','Triceps'],
   'Bench Destekli Dambıl Row':['Sırt','Rhomboid','Arka omuz'],
   'Bench Glute Bridge':['Gluteus','Hamstring','Core'],
   'Dambıl Biceps Curl':['Biceps','Ön Kol'],
   'Oturarak Dambıl Shoulder Press':['Ön omuz','Yan omuz','Triceps'],
-  'Dambıl Front Squat':['Quadriceps','Gluteus','Core'],
+  'Dambıl Front Squat':['Quadriceps','Gluteus','Baldır'],
   'Dambıl Floor Press':['Göğüs','Triceps','Ön omuz'],
   'Bench Destekli Rear-Delt Row':['Arka omuz','Üst sırt','Rhomboid'],
   'Lateral Raise':['Yan omuz','Deltoid'],
