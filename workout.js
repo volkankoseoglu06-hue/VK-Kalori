@@ -405,7 +405,7 @@ function exerciseImage(name,pose='start'){
     'Dead Bug':'dead-bug',
     'Bench Mekik':'crunches','Şınav':'push-up',
     'Dambıl Overhead Triceps Extension':'dumbbell-overhead-triceps-extension',
-    'Incline Dumbbell Curl':'incline-dumbbell-curl'
+    'Incline Dumbbell Curl':'incline-db-curl'
   };
   const id=ids[name];
   return id ? 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+id+'-'+pose+'.webp' : '';
