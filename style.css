@@ -4134,3 +4134,110 @@ body:has(#homePage.active) .home-summary-heading small#homeTodayDate{
   .workout-start-main .workout-play{width:34px!important;height:34px!important}
   .modal-set-row{grid-template-columns:43px minmax(0,1fr) minmax(0,1fr) 32px!important}
 }
+
+
+/* ===== GYM final workout controls 2026-10-07b ===== */
+#workoutPage .workout-day-tabs{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:7px!important;
+  margin:0 0 10px!important;
+}
+#workoutPage .workout-day{
+  min-height:36px!important;
+  height:36px!important;
+  padding:5px 7px!important;
+  border-radius:11px!important;
+  font-size:10px!important;
+}
+#workoutPage .workout-day .day-label strong{
+  font-size:10px!important;
+  line-height:1!important;
+  white-space:nowrap!important;
+}
+#workoutPage .workout-control-split{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  gap:8px!important;
+  width:100%!important;
+  margin:0 0 12px!important;
+  padding:0!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+#workoutPage .workout-control-split .workout-start-main,
+#workoutPage .workout-control-split .finish-workout-button{
+  width:100%!important;
+  min-width:0!important;
+  height:46px!important;
+  min-height:46px!important;
+  margin:0!important;
+  padding:0 8px!important;
+  border-radius:12px!important;
+  box-sizing:border-box!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:7px!important;
+  font-family:inherit!important;
+  font-size:12px!important;
+  font-weight:900!important;
+}
+#workoutPage .workout-control-split .workout-start-main{
+  background:#2563eb!important;
+  color:#fff!important;
+  border:0!important;
+  box-shadow:0 5px 13px rgba(37,99,235,.14)!important;
+}
+#workoutPage .workout-control-split .workout-start-main .workout-play{
+  display:grid!important;
+  width:27px!important;
+  height:27px!important;
+  flex:0 0 27px!important;
+  border-radius:50%!important;
+  background:rgba(255,255,255,.18)!important;
+  color:#fff!important;
+  font-size:12px!important;
+  box-shadow:none!important;
+  padding:0!important;
+}
+#workoutPage .workout-control-split .workout-start-copy{
+  display:block!important;
+  min-width:0!important;
+}
+#workoutPage .workout-control-split .workout-start-copy strong{
+  color:#fff!important;
+  font-size:12px!important;
+  white-space:nowrap!important;
+}
+#workoutPage .workout-control-split .workout-start-copy small{display:none!important}
+#workoutPage .workout-control-split .workout-start-main.is-running{background:#f59e0b!important}
+#workoutPage .workout-control-split .workout-start-main.is-running .workout-play{background:rgba(255,255,255,.2)!important}
+#workoutPage .workout-control-split .workout-start-main.is-paused{background:#2563eb!important}
+#workoutPage .workout-control-split .workout-start-main.is-finished{background:#16a34a!important}
+#workoutPage .workout-control-split .finish-workout-button{
+  background:#0f172a!important;
+  color:#fff!important;
+  border:0!important;
+  box-shadow:0 5px 13px rgba(15,23,42,.12)!important;
+}
+#workoutPage .workout-control-split .finish-workout-button.completed{
+  background:#16a34a!important;
+  opacity:1!important;
+}
+#workoutPage .workout-control-split .finish-workout-button:disabled{
+  opacity:.45!important;
+}
+@media(max-width:430px){
+  #workoutPage .workout-day-tabs{gap:6px!important}
+  #workoutPage .workout-day{height:35px!important;min-height:35px!important;padding:4px 5px!important}
+  #workoutPage .workout-day .day-label strong{font-size:9px!important}
+  #workoutPage .workout-control-split{grid-template-columns:1fr 1fr!important;gap:6px!important}
+  #workoutPage .workout-control-split .workout-start-main,
+  #workoutPage .workout-control-split .finish-workout-button{
+    height:44px!important;min-height:44px!important;border-radius:11px!important;font-size:11px!important;
+  }
+  #workoutPage .workout-control-split .workout-start-copy strong{font-size:11px!important}
+  #workoutPage .workout-control-split .workout-play{width:25px!important;height:25px!important;flex-basis:25px!important;font-size:11px!important}
+}
