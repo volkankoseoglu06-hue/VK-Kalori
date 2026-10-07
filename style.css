@@ -3823,3 +3823,81 @@ body:has(#workoutModal.open){overflow:hidden!important;}
   .bench-equipment-visual{min-height:78px}
   .bench-equipment-copy{padding:0 3px 2px}
 }
+
+/* ===== FINAL 2026-10-07: compact two-button workout controls ===== */
+#workoutPage .workout-start-panel.workout-control-split{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:8px!important;
+  width:100%!important;
+  padding:0!important;
+  margin:0 0 12px!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+#workoutPage .workout-control-split .workout-start-main,
+#workoutPage .workout-control-split .finish-workout-button{
+  width:100%!important;
+  min-width:0!important;
+  min-height:50px!important;
+  height:50px!important;
+  margin:0!important;
+  padding:0 10px!important;
+  border-radius:14px!important;
+  box-sizing:border-box!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  font:900 14px/1 'Manrope',sans-serif!important;
+}
+#workoutPage .workout-control-split .workout-start-main{
+  background:#16a34a!important;
+  color:#fff!important;
+  border:0!important;
+  box-shadow:0 6px 16px rgba(22,163,74,.16)!important;
+}
+#workoutPage .workout-control-split .workout-start-main .workout-start-copy{
+  display:block!important;
+  overflow:visible!important;
+}
+#workoutPage .workout-control-split .workout-start-main .workout-start-copy strong{
+  color:#fff!important;
+  font-size:14px!important;
+  white-space:nowrap!important;
+}
+#workoutPage .workout-control-split .workout-start-main .workout-play,
+#workoutPage .workout-control-split .workout-start-main small{
+  display:none!important;
+}
+#workoutPage .workout-control-split .workout-start-main.is-running{
+  background:#2563eb!important;
+}
+#workoutPage .workout-control-split .workout-start-main.is-finished{
+  background:#16a34a!important;
+  cursor:default!important;
+}
+#workoutPage .workout-control-split .finish-workout-button{
+  background:#0f172a!important;
+  color:#fff!important;
+  border:0!important;
+  box-shadow:0 6px 16px rgba(15,23,42,.12)!important;
+}
+#workoutPage .workout-control-split .finish-workout-button:disabled{
+  opacity:.48!important;
+  cursor:default!important;
+}
+#workoutPage .workout-control-split .finish-workout-button.completed{
+  background:#16a34a!important;
+  opacity:1!important;
+}
+@media(max-width:430px){
+  #workoutPage .workout-control-split{gap:7px!important}
+  #workoutPage .workout-control-split .workout-start-main,
+  #workoutPage .workout-control-split .finish-workout-button{
+    min-height:48px!important;
+    height:48px!important;
+    border-radius:13px!important;
+    font-size:13px!important;
+  }
+}
