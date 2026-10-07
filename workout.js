@@ -531,7 +531,7 @@ function render(){
     const hasLogs=(S.logs||[]).some(isCurrentWorkoutLog);
     finishButton.style.display=(active || hasLogs || S.session?.day===day) ? 'block' : 'none';
     finishButton.textContent=S.session?.status==='finished' ? '✓ Antrenman Tamamlandı' : '✓ Antrenmanı Bitir';
-    finishButton.disabled=S.session?.status==='finished';
+    finishButton.disabled=S.session?.status==='finished' || !(active || hasLogs || S.session?.day===day);
   }
 }
 function stateWorkoutMinutes(){
