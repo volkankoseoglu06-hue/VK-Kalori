@@ -403,7 +403,9 @@ function exerciseImage(name,pose='start'){
     'Rear-Delt Row':'rear-delt-fly',
     'Lateral Raise':'lateral-raise',
     'Dead Bug':'dead-bug',
-    'Bench Crunch':'crunches','Şınav':'push-up'
+    'Bench Crunch':'crunches','Şınav':'push-up',
+    'Dambıl Overhead Triceps Extension':'dumbbell-overhead-triceps-extension',
+    'Incline Dumbbell Curl':'incline-dumbbell-curl'
   };
   const id=ids[name];
   return id ? 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+id+'-'+pose+'.webp' : '';
@@ -448,7 +450,9 @@ function exerciseCardImage(name){
   'Bench Destekli Rear-Delt Row':'rear back',
   'Lateral Raise':'shoulder',
   'Dead Bug':'core',
-  'Bench Crunch':'core','Şınav':'chest','Şınav':'chest'
+  'Bench Crunch':'core','Şınav':'chest',
+  'Dambıl Overhead Triceps Extension':'triceps',
+  'Incline Dumbbell Curl':'biceps'
   };
   const zones=(zoneMap[name]||'').split(' ').filter(Boolean);
   const hot=zones.map(z=>'<span class="muscle-hotspot muscle-hotspot-'+z+'"></span>').join('');
