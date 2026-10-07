@@ -25,7 +25,8 @@ const WORKOUTS={
     {name:'Bench Destekli Rear-Delt Row',muscles:['Arka omuz','Üst sırt','Rhomboid'],sets:2,reps:'10–15',image:'rear-delt-fly',cues:['Göğsünü bench üzerine destekle.','Dirsekleri yana açarak çek.','Üst noktada arka omuzları sık.']},
     {name:'Lateral Raise',muscles:['Yan omuz','Deltoid'],sets:2,reps:'10–15',image:'lateral-raise',cues:['Kollar hafif bükülü olsun.','Dambılları omuz hizasına kadar kaldır.','İnerken ağırlığı bırakma.']},
     {name:'Incline Dumbbell Curl',muscles:['Biceps'],sets:2,reps:'10–12',image:'incline-db-curl',cues:['Bench’i eğimli konuma al.','Dirsekleri sabit tut.','Kontrollü şekilde kıvır.']},
-    {name:'Bench Mekik',muscles:['Karın','Core'],sets:2,reps:'10–15',image:'crunches',cues:['Bench düz konumda olsun.','Ayaklarını yere sağlam bas.','Kontrollü şekilde yüksel ve dön.']}
+    {name:'Bench Mekik',muscles:['Karın','Core'],sets:2,reps:'10–15',image:'crunches',cues:['Bench düz konumda olsun.','Ayaklarını yere sağlam bas.','Kontrollü şekilde yüksel ve dön.']},
+    {name:'Dambıl Baldır Kaldırma',muscles:['Baldır'],sets:2,reps:'12–20',image:'dumbbell-calf-raise',cues:['Dik dur ve dambılları yanlarında tut.','Topuklarını kontrollü şekilde kaldır.','Yukarıda kısa sıkıştırıp yavaşça in.']}
   ]}
 };
 
@@ -79,7 +80,12 @@ function loadSelectedSession(){
   S.session=S.sessions?.[workoutDay]||null;
   sessionStartedAt=0;
   sessionElapsedBeforeStart=Number(S.session?.elapsedMs)||0;
-  if(S.session?.status==='active'){sessionStartedAt=Date.now();startTicker();}else stopTicker();
+  if(S.session?.status==='active'){
+    sessionStartedAt=Date.now();
+    startTicker();
+  }else{
+    stopTicker();
+  }
 }
 function todayKey(){const d=new Date();const y=d.getFullYear();const m=String(d.getMonth()+1).padStart(2,'0');const day=String(d.getDate()).padStart(2,'0');return y+'-'+m+'-'+day;}
 function exerciseKey(name){return workoutDay+'_'+name;}
@@ -267,10 +273,16 @@ function stopTicker(){clearInterval(sessionTimer);sessionTimer=null;}
 function startWorkout(){
   if(S.session?.status==='active'){pauseWorkout();return;}
   if(S.session?.status==='paused'){resumeWorkout();return;}
+  // Tamamlanmış antrenmandan sonra aynı gün yeni session başlatılıyorsa
+  // bugünün eski set/hareket kayıtlarını yeni session'a taşımıyoruz.
+  if(S.session?.status==='finished'){
+    S.done=Object.fromEntries(Object.entries(S.done||{}).filter(([k])=>!k.startsWith(String(workoutDay)+'_')));
+    S.logs=S.logs.filter(x=>!(x.date===todayKey()&&Number(x.day)===Number(workoutDay)));
+  }
   const id='session_'+Date.now();
   S.session={id,day:workoutDay,status:'active',elapsedMs:0,sets:0,startedAt:Date.now()};
   sessionElapsedBeforeStart=0;sessionStartedAt=Date.now();
-  saveWorkout();updateTimerUI();startTicker();
+  saveWorkout();renderWorkout();updateTimerUI();startTicker();
 }
 function resumeWorkout(){
   if(!S.session)return startWorkout();
@@ -472,7 +484,21 @@ function bindWorkout(){
   document.getElementById('workoutDayTabs')?.addEventListener('click',e=>{
     const b=e.target.closest('[data-day]');
     if(!b)return;
-    workoutDay=Number(b.dataset.day)||1;
+    const nextDay=Number(b.dataset.day)||1;
+    if(nextDay===workoutDay)return;
+    // Gün değişmeden önce mevcut günün aktif/paused session süresini kaydet.
+    if(S.session?.day===workoutDay){
+      if(S.session.status==='active'){
+        S.session.elapsedMs=elapsedMs();
+        sessionElapsedBeforeStart=S.session.elapsedMs;
+        sessionStartedAt=0;
+      }else{
+        S.session.elapsedMs=Number(S.session.elapsedMs)||0;
+      }
+      if(S.session.id)S.sessions[workoutDay]=S.session;
+      saveWorkout();
+    }
+    workoutDay=nextDay;
     loadSelectedSession();
     renderDayTabs();renderWorkout();updateStats();
   });
