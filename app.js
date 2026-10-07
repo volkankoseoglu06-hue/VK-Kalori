@@ -741,7 +741,7 @@ function finishDay(){
     localStorage.setItem('vk_workout_log_v2',JSON.stringify(workoutData));
   }catch(e){}
 
-  if(typeof resetWorkoutDay==='function')resetWorkoutDay();
+  if(typeof resetWorkoutDay==='function')resetWorkoutDay('all');
 
   save();
   refreshAll();
