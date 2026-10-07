@@ -808,4 +808,8 @@ function resetWorkoutDay(){
   history();
   if(typeof updateDashboard==='function')updateDashboard();
 }
-document.addEventListener('DOMContentLoaded',initWorkout);
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',initWorkout,{once:true});
+}else{
+  initWorkout();
+}
