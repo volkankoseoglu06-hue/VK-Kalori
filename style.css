@@ -3594,3 +3594,18 @@ body:has(#workoutModal.open){overflow:hidden!important;}
 /* Final: workout modal must sit above fixed bottom navigation */
 #workoutModal{z-index:1000!important}
 #workoutModal .workout-modal-box{z-index:1001!important}
+
+/* ===== GYM final cleanup 20261007 ===== */
+.header-date{display:none!important}
+.home-summary-heading{display:flex!important;align-items:flex-end!important;justify-content:space-between!important;margin-top:16px!important}
+.home-summary-heading>div{width:100%}
+.home-summary-heading h2{margin:0!important}
+.home-summary-heading small{display:block;margin-top:3px;color:#64748b;font-size:10px;font-weight:800;text-transform:capitalize}
+.workout-start-panel{display:block!important}
+.workout-start-main{width:100%!important;min-height:56px!important;padding:8px 14px!important}
+.workout-start-panel .workout-elapsed-top{display:none!important}
+@media(max-width:430px){
+  .home-summary-heading{margin-top:14px!important}
+  .home-summary-heading small{font-size:9px}
+  .workout-start-main{min-height:54px!important}
+}
