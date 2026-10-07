@@ -949,8 +949,13 @@ function setupEvents(){
   );
 
   const waterTargets = [$('waterButton'), $('homeWaterCard')].filter(Boolean);
-  waterTargets.forEach(el=>el.addEventListener('click', addWater));
+  waterTargets.forEach(el=>el.addEventListener('click', e=>{
+    if(e.target.closest('#homeWaterAddButton')) return;
+    addWater();
+  }));
   waterTargets.forEach(el=>el.addEventListener('keydown', e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();addWater();}}));
+  const homeWaterAddButton=$('homeWaterAddButton');
+  if(homeWaterAddButton) homeWaterAddButton.addEventListener('click',e=>{e.stopPropagation();addWater(0.25);});
 
   $('finishDayButton').addEventListener(
     'click',
