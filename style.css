@@ -3901,3 +3901,13 @@ body:has(#workoutModal.open){overflow:hidden!important;}
     font-size:13px!important;
   }
 }
+
+
+/* Workout modal mobile: keep it above the fixed bottom navigation and fully scrollable. */
+#workoutModal{z-index:250!important;align-items:flex-end!important;}
+#workoutModal .workout-modal-box{max-height:calc(100vh - 12px)!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;padding-bottom:28px!important;}
+#workoutModal .modal-set-list{padding-bottom:8px;}
+#workoutModal .modal-empty-sets{padding:10px 12px;border-radius:11px;background:#f8fafc;color:#64748b;font-size:11px;line-height:1.4;}
+#workoutModal .modal-empty-sets b{color:#2563eb;}
+#workoutModal .modal-save-exercise{margin-bottom:4px;}
+.finish-workout-button{position:relative;z-index:1;}
