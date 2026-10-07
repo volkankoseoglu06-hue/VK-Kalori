@@ -3982,3 +3982,36 @@ body:has(#workoutModal.open){overflow:hidden!important;}
   overscroll-behavior:contain;
   padding-bottom:24px!important;
 }
+
+
+/* ===== Final GYM polish 2026-10-07 ===== */
+/* Finish + pause controls stay side-by-side on every phone width. */
+.workout-control-split{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:8px!important;align-items:stretch!important}
+.workout-control-split .workout-start-main,.workout-control-split .finish-workout-button{width:100%!important;min-width:0!important;min-height:50px!important;margin:0!important;border-radius:15px!important;box-sizing:border-box!important}
+.workout-control-split .workout-start-main{background:#2563eb!important;color:#fff!important;padding:8px 10px!important}
+.workout-control-split .workout-start-copy strong,.workout-control-split .workout-start-copy small{color:#fff!important}
+.workout-control-split .workout-play{background:rgba(255,255,255,.18)!important;width:34px!important;height:34px!important;font-size:14px!important;box-shadow:none!important}
+.finish-workout-button{border:0!important;background:#0f172a!important;color:#fff!important;font:900 12px/1 'Manrope',sans-serif!important;cursor:pointer!important;box-shadow:0 6px 16px rgba(15,23,42,.12)!important}
+.finish-workout-button:disabled{opacity:.55!important;cursor:not-allowed!important}
+@media(max-width:430px){.workout-control-split{grid-template-columns:1fr 1fr!important;gap:7px!important}.workout-control-split .workout-start-main,.workout-control-split .finish-workout-button{min-height:50px!important}.workout-control-split .workout-start-copy small{display:none!important}.workout-control-split .workout-start-copy strong{font-size:12px!important}.workout-control-split .workout-play{width:30px!important;height:30px!important}}
+
+/* Home goal rings: force true circles, never ellipses. */
+body:has(#homePage.active) .home-goal-grid.home-four-metrics{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-auto-rows:auto!important;gap:12px!important;width:100%!important;align-items:start!important;justify-items:center!important;padding:8px 4px!important}
+body:has(#homePage.active) .home-goal-grid.home-four-metrics .goal-card{width:142px!important;max-width:142px!important;height:174px!important;min-height:174px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:flex-start!important;text-align:center!important;padding:0!important;background:transparent!important;border:0!important;box-shadow:none!important;box-sizing:border-box!important}
+body:has(#homePage.active) .home-goal-grid.home-four-metrics .goal-ring-top{width:118px!important;height:118px!important;min-width:118px!important;min-height:118px!important;aspect-ratio:1/1!important;border-radius:50%!important;display:flex!important;align-items:center!important;justify-content:center!important;flex:none!important;background:#fff!important;border:8px solid #e6eef8!important;box-sizing:border-box!important;box-shadow:0 7px 20px rgba(15,23,42,.07)!important;position:relative!important}
+body:has(#homePage.active) .home-goal-grid.home-four-metrics .goal-card:nth-child(1) .goal-ring-top{border-color:#ffd8ad!important}.home-goal-grid.home-four-metrics .goal-card:nth-child(2) .goal-ring-top{border-color:#ccefdc!important}.home-goal-grid.home-four-metrics .goal-card:nth-child(3) .goal-ring-top{border-color:#ffd8d8!important}.home-goal-grid.home-four-metrics .goal-card:nth-child(4) .goal-ring-top{border-color:#c9f3f7!important}
+body:has(#homePage.active) .home-goal-grid.home-four-metrics .goal-icon{font-size:16px!important;line-height:1!important;margin-right:3px!important}
+body:has(#homePage.active) .home-goal-grid.home-four-metrics .goal-card strong{font-size:22px!important;line-height:1!important}
+body:has(#homePage.active) .home-goal-grid.home-four-metrics .goal-card b{font-size:9px!important}
+body:has(#homePage.active) .home-goal-grid.home-four-metrics .goal-card small{display:block!important;margin-top:9px!important;font-size:12px!important;font-weight:900!important;color:#334155!important}
+body:has(#homePage.active) .home-goal-grid.home-four-metrics .goal-card em{display:block!important;margin-top:4px!important;font-size:10px!important;font-style:normal!important;font-weight:800!important;color:#64748b!important}
+@media(max-width:430px){body:has(#homePage.active) .home-goal-grid.home-four-metrics{gap:8px 5px!important;padding:5px 0!important}body:has(#homePage.active) .home-goal-grid.home-four-metrics .goal-card{width:140px!important;max-width:140px!important;height:166px!important;min-height:166px!important}body:has(#homePage.active) .home-goal-grid.home-four-metrics .goal-ring-top{width:112px!important;height:112px!important;min-width:112px!important;min-height:112px!important}}
+
+/* Modern home title */
+body:has(#homePage.active) .home-summary-heading{margin:18px 2px 10px!important;padding:0!important;border:0!important;display:flex!important;align-items:center!important}
+body:has(#homePage.active) .home-summary-heading h2{font-size:22px!important;line-height:1.1!important;letter-spacing:-.7px!important;font-weight:900!important;color:#0f172a!important;margin:0!important}
+body:has(#homePage.active) .home-summary-heading h2:before{content:'VK LIFE';display:block;font-size:9px!important;letter-spacing:2px!important;color:#2563eb!important;margin-bottom:5px!important;font-weight:900!important}
+body:has(#homePage.active) .home-summary-heading small{display:block!important;margin-top:5px!important;font-size:10px!important;color:#64748b!important;font-weight:700!important}
+
+/* Bench crunch illustration: keep the person on the bench, not separate emoji/icons. */
+.bench-equipment-card{display:flex;align-items:center;gap:10px;margin:8px 0 10px;padding:8px 10px;border:1px solid #dbe5f1;border-radius:14px;background:#f8fafc}.bench-equipment-visual{width:92px;height:58px;flex:none;border-radius:10px;background:#fff;overflow:hidden}.bench-equipment-visual svg{width:100%;height:100%;display:block}.bench-equipment-copy{display:flex;flex-direction:column;gap:3px}.bench-equipment-copy strong{font-size:11px;color:#334155}.bench-equipment-copy span{font-size:9px;line-height:1.35;color:#64748b}@media(max-width:430px){.bench-equipment-card{gap:8px;padding:7px}.bench-equipment-visual{width:86px;height:55px}.bench-equipment-copy strong{font-size:10px}.bench-equipment-copy span{font-size:8px}}
