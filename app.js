@@ -784,6 +784,10 @@ function setupEvents(){
       const type=typeMap[index]||'walk';
       const hidden=$('sportType');
       if(hidden) hidden.value=type;
+      const icons={walk:'🚶',run:'🏃',bike:'🚴'};
+      const names={walk:'Bugünkü yürüyüş',run:'Bugünkü koşu',bike:'Bugünkü bisiklet'};
+      if($('sportIcon')) $('sportIcon').textContent=icons[type]||'🚶';
+      if($('sportHeroLabel')) $('sportHeroLabel').textContent=names[type]||'Bugünkü kardiyo';
       const speed=$('sportSpeed');
       const incline=$('sportIncline');
       if(type==='walk'){speed.min=3;speed.max=8;speed.value=Math.min(8,Math.max(3,Number(speed.value)||5));}
