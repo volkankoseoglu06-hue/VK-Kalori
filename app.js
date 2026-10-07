@@ -439,48 +439,36 @@ function renderSports(){
 }
 
 function searchFood(text){
-  const results = $('foodResults');
-  if(!results) return;
+  const results=$('foodResults');
+  if(!results)return;
+  results.innerHTML='';
+  const query=text.trim().toLocaleLowerCase('tr-TR');
+  if(query.length<2)return;
 
-  results.innerHTML = '';
-
-  const query = text.trim().toLocaleLowerCase('tr-TR');
-
-  if(query.length < 2){
-    results.innerHTML = '<div class="food-item">En az 2 harf yaz.</div>';
-    return;
-  }
-
-  const list = [...foods, ...state.customFoods];
-
-  const filtered = list.filter(food =>
-    String(food.name).toLocaleLowerCase('tr-TR').includes(query)
-  );
-
+  const list=[...foods,...state.customFoods];
+  const filtered=list.filter(food=>String(food.name).toLocaleLowerCase('tr-TR').includes(query));
   if(!filtered.length){
-    results.innerHTML = '<div class="food-item"><strong>Besin bulunamadı.</strong><br><small>Kalori ve protein değerini girerek hemen ekleyebilirsin.</small><button type="button" class="quick-custom-food" style="margin-top:8px;width:100%;padding:9px;border:0;border-radius:10px;background:#111827;color:#fff;font-weight:800">➕ Bu besini ekle</button></div>';
-    results.querySelector('.quick-custom-food').onclick=()=>{const name=$('newFoodName');if(name){name.value=text.trim();name.focus();name.scrollIntoView({behavior:'smooth',block:'center'});}};
+    results.innerHTML='<div class="food-search-empty">Besin bulunamadı. Yeni Besin bölümünden ekleyebilirsin.</div>';
     return;
   }
 
-  filtered.forEach(food=>{
-    const item = document.createElement('div');
-    item.className = 'food-item';
-
-    item.innerHTML = `
-      <strong>${food.name}</strong>
-      <br>
-      🔥 ${food.kcal} kcal
-      <br>
-      🥩 ${food.protein} g
-      <br>
-      <small>${food.unit || '100 g'}</small>
-    `;
-
-    item.onclick = ()=>selectFood(food);
+  filtered.slice(0,6).forEach(food=>{
+    const item=document.createElement('button');
+    item.type='button';
+    item.className='food-search-result';
+    item.innerHTML='<span><strong>'+food.name+'</strong><small>'+ (food.unit||'100 g') +'</small></span><span><b>'+food.kcal+' kcal</b><small>'+food.protein+' g protein</small></span>';
+    item.onclick=()=>selectFood(food);
     results.appendChild(item);
   });
+
+  if(filtered.length>6){
+    const more=document.createElement('div');
+    more.className='food-search-more';
+    more.textContent=(filtered.length-6)+' sonuç daha bulunuyor';
+    results.appendChild(more);
+  }
 }
+
 
 function detectUnit(unit){
   const normalized = String(unit || '').toLocaleLowerCase('tr-TR');
@@ -514,6 +502,11 @@ function selectFood(food){
   $('foodAmount').value = (unit === 'gram' || unit === 'ml') ? 100 : 1;
 
   calculateFood();
+  const results=$('foodResults');
+  const search=$('foodSearch');
+  if(results)results.innerHTML='';
+  if(search)search.value=food.name;
+  $('foodCalcCard')?.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
 function calculateFood(){
