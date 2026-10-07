@@ -53,27 +53,13 @@
 </section>
 <section id="foodPage" class="page">
   <div class="food-tabs"><button class="active">Bugün</button><button>Dün</button><button>Bu Hafta</button></div>
+  <div class="nutrition-period-title"><strong id="nutritionPeriodLabel">BUGÜNÜN BESLENMESİ</strong><span id="nutritionPeriodNote">Günlük hedef</span></div>
   <div class="nutrition-summary-card">
-    <div class="nutrition-summary-head"><strong id="nutritionPeriodLabel">BUGÜNÜN BESLENMESİ</strong><span>Günlük özet</span></div>
     <div class="nutrition-summary-stats">
-      <div><span>🔥</span><b id="nutritionSummaryCalories">0 kcal</b><small>Kalori</small></div>
-      <div><span>🥩</span><b id="nutritionSummaryProtein">0 g</b><small>Protein</small></div>
-      <div><span>💧</span><b id="nutritionSummaryWater">0.0 L</b><small>Su</small></div>
+      <div><span>🔥</span><b id="nutritionSummaryCalories">0 / 1600 kcal</b><small>Kalori</small></div>
+      <div><span>🥩</span><b id="nutritionSummaryProtein">0 / 165 g</b><small>Protein</small></div>
+      <div><span>💧</span><b id="nutritionSummaryWater">0.0 / 3.0 L</b><small>Su</small></div>
     </div>
-  </div>
-  <div class="nutrition-progress-card">
-    <div><span>Kalori hedefi</span><b id="nutritionCaloriePct">0%</b></div>
-    <div class="nutrition-progress-track"><i id="nutritionCalorieBar"></i></div>
-    <small class="nutrition-target-line">Hedef <b id="nutritionCalorieGoal">1800</b> kcal</small>
-    <div class="nutrition-progress-secondary"><span>Protein hedefi</span><b id="nutritionProteinPct">0%</b></div>
-    <div class="nutrition-progress-track"><i id="nutritionProteinBar"></i></div>
-    <small class="nutrition-target-line">Hedef <b id="nutritionProteinGoal">165</b> g</small>
-  </div>
-  <div class="nutrition-water-card">
-    <div class="nutrition-water-head"><div><strong>💧 Su Takibi</strong><small>Günlük hedef</small></div><b id="nutritionWaterValue">0.0 L</b></div>
-    <div class="nutrition-progress-track"><i id="nutritionWaterBar"></i></div>
-    <div class="nutrition-water-meta"><span><b id="nutritionWaterPct">0%</b> tamamlandı</span><span>Hedef <b id="nutritionWaterGoal">3.0 L</b></span></div>
-    <div id="nutritionWaterActions" class="nutrition-water-actions"></div>
   </div>
   <div class="nutrition-food-log">
     <div class="modern-section-title"><h2 id="nutritionFoodTitle">Bugünün besinleri</h2><small id="nutritionFoodCount">0 kayıt</small></div>
@@ -118,6 +104,6 @@
 <section id="profilePage" class="page"><div class="profile-page-head"><button class="profile-back-button" type="button" data-page="homePage">‹</button><div><small>VK LIFE</small><h1>Profil & Ayarlar</h1></div></div><div class="card modern-card profile-card"><div class="profile-avatar">VK</div><label>Adın<input id="profileName" type="text" maxlength="30" placeholder="Adını yaz"></label><p>Hedef: yağ kaybı + kas gelişimi</p><label>Vücut ağırlığı (kg)<input id="profileWeight" type="number" min="30" max="300" step="0.1" placeholder="Örn. 109"></label><div class="grid-2"><label>Kalori<input id="profileCalories" type="number" placeholder="1800"></label><label>Protein<input id="profileProtein" type="number" placeholder="165"></label></div><label>Su hedefi (L)<input id="profileWater" type="number" placeholder="3"></label><button class="primary" id="saveProfileButton">Kaydet</button><button class="danger-outline" id="resetAllButton" type="button">↺ Tüm Verileri Sıfırla</button><p class="profile-note">Ağırlık antrenmanı kalorisi vücut ağırlığı ve antrenman yoğunluğuna göre hesaplanır.</p><p class="repdb-credit">Egzersiz görselleri: <a href="https://repdb.co" target="_blank" rel="noopener">Exercise data by RepDB</a></p></div></section>
 </div>
 <div id="workoutSummaryModal" class="workout-summary-modal"><div class="workout-summary-box"><button class="summary-close" data-summary-close type="button">×</button><div class="summary-success">✓</div><small class="summary-eyebrow">ANTRENMAN TAMAMLANDI</small><h2 id="summaryWorkoutTitle">Full Body 1 tamamlandı</h2><div id="summaryWorkoutStats" class="summary-stats-grid"></div><div id="summaryWorkoutCompare"></div><button class="modal-save-exercise summary-close-button" type="button" data-summary-close>Harika, kapat</button></div></div><div id="workoutModal" class="workout-modal"><div class="workout-modal-box"><button class="modal-close" data-close>×</button><h2 id="workoutModalTitle"></h2><div id="workoutModalMuscle" class="modal-muscle-tags"></div><div id="workoutAnimation"></div><div class="modal-cues"><ul id="workoutCues"></ul></div><div class="modal-set-actions"><button type="button" class="modal-add-set" data-add-modal-set>+ Set ekle</button></div><div class="modal-set-list" id="modalSetList"><div class="modal-empty-sets">Henüz set eklenmedi. Her seti aşağıdaki <b>+ Set ekle</b> ile kendin gir.</div></div><button class="modal-save-exercise" type="button" data-modal-save>✓ Hareketi Tamamla</button><div class="source-line">Kaynak: <span id="workoutSource"></span></div></div></div>
-<script src="foods.js"></script><script src="app.js?v=20261007-v8"></script><script src="workout.js?v=20261007-v17"></script>
+<script src="foods.js"></script><script src="app.js?v=20261007-v9"></script><script src="workout.js?v=20261007-v17"></script>
 </body>
 </html>
