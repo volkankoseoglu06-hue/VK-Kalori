@@ -5,7 +5,7 @@ const W={
 ['Tek Kol Dambıl Row','Sırt • arka omuz • biceps',3,'8–12/kol','row',['Bir el ve aynı taraftaki diz bench üzerinde destek olsun.','Dambılı kalçaya doğru çek.','Gövdeyi sabit tut.'],['Gövdeyi döndürme.','Momentumla savurma.'],'ACE Workout Builder','https://www.acefitness.org/continuing-education/certified/april-2025/8841/the-ace-workout-builder-for-high-intensity-resistance-training/'],
 ['Dambıl Romanian Deadlift','Arka bacak • kalça',3,'8–12','hinge',['Dizleri hafif bük, kalçayı geriye gönder.','Dambılları bacaklara yakın indir.','Kalçayı öne getirerek kalk.'],['Belden kamburlaşma.','Ağırlığı öne savurma.'],'ACE Workout Builder','https://www.acefitness.org/continuing-education/certified/april-2025/8841/the-ace-workout-builder-for-high-intensity-resistance-training/'],
 ['Hammer Curl','Biceps • ön kol',2,'10–12','curl',['Avuçlar birbirine bakacak.','Dirsekleri gövdeye yakın tut.','Yukarı kontrollü, aşağı yavaş.'],['Belden momentum alma.','Dirsekleri öne kaçırma.'],'ACE Workout Builder','https://www.acefitness.org/continuing-education/certified/april-2025/8841/the-ace-workout-builder-for-high-intensity-resistance-training/'],
-['Bench Crunch','Karın • core',2,'10–15','core',['Bench’i mekik pozisyonuna al ve ayaklarını sabitle.','Karnını sıkarak gövdeyi kontrollü kaldır.','Belini zorlamadan yavaşça dön.'],['Boynundan çekme.','Ayaklardan hız alma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/']]},
+['Bench Mekik','Karın • core',2,'10–15','core',['Bench’i mekik pozisyonuna al ve ayaklarını sabitle.','Karnını sıkarak gövdeyi kontrollü kaldır.','Belini zorlamadan yavaşça dön.'],['Boynundan çekme.','Ayaklardan hız alma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/']]},
 2:{name:'Tüm vücut B',focus:'Bacak • üst göğüs • sırt • kalça • omuz • triceps',ex:[
 ['Destekli Split Squat','Quadriceps • kalça • hamstring',3,'8–10/kol','squat',['Bir elinle benchden destek al.','Öndeki dizini kontrollü bükerek aşağı in.','Ön ayağından kuvvet alarak kalk.'],['Ön dizini içeri kaçırma.','Hareketi aceleye getirme.'],'ACE Split Squat','https://www.acefitness.org/resources/everyone/exercise-library/'],
 ['Eğimli Dambıl Press','Üst göğüs • omuz • triceps',3,'8–12','press',['Bench açısını orta seviyede ayarla.','Kürek kemiklerini geriye-aşağı al.','Dambılları üst göğse indirip dengeli it.'],['Omuzları öne düşürme.','Ağırlığı kontrolsüz bırakma.'],'ACE Incline Chest Press','https://www.acefitness.org/resources/everyone/exercise-library/25/incline-chest-press/'],
@@ -19,7 +19,7 @@ const W={
 ['Bench Destekli Rear-Delt Row','Arka omuz • üst sırt • rhomboid',2,'10–15','row',['Göğsünü bench üzerine destekle.','Dirsekleri yana açarak dambılları çek.','Üst noktada arka omuzları sık.'],['Boynu öne uzatma.','Omuzları kulaklara kaldırma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/'],
 ['Lateral Raise','Yan omuz • deltoid',2,'10–15','raise',['Kollar hafif bükülü.','Dambılları omuz hizasına kadar kontrollü kaldır.','İnerken ağırlığı bırakma.'],['Omuzları shrug yapma.','Ağırlığı savurma.'],'ACE Shoulder Guide','https://www.acefitness.org/continuing-education/prosource/september-2014/4972/dynamite-delts-ace-research-identifies-top-shoulder-exercises/'],
 ['Incline Dumbbell Curl','Biceps',2,'10–12','curl',['Bench’i eğimli konuma ayarla.','Kolları aşağı sarkıtıp dirsekleri sabit tut.','Dambılları kontrollü şekilde kıvır.'],['Dirsekleri öne kaçırma.','Momentum alma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/'],
-['Bench Crunch','Karın • core',2,'10–15','core',['Bench’i mekik pozisyonuna al ve ayaklarını sabitle.','Karnını sıkarak gövdeyi kontrollü kaldır.','Belini zorlamadan yavaşça dön.'],['Boynundan çekme.','Ayaklardan hız alma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/']]}}
+['Bench Mekik','Karın • core',2,'10–15','core',['Bench’i mekik pozisyonuna al ve ayaklarını sabitle.','Karnını sıkarak gövdeyi kontrollü kaldır.','Belini zorlamadan yavaşça dön.'],['Boynundan çekme.','Ayaklardan hız alma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/']]}}
 let S=load();
 let day=1;
 let selected=null;
@@ -403,7 +403,7 @@ function exerciseImage(name,pose='start'){
     'Rear-Delt Row':'rear-delt-fly',
     'Lateral Raise':'lateral-raise',
     'Dead Bug':'dead-bug',
-    'Bench Crunch':'crunches','Şınav':'push-up',
+    'Bench Mekik':'crunches','Şınav':'push-up',
     'Dambıl Overhead Triceps Extension':'dumbbell-overhead-triceps-extension',
     'Incline Dumbbell Curl':'incline-dumbbell-curl'
   };
@@ -426,7 +426,7 @@ const MUSCLE_TARGETS={
   'Bench Destekli Rear-Delt Row':['Arka omuz','Üst sırt','Rhomboid'],
   'Lateral Raise':['Yan omuz','Deltoid'],
   'Dead Bug':['Karın','Core'],
-  'Bench Crunch':['Karın','Core'],
+  'Bench Mekik':['Karın','Core'],
   'Dambıl Overhead Triceps Extension':['Triceps'],
   'Incline Dumbbell Curl':['Biceps']
 };
@@ -450,7 +450,7 @@ function exerciseCardImage(name){
   'Bench Destekli Rear-Delt Row':'rear back',
   'Lateral Raise':'shoulder',
   'Dead Bug':'core',
-  'Bench Crunch':'core','Şınav':'chest',
+  'Bench Mekik':'core','Şınav':'chest',
   'Dambıl Overhead Triceps Extension':'triceps',
   'Incline Dumbbell Curl':'biceps'
   };
