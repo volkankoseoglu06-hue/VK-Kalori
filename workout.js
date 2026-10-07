@@ -129,7 +129,7 @@ function updateWorkoutControl(){
     const canFinish=active || hasLogs || S.session?.day===day;
     finishButton.disabled=!canFinish || status==='finished';
     finishButton.classList.toggle('completed',status==='finished');
-    finishButton.textContent=status==='finished' ? '✓ Antrenman Tamamlandı' : 'Antrenmanı Bitir';
+    finishButton.textContent=status==='finished' ? '✓ Antrenman Tamamlandı' : 'Antrenmanı Tamamla';
   }
   const timer=document.getElementById('workoutElapsed');
   if(timer)timer.textContent=formatDuration(sessionElapsedMs());
@@ -211,7 +211,7 @@ function initWorkout(){
 }
 
 function tabs(){
-  const labels={1:'Tüm vücut A',2:'Tüm vücut B',3:'Tüm vücut C'};
+  const labels={1:'Full Body 1',2:'Full Body 2',3:'Full Body 3'};
   document.getElementById('workoutDayTabs').innerHTML=[1,2,3].map(d=>
     '<button class="workout-day '+(d===day?'active':'')+'" data-day="'+d+'"><span class="day-label"><strong>'+labels[d]+'</strong></span></button>'
   ).join('');
@@ -230,7 +230,7 @@ function startGuided(){
   activeSessionSets=0;
   activeSessionId='session_'+Date.now();
   const finishButton=document.getElementById('finishWorkoutButton');
-  if(finishButton){finishButton.disabled=false;finishButton.classList.remove('completed');finishButton.textContent='✓ Antrenmanı Bitir';}
+  if(finishButton){finishButton.disabled=false;finishButton.classList.remove('completed');finishButton.textContent='✓ Antrenmanı Tamamla';}
   S.session={id:activeSessionId,day,status:'active',startedAt:activeStartedAt,elapsedMs:0,activeSet,activeExercise,sets:0};
   saveWorkoutState();
   render();
@@ -576,7 +576,7 @@ function render(){
   if(finishButton){
     const hasLogs=(S.logs||[]).some(isCurrentWorkoutLog);
     finishButton.style.display=(active || hasLogs || S.session?.day===day) ? 'block' : 'none';
-    finishButton.textContent=S.session?.status==='finished' ? '✓ Antrenman Tamamlandı' : '✓ Antrenmanı Bitir';
+    finishButton.textContent=S.session?.status==='finished' ? '✓ Antrenman Tamamlandı' : '✓ Antrenmanı Tamamla';
     finishButton.disabled=S.session?.status==='finished' || !(active || hasLogs || S.session?.day===day);
   }
 }
