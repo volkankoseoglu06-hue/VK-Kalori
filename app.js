@@ -320,6 +320,13 @@ function updateFoodPeriod(){
   set('foodPageCalories',Math.round(periodCalories));
   set('foodPageProtein',Math.round(periodProtein));
   set('foodPageWater',periodWater.toFixed(1));
+  // Beslenme özet kartı da sekme değişiminde doğrudan güncellensin.
+  const calorieGoal=Math.max(1,Number(state.goals.calories)||1800);
+  const proteinGoal=Math.max(1,Number(state.goals.protein)||165);
+  const waterGoal=Math.max(0.1,Number(state.goals.water)||3);
+  set('nutritionSummaryCalories',Math.round(periodCalories)+' / '+calorieGoal+' kcal');
+  set('nutritionSummaryProtein',Math.round(periodProtein)+' / '+proteinGoal+' g');
+  set('nutritionSummaryWater',periodWater.toFixed(1)+' / '+waterGoal.toFixed(1)+' L');
   const label=document.querySelector('.nutrition-period-label');
   if(label)label.textContent=foodPeriod==='today'?'BUGÜNÜN BESLENMESİ':foodPeriod==='yesterday'?'DÜNÜN BESLENMESİ':'SON 7 GÜN ORTALAMASI';
 }
@@ -567,6 +574,7 @@ function addFood(){
 
   save();
   updateDashboard();
+  updateFoodPeriod();
   renderFoods();
   renderNutritionPage();
 }
