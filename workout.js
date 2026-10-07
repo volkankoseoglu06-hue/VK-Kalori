@@ -199,7 +199,7 @@ function renderWorkout(){
     return '<article class="workout-exercise '+(done?'is-done':'')+'">'+
       '<button class="exercise-main" data-open-exercise="'+i+'" type="button">'+
         imageMarkup(ex)+
-        '<span class="exercise-info"><strong>'+ex.name+'</strong><span class="exercise-tags">'+ex.muscles.map(m=>'<em>'+m+'</em>').join('')+'</span><span class="exercise-prescription">'+ex.sets+' set hedef • '+ex.reps+'</span></span>'+
+        '<span class="exercise-info"><strong>'+ex.name+'</strong><span class="exercise-tags">'+ex.muscles.map(m=>'<em>'+m+'</em>').join('')+'</span></span>'+
         '<span class="exercise-state">'+(done?'✓':'›')+'</span>'+
       '</button>'+
       performanceMarkup(ex,sets.length>0)+
