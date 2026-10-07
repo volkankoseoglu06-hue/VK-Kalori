@@ -291,7 +291,14 @@ function renderNutritionPage(){
   set('nutritionCalorieGoal',calorieGoal);
   set('nutritionProteinGoal',proteinGoal);
   set('nutritionCaloriePct',caloriePct+'%');
+  set('nutritionCalorieProgress',caloriePct+'%');
   set('nutritionProteinPct',proteinPct+'%');
+  const calorieBar=$('nutritionCalorieBar'); if(calorieBar)calorieBar.style.width=caloriePct+'%';
+  const proteinBar=$('nutritionProteinBar'); if(proteinBar)proteinBar.style.width=proteinPct+'%';
+  const count=$('nutritionFoodCount'); if(count)count.textContent=state.dailyFoods.length+' kayıt';
+  const list=$('nutritionFoodList');
+  if(list) list.innerHTML=state.dailyFoods.length?state.dailyFoods.map((food,index)=>'<div class="nutrition-food-row"><div><strong>'+food.name+'</strong><small>'+food.amount+' '+food.unit+'</small></div><span>'+Math.round(food.calories)+' kcal<br><small>'+Math.round(food.protein)+' g protein</small></span><button type="button" data-remove-nutrition="'+index+'">×</button></div>').join(''):'<div class="empty-state">Bugün henüz öğün eklenmedi.</div>';
+  if(list) list.querySelectorAll('[data-remove-nutrition]').forEach(btn=>btn.onclick=()=>{const index=Number(btn.dataset.removeNutrition);const food=state.dailyFoods[index];if(!food)return;state.eaten=Math.max(0,state.eaten-safeNum(food.calories));state.protein=Math.max(0,state.protein-safeNum(food.protein));state.dailyFoods.splice(index,1);save();updateDashboard();renderNutritionPage();renderFoods();});
 }
 
 function renderFoods(){
@@ -310,7 +317,7 @@ function renderFoods(){
       state.eaten=Math.max(0,state.eaten-safeNum(food.calories));
       state.protein=Math.max(0,state.protein-safeNum(food.protein));
       state.dailyFoods.splice(index,1);
-      save();updateDashboard();renderFoods();
+      save();updateDashboard();renderNutritionPage();renderFoods();
     };
     box.appendChild(div);
   });
