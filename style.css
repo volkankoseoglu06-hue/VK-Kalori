@@ -4732,3 +4732,229 @@ body:has(#workoutModal.open) .bottom-nav{
 #workoutModal .modal-save-exercise:disabled{
   opacity:.55!important;
 }
+
+
+/* ===== GYM final visual pass ===== */
+/* Home: colored outer rings with goal text inside */
+.home-four-metrics{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:14px!important;
+  margin:0 0 14px!important;
+}
+.home-four-metrics .goal-card{
+  background:transparent!important;
+  border:0!important;
+  padding:0!important;
+  min-width:0!important;
+}
+.home-four-metrics .goal-ring-top{
+  width:142px;
+  height:142px;
+  margin:0 auto;
+  box-sizing:border-box;
+  border-radius:50%;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  position:relative;
+  color:#fff;
+  box-shadow:0 9px 24px rgba(15,23,42,.13);
+}
+.home-four-metrics .goal-ring-top:after{
+  content:"";
+  position:absolute;
+  inset:9px;
+  border-radius:50%;
+  background:#fff;
+  z-index:0;
+}
+.home-four-metrics .goal-ring-top>*{position:relative;z-index:1}
+.home-four-metrics .goal-ring-top .goal-icon{font-size:18px;line-height:1;margin-bottom:2px}
+.home-four-metrics .goal-ring-top strong{font-size:25px;line-height:1.05;color:#0f172a}
+.home-four-metrics .goal-ring-top b{font-size:10px;color:#475569;margin-top:1px}
+.home-four-metrics .goal-ring-top small{
+  display:block!important;
+  order:5;
+  margin-top:3px;
+  font-size:10px;
+  font-weight:900;
+  color:#475569;
+}
+.home-four-metrics .goal-ring-top em{
+  display:block!important;
+  order:4;
+  margin-top:5px;
+  font-style:normal;
+  font-size:9px;
+  line-height:1;
+  font-weight:800;
+  color:#64748b;
+}
+.home-four-metrics .goal-ring-top em span{font-weight:900;color:#334155}
+.home-four-metrics .goal-calorie .goal-ring-top{background:#111827}
+.home-four-metrics .goal-protein .goal-ring-top{background:#dc2626}
+.home-four-metrics .goal-burned .goal-ring-top{background:#ea580c}
+.home-four-metrics .goal-water .goal-ring-top{background:#0891b2}
+.home-four-metrics .goal-card:active .goal-ring-top{transform:scale(.98)}
+@media(max-width:430px){
+  .home-four-metrics{gap:12px 8px!important}
+  .home-four-metrics .goal-ring-top{width:128px;height:128px}
+  .home-four-metrics .goal-ring-top:after{inset:8px}
+  .home-four-metrics .goal-ring-top strong{font-size:22px}
+}
+
+/* Workout start / continue / stop states */
+.workout-start-main{
+  min-height:52px!important;
+  border-radius:15px!important;
+  padding:7px 12px!important;
+}
+.workout-start-main .workout-play{
+  width:44px!important;
+  height:44px!important;
+  border-radius:13px!important;
+}
+.workout-start-main:not(.is-running):not(.is-paused):not(.is-finished){
+  background:#16a34a!important;
+  color:#fff!important;
+  border-radius:15px!important;
+}
+.workout-start-main:not(.is-running):not(.is-paused):not(.is-finished) .workout-start-copy strong{color:#16a34a!important}
+.workout-start-main.is-running{
+  background:#dc2626!important;
+  color:#fff!important;
+  border-radius:15px!important;
+}
+.workout-start-main.is-running .workout-play{background:#b91c1c!important}
+.workout-start-main.is-running .workout-start-copy strong{color:#fff!important}
+.workout-start-main.is-paused{
+  background:#2563eb!important;
+  color:#fff!important;
+  border-radius:15px!important;
+}
+.workout-start-main.is-paused .workout-play{background:#1d4ed8!important}
+.workout-start-main.is-paused .workout-start-copy strong{color:#fff!important}
+.workout-start-main.is-finished{
+  background:#64748b!important;
+  color:#fff!important;
+}
+.workout-start-main.is-finished .workout-play{background:#475569!important}
+.workout-start-main.is-finished .workout-start-copy strong{color:#fff!important}
+.finish-workout-button{
+  min-height:52px!important;
+  border:0!important;
+  border-radius:15px!important;
+  background:#7c3aed!important;
+  color:#fff!important;
+  font-weight:900!important;
+  padding:0 15px!important;
+}
+.finish-workout-button:disabled{opacity:.42!important}
+.finish-workout-button:not(:disabled){background:#7c3aed!important}
+
+/* Full Body 1/2/3 each distinct */
+.workout-day-tabs .workout-day:nth-child(1){background:#111827!important;color:#fff!important;border-color:#111827!important}
+.workout-day-tabs .workout-day:nth-child(2){background:#2563eb!important;color:#fff!important;border-color:#2563eb!important}
+.workout-day-tabs .workout-day:nth-child(3){background:#dc2626!important;color:#fff!important;border-color:#dc2626!important}
+.workout-day-tabs .workout-day.active{box-shadow:0 5px 13px rgba(15,23,42,.16)!important;transform:translateY(-1px)}
+.workout-day-tabs .workout-day:not(.active){opacity:.68}
+.workout-day-tabs .workout-day .day-label strong{font-size:11px!important;font-weight:900!important}
+
+/* Reference exercise cards: animated image + green completion marker */
+.reference-exercise-card{
+  position:relative;
+  width:100%;
+  min-height:94px;
+  display:grid;
+  grid-template-columns:30px 76px minmax(0,1fr) 28px 15px;
+  gap:9px;
+  align-items:center;
+  border:1px solid #e2e8f0;
+  border-radius:16px;
+  background:#fff;
+  padding:8px 9px;
+  text-align:left;
+  cursor:pointer;
+  box-sizing:border-box;
+  box-shadow:0 5px 16px rgba(15,23,42,.045);
+  transition:.16s ease;
+}
+.reference-exercise-card:active{transform:scale(.99)}
+.reference-exercise-number{
+  width:28px;height:28px;border-radius:50%;
+  display:grid;place-items:center;
+  background:#f1f5f9;color:#475569;
+  font-size:11px;font-weight:900;
+}
+.reference-exercise-image{
+  width:76px;height:76px;border-radius:13px;overflow:hidden;
+  background:#f1f5f9;display:block;
+}
+.reference-animation{position:relative;width:100%;height:100%;display:block}
+.reference-animation img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+}
+.reference-animation-peak{
+  opacity:0;
+  animation:referenceExerciseMotion 2.5s ease-in-out infinite;
+}
+@keyframes referenceExerciseMotion{
+  0%,38%{opacity:0}
+  48%,88%{opacity:1}
+  100%{opacity:0}
+}
+.reference-exercise-content{min-width:0;display:flex;flex-direction:column}
+.reference-exercise-title{
+  color:#0f172a;font-size:14px;line-height:1.18;font-weight:900;
+}
+.reference-exercise-meta{
+  margin-top:4px;color:#64748b;font-size:9px;font-weight:800;
+}
+.reference-exercise-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.reference-exercise-tags em{
+  font-style:normal;padding:3px 6px;border-radius:999px;
+  background:#eff6ff;color:#2563eb;font-size:8px;font-weight:900;
+}
+.reference-exercise-check{
+  width:27px;height:27px;border-radius:50%;
+  display:grid;place-items:center;
+  border:2px solid #cbd5e1;background:#fff;color:#94a3b8;
+  font-size:15px;font-weight:900;
+}
+.reference-exercise-card.done{
+  border-color:#86efac!important;
+  background:#f0fdf4!important;
+  box-shadow:0 5px 16px rgba(22,163,74,.10);
+}
+.reference-exercise-card.done .reference-exercise-number{
+  background:#16a34a;color:#fff;
+}
+.reference-exercise-card.done .reference-exercise-check{
+  background:#16a34a;color:#fff;border-color:#16a34a;
+}
+.reference-exercise-card.done .reference-exercise-title{color:#166534}
+.reference-exercise-chevron{font-size:22px;color:#94a3b8;line-height:1}
+@media(max-width:430px){
+  .reference-exercise-card{
+    grid-template-columns:26px 68px minmax(0,1fr) 26px 12px;
+    gap:7px;padding:7px;
+  }
+  .reference-exercise-image{width:68px;height:68px}
+  .reference-exercise-number{width:25px;height:25px;font-size:10px}
+  .reference-exercise-title{font-size:12px}
+  .reference-exercise-meta{font-size:8px}
+  .reference-exercise-tags em{font-size:7px;padding:3px 5px}
+  .reference-exercise-check{width:25px;height:25px;font-size:14px}
+}
+
+/* New workout modal: no automatic starter sets */
+.modal-empty-sets{
+  padding:10px 12px;
+  border-radius:10px;
+  background:#f8fafc;
+  color:#64748b;
+  font-size:10px;
+  line-height:1.35;
+}
