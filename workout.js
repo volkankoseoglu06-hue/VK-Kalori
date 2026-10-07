@@ -115,7 +115,7 @@ function updateWorkoutControl(){
   else if(status==='paused'){ if(icon)icon.textContent='▶'; if(copy)copy.textContent='Antrenmana Devam Et'; if(small)small.textContent='Süre kaldığın yerden devam eder'; button.classList.add('is-paused'); }
   else if(status==='finished'){ if(icon)icon.textContent='✓'; if(copy)copy.textContent='Antrenman Tamamlandı'; if(small)small.textContent='Yeni antrenman için tekrar başlatabilirsin'; button.classList.add('is-finished'); }
   else { if(icon)icon.textContent='▶'; if(copy)copy.textContent='Antrenmanı Başlat'; if(small)small.textContent='Süreyi başlat ve setlerini kaydet'; }
-  const timer=document.getElementById('workoutElapsed'); if(timer)timer.textContent=formatDuration(sessionElapsedMs());
+  const timer=document.getElementById('workoutElapsed'); if(timer)timer.textContent=formatDuration(sessionElapsedMs()); const headerTimer=document.getElementById('headerWorkoutElapsed'); if(headerTimer)headerTimer.textContent=formatDuration(sessionElapsedMs());
 }
 function startElapsedTicker(){
   clearElapsedTicker();
@@ -507,7 +507,7 @@ function render(){
   if(startButton){
     const copy=startButton.querySelector('.workout-start-copy strong');
     if(copy)copy.textContent=active?'Antrenman devam ediyor':'Antrenmanı Başlat';
-    if(timer)timer.textContent=active?formatDuration(sessionElapsedMs()):'00:00';
+    if(timer)timer.textContent=active?formatDuration(sessionElapsedMs()):formatDuration(sessionElapsedMs()); const headerTimer=document.getElementById('headerWorkoutElapsed'); if(headerTimer)headerTimer.textContent=formatDuration(sessionElapsedMs());
   }
 
   detail.style.display='flex';
