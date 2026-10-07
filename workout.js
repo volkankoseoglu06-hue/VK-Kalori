@@ -92,6 +92,20 @@ function getExerciseLog(index){
 }
 function getSets(index){return getExerciseLog(index)?.setDetails||[];}
 function totalSets(){return currentLogs().reduce((n,x)=>n+(Number(x.sets)||0),0);}
+function totalReps(){return currentLogs().reduce((n,x)=>n+(x.setDetails||[]).reduce((m,s)=>m+(Number(s.reps)||0),0),0);}
+function totalVolume(){return Math.round(currentLogs().reduce((n,x)=>n+(x.setDetails||[]).reduce((m,s)=>m+(Number(s.weight)||0)*(Number(s.reps)||0),0),0)*10)/10;}
+function previousWorkoutSummary(){
+  const previous=(S.history||[]).filter(x=>Number(x.day)===workoutDay&&x.date!==todayKey()).sort((a,b)=>(Number(b.at)||0)-(Number(a.at)||0))[0];
+  return previous||null;
+}
+function workoutComparison(){
+  const previous=previousWorkoutSummary();
+  if(!previous)return null;
+  const currentVolume=totalVolume();
+  const previousVolume=Number(previous.volume)||0;
+  if(!previousVolume)return null;
+  return {previous,volumeDiff:Math.round((currentVolume-previousVolume)*10)/10,volumePct:Math.round(((currentVolume-previousVolume)/previousVolume)*100)};
+}
 function doneCount(){return WORKOUTS[workoutDay].exercises.filter(e=>S.done[exerciseKey(e.name)]===todayKey()).length;}
 
 function renderDayTabs(){
@@ -221,14 +235,18 @@ function finishWorkout(){
   const id=S.session?.id||'session_'+Date.now();
   const sets=totalSets();
   const kcal=workoutCalories();
+  const reps=totalReps();
+  const volume=totalVolume();
+  const completedMoves=doneCount();
   if(typeof window.addWorkoutBurn==='function'){
     window.__vkWorkoutDay=workoutDay;
     window.addWorkoutBurn(duration,sets,5,id);
   }
   S.session={id,day:workoutDay,status:'finished',elapsedMs:Math.max(elapsedMs(),duration*60000),sets};
-  S.history.unshift({id,date:todayKey(),day:workoutDay,minutes:duration,sets,kcal});
+  S.history.unshift({id,date:todayKey(),at:Date.now(),day:workoutDay,minutes:duration,sets,reps,volume,kcal,moves:completedMoves});
   saveWorkout();stopTicker();
   renderWorkout();renderHistory();updateTimerUI();
+  openWorkoutSummary({duration,sets,reps,volume,kcal,moves:completedMoves});
   if(typeof window.updateDashboard==='function')window.updateDashboard();
 }
 function resetWorkoutDay(){
@@ -299,10 +317,26 @@ function saveExerciseFromModal(){
 }
 function closeExercise(){document.getElementById('workoutModal')?.classList.remove('open');selectedExerciseIndex=null;}
 
+function openWorkoutSummary(data){
+  const modal=document.getElementById('workoutSummaryModal');
+  if(!modal)return;
+  const comparison=workoutComparison();
+  const compareHtml=comparison
+    ? '<div class="summary-comparison '+(comparison.volumeDiff>=0?'positive':'negative')+'"><strong>'+(comparison.volumeDiff>=0?'↗':'↘')+' '+Math.abs(comparison.volumePct)+'%</strong><span>Toplam hacim '+(comparison.volumeDiff>=0?'arttı':'azaldı')+'</span></div>'
+    : '<div class="summary-comparison"><strong>İlk kayıt</strong><span>Bir sonraki antrenmanda gelişimini burada göreceksin.</span></div>';
+  document.getElementById('summaryWorkoutTitle').textContent=WORKOUTS[workoutDay].name+' tamamlandı';
+  document.getElementById('summaryWorkoutStats').innerHTML=[
+    ['Süre',formatTime(data.duration*60000)],['Hareket',data.moves],['Set',data.sets],['Tekrar',data.reps],['Hacim',data.volume+' kg'],['Yakım',data.kcal+' kcal']
+  ].map(x=>'<div class="summary-stat"><strong>'+x[1]+'</strong><span>'+x[0]+'</span></div>').join('');
+  document.getElementById('summaryWorkoutCompare').innerHTML=compareHtml;
+  modal.classList.add('open');
+}
+function closeWorkoutSummary(){document.getElementById('workoutSummaryModal')?.classList.remove('open');}
+
 function renderHistory(){
   const host=document.getElementById('workoutHistory');if(!host)return;
   const rows=(S.history||[]).slice(0,10);
-  host.innerHTML=rows.length?rows.map(x=>'<article class="history-session"><div><strong>'+new Date(x.date+'T12:00:00').toLocaleDateString('tr-TR',{day:'2-digit',month:'short',year:'numeric'})+'</strong><span>Full Body '+x.day+'</span></div><div><b>'+x.sets+'</b><small>Set</small></div><div><b>'+x.minutes+' dk</b><small>Süre</small></div><div><b>'+x.kcal+'</b><small>kcal</small></div></article>').join(''):'<div class="empty-state">Henüz tamamlanan antrenman yok.</div>';
+  host.innerHTML=rows.length?rows.map(x=>'<article class="history-session"><div><strong>'+new Date(x.date+'T12:00:00').toLocaleDateString('tr-TR',{day:'2-digit',month:'short',year:'numeric'})+'</strong><span>Full Body '+x.day+'</span></div><div><b>'+x.sets+'</b><small>Set</small></div><div><b>'+x.volume+' kg</b><small>Hacim</small></div><div><b>'+x.minutes+' dk</b><small>Süre</small></div></article>').join(''):'<div class="empty-state">Henüz tamamlanan antrenman yok.</div>';
 }
 
 function bindWorkout(){
@@ -313,6 +347,9 @@ function bindWorkout(){
   document.getElementById('finishWorkoutButton')?.addEventListener('click',finishWorkout);
   document.getElementById('workoutDayTabs')?.addEventListener('click',e=>{const b=e.target.closest('[data-day]');if(!b)return;if(S.session?.status==='active'){alert('Önce antrenmanı durdur.');return;}workoutDay=Number(b.dataset.day);renderDayTabs();renderWorkout();updateStats();});
   document.getElementById('workoutDetail')?.addEventListener('click',e=>{const b=e.target.closest('[data-open-exercise]');if(b)openExercise(Number(b.dataset.openExercise));});
+  document.getElementById('workoutSummaryModal')?.addEventListener('click',e=>{
+    if(e.target.closest('[data-summary-close]')||e.target.id==='workoutSummaryModal')closeWorkoutSummary();
+  });
   document.getElementById('workoutModal')?.addEventListener('click',e=>{
     if(e.target.closest('[data-add-modal-set]'))addModalSet();
     else if(e.target.closest('[data-modal-save]'))saveExerciseFromModal();
