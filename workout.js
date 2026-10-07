@@ -80,6 +80,7 @@ const CUSTOM_EXERCISE_IMAGES={
   'Eğimli Dambıl Press':'https://img.hop-sport.pl/5hQrreAa8NxGdDVQx5AQTw/1a5571c0-e696-47a3-58ff-a8feeb0f2a00/thumb',
   'Incline Dumbbell Curl':'https://cdn.oxygenmag.com/wp-content/uploads/2014/01/inclinebencha-b-1.jpg',
   'Bench Destekli Dambıl Row':'https://s3.amazonaws.com/prod.skimble/assets/2584457/image_iphone.jpg',
+  'Bench Destekli Rear-Delt Row':'https://s3assets.skimble.com/assets/2925750/image_iphone.jpg',
   'Oturarak Dambıl Shoulder Press':'https://imagely.mirafit.co.uk/media/catalog/product/cache/207e23213cf636ccdef205098cf3c8a3/D/u/Dumbbell-Shoulder-Press-on-Mirafit-M450-Adjustable-Bench.jpg'
 };
 function exerciseImage(name,pose='start'){
