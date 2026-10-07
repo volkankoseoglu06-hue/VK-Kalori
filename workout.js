@@ -284,6 +284,25 @@ function openExercise(index){
   document.getElementById('workoutSource').innerHTML='<a href="https://repdb.co" target="_blank" rel="noopener">Exercise data by RepDB ↗</a>';
   document.getElementById('workoutModal').classList.add('open');
 }
+
+const openExerciseBase=openExercise;
+function openExercise(index){
+  openExerciseBase(index);
+  const ex=WORKOUTS[workoutDay].exercises[index];
+  const rec=progressionRecommendation(ex);
+  let box=document.getElementById('workoutProgressionHint');
+  if(!box){
+    box=document.createElement('div');
+    box.id='workoutProgressionHint';
+    box.className='workout-progression-hint';
+    const actions=document.querySelector('.modal-set-actions');
+    actions?.before(box);
+  }
+  box.textContent=rec
+    ? '💡 Sonraki hedef: '+rec.suggested+' kg — '+rec.reason
+    : '💡 İlk antrenman: setlerini kaydet, sonraki antrenmanda hedef önereceğim.';
+}
+
 function renderModalSets(sets){
   const list=document.getElementById('modalSetList');if(!list)return;
   if(!sets.length){list.innerHTML='<div class="modal-empty-sets">Henüz set yok. <b>+ Set Ekle</b> ile ilk setini gir.</div>';return;}
