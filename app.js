@@ -325,49 +325,33 @@ function renderNutritionPage(){
   let summary=data.today;
   let foods=Array.isArray(state.dailyFoods)?state.dailyFoods:[];
   let eyebrow='BUGÜNÜN BESLENMESİ';
+  let periodNote='Günlük hedef';
   let countLabel=foods.length+' kayıt';
   if(foodPeriod==='yesterday'){
     summary=data.yesterday?{calories:Number(data.yesterday.eaten)||0,protein:Number(data.yesterday.protein)||0,water:Number(data.yesterday.water)||0}:{calories:0,protein:0,water:0};
     foods=Array.isArray(data.yesterday?.foods)?data.yesterday.foods:[];
     eyebrow='DÜNÜN BESLENMESİ';
+    periodNote='Dünün özeti';
     countLabel=foods.length?foods.length+' kayıt':'Özet kayıt';
   }else if(foodPeriod==='week'){
     summary=data.average;
     foods=[];
     eyebrow='SON 7 GÜN ORTALAMASI';
+    periodNote=summary.days+' veri girilen gün';
     countLabel=summary.days+' veri girilen gün';
   }
   const calorieGoal=Math.max(1,Number(state.goals.calories)||1800);
   const proteinGoal=Math.max(1,Number(state.goals.protein)||165);
-  const caloriePct=Math.min(100,Math.round((summary.calories/calorieGoal)*100));
-  const proteinPct=Math.min(100,Math.round((summary.protein/proteinGoal)*100));
+  const waterGoal=Math.max(0.1,Number(state.goals.water)||3);
   const set=(id,value)=>{const el=$(id);if(el)el.textContent=value;};
   set('nutritionPeriodLabel',eyebrow);
+  set('nutritionPeriodNote',periodNote);
   set('nutritionFoodTitle',foodPeriod==='week'?'Haftalık özet':foodPeriod==='yesterday'?'Dünün besinleri':'Bugünün besinleri');
   set('nutritionFoodCount',countLabel);
-  set('nutritionSummaryCalories',Math.round(summary.calories)+' kcal');
-  set('nutritionSummaryProtein',Math.round(summary.protein)+' g');
-  set('nutritionSummaryWater',Number(summary.water).toFixed(1)+' L');
-  set('nutritionCalorieGoal',calorieGoal);
-  set('nutritionProteinGoal',proteinGoal);
-  set('nutritionCaloriePct',caloriePct+'%');
-  set('nutritionProteinPct',proteinPct+'%');
-  const calorieBar=$('nutritionCalorieBar');if(calorieBar)calorieBar.style.width=caloriePct+'%';
-  const proteinBar=$('nutritionProteinBar');if(proteinBar)proteinBar.style.width=proteinPct+'%';
+  set('nutritionSummaryCalories',Math.round(summary.calories)+' / '+calorieGoal+' kcal');
+  set('nutritionSummaryProtein',Math.round(summary.protein)+' / '+proteinGoal+' g');
+  set('nutritionSummaryWater',Number(summary.water).toFixed(1)+' / '+waterGoal.toFixed(1)+' L');
 
-  const waterGoal=Math.max(0.1,Number(state.goals.water)||3);
-  const waterPct=Math.min(100,Math.round((summary.water/waterGoal)*100));
-  set('nutritionWaterGoal',waterGoal.toFixed(1)+' L');
-  set('nutritionWaterPct',waterPct+'%');
-  set('nutritionWaterValue',Number(summary.water).toFixed(1)+' L');
-  const waterBar=$('nutritionWaterBar');if(waterBar)waterBar.style.width=waterPct+'%';
-  const waterActions=$('nutritionWaterActions');
-  if(waterActions){
-    waterActions.innerHTML=foodPeriod==='today'
-      ? '<button type="button" data-water-add="0.25">+250 ml</button><button type="button" data-water-add="0.5">+500 ml</button>'
-      : '<small>Geçmiş kayıt · ekleme kapalı</small>';
-    waterActions.querySelectorAll('[data-water-add]').forEach(btn=>btn.onclick=()=>addWater(Number(btn.dataset.waterAdd)));
-  }
   const list=$('nutritionFoodList');
   if(list){
     if(foodPeriod==='week'){
