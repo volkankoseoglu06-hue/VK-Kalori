@@ -730,6 +730,30 @@ function collectModalSetDetails(){
     reps:Math.max(1,Number(row.querySelector('.modal-set-reps')?.value)||10)
   }));
 }
+function benchEquipmentMarkup(name){
+  if(name!=='Bench Mekik')return '';
+  return '<div class="bench-equipment-card">'+
+    '<div class="bench-equipment-visual">'+
+      '<svg viewBox="0 0 520 190" role="img" aria-label="Ayarlanabilir bench, düz konum">'+
+        '<defs><linearGradient id="benchPad" x1="0" x2="1"><stop offset="0" stop-color="#151515"/><stop offset="1" stop-color="#3a3a3a"/></linearGradient></defs>'+
+        '<rect x="82" y="54" width="310" height="28" rx="12" fill="url(#benchPad)"/>'+
+        '<rect x="54" y="50" width="45" height="36" rx="17" fill="#202020"/>'+
+        '<rect x="58" y="83" width="20" height="57" rx="8" fill="#4b5563"/>'+
+        '<rect x="42" y="138" width="105" height="10" rx="5" fill="#111827"/>'+
+        '<rect x="392" y="78" width="14" height="62" rx="7" fill="#4b5563"/>'+
+        '<rect x="374" y="138" width="78" height="10" rx="5" fill="#111827"/>'+
+        '<rect x="198" y="82" width="16" height="52" rx="7" fill="#4b5563"/>'+
+        '<path d="M207 132 L257 145 L303 145" stroke="#4b5563" stroke-width="9" stroke-linecap="round" fill="none"/>'+
+        '<path d="M256 145 L256 157" stroke="#4b5563" stroke-width="9" stroke-linecap="round"/>'+
+        '<rect x="222" y="154" width="72" height="9" rx="4.5" fill="#111827"/>'+
+        '<circle cx="390" cy="104" r="7" fill="#111827"/>'+
+        '<path d="M391 104 L420 104" stroke="#111827" stroke-width="8" stroke-linecap="round"/>'+
+      '</svg>'+
+    '</div>'+
+    '<div class="bench-equipment-copy"><strong>Bench ayarı: Düz</strong><span>0° • Sırt kısmını düz konuma getir. Ayaklarını yere sağlam bas.</span></div>'+
+  '</div>';
+}
+
 function open(i){
   selected=W[day].ex[i];
   const saved=(S.logs||[]).find(log=>isCurrentWorkoutLog(log)&&log.exercise===selected[0]);
@@ -747,7 +771,8 @@ function open(i){
       '<img src="'+start+'" alt="'+selected[0]+' başlangıç" class="real-exercise-img start-img">'+
       '<img src="'+peak+'" alt="'+selected[0]+' hareket" class="real-exercise-img peak-img">'+
       '<div class="real-exercise-labels"><span>BAŞLANGIÇ</span><b>↕</b><span>HAREKET</span></div>'+
-    '</div>';
+    '</div>'+
+    benchEquipmentMarkup(selected[0]);
 
   document.getElementById('workoutCues').innerHTML=selected[5].map(x=>'<li>'+x+'</li>').join('');
   const setList=document.getElementById('modalSetList');
