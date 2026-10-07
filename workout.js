@@ -18,7 +18,7 @@ const WORKOUTS={
     {name:'Dambıl Biceps Curl',muscles:['Biceps','Ön kol'],sets:2,reps:'10–12',image:'bicep-curl',cues:['Dirsekleri sabit tut.','Dambılları kontrollü kıvır.','Aşağı inerken ağırlığı bırakma.']},
     {name:'Oturarak Dambıl Shoulder Press',muscles:['Ön omuz','Yan omuz','Triceps'],sets:2,reps:'8–12',image:'seated-db-press',cues:['Sırtını bench ile destekle.','Dambılları omuz hizasından başlat.','Momentum almadan yukarı it.']},
     {name:'Dambıl Overhead Triceps Extension',muscles:['Triceps'],sets:2,reps:'10–12',image:'overhead-tricep-extension',cues:['Dambılı iki elinle baş üstünde tut.','Dirsekleri sabit tut.','Kontrollü indirip triceps ile uzat.']},
-    {name:'Dambıl Baldır Kaldırma',muscles:['Baldır'],sets:2,reps:'12–20',image:'standing-calf-raise',cues:['Dik dur ve dambılları yanlarında tut.','Topuklarını kontrollü şekilde kaldır.','Yukarıda kısa sıkıştırıp yavaşça in.']}
+    {name:'Dambıl Baldır Kaldırma',muscles:['Baldır'],sets:2,reps:'12–20',image:'dumbbell-calf-raise',cues:['Dik dur ve dambılları yanlarında tut.','Topuklarını kontrollü şekilde kaldır.','Yukarıda kısa sıkıştırıp yavaşça in.']}
   ]},
   3:{name:'Full Body 3',focus:'Göğüs • sırt • omuz • kol • core • baldır',exercises:[
     {name:'Dambıl Floor Press',muscles:['Göğüs','Triceps','Ön omuz'],sets:3,reps:'8–12',image:'dumbbell-floor-press',cues:['Sırtüstü yat ve dizleri bük.','Üst kollar yere yaklaşınca dur.','Dambılları kontrollü yukarı it.']},
@@ -76,24 +76,6 @@ function formatTime(ms){const s=Math.max(0,Math.floor(ms/1000));return String(Ma
 function elapsedMs(){return sessionElapsedBeforeStart+(sessionStartedAt?Date.now()-sessionStartedAt:0);}
 function sessionMinutes(){return Math.round(elapsedMs()/60000);}
 
-const CUSTOM_EXERCISE_IMAGES={
-  'Bench Mekik':'https://s3assets.skimble.com/assets/1855925/image_iphone.jpg',
-  'Eğimli Dambıl Press':'https://img.hop-sport.pl/5hQrreAa8NxGdDVQx5AQTw/1a5571c0-e696-47a3-58ff-a8feeb0f2a00/thumb',
-  'Incline Dumbbell Curl':'https://cdn.oxygenmag.com/wp-content/uploads/2014/01/inclinebencha-b-1.jpg',
-  'Bench Destekli Dambıl Row':'https://s3.amazonaws.com/prod.skimble/assets/2584457/image_iphone.jpg',
-  'Bench Destekli Rear-Delt Row':'https://s3assets.skimble.com/assets/2925750/image_iphone.jpg',
-  'Oturarak Dambıl Shoulder Press':'https://imagely.mirafit.co.uk/media/catalog/product/cache/207e23213cf636ccdef205098cf3c8a3/D/u/Dumbbell-Shoulder-Press-on-Mirafit-M450-Adjustable-Bench.jpg'
-};
-function exerciseImage(name,pose='start'){
-  if(CUSTOM_EXERCISE_IMAGES[name])return CUSTOM_EXERCISE_IMAGES[name];
-  const id=EXERCISE_IDS[name];
-  return id?'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+id+'-'+pose+'.webp':'';
-}
-function imageMarkup(ex){
-  const start=exerciseImage(ex.name,'start'), peak=exerciseImage(ex.name,'peak');
-  if(!start)return '<div class="exercise-visual-fallback">🏋️</div>';
-  return '<div class="exercise-visual"><img src="'+start+'" alt="'+ex.name+'" loading="lazy"><img src="'+peak+'" alt="" class="exercise-peak" loading="lazy"></div>';
-}
 function getExerciseLog(index){
   const ex=WORKOUTS[workoutDay].exercises[index];
   return currentLogs().find(x=>x.exercise===ex.name);
