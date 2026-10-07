@@ -3189,3 +3189,167 @@ body:has(#workoutModal.open){overflow:hidden!important;}
 .modal-set-actions{position:sticky;top:0;z-index:4;background:#fff;padding:4px 0 8px;}
 .finish-workout-button{width:100%;min-height:50px;margin:12px 0 8px;border:0;border-radius:15px;background:#16a34a;color:#fff;font:inherit;font-weight:900;box-shadow:0 7px 18px rgba(22,163,74,.16);cursor:pointer;}
 @media(max-width:430px){#workoutModal{padding:8px!important;}#workoutModal .workout-modal-box{max-height:calc(100dvh - 8px)!important;border-radius:24px 24px 12px 12px!important;}}
+
+
+/* GYM FINAL 20261007 — workout cards, session timer and safe home header */
+#workoutPage .workout-screen-head{
+  display:grid!important;
+  grid-template-columns:40px minmax(0,1fr) 40px!important;
+  align-items:center!important;
+  gap:8px!important;
+  margin:2px 0 10px!important;
+}
+#workoutPage .workout-screen-head h1{
+  margin:0!important;text-align:center!important;font-size:22px!important;line-height:1.1!important;
+}
+#workoutPage .workout-screen-head p{
+  margin:3px 0 0!important;text-align:center!important;font-size:10px!important;
+}
+#workoutPage .workout-start-panel{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:10px!important;
+  width:100%!important;
+  min-height:62px!important;
+  padding:9px 10px!important;
+  margin:0 0 10px!important;
+  box-sizing:border-box!important;
+  background:#fff!important;
+  border:1px solid #e3ebf5!important;
+  border-radius:16px!important;
+  box-shadow:0 5px 16px rgba(15,23,42,.05)!important;
+}
+#workoutPage .workout-start-main{
+  flex:1 1 auto!important;
+  min-width:0!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:10px!important;
+  padding:2px!important;
+  background:transparent!important;
+}
+#workoutPage .workout-play{width:44px!important;height:44px!important;flex:0 0 44px!important}
+#workoutPage .workout-start-copy{min-width:0!important}
+#workoutPage .workout-start-copy strong{
+  display:block!important;font-size:13px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;
+}
+#workoutPage .workout-start-copy small{
+  display:block!important;font-size:9px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;
+}
+#workoutPage .workout-elapsed-top{
+  flex:0 0 68px!important;
+  min-width:68px!important;
+  padding:7px 6px!important;
+  box-sizing:border-box!important;
+}
+#workoutPage .workout-elapsed-top strong{font-size:17px!important}
+#workoutPage .workout-elapsed-top small{font-size:8px!important}
+
+#workoutPage #workoutDetail{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:8px!important;
+  visibility:visible!important;
+  opacity:1!important;
+}
+#workoutPage .reference-exercise-card{
+  display:grid!important;
+  visibility:visible!important;
+  opacity:1!important;
+  width:100%!important;
+  min-height:82px!important;
+  grid-template-columns:27px 72px minmax(0,1fr) 16px!important;
+  align-items:center!important;
+  gap:9px!important;
+  padding:8px!important;
+  margin:0!important;
+  box-sizing:border-box!important;
+  border:1px solid #e1e9f3!important;
+  border-radius:16px!important;
+  background:#fff!important;
+  color:#10182d!important;
+  text-align:left!important;
+  cursor:pointer!important;
+}
+#workoutPage .reference-exercise-card.done{
+  background:#f0fdf4!important;
+  border-color:#86efac!important;
+}
+#workoutPage .reference-exercise-number{
+  width:27px!important;height:27px!important;border-radius:50%!important;
+  display:grid!important;place-items:center!important;background:#eef2f7!important;color:#475569!important;
+  font-size:11px!important;font-weight:900!important;
+}
+#workoutPage .reference-exercise-card.done .reference-exercise-number{
+  background:#16a34a!important;color:#fff!important;
+}
+#workoutPage .reference-exercise-image{
+  width:72px!important;height:68px!important;border-radius:12px!important;overflow:hidden!important;
+  background:#f4f8fc!important;display:block!important;
+}
+#workoutPage .reference-exercise-image img{
+  width:100%!important;height:100%!important;object-fit:contain!important;display:block!important;
+}
+#workoutPage .reference-exercise-content{
+  min-width:0!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:3px!important;
+}
+#workoutPage .reference-exercise-title{
+  display:block!important;font-size:13px!important;line-height:1.2!important;font-weight:900!important;
+  color:#0f172a!important;white-space:normal!important;overflow-wrap:anywhere!important;
+}
+#workoutPage .reference-exercise-card.done .reference-exercise-title{color:#15803d!important}
+#workoutPage .reference-exercise-meta{
+  display:block!important;font-size:9px!important;color:#64748b!important;font-weight:750!important;
+}
+#workoutPage .reference-exercise-tags{
+  display:flex!important;flex-wrap:wrap!important;gap:3px!important;max-width:100%!important;
+}
+#workoutPage .reference-exercise-tags em{
+  font-style:normal!important;padding:3px 6px!important;border-radius:7px!important;
+  background:#f1f5f9!important;color:#52647d!important;font-size:7.5px!important;font-weight:800!important;
+}
+#workoutPage .reference-exercise-card.done .reference-exercise-tags em{
+  background:#dcfce7!important;color:#15803d!important;
+}
+#workoutPage .reference-exercise-chevron{font-size:25px!important;color:#94a3b8!important;text-align:center!important}
+#workoutPage .workout-quick-stats{
+  display:grid!important;grid-template-columns:repeat(4,1fr)!important;
+  margin:2px 0 10px!important;
+}
+#workoutPage .finish-workout-button{
+  display:block!important;width:100%!important;min-height:52px!important;margin:0 0 16px!important;
+}
+
+#workoutPage .workout-history-card{display:block!important}
+#workoutPage .workout-history-card .modern-section-title{margin-top:4px!important}
+
+.modern-header .header-date{
+  position:absolute!important;
+  right:8px!important;
+  top:50%!important;
+  transform:translateY(-50%)!important;
+  max-width:88px!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+  text-align:right!important;
+}
+.modern-header .brand{max-width:124px!important;overflow:hidden!important}
+.modern-header .vk-logo-img{max-width:124px!important}
+@media(max-width:430px){
+  #workoutPage .workout-screen-head{grid-template-columns:36px minmax(0,1fr) 36px!important}
+  #workoutPage .workout-start-panel{gap:7px!important;padding:8px!important}
+  #workoutPage .workout-play{width:42px!important;height:42px!important;flex-basis:42px!important}
+  #workoutPage .workout-elapsed-top{flex-basis:62px!important;min-width:62px!important}
+  #workoutPage .reference-exercise-card{
+    grid-template-columns:25px 64px minmax(0,1fr) 14px!important;gap:8px!important;min-height:76px!important;padding:7px!important;
+  }
+  #workoutPage .reference-exercise-image{width:64px!important;height:60px!important}
+  #workoutPage .reference-exercise-title{font-size:12px!important}
+  #workoutPage .reference-exercise-meta{font-size:8.5px!important}
+  #workoutPage .reference-exercise-tags em{font-size:7px!important;padding:3px 5px!important}
+  .modern-header .header-date{right:4px!important;max-width:78px!important;font-size:10px!important}
+  .modern-header .brand{max-width:116px!important}
+  .modern-header .vk-logo-img{max-width:116px!important}
+}
