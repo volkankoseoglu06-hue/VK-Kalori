@@ -664,9 +664,14 @@ function saveExerciseFromModal(){
   const i=W[day].ex.findIndex(x=>x[0]===selected[0]);
   if(i<0)return;
   const details=collectModalSetDetails();
-  if(!details.length){alert('Önce + Set ekle ile en az bir set gir.');return;}
-  const first=details[0];
-  saveExerciseValues(i,first.weight,details.length,first.reps,details);
+  if(!details.length){
+    alert('Önce en az 1 set ekle.');
+    return;
+  }
+  const first=details[0]||{};
+  const weight=first.weight ?? document.getElementById('modalWeight')?.value ?? 0;
+  const reps=first.reps ?? document.getElementById('modalReps')?.value ?? 10;
+  saveExerciseValues(i,weight,details.length,reps,details);
   close();
 }
 function addModalSetRow(weight='',reps=10){
@@ -717,10 +722,12 @@ function open(i){
   document.getElementById('workoutCues').innerHTML=selected[5].map(x=>'<li>'+x+'</li>').join('');
   const setList=document.getElementById('modalSetList');
   if(setList){
+    // Yeni harekette set satırı otomatik oluşturulmaz; kullanıcı kendisi ekler.
     const details=Array.isArray(saved?.setDetails)&&saved.setDetails.length ? saved.setDetails : [];
-    setList.innerHTML=details.length ? details.map((d,n)=>
-      '<div class="modal-set-row"><span>'+(n+1)+'. Set</span><input class="modal-set-weight" type="number" min="0" step="0.5" value="'+(d.weight||0)+'" placeholder="kg"><input class="modal-set-reps" type="number" min="1" max="50" value="'+(d.reps||10)+'" placeholder="tekrar"><button type="button" class="modal-remove-set" data-remove-set aria-label="Seti sil">×</button></div>'
-    ).join('') : '<div class="modal-empty-sets">Henüz set eklenmedi. Her seti aşağıdaki <b>+ Set ekle</b> ile kendin gir.</div>';
+    setList.innerHTML=details.map((d,n)=>
+      '<div class="modal-set-row"><span>'+(n+1)+'. Set</span><input class="modal-set-weight" type="number" min="0" step="0.5" value="'+(d.weight||'')+'" placeholder="kg"><input class="modal-set-reps" type="number" min="1" max="50" value="'+(d.reps||'')+'" placeholder="tekrar"><button type="button" class="modal-remove-set" data-remove-set aria-label="Seti sil">×</button></div>'
+    ).join('');
+    syncModalSetCount();
   }
 
   document.getElementById('workoutSource').innerHTML='<a target="_blank" rel="noopener" href="https://repdb.co">Exercise data by RepDB ↗</a>';
