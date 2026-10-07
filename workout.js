@@ -741,9 +741,11 @@ function open(i){
   if(setList){
     // Yeni harekette set satırı otomatik oluşturulmaz; kullanıcı kendisi ekler.
     const details=Array.isArray(saved?.setDetails)&&saved.setDetails.length ? saved.setDetails : [];
-    setList.innerHTML=details.map((d,n)=>
-      '<div class="modal-set-row"><span>'+(n+1)+'. Set</span><input class="modal-set-weight" type="number" min="0" step="0.5" value="'+(d.weight||'')+'" placeholder="kg"><input class="modal-set-reps" type="number" min="1" max="50" value="'+(d.reps||'')+'" placeholder="tekrar"><button type="button" class="modal-remove-set" data-remove-set aria-label="Seti sil">×</button></div>'
-    ).join('');
+    setList.innerHTML=details.length
+      ? details.map((d,n)=>
+        '<div class="modal-set-row"><span>'+(n+1)+'. Set</span><input class="modal-set-weight" type="number" min="0" step="0.5" value="'+(d.weight||'')+'" placeholder="kg"><input class="modal-set-reps" type="number" min="1" max="50" value="'+(d.reps||'')+'" placeholder="tekrar"><button type="button" class="modal-remove-set" data-remove-set aria-label="Seti sil">×</button></div>'
+      ).join('')
+      : '<div class="modal-empty-sets">Henüz set eklenmedi. <b>+ Set ekle</b> ile kendin gir.</div>';
     syncModalSetCount();
   }
 
