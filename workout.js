@@ -178,10 +178,11 @@ function progressionRecommendation(ex){
     reason:allAtTop?'Tüm setlerde tekrar hedefinin üst sınırına ulaştın.':'Önce geçen antrenmandaki ağırlıkla tekrarları tamamla.'
   };
 }
-function performanceMarkup(ex){
+function performanceMarkup(ex,hasSets=false){
   const rec=progressionRecommendation(ex);
+  if(!hasSets)return '';
   if(!rec){
-    return '<div class="exercise-performance empty">İlk kaydın olacak. Setlerini gir, sonraki antrenmanda burada geçmiş performansını göreceksin.</div>';
+    return '<div class="exercise-performance empty">İlk kaydın olacak.</div>';
   }
   const sets=rec.last.setDetails.map((s,n)=>'<span>'+ (n+1)+'. '+Number(s.weight||0)+' kg × '+Number(s.reps||0)+'</span>').join('');
   const suggestion=rec.suggested?'<b>Öneri: '+rec.suggested+' kg</b>':'';
@@ -201,8 +202,8 @@ function renderWorkout(){
         '<span class="exercise-info"><strong>'+ex.name+'</strong><span class="exercise-tags">'+ex.muscles.map(m=>'<em>'+m+'</em>').join('')+'</span><span class="exercise-prescription">'+ex.sets+' set hedef • '+ex.reps+'</span></span>'+
         '<span class="exercise-state">'+(done?'✓':'›')+'</span>'+
       '</button>'+
-      performanceMarkup(ex)+
-      '<div class="exercise-last">'+(sets.length?sets.map((s,n)=>'<span>'+ (n+1)+'. '+Number(s.weight||0)+' kg × '+Number(s.reps||0)+'</span>').join(''):'Henüz set girilmedi')+'</div>'+
+      performanceMarkup(ex,sets.length>0)+
+      (sets.length?'<div class="exercise-last">'+sets.map((s,n)=>'<span>'+ (n+1)+'. '+Number(s.weight||0)+' kg × '+Number(s.reps||0)+'</span>').join('')+'</div>':'')+
     '</article>';
   }).join('');
   const progress=document.querySelector('.workout-list-head span');
