@@ -10,7 +10,7 @@ const W={
 ['Destekli Split Squat','Quadriceps • kalça • hamstring',3,'8–10/kol','squat',['Bir elinle benchden destek al.','Öndeki dizini kontrollü bükerek aşağı in.','Ön ayağından kuvvet alarak kalk.'],['Ön dizini içeri kaçırma.','Hareketi aceleye getirme.'],'ACE Split Squat','https://www.acefitness.org/resources/everyone/exercise-library/'],
 ['Eğimli Dambıl Press','Üst göğüs • omuz • triceps',3,'8–12','press',['Bench açısını orta seviyede ayarla.','Kürek kemiklerini geriye-aşağı al.','Dambılları üst göğse indirip dengeli it.'],['Omuzları öne düşürme.','Ağırlığı kontrolsüz bırakma.'],'ACE Incline Chest Press','https://www.acefitness.org/resources/everyone/exercise-library/25/incline-chest-press/'],
 ['Bench Destekli Dambıl Row','Sırt • arka omuz',3,'10–12','row',['Göğsü eğimli bench üzerine destekle.','Dambılları kaburgalara doğru çek.','Üst noktada kısa sıkıştırıp yavaş bırak.'],['Boynu öne uzatma.','Omuzları kulaklara kaldırma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/'],
-['Bench Glute Bridge','Kalça • arka bacak',3,'10–15','bridge',['Omuzları bench üzerine sabitle.','Kalçayı kontrollü kaldır.','Üstte kalçayı sık, belden aşırı yaylanma.'],['Hareketi belden yapma.','Savurma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/equipment/dumbbells/'],
+['Dambıl Biceps Curl','Biceps • ön kol',2,'10–12','curl',['Dirsekleri gövdeye yakın ve sabit tut.','Dambılları kontrollü şekilde omuzlara doğru kıvır.','Aşağı inerken ağırlığı yavaş bırak.'],['Belden momentum alma.','Bilekleri aşırı bükme.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/'],
 ['Oturarak Dambıl Shoulder Press','Omuz • triceps',2,'8–12','press',['Sırtı bench ile destekle.','Dambılları omuz hizasından başlat.','Momentum almadan yukarı it.'],['Belden aşırı geriye yatma.','Dambılları çarpıştırma.'],'ACE Shoulder Guide','https://www.acefitness.org/continuing-education/prosource/september-2014/4972/dynamite-delts-ace-research-identifies-top-shoulder-exercises/'],
 ['Dambıl Overhead Triceps Extension','Triceps',2,'10–12','press',['Dambılı iki elinle başının üstünde tut.','Dirsekleri sabit tutarak kontrollü indir.','Triceps ile yukarı uzat.'],['Dirsekleri fazla açma.','Belden geriye yatma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/']]},
 3:{name:'Tüm vücut C',focus:'Bacak • göğüs • sırt • omuz • kol • core',ex:[
@@ -47,6 +47,10 @@ function load(){
   }
 }
 function saveWorkoutState(){localStorage.setItem(WORKOUT_KEY,JSON.stringify(S))}
+function renderHomeDate(){
+  const el=document.getElementById('homeTodayDate');
+  if(el){ el.textContent=new Date().toLocaleDateString('tr-TR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'}); }
+}
 function today(){
   const d=new Date();
   const y=d.getFullYear();
@@ -126,6 +130,7 @@ function startElapsedTicker(){
   },1000);
 }
 function initWorkout(){
+  renderHomeDate();
   if(!document.getElementById('workoutPage'))return;
 
   tabs();
@@ -397,13 +402,15 @@ function exerciseImage(name,pose='start'){
     'Eğimli Dambıl Press':'incline-db-press',
     'Bench Destekli Dambıl Row':'single-arm-chest-supported-dumbbell-row',
     'Bench Glute Bridge':'glute-bridge',
+    'Dambıl Biceps Curl':'dumbbell-bicep-curl',
     'Oturarak Dambıl Shoulder Press':'seated-db-press',
     'Dambıl Front Squat':'dumbbell-front-squat',
     'Dambıl Floor Press':'dumbbell-floor-press',
     'Rear-Delt Row':'rear-delt-fly',
     'Lateral Raise':'lateral-raise',
     'Dead Bug':'dead-bug',
-    'Bench Mekik':'crunches','Şınav':'push-up',
+    'Bench Mekik':'decline-crunch','Şınav':'push-up',
+    'Dambıl Overhead Triceps Extension':'overhead-tricep-extension',
     'Dambıl Overhead Triceps Extension':'dumbbell-overhead-triceps-extension',
     'Incline Dumbbell Curl':'incline-db-curl'
   };
@@ -420,6 +427,7 @@ const MUSCLE_TARGETS={
   'Eğimli Dambıl Press':['Üst göğüs','Ön omuz','Triceps'],
   'Bench Destekli Dambıl Row':['Sırt','Rhomboid','Arka omuz'],
   'Bench Glute Bridge':['Gluteus','Hamstring','Core'],
+  'Dambıl Biceps Curl':['Biceps','Ön Kol'],
   'Oturarak Dambıl Shoulder Press':['Ön omuz','Yan omuz','Triceps'],
   'Dambıl Front Squat':['Quadriceps','Gluteus','Core'],
   'Dambıl Floor Press':['Göğüs','Triceps','Ön omuz'],
