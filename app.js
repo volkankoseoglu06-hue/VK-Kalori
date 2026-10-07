@@ -443,16 +443,19 @@ function searchFood(text){
   if(!results)return;
   results.innerHTML='';
   const query=text.trim().toLocaleLowerCase('tr-TR');
-  if(query.length<2)return;
-
   const list=[...foods,...state.customFoods];
-  const filtered=list.filter(food=>String(food.name).toLocaleLowerCase('tr-TR').includes(query));
+  const filtered=query.length>=1
+    ? list.filter(food=>String(food.name).toLocaleLowerCase('tr-TR').includes(query))
+    : list;
+
   if(!filtered.length){
     results.innerHTML='<div class="food-search-empty">Besin bulunamadı. Yeni Besin bölümünden ekleyebilirsin.</div>';
+    results.classList.remove('food-results-open');
     return;
   }
 
-  filtered.slice(0,6).forEach(food=>{
+  results.classList.add('food-results-open');
+  filtered.forEach(food=>{
     const item=document.createElement('button');
     item.type='button';
     item.className='food-search-result';
@@ -460,13 +463,6 @@ function searchFood(text){
     item.onclick=()=>selectFood(food);
     results.appendChild(item);
   });
-
-  if(filtered.length>6){
-    const more=document.createElement('div');
-    more.className='food-search-more';
-    more.textContent=(filtered.length-6)+' sonuç daha bulunuyor';
-    results.appendChild(more);
-  }
 }
 
 
@@ -504,7 +500,7 @@ function selectFood(food){
   calculateFood();
   const results=$('foodResults');
   const search=$('foodSearch');
-  if(results)results.innerHTML='';
+  if(results){results.innerHTML='';results.classList.remove('food-results-open');}
   if(search)search.value=food.name;
   $('foodCalcCard')?.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
@@ -854,6 +850,9 @@ function setupEvents(){
     });
   });
 
+  $('foodSearch').addEventListener('focus', event=>{
+    searchFood(event.target.value);
+  });
   $('foodSearch').addEventListener('input', event=>{
     searchFood(event.target.value);
   });
