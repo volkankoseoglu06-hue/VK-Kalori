@@ -103,7 +103,8 @@ function imageMarkup(ex){
   const start=exerciseImage(ex.name,'start');
   const peak=exerciseImage(ex.name,'peak');
   if(!start)return '<span class="exercise-visual exercise-fallback">🏋️</span>';
-  return '<span class="exercise-visual"><img src="'+start+'" alt="'+ex.name+'" loading="lazy"><img src="'+peak+'" alt="" class="exercise-peak" loading="lazy"></span>';
+  const fallback=ex.name.includes('Glute Bridge')?'🍑':'🏋️';
+  return '<span class="exercise-visual"><img src="'+start+'" alt="'+ex.name+'" loading="lazy" onerror="this.style.display=\'none\';this.parentNode.classList.add(\'exercise-fallback\');this.parentNode.insertAdjacentText(\'beforeend\',\''+fallback+'\');"><img src="'+peak+'" alt="" class="exercise-peak" loading="lazy" onerror="this.remove()"></span>';
 }
 function elapsedMs(){return sessionElapsedBeforeStart+(sessionStartedAt?Date.now()-sessionStartedAt:0);}
 function sessionMinutes(){return Math.round(elapsedMs()/60000);}
