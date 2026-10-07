@@ -1,6 +1,7 @@
 const $ = id => document.getElementById(id);
 
 const DEFAULTS = {
+  name: '',
   eaten: 0,
   burned: 0,
   protein: 0,
@@ -51,6 +52,7 @@ function normalizeState(s){
   const out = structuredClone(DEFAULTS);
   if(!s || typeof s !== 'object') return out;
 
+  out.name = String(s.name || '').trim().slice(0,30);
   out.eaten = safeNum(s.eaten);
   out.burned = safeNum(s.burned);
   out.protein = safeNum(s.protein);
@@ -665,11 +667,13 @@ function resetAllData(){
 }
 
 function saveProfile(){
+  const name = String($('profileName')?.value || '').trim().slice(0,30);
   const calories = safeNum($('profileCalories').value);
   const protein = safeNum($('profileProtein').value);
   const water = safeNum($('profileWater').value);
   const weight = safeNum($('profileWeight').value);
 
+  state.name = name;
   if(calories > 0) state.goals.calories = calories;
   if(protein > 0) state.goals.protein = protein;
   if(water > 0) state.goals.water = water;
@@ -678,6 +682,7 @@ function saveProfile(){
   save();
   updateDashboard();
 
+  refreshAll();
   alert('Profil ve hedefler kaydedildi.');
 }
 
@@ -699,9 +704,9 @@ function setupNavigation(){
     });
   });
 
-  const gear=$('profileHeaderButton');
-  if(gear){
-    gear.addEventListener('click',()=>{
+  const settingsButton=$('settingsHomeButton');
+  if(settingsButton){
+    settingsButton.addEventListener('click',()=>{
       document.querySelectorAll('.page').forEach(page=>page.classList.remove('active'));
       $('profilePage')?.classList.add('active');
       document.querySelectorAll('.bottom-nav button').forEach(b=>b.classList.remove('active'));
@@ -827,6 +832,11 @@ function setupEvents(){
 }
 
 function refreshAll(){
+  if($('profileName')) $('profileName').value = state.name || '';
+  if($('homeHeaderDate')){
+    const d=new Date();
+    $('homeHeaderDate').textContent=d.toLocaleDateString('tr-TR',{day:'numeric',month:'long'});
+  }
   if($('profileWeight')) $('profileWeight').value = state.weight || '';
   if($('profileCalories')) $('profileCalories').value = state.goals.calories || '';
   if($('profileProtein')) $('profileProtein').value = state.goals.protein || '';
