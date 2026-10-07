@@ -58,7 +58,7 @@ input:focus,select:focus{border-color:#98b9ff;box-shadow:0 0 0 3px #eff6ff}
 .home-settings-button{width:100%;border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:12px;padding:11px;margin-top:8px;font-weight:800}
 
 .food-tabs,.history-tabs,.sport-type-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px}
-.history-tabs{grid-template-columns:repeat(4,1fr)}
+.history-tabs{grid-template-columns:repeat(5,1fr)}
 .food-tabs button,.history-tabs button,.sport-type-tabs button,.workout-day{border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:12px;padding:10px 5px;font-weight:800;font-size:10px}
 .food-tabs button.active,.history-tabs button.active,.sport-type-tabs button.active,.workout-day.active{background:#111827;color:#fff;border-color:#111827}
 .nutrition-mini-grid,.workout-quick-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-radius:15px;overflow:hidden;margin-bottom:10px}
@@ -122,3 +122,15 @@ input:focus,select:focus{border-color:#98b9ff;box-shadow:0 0 0 3px #eff6ff}
 .summary-comparison.negative{background:#fff7ed;color:#c2410c}
 .summary-close-button{margin-top:12px}
 @media(max-width:430px){.workout-summary-box{padding:22px 14px 15px}.summary-stats-grid{gap:5px}.summary-stat strong{font-size:14px}}
+
+
+/* Workout progress */
+.progress-hero{display:flex;justify-content:space-between;align-items:center;background:#111827;color:#fff;border-radius:20px;padding:18px;margin-bottom:9px}
+.progress-hero small{font-size:8px;color:#cbd5e1;font-weight:900;letter-spacing:.8px}.progress-hero h2{font-size:21px;margin:4px 0}.progress-hero p{font-size:9px;color:#cbd5e1;margin:0}.progress-hero>span{font-size:38px}
+.progress-kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-radius:15px;overflow:hidden;margin-bottom:9px}
+.progress-kpi-grid>div{background:#fff;text-align:center;padding:12px 3px}.progress-kpi-grid strong{display:block;font-size:16px}.progress-kpi-grid span{display:block;color:var(--muted);font-size:8px;font-weight:800;margin-top:3px}
+.progress-change{display:flex;align-items:center;gap:8px;border-radius:13px;padding:11px 13px;margin-bottom:9px;background:var(--green-soft);color:#166534}.progress-change.down{background:#fff7ed;color:#c2410c}.progress-change strong{font-size:13px}.progress-change span{font-size:8px;color:var(--muted)}
+.progress-card{background:#fff;border:1px solid var(--line);border-radius:17px;padding:13px;margin:9px 0}.progress-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.progress-card-head strong{font-size:12px}.progress-card-head small{font-size:8px;color:var(--muted)}
+.progress-chart{display:grid;gap:9px}.progress-bar-row{display:grid;grid-template-columns:42px 1fr 55px;gap:7px;align-items:center}.progress-bar-row>span{font-size:8px;color:var(--muted)}.progress-bar-row>div{height:9px;background:#eef2f6;border-radius:99px;overflow:hidden}.progress-bar-row i{display:block;height:100%;background:var(--primary);border-radius:99px}.progress-bar-row>b{font-size:8px;text-align:right}
+.progress-exercise-row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #f0f2f5}.progress-exercise-row:last-child{border-bottom:0}.progress-exercise-row span{font-size:9px}.progress-exercise-row strong{font-size:10px}
+@media(max-width:430px){.history-tabs{gap:4px}.history-tabs button{font-size:8px;padding:9px 2px}.progress-kpi-grid{grid-template-columns:repeat(2,1fr)}}
