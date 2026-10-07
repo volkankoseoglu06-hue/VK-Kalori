@@ -266,13 +266,16 @@ function openExercise(index){
 
 function renderModalSets(sets){
   const list=document.getElementById('modalSetList');if(!list)return;
-  if(!sets.length){list.innerHTML='<div class="modal-empty-sets">Henüz set yok. <b>+ Set Ekle</b> ile ilk setini gir.</div>';return;}
-  list.innerHTML=sets.map((s,i)=>'<div class="modal-set-row"><b>Set '+(i+1)+'</b><input class="modal-set-weight" type="number" min="0" step=".5" value="'+(s.weight??'')+'" placeholder="kg"><input class="modal-set-reps" type="number" min="1" max="50" value="'+(s.reps??'')+'" placeholder="Tekrar"><button data-remove-set type="button">×</button></div>').join('');
+  if(!sets.length){list.innerHTML='<div class="modal-set-head"><span>SET</span><span>KG</span><span>TEKRAR</span><span></span></div><div class="modal-empty-sets">Henüz set yok. <b>+ Set Ekle</b> ile ilk setini gir.</div>';return;}
+  list.innerHTML='<div class="modal-set-head"><span>SET</span><span>KG</span><span>TEKRAR</span><span></span></div>'+sets.map((s,i)=>'<div class="modal-set-row"><b>Set '+(i+1)+'</b><input class="modal-set-weight" type="number" min="0" step=".5" value="'+(s.weight??'')+'" placeholder="0"><input class="modal-set-reps" type="number" min="1" max="50" value="'+(s.reps??'')+'" placeholder="0"><button data-remove-set type="button" aria-label="Seti sil">×</button></div>').join('');
 }
 function addModalSet(){
   const list=document.getElementById('modalSetList');if(!list)return;
   if(list.querySelector('.modal-empty-sets'))list.innerHTML='';
   const n=list.querySelectorAll('.modal-set-row').length+1;
+  if(!list.querySelector('.modal-set-head')){
+    const head=document.createElement('div');head.className='modal-set-head';head.innerHTML='<span>SET</span><span>KG</span><span>TEKRAR</span><span></span>';list.prepend(head);
+  }
   const row=document.createElement('div');row.className='modal-set-row';
   row.innerHTML='<b>Set '+n+'</b><input class="modal-set-weight" type="number" min="0" step=".5" placeholder="kg"><input class="modal-set-reps" type="number" min="1" max="50" placeholder="Tekrar"><button data-remove-set type="button">×</button>';
   list.appendChild(row);
@@ -322,7 +325,10 @@ function bindWorkout(){
   }
   updateTimerUI();
 }
-function relabelModalSets(){document.querySelectorAll('#modalSetList .modal-set-row b').forEach((b,i)=>b.textContent='Set '+(i+1));}
+function relabelModalSets(){
+  document.querySelectorAll('#modalSetList .modal-set-row b').forEach((b,i)=>b.textContent='Set '+(i+1));
+  if(!document.querySelector('#modalSetList .modal-set-row')) document.querySelector('#modalSetList .modal-set-head')?.remove();
+}
 
 function history(){renderHistory();}
 function tabs(){renderDayTabs();}
