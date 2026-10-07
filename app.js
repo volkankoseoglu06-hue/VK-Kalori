@@ -566,7 +566,11 @@ function renderHistory(filter='daily'){
   const box=$('historyList');
   if(!box)return;
   const tabs=document.querySelectorAll('.history-tabs button');
-  tabs.forEach((b,i)=>b.classList.toggle('active',['daily','workout','cardio','weight'][i]===filter));
+  tabs.forEach((b,i)=>b.classList.toggle('active',['daily','workout','cardio','weight','progress'][i]===filter));
+  if(filter==='progress'){
+    if(typeof renderWorkoutProgress==='function')renderWorkoutProgress();
+    return;
+  }
 
   if(filter==='daily'){
     if(!state.history.length){box.innerHTML='<div class="history-item">Henüz geçmiş kaydı yok.</div>';return;}
@@ -736,7 +740,7 @@ function setupEvents(){
   const historyTabs=document.querySelectorAll('.history-tabs button');
   historyTabs.forEach((tab,index)=>{
     tab.addEventListener('click',()=>{
-      const types=['daily','workout','cardio','weight'];
+      const types=['daily','workout','cardio','weight','progress'];
       renderHistory(types[index]);
     });
   });
