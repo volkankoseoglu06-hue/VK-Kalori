@@ -491,7 +491,10 @@ function render(){
   const detail=document.getElementById('workoutDetail');
   if(!detail)return;
 
-  const plan=W[day];
+  const plan=W[day] || W[1];
+  if(!W[day]) day=1;
+  const tabHost=document.getElementById('workoutDayTabs');
+  if(tabHost && !tabHost.children.length) tabs();
   const doneCount=plan.ex.filter(ex=>S.done[key(ex[0])]===today()).length;
   const todayLogs=(S.logs||[]).filter(isCurrentWorkoutLog);
   const totalSets=todayLogs.reduce((sum,log)=>sum+(Number(log.sets)||0),0);
@@ -507,6 +510,9 @@ function render(){
     if(timer)timer.textContent=active?formatDuration(sessionElapsedMs()):'00:00';
   }
 
+  detail.style.display='flex';
+  detail.style.flexDirection='column';
+  detail.style.gap='8px';
   detail.innerHTML=plan.ex.map((x,i)=>{
     const k=key(x[0]);
     const saved=(S.logs||[]).find(log=>log.date===today()&&log.day===day&&log.exercise===x[0]&&!log.autoDone);
