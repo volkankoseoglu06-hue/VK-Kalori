@@ -636,6 +636,7 @@ function syncWorkoutBurnToDashboard(){
 
 function saveExerciseValues(i,weight,sets,reps,setDetails=null){
   const x=W[day].ex[i],k=key(x[0]);
+  if(!Array.isArray(setDetails) || !setDetails.length)return;
   weight=Math.max(0,Number(weight)||0);
   sets=Math.max(1,Math.min(10,Number(sets)||x[2]));
   reps=Math.max(1,Math.min(50,Number(reps)||10));
