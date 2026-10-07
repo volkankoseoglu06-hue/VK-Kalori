@@ -22,7 +22,7 @@ const DEFAULTS = {
 const FRESH_START_VERSION='20261006-final20';
 if(localStorage.getItem('vk_fresh_start_version')!==FRESH_START_VERSION){
   localStorage.removeItem('vk_yasam_kocu');
-  localStorage.removeItem('vk_workout_log_v1');
+  localStorage.removeItem('vk_workout_log_v2');
   localStorage.setItem('vk_fresh_start_version',FRESH_START_VERSION);
 }
 
@@ -94,7 +94,7 @@ function netCalories(){
 function getTodayWorkoutSummary(){
   const empty={done:0,sets:0,minutes:0};
   try{
-    const raw=localStorage.getItem('vk_workout_log_v1');
+    const raw=localStorage.getItem('vk_workout_log_v2');
     if(!raw)return empty;
     const data=JSON.parse(raw)||{};
     const todayKey=localDateKey();
@@ -582,7 +582,7 @@ function renderHistory(filter='daily'){
   }
 
   if(filter==='workout' || filter==='weight'){
-    const raw=localStorage.getItem('vk_workout_log_v1');
+    const raw=localStorage.getItem('vk_workout_log_v2');
     let data={logs:[],weights:{},done:{}};
     try{data=raw?JSON.parse(raw):data;}catch(e){}
     if(filter==='workout'){
@@ -626,12 +626,12 @@ function finishDay(){
   // Günü Bitir: bugünün antrenman işaretlerini sıfırla,
   // ancak geçmiş set/tekrar/ağırlık kayıtlarını koru.
   try{
-    const raw=localStorage.getItem('vk_workout_log_v1');
+    const raw=localStorage.getItem('vk_workout_log_v2');
     const workoutData=raw?JSON.parse(raw):{logs:[],weights:{},done:{}};
     workoutData.done={};
     workoutData.dayResetAt=Date.now();
     workoutData.session=null;
-    localStorage.setItem('vk_workout_log_v1',JSON.stringify(workoutData));
+    localStorage.setItem('vk_workout_log_v2',JSON.stringify(workoutData));
   }catch(e){}
 
   if(typeof resetWorkoutDay==='function')resetWorkoutDay();
@@ -644,7 +644,7 @@ function finishDay(){
 function resetAllData(){
   if(!confirm('Beslenme, kardiyo, antrenman geçmişi, kilo ve tüm kayıtlar silinsin mi?'))return;
   localStorage.removeItem('vk_yasam_kocu');
-  localStorage.removeItem('vk_workout_log_v1');
+  localStorage.removeItem('vk_workout_log_v2');
   state=structuredClone(DEFAULTS);
   selectedFood=null;
   lastFoodCalc=null;
