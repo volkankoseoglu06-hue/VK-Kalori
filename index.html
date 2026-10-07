@@ -65,7 +65,7 @@
     <span class="workout-play">▶</span>
     <span class="workout-start-copy"><strong>Başlat</strong><small>Süreyi başlat ve setlerini kaydet</small></span>
   </button>
-  <button id="finishWorkoutButton" class="finish-workout-button" type="button">✓ Antrenmanı Tamamla</button>
+
 </div>
 <div class="workout-day-tabs" id="workoutDayTabs"></div>
 <div id="activeWorkoutPanel" hidden></div>
@@ -80,11 +80,12 @@
   <div class="modern-section-title"><h2>Antrenman Geçmişi</h2></div>
   <div id="workoutHistory" class="workout-history-list"></div>
 </div>
+<button id="finishWorkoutBottomButton" class="finish-workout-bottom" type="button">✓ Antrenmanı Bitir</button>
 </section>
 <section id="historyPage" class="page"><div class="history-tabs"><button class="active">Günlük</button><button>Antrenman</button><button>Kardiyo</button><button>Ağırlık</button></div><div id="historyList" class="history-modern-list"></div></section>
 <section id="profilePage" class="page"><div class="profile-page-head"><button class="profile-back-button" type="button" data-page="homePage">‹</button><div><small>VK LIFE</small><h1>Profil & Ayarlar</h1></div></div><div class="card modern-card profile-card"><div class="profile-avatar">VK</div><label>Adın<input id="profileName" type="text" maxlength="30" placeholder="Adını yaz"></label><p>Hedef: yağ kaybı + kas gelişimi</p><label>Vücut ağırlığı (kg)<input id="profileWeight" type="number" min="30" max="300" step="0.1" placeholder="Örn. 109"></label><div class="grid-2"><label>Kalori<input id="profileCalories" type="number" placeholder="1800"></label><label>Protein<input id="profileProtein" type="number" placeholder="165"></label></div><label>Su hedefi (L)<input id="profileWater" type="number" placeholder="3"></label><button class="primary" id="saveProfileButton">Kaydet</button><button class="danger-outline" id="resetAllButton" type="button">↺ Tüm Verileri Sıfırla</button><p class="profile-note">Ağırlık antrenmanı kalorisi vücut ağırlığı ve antrenman yoğunluğuna göre hesaplanır.</p><p class="repdb-credit">Egzersiz görselleri: <a href="https://repdb.co" target="_blank" rel="noopener">Exercise data by RepDB</a></p></div></section>
 </div>
 <div id="workoutModal" class="workout-modal"><div class="workout-modal-box"><button class="modal-close" data-close>×</button><h2 id="workoutModalTitle"></h2><div id="workoutModalMuscle" class="modal-muscle-tags"></div><div id="workoutAnimation"></div><div class="modal-cues"><ul id="workoutCues"></ul></div><div class="modal-set-actions"><button type="button" class="modal-add-set" data-add-modal-set>+ Set ekle</button></div><div class="modal-set-list" id="modalSetList"><div class="modal-empty-sets">Henüz set eklenmedi. Her seti aşağıdaki <b>+ Set ekle</b> ile kendin gir.</div></div><button class="modal-save-exercise" type="button" data-modal-save>✓ Hareketi Tamamla</button><div class="source-line">Kaynak: <span id="workoutSource"></span></div></div></div>
-<script src="foods.js"></script><script src="app.js?v=20261007-gymfix8"></script><script src="workout.js?v=20261007-gymfix25"></script>
+<script src="foods.js"></script><script src="app.js?v=20261007-gymfix8"></script><script src="workout.js?v=20261007-gymfix26"></script>
 </body>
 </html>
