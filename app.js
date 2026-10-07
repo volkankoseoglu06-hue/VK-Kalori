@@ -876,6 +876,15 @@ function setupEvents(){
     saveCustomFood
   );
 
+  $('toggleNewFoodButton').addEventListener('click',()=>{
+    const form=$('newFoodCard');
+    if(!form)return;
+    const open=form.style.display!=='none';
+    form.style.display=open?'none':'block';
+    $('toggleNewFoodButton').textContent=open?'＋ Yeni Besin':'− Yeni Besin';
+    if(!open)$('newFoodName')?.focus();
+  });
+
   [
     'sportType',
     'sportDuration',

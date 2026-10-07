@@ -293,3 +293,14 @@ input:focus,select:focus{border-color:#98b9ff;box-shadow:0 0 0 3px #eff6ff}
 #sportPage #dailySports{padding:10px}
 #sportPage #dailySports .food-item{font-size:10px;line-height:1.5;padding:10px}
 #sportPage #dailySports .food-item strong{font-size:11px}
+
+/* Compact new-food action and bottom food log */
+.nutrition-add-food-row{margin:9px 0}
+.nutrition-add-food-row button{width:100%;border:0;background:transparent;text-align:left;padding:5px 2px;color:#111827;font-size:13px;font-weight:900}
+.nutrition-add-food-row button:active{opacity:.65}
+.new-food-form{padding:13px;margin:0 0 12px;border-radius:15px}
+.new-food-form h3{font-size:12px;margin:0 0 9px;font-weight:900}
+.new-food-form input,.new-food-form select{height:41px;font-size:10px;border-radius:10px}
+.new-food-form .grid-2{gap:6px;margin-top:6px}
+.new-food-form select{margin-top:6px}
+.new-food-form .primary{height:41px;font-size:10px;margin-top:7px}
