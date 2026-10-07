@@ -333,6 +333,43 @@ function openWorkoutSummary(data){
 }
 function closeWorkoutSummary(){document.getElementById('workoutSummaryModal')?.classList.remove('open');}
 
+
+function workoutHistoryWithVolume(){
+  return (S.history||[]).map(h=>{
+    if(Number(h.volume)>0)return h;
+    const volume=S.logs.filter(x=>x.date===h.date&&Number(x.day)===Number(h.day)).reduce((n,x)=>n+(x.setDetails||[]).reduce((m,s)=>m+(Number(s.weight)||0)*(Number(s.reps)||0),0),0);
+    return {...h,volume:Math.round(volume*10)/10};
+  }).sort((a,b)=>(Number(b.at)||0)-(Number(a.at)||0));
+}
+function renderWorkoutProgress(){
+  const box=document.getElementById('historyList');
+  if(!box)return;
+  const rows=workoutHistoryWithVolume();
+  if(!rows.length){box.innerHTML='<div class="history-item">İlerlemeyi görmek için en az bir antrenmanı tamamla.</div>';return;}
+  const totalVolume=rows.reduce((n,x)=>n+(Number(x.volume)||0),0);
+  const totalSets=rows.reduce((n,x)=>n+(Number(x.sets)||0),0);
+  const last=rows[0];
+  const previous=rows[1];
+  const change=previous&&Number(previous.volume)>0?Math.round(((Number(last.volume||0)-Number(previous.volume))/Number(previous.volume))*100):null;
+  const maxWeight=S.logs.reduce((max,x)=>Math.max(max,...(x.setDetails||[]).map(s=>Number(s.weight)||0)),0);
+  const chart=rows.slice(0,8).reverse().map(x=>{
+    const max=Math.max(...rows.slice(0,8).map(y=>Number(y.volume)||0),1);
+    const pct=Math.max(4,Math.round((Number(x.volume||0)/max)*100));
+    return '<div class="progress-bar-row"><span>'+new Date(x.date+'T12:00:00').toLocaleDateString('tr-TR',{day:'2-digit',month:'short'})+'</span><div><i style="width:'+pct+'%"></i></div><b>'+Math.round(Number(x.volume||0))+' kg</b></div>';
+  }).join('');
+  const exerciseNames=[...new Set(Object.values(WORKOUTS).flatMap(w=>w.exercises.map(e=>e.name)))];
+  const best=exerciseNames.map(name=>{
+    const bestSet=S.logs.filter(x=>x.exercise===name).flatMap(x=>x.setDetails||[]).reduce((m,s)=>Math.max(m,Number(s.weight)||0),0);
+    return {name,bestSet};
+  }).filter(x=>x.bestSet>0).sort((a,b)=>b.bestSet-a.bestSet).slice(0,5);
+  const bestHtml=best.length?best.map(x=>'<div class="progress-exercise-row"><span>'+x.name+'</span><strong>'+x.bestSet+' kg</strong></div>').join(''):'<div class="empty-state">Hareket kaydı oluştukça burada en yüksek ağırlıkların görünecek.</div>';
+  box.innerHTML='<div class="progress-hero"><div><small>ANTRENMAN PERFORMANSI</small><h2>Gücünü takip et</h2><p>Hacim ve ağırlık değişimini tek ekranda gör.</p></div><span>📈</span></div>'+
+    '<div class="progress-kpi-grid"><div><strong>'+rows.length+'</strong><span>Antrenman</span></div><div><strong>'+Math.round(totalVolume)+'</strong><span>Toplam kg</span></div><div><strong>'+totalSets+'</strong><span>Toplam set</span></div><div><strong>'+maxWeight+'</strong><span>En yüksek kg</span></div></div>'+
+    (change!==null?'<div class="progress-change '+(change>=0?'up':'down')+'"><strong>'+(change>=0?'↗':'↘')+' '+Math.abs(change)+'%</strong><span>Son antrenman hacim değişimi</span></div>':'')+
+    '<div class="progress-card"><div class="progress-card-head"><strong>Hacim trendi</strong><small>Son 8 antrenman</small></div><div class="progress-chart">'+chart+'</div></div>'+
+    '<div class="progress-card"><div class="progress-card-head"><strong>En yüksek ağırlıklar</strong><small>Hareket bazında</small></div>'+bestHtml+'</div>';
+}
+
 function renderHistory(){
   const host=document.getElementById('workoutHistory');if(!host)return;
   const rows=(S.history||[]).slice(0,10);
