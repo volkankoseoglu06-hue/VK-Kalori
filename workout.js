@@ -73,6 +73,17 @@ function exerciseKey(name){return workoutDay+'_'+name;}
 function currentLogs(){return S.logs.filter(x=>x.date===todayKey()&&Number(x.day)===workoutDay);}
 function sessionLogs(){return S.logs.filter(x=>x.sessionId&&x.sessionId===S.session?.id);}
 function formatTime(ms){const s=Math.max(0,Math.floor(ms/1000));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+function exerciseImage(name,pose='start'){
+  const id=EXERCISE_IDS[name];
+  if(!id)return '';
+  return 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+id+'-'+pose+'.webp';
+}
+function imageMarkup(ex){
+  const start=exerciseImage(ex.name,'start');
+  const peak=exerciseImage(ex.name,'peak');
+  if(!start)return '<span class="exercise-visual exercise-fallback">🏋️</span>';
+  return '<span class="exercise-visual"><img src="'+start+'" alt="'+ex.name+'" loading="lazy"><img src="'+peak+'" alt="" class="exercise-peak" loading="lazy"></span>';
+}
 function elapsedMs(){return sessionElapsedBeforeStart+(sessionStartedAt?Date.now()-sessionStartedAt:0);}
 function sessionMinutes(){return Math.round(elapsedMs()/60000);}
 
