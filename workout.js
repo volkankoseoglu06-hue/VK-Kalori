@@ -179,9 +179,7 @@ function progressionRecommendation(ex){
 function performanceMarkup(ex,hasSets=false){
   const rec=progressionRecommendation(ex);
   if(!hasSets)return '';
-  if(!rec){
-    return '<div class="exercise-performance empty">İlk kaydın olacak.</div>';
-  }
+  if(!rec)return '';
   const sets=rec.last.setDetails.map((s,n)=>'<span>'+ (n+1)+'. '+Number(s.weight||0)+' kg × '+Number(s.reps||0)+'</span>').join('');
   const suggestion=rec.suggested?'<b>Öneri: '+rec.suggested+' kg</b>':'';
   return '<div class="exercise-performance"><div><small>Son antrenman</small><strong>'+new Date(rec.last.date+'T12:00:00').toLocaleDateString('tr-TR',{day:'2-digit',month:'short'})+'</strong></div><div class="performance-sets">'+sets+'</div><div class="performance-recommendation">'+suggestion+'<small>'+rec.reason+'</small></div></div>';
