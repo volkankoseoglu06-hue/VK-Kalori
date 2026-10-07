@@ -595,7 +595,6 @@ function saveCustomFood(){
   $('newFoodCalories').value = '';
   $('newFoodProtein').value = '';
   renderNutritionPage();
-  searchFood('');
   $('newFoodCard').style.display='none';
   $('toggleNewFoodButton').textContent='＋ Yeni Besin';
 
