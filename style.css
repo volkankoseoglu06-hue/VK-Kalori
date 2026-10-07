@@ -183,3 +183,23 @@ input:focus,select:focus{border-color:#98b9ff;box-shadow:0 0 0 3px #eff6ff}
 .nutrition-food-row strong{font-size:10px}
 .nutrition-food-row>span{font-size:9px}
 .nutrition-food-row small{font-size:8px}
+
+/* Nutrition compact summary + meal groups */
+.nutrition-summary-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:11px 12px;margin:9px 0;box-shadow:var(--shadow)}
+.nutrition-summary-head{display:flex;justify-content:space-between;align-items:center;padding:2px 2px 10px;border-bottom:1px solid #eef1f4}
+.nutrition-summary-head strong{font-size:11px;font-weight:900}
+.nutrition-summary-head span{font-size:8px;color:var(--muted);font-weight:800}
+.nutrition-summary-stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:9px}
+.nutrition-summary-stats>div{text-align:center;border-right:1px solid #eef1f4}
+.nutrition-summary-stats>div:last-child{border-right:0}
+.nutrition-summary-stats span{display:block;font-size:13px;margin-bottom:3px}
+.nutrition-summary-stats b{display:block;font-size:13px;font-weight:900}
+.nutrition-summary-stats small{display:block;color:var(--muted);font-size:8px;margin-top:2px;font-weight:800}
+.nutrition-target-line{display:block;color:var(--muted);font-size:8px;margin-top:4px}
+.nutrition-target-line b{color:#475467}
+.nutrition-progress-secondary{margin-top:10px!important}
+.meal-group{margin:9px 0 12px}
+.meal-group-head{display:flex;justify-content:space-between;align-items:center;padding:0 2px 4px}
+.meal-group-head strong{font-size:11px;font-weight:900}
+.meal-group-head span{font-size:8px;color:var(--muted);font-weight:800}
+.meal-group .nutrition-food-row{margin:5px 0}

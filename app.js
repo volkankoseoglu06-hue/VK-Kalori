@@ -327,7 +327,7 @@ function renderNutritionPage(){
   let eyebrow='BUGÜNÜN BESLENMESİ';
   let countLabel=foods.length+' kayıt';
   if(foodPeriod==='yesterday'){
-    summary=data.yesterday?{calories:Number(data.yesterday.eaten)||0,protein:Number(data.yesterday.protein)||0,water:Number(data.yesterday.water)||0}: {calories:0,protein:0,water:0};
+    summary=data.yesterday?{calories:Number(data.yesterday.eaten)||0,protein:Number(data.yesterday.protein)||0,water:Number(data.yesterday.water)||0}:{calories:0,protein:0,water:0};
     foods=Array.isArray(data.yesterday?.foods)?data.yesterday.foods:[];
     eyebrow='DÜNÜN BESLENMESİ';
     countLabel=foods.length?foods.length+' kayıt':'Özet kayıt';
@@ -342,23 +342,46 @@ function renderNutritionPage(){
   const caloriePct=Math.min(100,Math.round((summary.calories/calorieGoal)*100));
   const proteinPct=Math.min(100,Math.round((summary.protein/proteinGoal)*100));
   const set=(id,value)=>{const el=$(id);if(el)el.textContent=value;};
-  set('nutritionRemainingCalories',Math.max(0,calorieGoal-summary.calories));
+  set('nutritionPeriodLabel',eyebrow);
+  set('nutritionFoodTitle',foodPeriod==='week'?'Haftalık özet':foodPeriod==='yesterday'?'Dünün besinleri':'Bugünün besinleri');
+  set('nutritionFoodCount',countLabel);
+  set('nutritionSummaryCalories',Math.round(summary.calories)+' kcal');
+  set('nutritionSummaryProtein',Math.round(summary.protein)+' g');
+  set('nutritionSummaryWater',Number(summary.water).toFixed(1)+' L');
   set('nutritionCalorieGoal',calorieGoal);
   set('nutritionProteinGoal',proteinGoal);
   set('nutritionCaloriePct',caloriePct+'%');
-  set('nutritionCalorieProgress',caloriePct+'%');
   set('nutritionProteinPct',proteinPct+'%');
-  const label=document.querySelector('.nutrition-period-label'); if(label)label.textContent=eyebrow;
-  const calorieBar=$('nutritionCalorieBar'); if(calorieBar)calorieBar.style.width=caloriePct+'%';
-  const proteinBar=$('nutritionProteinBar'); if(proteinBar)proteinBar.style.width=proteinPct+'%';
-  const count=$('nutritionFoodCount'); if(count)count.textContent=countLabel;
-  const title=$('nutritionFoodTitle'); if(title)title.textContent=foodPeriod==='week'?'Haftalık beslenme özeti':foodPeriod==='yesterday'?'Dünün besinleri':'Bugünün besinleri';
+  const calorieBar=$('nutritionCalorieBar');if(calorieBar)calorieBar.style.width=caloriePct+'%';
+  const proteinBar=$('nutritionProteinBar');if(proteinBar)proteinBar.style.width=proteinPct+'%';
+
   const list=$('nutritionFoodList');
   if(list){
-    list.innerHTML=foods.length?foods.map((food,index)=>'<div class="nutrition-food-row"><div><strong>'+food.name+'</strong><small>'+food.amount+' '+food.unit+'</small></div><span>'+Math.round(food.calories)+' kcal<br><small>'+Math.round(food.protein)+' g protein</small></span>'+(foodPeriod==='today'?'<button type="button" data-remove-nutrition="'+index+'">×</button>':'')+'</div>').join(''):'<div class="empty-state">'+(foodPeriod==='week'?'Haftalık ortalama, veri girilen günler üzerinden hesaplanıyor.':foodPeriod==='yesterday'?'Dün için ayrıntılı besin kaydı bulunmuyor.':'Bugün henüz öğün eklenmedi.')+'</div>';
+    if(foodPeriod==='week'){
+      list.innerHTML='<div class="empty-state">Haftalık ortalama, sadece veri girilen günler üzerinden hesaplanıyor.</div>';
+    }else if(!foods.length){
+      list.innerHTML='<div class="empty-state">'+(foodPeriod==='yesterday'?'Dün için ayrıntılı besin kaydı bulunmuyor.':'Bugün henüz öğün eklenmedi.')+'</div>';
+    }else{
+      const order=['Kahvaltı','Öğle','Akşam','Ara Öğün'];
+      list.innerHTML=order.filter(meal=>foods.some(f=>(f.meal||'Ara Öğün')===meal)).map(meal=>{
+        const mealFoods=foods.map((food,index)=>({...food,index})).filter(f=>(f.meal||'Ara Öğün')===meal);
+        const totalKcal=Math.round(mealFoods.reduce((n,f)=>n+Number(f.calories||0),0));
+        return '<div class="meal-group"><div class="meal-group-head"><strong>'+meal+'</strong><span>'+totalKcal+' kcal</span></div>'+
+          mealFoods.map(food=>'<div class="nutrition-food-row"><div><strong>'+food.name+'</strong><small>'+food.amount+' '+food.unit+'</small></div><span>'+Math.round(food.calories)+' kcal<br><small>'+Math.round(food.protein)+' g protein</small></span>'+(foodPeriod==='today'?'<button type="button" data-remove-nutrition="'+food.index+'">×</button>':'')+'</div>').join('')+
+        '</div>';
+      }).join('');
+    }
   }
-  if(list)list.querySelectorAll('[data-remove-nutrition]').forEach(btn=>btn.onclick=()=>{const index=Number(btn.dataset.removeNutrition);const food=state.dailyFoods[index];if(!food)return;state.eaten=Math.max(0,state.eaten-safeNum(food.calories));state.protein=Math.max(0,state.protein-safeNum(food.protein));state.dailyFoods.splice(index,1);save();updateDashboard();renderNutritionPage();renderFoods();});
+  if(list)list.querySelectorAll('[data-remove-nutrition]').forEach(btn=>btn.onclick=()=>{
+    const index=Number(btn.dataset.removeNutrition);
+    const food=state.dailyFoods[index];if(!food)return;
+    state.eaten=Math.max(0,state.eaten-safeNum(food.calories));
+    state.protein=Math.max(0,state.protein-safeNum(food.protein));
+    state.dailyFoods.splice(index,1);
+    save();updateDashboard();renderNutritionPage();renderFoods();
+  });
 }
+
 function renderFoods(){
   const box = $('dailyFoods');
   if(!box) return;
@@ -540,12 +563,14 @@ function addFood(){
   state.eaten += result.calories;
   state.protein += result.protein;
 
+  const meal=$('foodMeal')?.value||'Ara Öğün';
   state.dailyFoods.push({
     name: result.food.name,
     calories: result.calories,
     protein: result.protein,
     amount: result.amount,
-    unit: result.unit
+    unit: result.unit,
+    meal
   });
 
   save();
