@@ -3615,3 +3615,84 @@ body:has(#workoutModal.open){overflow:hidden!important;}
 #workoutModal .workout-modal-box{max-height:92vh!important;padding-bottom:28px!important;}
 .modal-empty-sets{padding:10px 4px;color:#64748b;font-size:11px;line-height:1.4;}
 .modal-empty-sets b{color:#2563eb;}
+
+/* ===== Final workout/cardio usability fixes ===== */
+.workout-start-panel{
+  width:100%!important;
+  box-sizing:border-box!important;
+  padding:10px 12px!important;
+  background:#fff!important;
+  border:1px solid #e2e8f0!important;
+  border-radius:18px!important;
+}
+.workout-start-main{
+  width:100%!important;
+  min-width:0!important;
+  padding:4px!important;
+}
+.workout-start-copy{min-width:0!important;overflow:visible!important}
+.workout-start-copy strong{font-size:15px!important;color:#16a34a!important}
+.workout-start-copy small{font-size:10px!important;color:#64748b!important}
+.workout-play{background:#16a34a!important;color:#fff!important;flex:0 0 48px!important}
+.workout-start-main.is-running .workout-play{background:#2563eb!important}
+.workout-start-main.is-running .workout-start-copy strong{color:#2563eb!important}
+.finish-workout-button{
+  display:block!important;
+  width:100%!important;
+  min-height:48px!important;
+  margin:0 0 10px!important;
+  border:0!important;
+  border-radius:15px!important;
+  background:#0f172a!important;
+  color:#fff!important;
+  font-family:inherit!important;
+  font-size:14px!important;
+  font-weight:900!important;
+  box-shadow:0 7px 18px rgba(15,23,42,.10)!important;
+  cursor:pointer!important;
+}
+.finish-workout-button:active{transform:scale(.99)}
+#workoutModal{
+  z-index:1000!important;
+  align-items:flex-end!important;
+  padding:8px 8px max(8px,env(safe-area-inset-bottom))!important;
+}
+#workoutModal .workout-modal-box{
+  max-height:calc(100dvh - 16px)!important;
+  height:auto!important;
+  overflow-y:auto!important;
+  -webkit-overflow-scrolling:touch!important;
+  padding-bottom:24px!important;
+}
+.modal-set-actions{margin-top:8px!important}
+.modal-add-set{
+  width:100%!important;
+  min-height:44px!important;
+  border:0!important;
+  border-radius:12px!important;
+  background:#eff6ff!important;
+  color:#2563eb!important;
+  font-family:inherit!important;
+  font-weight:900!important;
+  cursor:pointer!important;
+}
+.modal-empty-sets{
+  padding:12px!important;
+  border-radius:12px!important;
+  background:#f8fafc!important;
+  color:#64748b!important;
+  font-size:11px!important;
+  text-align:center!important;
+}
+@media(max-width:430px){
+  .workout-start-panel{padding:9px 10px!important}
+  .workout-play{width:46px!important;height:46px!important;flex-basis:46px!important}
+  .workout-start-copy strong{font-size:14px!important}
+  .workout-start-copy small{font-size:9px!important}
+  .finish-workout-button{min-height:46px!important;margin-bottom:9px!important}
+  #workoutModal{padding:0!important}
+  #workoutModal .workout-modal-box{
+    max-height:calc(100dvh - 8px)!important;
+    border-radius:24px 24px 0 0!important;
+  }
+}
