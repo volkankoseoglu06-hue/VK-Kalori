@@ -88,3 +88,16 @@ input:focus,select:focus{border-color:#98b9ff;box-shadow:0 0 0 3px #eff6ff}
 @media(max-width:430px){.app{padding:10px 10px 24px}.home-goal-grid{gap:8px}.goal-card{min-height:116px;padding:12px}.goal-ring-top strong{font-size:24px}.home-actions-grid button{font-size:10px}.workout-exercise{padding:9px}.exercise-main{grid-template-columns:76px minmax(0,1fr) 26px}.exercise-visual{width:76px;height:76px}.exercise-last{margin-left:86px}.workout-screen-head h1{font-size:20px}.workout-screen-head{grid-template-columns:36px 1fr 68px}.workout-back{min-height:36px}.workout-timer-icon{min-height:36px}.workout-modal-box{padding:15px}.history-session{grid-template-columns:1.4fr repeat(3,.7fr)}}
 /* Progressive overload UI */
 .exercise-performance{margin:8px 0 0 88px;padding:8px 9px;border-radius:11px;background:#f8fafc;border:1px solid var(--line);display:grid;gap:4px}.exercise-performance.empty{display:block;color:var(--muted);font-size:8px;line-height:1.35}.exercise-performance strong{font-size:9px}.exercise-performance small{display:block;color:var(--muted);font-size:8px;line-height:1.35}.workout-progression-hint{margin:9px 0;padding:10px 11px;border-radius:12px;background:var(--green-soft);border:1px solid #bbf7d0;color:#166534;font-size:9px;font-weight:800;line-height:1.4}@media(max-width:430px){.exercise-performance{margin-left:86px}}
+
+/* Set entry table */
+.modal-set-list{gap:6px}
+.modal-set-head{display:grid;grid-template-columns:50px 1fr 1fr 32px;gap:6px;align-items:center;padding:0 6px;color:#98a2b3;font-size:8px;font-weight:900;letter-spacing:.4px}
+.modal-set-head span:nth-child(2),.modal-set-head span:nth-child(3){text-align:center}
+.modal-set-row{grid-template-columns:50px 1fr 1fr 32px!important}
+.modal-set-row input{text-align:center;font-weight:800}
+.modal-set-row b{text-align:center}
+.modal-empty-sets{margin-top:0}
+@media(max-width:430px){
+  .modal-set-head,.modal-set-row{grid-template-columns:44px minmax(0,1fr) minmax(0,1fr) 30px!important}
+  .modal-set-row input{padding:8px 5px}
+}
