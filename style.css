@@ -236,3 +236,14 @@ input:focus,select:focus{border-color:#98b9ff;box-shadow:0 0 0 3px #eff6ff}
 #newFoodCard .grid-2{gap:7px;margin-top:7px}
 #newFoodCard select{margin-top:7px}
 #newFoodCard .primary{height:43px;padding:0;font-size:10px;border-radius:11px;margin-top:8px}
+
+/* Compact food search */
+#foodResults{margin:6px 0 8px}
+.food-search-result{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:left;background:#fff;border:1px solid var(--line);border-radius:11px;padding:9px 11px;margin:5px 0;color:var(--ink)}
+.food-search-result:active{transform:scale(.99)}
+.food-search-result>span:first-child{min-width:0}
+.food-search-result strong{display:block;font-size:10px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.food-search-result small{display:block;color:var(--muted);font-size:8px;margin-top:2px}
+.food-search-result>span:last-child{text-align:right;flex:none}
+.food-search-result b{display:block;font-size:9px;font-weight:900}
+.food-search-more,.food-search-empty{padding:6px 4px;color:var(--muted);font-size:8px;text-align:center}
