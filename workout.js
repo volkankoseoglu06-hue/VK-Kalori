@@ -321,6 +321,20 @@ function finishWorkout(){
   if(typeof window.updateDashboard==='function')window.updateDashboard();
 }
 function resetWorkoutDay(day=workoutDay){
+  if(day==='all'){
+    stopTicker();
+    sessionStartedAt=0;
+    sessionElapsedBeforeStart=0;
+    const today=todayKey();
+    S.done={};
+    S.logs=S.logs.filter(x=>x.date!==today);
+    S.session=null;
+    S.sessions={};
+    saveWorkout();
+    renderWorkout();
+    updateStats();
+    return;
+  }
   if(Number(day)!==Number(workoutDay)){
     S.done=Object.fromEntries(Object.entries(S.done||{}).filter(([k])=>!k.startsWith(String(day)+'_')));
     S.logs=S.logs.filter(x=>!(x.date===todayKey()&&Number(x.day)===Number(day)));
