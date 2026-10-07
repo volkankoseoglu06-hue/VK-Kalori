@@ -737,7 +737,8 @@ function saveExerciseFromModal(){
   saveExerciseValues(i,weight,details.length,reps,details);
   close();
 }
-function addModalSetRow(weight='',reps=10){
+function addModalSetRow(weight='',reps=''){
+
   const list=document.getElementById('modalSetList');
   if(!list)return;
   const empty=list.querySelector('.modal-empty-sets');
@@ -753,7 +754,16 @@ function addModalSetRow(weight='',reps=10){
 function syncModalSetCount(){
   const list=document.getElementById('modalSetList');
   const input=document.getElementById('modalSets');
-  if(list&&input)input.value=Math.max(1,list.querySelectorAll('.modal-set-row').length);
+  if(list&&input)input.value=list.querySelectorAll('.modal-set-row').length;
+  updateModalSaveButton();
+}
+function updateModalSaveButton(){
+  const list=document.getElementById('modalSetList');
+  const button=document.querySelector('[data-modal-save]');
+  if(!button)return;
+  const count=list ? list.querySelectorAll('.modal-set-row').length : 0;
+  button.disabled=count===0;
+  button.textContent=count ? '✓ Hareketi Tamamla' : 'Önce Set Ekle';
 }
 function collectModalSetDetails(){
   const list=document.getElementById('modalSetList');
