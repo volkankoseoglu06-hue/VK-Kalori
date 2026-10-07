@@ -4707,3 +4707,28 @@ body:has(#workoutPage.active) .modern-header .vk-logo-img{
   #workoutAnimation{height:220px!important}
   #workoutModal .modal-set-row{grid-template-columns:48px minmax(0,1fr) minmax(0,1fr) 32px!important}
 }
+
+
+/* ===== GYM final modal scroll fix 2026-10-07d ===== */
+body:has(#workoutModal.open) .bottom-nav{
+  display:none!important;
+}
+#workoutModal.open{
+  align-items:flex-start!important;
+  padding:8px!important;
+  overflow:hidden!important;
+}
+#workoutModal.open .workout-modal-box{
+  width:min(560px,100%)!important;
+  max-height:calc(100dvh - 16px)!important;
+  height:auto!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  touch-action:pan-y!important;
+  -webkit-overflow-scrolling:touch!important;
+  overscroll-behavior:contain!important;
+  margin:auto 0!important;
+}
+#workoutModal .modal-save-exercise:disabled{
+  opacity:.55!important;
+}
