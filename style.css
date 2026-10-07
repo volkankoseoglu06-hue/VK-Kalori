@@ -203,3 +203,16 @@ input:focus,select:focus{border-color:#98b9ff;box-shadow:0 0 0 3px #eff6ff}
 .meal-group-head strong{font-size:11px;font-weight:900}
 .meal-group-head span{font-size:8px;color:var(--muted);font-weight:800}
 .meal-group .nutrition-food-row{margin:5px 0}
+
+/* Nutrition water tracking */
+.nutrition-water-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px;margin:9px 0;box-shadow:var(--shadow)}
+.nutrition-water-head{display:flex;align-items:center;justify-content:space-between}
+.nutrition-water-head strong{display:block;font-size:11px;font-weight:900}
+.nutrition-water-head small{display:block;color:var(--muted);font-size:8px;margin-top:2px}
+.nutrition-water-head>b{font-size:16px;font-weight:900}
+.nutrition-water-meta{display:flex;justify-content:space-between;margin-top:5px;color:var(--muted);font-size:8px;font-weight:800}
+.nutrition-water-meta b{color:#475467}
+.nutrition-water-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px}
+.nutrition-water-actions button{border:1px solid #dbe3ea;background:#f8fafc;border-radius:10px;padding:8px;font-size:9px;font-weight:900;color:#344054}
+.nutrition-water-actions button:active{transform:scale(.98)}
+.nutrition-water-actions small{grid-column:1/-1;text-align:center;color:var(--muted);font-size:8px}
