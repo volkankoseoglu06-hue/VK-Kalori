@@ -581,8 +581,14 @@ function renderHistory(filter='daily'){
     let data={logs:[],weights:{},done:{}};
     try{data=raw?JSON.parse(raw):data;}catch(e){}
     if(filter==='workout'){
-      const logs=(data.logs||[]).filter(x=>!x.autoDone);
-      box.innerHTML=logs.length?logs.slice().reverse().slice(0,30).map(x=>'<div class="history-item"><strong>'+x.exercise+'</strong><br>📅 '+x.date+' • Gün '+x.day+'<br>🏋️ '+(x.sets||0)+' set • '+(x.reps||'-')+' tekrar</div>').join(''):'<div class="history-item">Henüz antrenman kaydı yok.</div>';
+      const sports=(state.dailySports||[]).filter(x=>x.name==='Ağırlık Antrenmanı').slice().reverse();
+      box.innerHTML=sports.length?sports.slice(0,20).map(x=>{
+        const id=x.sessionId||'';
+        return '<div class="history-item workout-history-row"><strong>🏋️ Ağırlık Antrenmanı</strong><button class="remove-history workout-delete-button" data-delete-workout="'+id+'">Sil</button><br>📅 '+(x.date||'')+' • Gün '+(x.day||'-')+'<br>⏱️ '+(x.duration||0)+' dk • 🏋️ '+(x.sets||0)+' set • 🔥 '+(x.calories||0)+' kcal</div>';
+      }).join(''):'<div class="history-item">Henüz tamamlanan antrenman yok.</div>';
+      box.querySelectorAll('[data-delete-workout]').forEach(btn=>btn.onclick=()=>{
+        if(typeof deleteHistory==='function') deleteHistory(btn.dataset.deleteWorkout);
+      });
     }else{
       const weight=Number(state.weight)||0;
       box.innerHTML='<div class="history-item"><strong>⚖️ Güncel Ağırlık</strong><br>'+ (weight?weight.toFixed(1)+' kg':'Henüz kilo girilmedi.') +'</div>';
@@ -682,7 +688,7 @@ function addWater(){
 }
 
 function setupNavigation(){
-  const buttons=document.querySelectorAll('.bottom-nav button, .brand');
+  const buttons=document.querySelectorAll('[data-page]');
   buttons.forEach(button=>{
     button.addEventListener('click',()=>{
       document.querySelectorAll('.page').forEach(page=>page.classList.remove('active'));
