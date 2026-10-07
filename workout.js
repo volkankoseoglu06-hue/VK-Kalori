@@ -13,7 +13,6 @@ const WORKOUTS={
     {name:'Bench Mekik',muscles:['Karın','Core'],sets:2,reps:'10–15',image:'crunches',cues:['Bench düz konumda olsun.','Ayaklarını yere sağlam bas.','Sadece kürek kemiklerini kontrollü kaldır.']}
   ]},
   2:{name:'Full Body 2',focus:'Bacak • üst göğüs • sırt • omuz • triceps',exercises:[
-    {name:'Destekli Split Squat',muscles:['Quadriceps','Kalça','Hamstring'],sets:3,reps:'8–10 / kol',image:'dumbbell-split-squat',cues:['Bir elinle benchden destek al.','Kontrollü şekilde aşağı in.','Ön ayağından kuvvet alarak kalk.']},
     {name:'Eğimli Dambıl Press',muscles:['Üst göğüs','Ön omuz','Triceps'],sets:3,reps:'8–12',image:'incline-db-press',cues:['Bench açısını orta seviyede ayarla.','Kürek kemiklerini geriye-aşağı al.','Dambılları kontrollü indir ve it.']},
     {name:'Bench Destekli Dambıl Row',muscles:['Sırt','Rhomboid','Arka omuz'],sets:3,reps:'10–12',image:'single-arm-chest-supported-dumbbell-row',cues:['Göğsünü eğimli bench üzerine destekle.','Dambılları kaburgalara doğru çek.','Üst noktada kısa sıkıştır.']},
     {name:'Dambıl Biceps Curl',muscles:['Biceps','Ön kol'],sets:2,reps:'10–12',image:'bicep-curl',cues:['Dirsekleri sabit tut.','Dambılları kontrollü kıvır.','Aşağı inerken ağırlığı bırakma.']},
@@ -21,7 +20,6 @@ const WORKOUTS={
     {name:'Dambıl Overhead Triceps Extension',muscles:['Triceps'],sets:2,reps:'10–12',image:'overhead-tricep-extension',cues:['Dambılı iki elinle baş üstünde tut.','Dirsekleri sabit tut.','Kontrollü indirip triceps ile uzat.']}
   ]},
   3:{name:'Full Body 3',focus:'Bacak • göğüs • sırt • omuz • kol • core',exercises:[
-    {name:'Dambıl Front Squat',muscles:['Quadriceps','Gluteus','Core'],sets:3,reps:'8–12',image:'dumbbell-front-squat',cues:['Dambılları omuz hizasında tut.','Diz ve kalçayı kontrollü bük.','Topuklardan kuvvet alarak kalk.']},
     {name:'Dambıl Floor Press',muscles:['Göğüs','Triceps','Ön omuz'],sets:3,reps:'8–12',image:'dumbbell-floor-press',cues:['Sırtüstü yat ve dizleri bük.','Üst kollar yere yaklaşınca dur.','Dambılları kontrollü yukarı it.']},
     {name:'Bench Destekli Rear-Delt Row',muscles:['Arka omuz','Üst sırt','Rhomboid'],sets:2,reps:'10–15',image:'rear-delt-fly',cues:['Göğsünü bench üzerine destekle.','Dirsekleri yana açarak çek.','Üst noktada arka omuzları sık.']},
     {name:'Lateral Raise',muscles:['Yan omuz','Deltoid'],sets:2,reps:'10–15',image:'lateral-raise',cues:['Kollar hafif bükülü olsun.','Dambılları omuz hizasına kadar kaldır.','İnerken ağırlığı bırakma.']},
