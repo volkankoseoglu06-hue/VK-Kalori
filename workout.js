@@ -430,29 +430,29 @@ function renderWorkoutProgress(){
   if(!rows.length){box.innerHTML='<div class="history-item">İlerlemeyi görmek için en az bir antrenmanı tamamla.</div>';return;}
   const totalVolume=rows.reduce((n,x)=>n+(Number(x.volume)||0),0);
   const totalSets=rows.reduce((n,x)=>n+(Number(x.sets)||0),0);
-  const last=rows[0];
-  const previous=rows[1];
-  const change=previous&&Number(previous.volume)>0?Math.round(((Number(last.volume||0)-Number(previous.volume))/Number(previous.volume))*100):null;
+  const last=rows[0], previous=rows[1];
+  const averageVolume=Math.round(totalVolume/rows.length);
+  const weekAgo=Date.now()-7*24*60*60*1000;
+  const weekRows=rows.filter(x=>(Number(x.at)||new Date(x.date+'T12:00:00').getTime())>=weekAgo);
   const maxWeight=S.logs.reduce((max,x)=>Math.max(max,...(x.setDetails||[]).map(s=>Number(s.weight)||0)),0);
-  const chart=rows.slice(0,8).reverse().map(x=>{
-    const max=Math.max(...rows.slice(0,8).map(y=>Number(y.volume)||0),1);
-    const pct=Math.max(4,Math.round((Number(x.volume||0)/max)*100));
-    return '<div class="progress-bar-row"><span>'+new Date(x.date+'T12:00:00').toLocaleDateString('tr-TR',{day:'2-digit',month:'short'})+'</span><div><i style="width:'+pct+'%"></i></div><b>'+Math.round(Number(x.volume||0))+' kg</b></div>';
-  }).join('');
+  const change=previous&&Number(previous.volume)>0?Math.round(((Number(last.volume||0)-Number(previous.volume))/Number(previous.volume))*100):null;
+  const recentRows=rows.slice(0,8), chartMax=Math.max(...recentRows.map(x=>Number(x.volume)||0),1);
+  const chart=recentRows.slice().reverse().map(x=>{const pct=Math.max(4,Math.round((Number(x.volume||0)/chartMax)*100));return '<div class="progress-bar-row"><span>'+new Date(x.date+'T12:00:00').toLocaleDateString('tr-TR',{day:'2-digit',month:'short'})+'</span><div><i style="width:'+pct+'%"></i></div><b>'+Math.round(Number(x.volume||0))+' kg</b></div>';}).join('');
   const exerciseNames=[...new Set(Object.values(WORKOUTS).flatMap(w=>w.exercises.map(e=>e.name)))];
-  const best=exerciseNames.map(name=>{
-    const bestSet=S.logs.filter(x=>x.exercise===name).flatMap(x=>x.setDetails||[]).reduce((m,s)=>Math.max(m,Number(s.weight)||0),0);
-    return {name,bestSet};
-  }).filter(x=>x.bestSet>0).sort((a,b)=>b.bestSet-a.bestSet).slice(0,5);
+  const best=exerciseNames.map(name=>{const bestSet=S.logs.filter(x=>x.exercise===name).flatMap(x=>x.setDetails||[]).reduce((m,s)=>Math.max(m,Number(s.weight)||0),0);return {name,bestSet};}).filter(x=>x.bestSet>0).sort((a,b)=>b.bestSet-a.bestSet).slice(0,5);
   const bestHtml=best.length?best.map(x=>'<div class="progress-exercise-row"><span>'+x.name+'</span><strong>'+x.bestSet+' kg</strong></div>').join(''):'<div class="empty-state">Hareket kaydı oluştukça burada en yüksek ağırlıkların görünecek.</div>';
-  const prRows=allPersonalRecords().sort((a,b)=>(b.at||0)-(a.at||0));
-  const prCount=prRows.length;
+  const prRows=allPersonalRecords().sort((a,b)=>(b.at||0)-(a.at||0)), prCount=prRows.length;
   const badges=achievementBadges(rows,totalVolume,prCount);
   const badgeHtml=badges.length?badges.map(x=>'<div class="achievement-badge"><span>'+x.icon+'</span><div><strong>'+x.title+'</strong><small>'+x.text+'</small></div></div>').join(''):'<div class="empty-state">İlk antrenmanını tamamladığında rozetlerin burada açılacak.</div>';
   const recentPrHtml=prRows.slice(0,5).map(x=>'<div class="progress-pr-row"><span><b>'+x.name+'</b><small>'+new Date(x.date+'T12:00:00').toLocaleDateString('tr-TR',{day:'2-digit',month:'short'})+'</small></span><strong>'+x.weight+' kg</strong></div>').join('')||'<div class="empty-state">Yeni kişisel rekorların burada görünecek.</div>';
-  box.innerHTML='<div class="progress-hero"><div><small>ANTRENMAN PERFORMANSI</small><h2>Gücünü takip et</h2><p>Hacim, rekor ve gelişimini tek ekranda gör.</p></div><span>📈</span></div>'+
+  const lastDate=new Date(last.date+'T12:00:00').toLocaleDateString('tr-TR',{day:'2-digit',month:'long'});
+  const lastDay='Full Body '+(last.day||'');
+  const changeHtml=change!==null?'<div class="progress-change '+(change>=0?'up':'down')+'"><strong>'+(change>=0?'↗':'↘')+' '+Math.abs(change)+'%</strong><span>Son antrenmana göre hacim değişimi</span></div>':'';
+  box.innerHTML='<div class="progress-hero"><div><small>ANTRENMAN PERFORMANSI</small><h2>Gücünü takip et</h2><p>Hacim, devamlılık ve kişisel rekorlarını tek ekranda gör.</p></div><span>📈</span></div>'+
     '<div class="progress-kpi-grid"><div><strong>'+rows.length+'</strong><span>Antrenman</span></div><div><strong>'+Math.round(totalVolume)+'</strong><span>Toplam kg</span></div><div><strong>'+totalSets+'</strong><span>Toplam set</span></div><div><strong>'+maxWeight+'</strong><span>En yüksek kg</span></div></div>'+
-    (change!==null?'<div class="progress-change '+(change>=0?'up':'down')+'"><strong>'+(change>=0?'↗':'↘')+' '+Math.abs(change)+'%</strong><span>Son antrenman hacim değişimi</span></div>':'')+
+    '<div class="progress-mini-grid"><div><strong>'+weekRows.length+'</strong><span>Son 7 gün</span></div><div><strong>'+averageVolume+'</strong><span>Ort. hacim</span></div><div><strong>'+Math.round(Number(last.volume)||0)+'</strong><span>Son hacim</span></div></div>'+
+    '<div class="progress-last-workout"><div><small>SON ANTRENMAN</small><strong>'+lastDay+'</strong><span>'+lastDate+' • '+(last.sets||0)+' set • '+Math.round(Number(last.volume)||0)+' kg</span></div><b>✓</b></div>'+
+    changeHtml+
     '<div class="progress-card"><div class="progress-card-head"><strong>Hacim trendi</strong><small>Son 8 antrenman</small></div><div class="progress-chart">'+chart+'</div></div>'+
     '<div class="progress-card"><div class="progress-card-head"><strong>Kazanılan rozetler</strong><small>'+badges.length+' adet</small></div><div class="achievement-grid">'+badgeHtml+'</div></div>'+
     '<div class="progress-card"><div class="progress-card-head"><strong>Son kişisel rekorlar</strong><small>'+prCount+' toplam</small></div>'+recentPrHtml+'</div>'+
