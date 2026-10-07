@@ -3589,3 +3589,8 @@ body:has(#workoutModal.open){overflow:hidden!important;}
     border-radius:24px 24px 12px 12px!important;
   }
 }
+
+
+/* Final: workout modal must sit above fixed bottom navigation */
+#workoutModal{z-index:1000!important}
+#workoutModal .workout-modal-box{z-index:1001!important}
