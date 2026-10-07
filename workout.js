@@ -1,19 +1,19 @@
 const WORKOUT_KEY='vk_workout_log_v1';
 const W={
-1:{name:'Tüm vücut A',focus:'Göğüs • sırt • arka bacak • kol • core',ex:[
+1:{name:'Full Body 1',focus:'Göğüs • sırt • arka bacak • kol • core',ex:[
 ['Dambıl Bench Press','Göğüs • ön omuz • triceps',3,'8–12','press',['Ayaklar yere sağlam bassın.','Dambılları kontrollü göğsün orta hattına indir.','Bilekleri nötr tutup yukarı it.'],['Dambılları zıplatma.','Belini aşırı çukurlaştırma.'],'ACE Chest Press','https://www.acefitness.org/resources/everyone/exercise-library/19/chest-press/'],
 ['Tek Kol Dambıl Row','Sırt • arka omuz • biceps',3,'8–12/kol','row',['Bir el ve aynı taraftaki diz bench üzerinde destek olsun.','Dambılı kalçaya doğru çek.','Gövdeyi sabit tut.'],['Gövdeyi döndürme.','Momentumla savurma.'],'ACE Workout Builder','https://www.acefitness.org/continuing-education/certified/april-2025/8841/the-ace-workout-builder-for-high-intensity-resistance-training/'],
 ['Dambıl Romanian Deadlift','Arka bacak • kalça',3,'8–12','hinge',['Dizleri hafif bük, kalçayı geriye gönder.','Dambılları bacaklara yakın indir.','Kalçayı öne getirerek kalk.'],['Belden kamburlaşma.','Ağırlığı öne savurma.'],'ACE Workout Builder','https://www.acefitness.org/continuing-education/certified/april-2025/8841/the-ace-workout-builder-for-high-intensity-resistance-training/'],
 ['Hammer Curl','Biceps • ön kol',2,'10–12','curl',['Avuçlar birbirine bakacak.','Dirsekleri gövdeye yakın tut.','Yukarı kontrollü, aşağı yavaş.'],['Belden momentum alma.','Dirsekleri öne kaçırma.'],'ACE Workout Builder','https://www.acefitness.org/continuing-education/certified/april-2025/8841/the-ace-workout-builder-for-high-intensity-resistance-training/'],
 ['Bench Mekik','Karın • core',2,'10–15','core',['Bench’in sırtını düz konuma al ve rahatça uzan.','Ayaklarını yere sağlam bas, sadece kürek kemiklerini hafifçe kaldır.','Karnını sıkarak kontrollü dön; tam oturma yapma.'],['Boynundan çekme.','Belini zorlayacak kadar yükselme.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/']]},
-2:{name:'Tüm vücut B',focus:'Bacak • üst göğüs • sırt • kalça • omuz • triceps',ex:[
+2:{name:'Full Body 2',focus:'Bacak • üst göğüs • sırt • kalça • omuz • triceps',ex:[
 ['Destekli Split Squat','Quadriceps • kalça • hamstring',3,'8–10/kol','squat',['Bir elinle benchden destek al.','Öndeki dizini kontrollü bükerek aşağı in.','Ön ayağından kuvvet alarak kalk.'],['Ön dizini içeri kaçırma.','Hareketi aceleye getirme.'],'ACE Split Squat','https://www.acefitness.org/resources/everyone/exercise-library/'],
 ['Eğimli Dambıl Press','Üst göğüs • omuz • triceps',3,'8–12','press',['Bench açısını orta seviyede ayarla.','Kürek kemiklerini geriye-aşağı al.','Dambılları üst göğse indirip dengeli it.'],['Omuzları öne düşürme.','Ağırlığı kontrolsüz bırakma.'],'ACE Incline Chest Press','https://www.acefitness.org/resources/everyone/exercise-library/25/incline-chest-press/'],
 ['Bench Destekli Dambıl Row','Sırt • arka omuz',3,'10–12','row',['Göğsü eğimli bench üzerine destekle.','Dambılları kaburgalara doğru çek.','Üst noktada kısa sıkıştırıp yavaş bırak.'],['Boynu öne uzatma.','Omuzları kulaklara kaldırma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/'],
 ['Dambıl Biceps Curl','Biceps • ön kol',2,'10–12','curl',['Dirsekleri gövdeye yakın ve sabit tut.','Dambılları kontrollü şekilde omuzlara doğru kıvır.','Aşağı inerken ağırlığı yavaş bırak.'],['Belden momentum alma.','Bilekleri aşırı bükme.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/'],
 ['Oturarak Dambıl Shoulder Press','Omuz • triceps',2,'8–12','press',['Sırtı bench ile destekle.','Dambılları omuz hizasından başlat.','Momentum almadan yukarı it.'],['Belden aşırı geriye yatma.','Dambılları çarpıştırma.'],'ACE Shoulder Guide','https://www.acefitness.org/continuing-education/prosource/september-2014/4972/dynamite-delts-ace-research-identifies-top-shoulder-exercises/'],
 ['Dambıl Overhead Triceps Extension','Triceps',2,'10–12','press',['Dambılı iki elinle başının üstünde tut.','Dirsekleri sabit tutarak kontrollü indir.','Triceps ile yukarı uzat.'],['Dirsekleri fazla açma.','Belden geriye yatma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/']]},
-3:{name:'Tüm vücut C',focus:'Bacak • göğüs • sırt • omuz • kol • core',ex:[
+3:{name:'Full Body 3',focus:'Bacak • göğüs • sırt • omuz • kol • core',ex:[
 ['Dambıl Front Squat','Quadriceps • gluteus • core',3,'8–12','squat',['Dambılları omuz hizasında tut.','Diz ve kalçayı kontrollü bükerek aşağı in.','Topuklardan kuvvet alarak kalk.'],['Dizleri içeri düşürme.','Belini aşırı öne eğme.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/'],
 ['Dambıl Floor Press','Göğüs • triceps',3,'8–12','press',['Sırtüstü yat, dizleri bük.','Üst kollar yere hafifçe temas edince dur.','Dambılları kontrollü yukarı it.'],['Dirsekleri sertçe yere çarptırma.','Bilekleri bükme.'],'ACE Chest Press','https://www.acefitness.org/resources/everyone/exercise-library/19/chest-press/'],
 ['Bench Destekli Rear-Delt Row','Arka omuz • üst sırt • rhomboid',2,'10–15','row',['Göğsünü bench üzerine destekle.','Dirsekleri yana açarak dambılları çek.','Üst noktada arka omuzları sık.'],['Boynu öne uzatma.','Omuzları kulaklara kaldırma.'],'ACE Exercise Library','https://www.acefitness.org/resources/everyone/exercise-library/'],
@@ -109,21 +109,20 @@ function clearElapsedTicker(){
 function updateWorkoutControl(){
   const button=document.getElementById('startWorkoutButton');
   const finishButton=document.getElementById('finishWorkoutButton');
-  const finishBottom=document.getElementById('finishWorkoutBottomButton');
   if(!button)return;
   const status=S.session?.day===day ? S.session?.status : null;
   button.classList.remove('is-running','is-paused','is-finished');
   if(active){
     button.classList.add('is-running');
-    button.innerHTML='<span class="workout-play">⏸️</span><span class="workout-start-copy"><strong>Durdur</strong></span>';
+    button.innerHTML='<span class="workout-play">⏸️</span><span class="workout-start-copy"><strong>⏸️ Durdur</strong></span>';
   }else if(status==='paused'){
     button.classList.add('is-paused');
-    button.innerHTML='<span class="workout-play">▶️</span><span class="workout-start-copy"><strong>Devam Et</strong></span>';
+    button.innerHTML='<span class="workout-play">▶️</span><span class="workout-start-copy"><strong>▶️ Devam Et</strong></span>';
   }else if(status==='finished'){
     button.classList.add('is-finished');
     button.innerHTML='<span class="workout-play">✅</span><span class="workout-start-copy"><strong>Tamamlandı</strong></span>';
   }else{
-    button.innerHTML='<span class="workout-play">▶️</span><span class="workout-start-copy"><strong>Başlat</strong></span>';
+    button.innerHTML='<span class="workout-play">▶️</span><span class="workout-start-copy"><strong>▶️ Başlat</strong></span>';
   }
   const hasLogs=(S.logs||[]).some(isCurrentWorkoutLog);
   const canFinish=active || hasLogs || S.session?.day===day;
@@ -131,11 +130,6 @@ function updateWorkoutControl(){
     finishButton.disabled=!canFinish || status==='finished';
     finishButton.classList.toggle('completed',status==='finished');
     finishButton.textContent=status==='finished' ? '✓ Antrenman Tamamlandı' : 'Antrenmanı Tamamla';
-  }
-  if(finishBottom){
-    finishBottom.disabled=!canFinish || status==='finished';
-    finishBottom.classList.toggle('completed',status==='finished');
-    finishBottom.textContent=status==='finished' ? '✓ Antrenman Tamamlandı' : '✓ Antrenmanı Bitir';
   }
   const timer=document.getElementById('workoutElapsed');
   if(timer)timer.textContent=formatDuration(sessionElapsedMs());
@@ -213,8 +207,6 @@ function initWorkout(){
 
   const finishButton=document.getElementById('finishWorkoutButton');
   if(finishButton) finishButton.onclick=()=>completeWorkout();
-  const finishBottom=document.getElementById('finishWorkoutBottomButton');
-  if(finishBottom) finishBottom.onclick=()=>completeWorkout();
   updateWorkoutControl();
 
   document.getElementById('startWorkoutButton').onclick=()=>{
@@ -227,7 +219,7 @@ function initWorkout(){
 }
 
 function tabs(){
-  const labels={1:'Tüm vücut A',2:'Tüm vücut B',3:'Tüm vücut C'};
+  const labels={1:'Full Body 1',2:'Full Body 2',3:'Full Body 3'};
   document.getElementById('workoutDayTabs').innerHTML=[1,2,3].map(d=>
     '<button class="workout-day '+(d===day?'active':'')+'" data-day="'+d+'"><span class="day-label"><strong>'+labels[d]+'</strong></span></button>'
   ).join('');
@@ -562,21 +554,20 @@ function render(){
     const k=key(x[0]);
     const saved=(S.logs||[]).find(log=>log.date===today()&&log.day===day&&log.exercise===x[0]&&!log.autoDone);
     const sets=saved?.sets ?? x[2];
-    const reps=saved?.reps ?? Number((x[3].match(/^\\d+/)||['10'])[0]);
     const isDone=S.done[k]===today();
     const muscles=(MUSCLE_TARGETS[x[0]]||x[1].split(' • ')).slice(0,3);
-    const startImg=exerciseImage(x[0],'start');
-    const peakImg=exerciseImage(x[0],'peak');
-    const image=(startImg?'<img src="'+startImg+'" alt="'+x[0]+' başlangıç" loading="lazy">':'')+(peakImg?'<img src="'+peakImg+'" alt="" class="reference-exercise-image-peak" loading="lazy">':'');
+    const start=exerciseImage(x[0],'start');
+    const peak=exerciseImage(x[0],'peak');
     return '<button class="reference-exercise-card '+(isDone?'done':'')+'" type="button" data-open="'+i+'">'+
       '<span class="reference-exercise-number">'+(i+1)+'</span>'+
-      '<span class="reference-exercise-image">'+image+'</span>'+
+      '<span class="reference-exercise-image"><span class="reference-animation"><img src="'+start+'" alt="'+x[0]+' başlangıç" loading="lazy"><img src="'+peak+'" alt="" class="reference-animation-peak" loading="lazy"></span></span>'+
       '<span class="reference-exercise-content">'+
         '<strong class="reference-exercise-title">'+x[0]+'</strong>'+
         '<span class="reference-exercise-meta">'+sets+' set • '+x[3]+' tekrar</span>'+
-        '<span class="reference-exercise-tags">'+muscles.map(m=>'<em>'+m+'</em>').join('')+'</span>'+ 
-      '</span>'+ 
-      '<span class="reference-exercise-chevron">›</span>'+ 
+        '<span class="reference-exercise-tags">'+muscles.map(m=>'<em>'+m+'</em>').join('')+'</span>'+
+      '</span>'+
+      '<span class="reference-exercise-check" aria-hidden="true">'+(isDone?'✓':'')+'</span>'+
+      '<span class="reference-exercise-chevron">›</span>'+
     '</button>';
   }).join('');
 
@@ -821,14 +812,13 @@ function open(i){
   document.getElementById('workoutCues').innerHTML=selected[5].map(x=>'<li>'+x+'</li>').join('');
   const setList=document.getElementById('modalSetList');
   if(setList){
-    // Yeni harekette set satırı otomatik oluşturulmaz; kullanıcı kendisi ekler.
-    const details=Array.isArray(saved?.setDetails)&&saved.setDetails.length ? saved.setDetails : [];
-    setList.innerHTML=details.length
-      ? details.map((d,n)=>
-        '<div class="modal-set-row"><span>'+(n+1)+'. Set</span><input class="modal-set-weight" type="number" min="0" step="0.5" value="'+(d.weight||'')+'" placeholder="kg"><input class="modal-set-reps" type="number" min="1" max="50" value="'+(d.reps||'')+'" placeholder="tekrar"><button type="button" class="modal-remove-set" data-remove-set aria-label="Seti sil">×</button></div>'
-      ).join('')
-      : '<div class="modal-empty-sets">Henüz set eklenmedi. <b>+ Set ekle</b> ile kendin gir.</div>';
-    syncModalSetCount();
+    if(Array.isArray(saved?.setDetails)&&saved.setDetails.length){
+      setList.innerHTML=saved.setDetails.map((d,n)=>
+        '<div class="modal-set-row"><span>'+(n+1)+'. Set</span><input class="modal-set-weight" type="number" min="0" step="0.5" value="'+(d.weight||0)+'" placeholder="kg"><input class="modal-set-reps" type="number" min="1" max="50" value="'+(d.reps||10)+'" placeholder="tekrar"><button type="button" class="modal-remove-set" data-remove-set aria-label="Seti sil">×</button></div>'
+      ).join('');
+    }else{
+      setList.innerHTML='<div class="modal-empty-sets">Henüz set eklenmedi. <b>+ Set ekle</b> ile kendin gir.</div>';
+    }
   }
 
   document.getElementById('workoutSource').innerHTML='<a target="_blank" rel="noopener" href="https://repdb.co">Exercise data by RepDB ↗</a>';
