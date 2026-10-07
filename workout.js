@@ -717,10 +717,6 @@ function saveExerciseFromModal(){
     alert('Önce en az 1 set ekle.');
     return;
   }
-  if(!details.length){
-    alert('Önce en az 1 set ekle.');
-    return;
-  }
   const first=details[0]||{};
   const weight=first.weight ?? document.getElementById('modalWeight')?.value ?? 0;
   const reps=first.reps ?? document.getElementById('modalReps')?.value ?? 10;
