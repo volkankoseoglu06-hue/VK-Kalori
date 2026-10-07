@@ -3609,3 +3609,9 @@ body:has(#workoutModal.open){overflow:hidden!important;}
   .home-summary-heading small{font-size:9px}
   .workout-start-main{min-height:54px!important}
 }
+
+/* Workout modal must sit above the fixed bottom navigation on mobile. */
+#workoutModal{z-index:220!important;}
+#workoutModal .workout-modal-box{max-height:92vh!important;padding-bottom:28px!important;}
+.modal-empty-sets{padding:10px 4px;color:#64748b;font-size:11px;line-height:1.4;}
+.modal-empty-sets b{color:#2563eb;}
