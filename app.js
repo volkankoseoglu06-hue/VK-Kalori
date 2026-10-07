@@ -944,14 +944,6 @@ function setupEvents(){
     addSport
   );
 
-  const nutritionWaterActions=$('nutritionWaterActions');
-  if(nutritionWaterActions){
-    nutritionWaterActions.addEventListener('click',e=>{
-      const button=e.target.closest('[data-water-add]');
-      if(button)addWater(Number(button.dataset.waterAdd));
-    });
-  }
-
   const waterTargets = [$('waterButton'), $('homeWaterCard')].filter(Boolean);
   waterTargets.forEach(el=>el.addEventListener('click', addWater));
   waterTargets.forEach(el=>el.addEventListener('keydown', e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();addWater();}}));
