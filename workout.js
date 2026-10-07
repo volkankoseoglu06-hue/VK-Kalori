@@ -402,7 +402,7 @@ function exerciseImage(name,pose='start'){
     'Eğimli Dambıl Press':'incline-db-press',
     'Bench Destekli Dambıl Row':'single-arm-chest-supported-dumbbell-row',
     'Bench Glute Bridge':'glute-bridge',
-    'Dambıl Biceps Curl':'dumbbell-bicep-curl',
+    'Dambıl Biceps Curl':'bicep-curl',
     'Oturarak Dambıl Shoulder Press':'seated-db-press',
     'Dambıl Front Squat':'dumbbell-front-squat',
     'Dambıl Floor Press':'dumbbell-floor-press',
@@ -411,7 +411,6 @@ function exerciseImage(name,pose='start'){
     'Dead Bug':'dead-bug',
     'Bench Mekik':'decline-crunch','Şınav':'push-up',
     'Dambıl Overhead Triceps Extension':'overhead-tricep-extension',
-    'Dambıl Overhead Triceps Extension':'dumbbell-overhead-triceps-extension',
     'Incline Dumbbell Curl':'incline-db-curl'
   };
   const id=ids[name];
