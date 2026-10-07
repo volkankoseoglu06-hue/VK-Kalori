@@ -279,6 +279,21 @@ function updateFoodPeriod(){
   const title=document.querySelector('.food-tabs');
   if(title) title.setAttribute('data-period',foodPeriod);
 }
+function renderNutritionPage(){
+  const calories=Math.round(state.eaten);
+  const protein=Math.round(state.protein);
+  const calorieGoal=Math.max(1,Number(state.goals.calories)||1800);
+  const proteinGoal=Math.max(1,Number(state.goals.protein)||165);
+  const caloriePct=Math.min(100,Math.round((calories/calorieGoal)*100));
+  const proteinPct=Math.min(100,Math.round((protein/proteinGoal)*100));
+  const set=(id,value)=>{const el=$(id);if(el)el.textContent=value;};
+  set('nutritionRemainingCalories',Math.max(0,calorieGoal-calories));
+  set('nutritionCalorieGoal',calorieGoal);
+  set('nutritionProteinGoal',proteinGoal);
+  set('nutritionCaloriePct',caloriePct+'%');
+  set('nutritionProteinPct',proteinPct+'%');
+}
+
 function renderFoods(){
   const box = $('dailyFoods');
   if(!box) return;
@@ -739,6 +754,13 @@ function setupEvents(){
 
 
 
+  const historyTabs=document.querySelectorAll('#historyTabs [data-history-filter]');
+  historyTabs.forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      renderHistory(tab.dataset.historyFilter||'daily');
+    });
+  });
+
   const foodTabs=document.querySelectorAll('.food-tabs button');
   foodTabs.forEach((tab,index)=>{
     tab.addEventListener('click',()=>{
@@ -845,6 +867,7 @@ function refreshAll(){
   updateDashboard();
   renderFoods();
   updateFoodPeriod();
+  renderNutritionPage();
   renderSports();
   renderHistory();
 }
