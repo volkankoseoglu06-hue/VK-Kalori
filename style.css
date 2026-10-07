@@ -4019,3 +4019,118 @@ body:has(#homePage.active) .home-summary-heading small{display:block!important;m
 /* Workout modal above bottom navigation */
 #workoutModal{z-index:220!important}
 .workout-modal-box{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+
+
+/* ===== Final workout/home polish 2026-10-07 ===== */
+body:has(#homePage.active) .home-summary-heading h2:before{content:none!important;display:none!important}
+body:has(#homePage.active) .home-summary-heading h2{margin:0!important}
+body:has(#homePage.active) .home-summary-heading small#homeTodayDate{
+  display:block!important;
+  margin-top:5px!important;
+  color:#64748b!important;
+  font-size:10px!important;
+  font-weight:700!important;
+  text-transform:none!important;
+  letter-spacing:0!important;
+}
+
+/* Continue + Finish: always side-by-side on the workout screen. */
+.workout-control-split{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  gap:8px!important;
+  align-items:stretch!important;
+}
+.workout-start-main{
+  min-width:0!important;
+  min-height:54px!important;
+  border-radius:16px!important;
+  background:#f59e0b!important;
+  color:#fff!important;
+  padding:7px 10px!important;
+}
+.workout-start-main .workout-play{
+  width:38px!important;
+  height:38px!important;
+  background:#fff!important;
+  color:#f59e0b!important;
+  box-shadow:none!important;
+}
+.workout-start-main .workout-start-copy strong{
+  color:#fff!important;
+  font-size:14px!important;
+}
+.workout-start-main .workout-start-copy small{color:rgba(255,255,255,.88)!important}
+.workout-start-main.is-running{background:#2563eb!important}
+.workout-start-main.is-running .workout-play{background:#fff!important;color:#2563eb!important}
+.workout-start-main.is-paused{background:#f59e0b!important}
+.workout-start-main.is-paused .workout-play{background:#fff!important;color:#f59e0b!important}
+.finish-workout-button{
+  min-width:0!important;
+  min-height:54px!important;
+  border:0!important;
+  border-radius:16px!important;
+  background:#16a34a!important;
+  color:#fff!important;
+  font-family:inherit!important;
+  font-size:13px!important;
+  font-weight:900!important;
+  cursor:pointer!important;
+  box-shadow:0 6px 16px rgba(22,163,74,.16)!important;
+}
+.finish-workout-button:disabled{opacity:.45!important;cursor:default!important;box-shadow:none!important}
+.finish-workout-button.completed{background:#16a34a!important}
+
+/* Modal: real scrolling above the fixed bottom navigation. */
+#workoutModal{z-index:200!important}
+#workoutModal .workout-modal-box{
+  max-height:calc(100vh - 8px)!important;
+  overflow-y:auto!important;
+  -webkit-overflow-scrolling:touch!important;
+  touch-action:pan-y!important;
+  padding-bottom:34px!important;
+}
+.modal-set-actions{margin:8px 0!important}
+.modal-add-set{
+  width:100%!important;
+  min-height:42px!important;
+  border:1px solid #dbe5f1!important;
+  border-radius:12px!important;
+  background:#eff6ff!important;
+  color:#2563eb!important;
+  font-family:inherit!important;
+  font-weight:900!important;
+  cursor:pointer!important;
+}
+.modal-empty-sets{
+  padding:13px!important;
+  border-radius:12px!important;
+  background:#f8fafc!important;
+  color:#64748b!important;
+  font-size:11px!important;
+  line-height:1.45!important;
+  text-align:center!important;
+}
+.modal-set-row{
+  display:grid!important;
+  grid-template-columns:48px minmax(0,1fr) minmax(0,1fr) 34px!important;
+  gap:7px!important;
+  align-items:center!important;
+  padding:7px!important;
+  border-radius:11px!important;
+  background:#f8fafc!important;
+}
+.modal-set-row span{font-size:10px!important;font-weight:900!important;color:#334155!important}
+.modal-set-row input{width:100%!important;box-sizing:border-box!important;padding:9px 7px!important;border:1px solid #dbe5f1!important;border-radius:9px!important;background:#fff!important;font-weight:800!important}
+.modal-remove-set{
+  width:32px!important;height:32px!important;border:0!important;border-radius:9px!important;
+  background:#fee2e2!important;color:#dc2626!important;font-size:20px!important;line-height:1!important;
+}
+@media(max-width:430px){
+  .workout-control-split{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:7px!important}
+  .workout-start-main,.finish-workout-button{min-height:52px!important}
+  .workout-start-main .workout-start-copy strong{font-size:13px!important}
+  .workout-start-main .workout-start-copy small{font-size:8px!important}
+  .workout-start-main .workout-play{width:34px!important;height:34px!important}
+  .modal-set-row{grid-template-columns:43px minmax(0,1fr) minmax(0,1fr) 32px!important}
+}
