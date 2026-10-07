@@ -65,7 +65,7 @@ function normalizeWorkout(v){
   s.done=v.done&&typeof v.done==='object'?v.done:{};
   s.sessions=v.sessions&&typeof v.sessions==='object'?v.sessions:{};
   if(v.session && v.session.day && !s.sessions[v.session.day]) s.sessions[v.session.day]=v.session;
-  s.session=s.sessions[workoutDay]||null;
+  s.session=s.sessions[1]||null;
   s.history=Array.isArray(v.history)?v.history:[];
   return s;
 }
