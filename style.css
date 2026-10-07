@@ -4241,3 +4241,170 @@ body:has(#homePage.active) .home-summary-heading small#homeTodayDate{
   #workoutPage .workout-control-split .workout-start-copy strong{font-size:11px!important}
   #workoutPage .workout-control-split .workout-play{width:25px!important;height:25px!important;flex-basis:25px!important;font-size:11px!important}
 }
+
+
+/* ===== Home polish + settings redesign ===== */
+.modern-header{
+  position:relative!important;
+  height:58px!important;
+  margin:0 2px 14px!important;
+  padding:0 16px!important;
+  border-radius:20px!important;
+  background:rgba(255,255,255,.92)!important;
+  border:1px solid #e4ebf4!important;
+  box-shadow:0 7px 24px rgba(15,23,42,.055)!important;
+}
+.modern-header .brand{
+  position:absolute!important;
+  left:50%!important;
+  transform:translateX(-50%)!important;
+  height:44px!important;
+}
+.modern-header .vk-logo-img{width:150px!important;height:40px!important;object-fit:contain}
+.home-header-copy{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  line-height:1;
+}
+.home-header-copy small{
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:1.3px;
+  color:#94a3b8;
+}
+.home-header-copy strong{
+  font-size:13px;
+  color:#17213d;
+  letter-spacing:-.2px;
+}
+.home-goal-grid.home-four-metrics{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:22px 18px!important;
+  padding:4px 10px 12px!important;
+}
+.home-four-metrics .goal-card{
+  text-align:center;
+  min-width:0;
+}
+.home-four-metrics .goal-ring-top{
+  width:112px!important;
+  height:112px!important;
+  margin:0 auto 8px!important;
+  border-radius:50%!important;
+  background:#fff!important;
+  box-shadow:0 8px 24px rgba(15,23,42,.06)!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:3px!important;
+  position:relative!important;
+}
+.home-four-metrics .goal-ring-top:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  padding:7px;
+  background:var(--metric-ring,#dbeafe);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+}
+.home-four-metrics .goal-card:nth-child(1) .goal-ring-top{--metric-ring:#fed7aa}
+.home-four-metrics .goal-card:nth-child(2) .goal-ring-top{--metric-ring:#dbeafe}
+.home-four-metrics .goal-card:nth-child(3) .goal-ring-top{--metric-ring:#bbf7d0}
+.home-four-metrics .goal-card:nth-child(4) .goal-ring-top{--metric-ring:#a5f3fc}
+.home-four-metrics .goal-icon{
+  font-size:14px!important;
+  position:relative;
+  z-index:1;
+}
+.home-four-metrics .goal-ring-top strong{
+  font-size:22px!important;
+  font-weight:900!important;
+  letter-spacing:-.8px;
+  position:relative;
+  z-index:1;
+}
+.home-four-metrics .goal-ring-top b{
+  font-size:9px!important;
+  color:#64748b!important;
+  position:relative;
+  z-index:1;
+  align-self:center;
+}
+.home-four-metrics .goal-card>small{
+  display:block!important;
+  font-size:13px!important;
+  font-weight:900!important;
+  color:#17213d!important;
+  margin:0!important;
+}
+.home-four-metrics .goal-card>em{
+  display:block!important;
+  margin:3px auto 0!important;
+  width:max-content;
+  max-width:100%;
+  padding:3px 8px;
+  border-radius:999px;
+  background:#f3f6fa;
+  color:#7b8799;
+  font-size:8px!important;
+  font-style:normal;
+  font-weight:800!important;
+}
+.home-four-metrics .goal-card:nth-child(1)>em{background:#fff7ed;color:#c2410c}
+.home-four-metrics .goal-card:nth-child(2)>em{background:#eff6ff;color:#2563eb}
+.home-four-metrics .goal-card:nth-child(4)>em{background:#ecfeff;color:#0891b2}
+.home-four-metrics .goal-card:nth-child(3)>em{display:none!important}
+.home-settings-button{
+  width:100%;
+  min-height:46px;
+  margin-top:10px;
+  border:1px solid #dbe5f1;
+  border-radius:15px;
+  background:#fff;
+  color:#475569;
+  font-family:inherit;
+  font-size:13px;
+  font-weight:900;
+  box-shadow:0 5px 16px rgba(15,23,42,.045);
+}
+.home-settings-button:active{transform:scale(.985)}
+.profile-page-head{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  margin:2px 2px 12px;
+}
+.profile-page-head small{
+  display:block;
+  color:#94a3b8;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:1.2px;
+}
+.profile-page-head h1{
+  margin:2px 0 0;
+  font-size:22px;
+  letter-spacing:-.6px;
+  color:#0f172a;
+}
+.profile-back-button{
+  width:40px;height:40px;border:0;border-radius:13px;background:#fff;
+  color:#0f172a;font-size:27px;box-shadow:0 5px 16px rgba(15,23,42,.06);
+}
+.profile-card h2{display:none}
+.profile-card>label:first-of-type{margin-top:4px}
+.profile-card input{
+  min-height:44px;
+  border-radius:12px;
+}
+@media(max-width:430px){
+  .modern-header{margin-bottom:12px!important}
+  .modern-header .vk-logo-img{width:140px!important}
+  .home-goal-grid.home-four-metrics{gap:20px 10px!important;padding-left:5px!important;padding-right:5px!important}
+  .home-four-metrics .goal-ring-top{width:108px!important;height:108px!important}
+  .home-four-metrics .goal-ring-top strong{font-size:21px!important}
+}
