@@ -101,6 +101,8 @@ function renderDayTabs(){
 function renderWorkout(){
   const host=document.getElementById('workoutDetail');if(!host)return;
   const plan=WORKOUTS[workoutDay];
+  const subtitle=document.getElementById('workoutSubtitle');
+  if(subtitle)subtitle.textContent=plan.name;
   host.innerHTML=plan.exercises.map((ex,i)=>{
     const sets=getSets(i), done=S.done[exerciseKey(ex.name)]===todayKey();
     const last=sets[sets.length-1];
@@ -124,7 +126,7 @@ function updateStats(){
   updateTimerUI();
 }
 function workoutCalories(){
-  const weight=Number(window.state?.weight)||0;
+  const weight=(typeof state!=='undefined' ? Number(state.weight) : 0)||0;
   if(!weight)return 0;
   const mins=Math.max(0.1,elapsedMs()/60000);
   const sets=Math.max(1,totalSets());
