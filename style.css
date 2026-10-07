@@ -3490,3 +3490,17 @@ body:has(#workoutModal.open){overflow:hidden!important;}
   #workoutPage .workout-start-panel{flex-wrap:nowrap!important}
   #workoutPage .workout-elapsed-top{flex-basis:62px!important;width:62px!important;min-width:62px!important}
 }
+
+/* Gym fix 13: workout page scroll + compact header timer */
+#workoutPage{min-height:calc(100dvh - 70px);overflow:visible!important;padding-bottom:120px!important}
+#workoutPage.active{display:block!important;overflow:visible!important}
+.workout-screen-head{position:sticky;top:0;z-index:8;background:rgba(238,244,251,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding-top:6px;padding-bottom:10px}
+.workout-timer-icon{position:relative;display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:0!important;line-height:1}
+.workout-timer-icon span{font-size:18px;line-height:1}
+.workout-timer-icon small{font-size:8px;font-weight:900;color:#2563eb;margin-top:2px}
+.workout-start-panel{padding:9px 12px!important;margin-bottom:10px!important}
+.workout-start-copy strong{font-size:13px!important}
+.workout-start-copy small{font-size:9px!important}
+.workout-play{width:42px!important;height:42px!important;font-size:16px!important}
+#workoutDetail{overflow:visible!important}
+@media(max-width:430px){#workoutPage{padding-bottom:118px!important}.workout-screen-head{top:0}.workout-timer-icon{width:38px;height:38px}.workout-timer-icon span{font-size:17px}.workout-timer-icon small{font-size:7px}}
