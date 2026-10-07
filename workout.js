@@ -69,7 +69,7 @@ function normalizeWorkout(v){
   return s;
 }
 function saveWorkout(){localStorage.setItem(WORKOUT_KEY,JSON.stringify(S));}
-function todayKey(){const d=new Date();return d.toISOString().slice(0,10);}
+function todayKey(){const d=new Date();const y=d.getFullYear();const m=String(d.getMonth()+1).padStart(2,'0');const day=String(d.getDate()).padStart(2,'0');return y+'-'+m+'-'+day;}
 function exerciseKey(name){return workoutDay+'_'+name;}
 function currentLogs(){return S.logs.filter(x=>x.date===todayKey()&&Number(x.day)===workoutDay);}
 function sessionLogs(){return S.logs.filter(x=>x.sessionId&&x.sessionId===S.session?.id);}
@@ -115,6 +115,8 @@ function renderWorkout(){
       '<div class="exercise-last">'+(sets.length?sets.map((s,n)=>'<span>'+ (n+1)+'. '+Number(s.weight||0)+' kg × '+Number(s.reps||0)+'</span>').join(''):'Henüz set girilmedi')+'</div>'+
     '</article>';
   }).join('');
+  const progress=document.querySelector('.workout-list-head span');
+  if(progress)progress.textContent=doneCount()+'/'+plan.exercises.length;
   updateStats();
 }
 function updateStats(){
@@ -283,7 +285,7 @@ function resumeWorkoutSession(){resumeWorkout();}
 function completeWorkout(){finishWorkout();}
 function deleteHistory(id){
   S.history=S.history.filter(x=>x.id!==id);
-  if(window.state?.dailySports)window.state.dailySports=window.state.dailySports.filter(x=>x.sessionId!==id);
+  if(typeof state!=='undefined' && state.dailySports)state.dailySports=state.dailySports.filter(x=>x.sessionId!==id);
   saveWorkout();if(typeof window.save==='function')window.save();renderHistory();renderWorkout();
   if(typeof window.updateDashboard==='function')window.updateDashboard();
   if(typeof window.renderSports==='function')window.renderSports();
