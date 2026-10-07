@@ -254,53 +254,111 @@ function setDayType(type){
   updateDashboard();
 }
 
+function historyDateMs(item){
+  if(Number(item?.at)>0)return Number(item.at);
+  const raw=String(item?.date||'');
+  const m=raw.match(/^(\\d{1,2})[./](\\d{1,2})[./](\\d{4})$/);
+  if(m)return new Date(Number(m[3]),Number(m[2])-1,Number(m[1]),12).getTime();
+  const parsed=Date.parse(raw);
+  return Number.isFinite(parsed)?parsed:0;
+}
+function hasNutritionData(item){
+  return !!item && (
+    Number(item.eaten)>0 ||
+    Number(item.protein)>0 ||
+    Number(item.water)>0 ||
+    (Array.isArray(item.foods)&&item.foods.length>0)
+  );
+}
+function nutritionPeriodData(){
+  const today={
+    date:new Date().toLocaleDateString('tr-TR'),
+    at:new Date().setHours(12,0,0,0),
+    eaten:Math.round(state.eaten),
+    protein:Math.round(state.protein),
+    water:Number(state.water.toFixed(1)),
+    foods:Array.isArray(state.dailyFoods)?state.dailyFoods:[]
+  };
+  const history=Array.isArray(state.history)?state.history:[];
+  const yesterday=history
+    .filter(hasNutritionData)
+    .slice()
+    .sort((a,b)=>historyDateMs(b)-historyDateMs(a))[0]||null;
+  const cutoff=Date.now()-7*24*60*60*1000;
+  const rows=history.filter(h=>hasNutritionData(h)&&historyDateMs(h)>=cutoff);
+  if(hasNutritionData(today))rows.unshift(today);
+  const unique=rows.filter((row,index,self)=>{
+    const key=historyDateMs(row);
+    return index===self.findIndex(x=>Math.abs(historyDateMs(x)-key)<24*60*60*1000);
+  });
+  const average=unique.length?{
+    calories:Math.round(unique.reduce((s,h)=>s+(Number(h.eaten)||0),0)/unique.length),
+    protein:Math.round(unique.reduce((s,h)=>s+(Number(h.protein)||0),0)/unique.length),
+    water:Number((unique.reduce((s,h)=>s+(Number(h.water)||0),0)/unique.length).toFixed(1)),
+    days:unique.length
+  }:{calories:0,protein:0,water:0,days:0};
+  return {today,yesterday,average};
+}
 function updateFoodPeriod(){
   const tabs=document.querySelectorAll('.food-tabs button');
   tabs.forEach((tab,index)=>tab.classList.toggle('active',(['today','yesterday','week'][index]||'today')===foodPeriod));
-
-  const today={calories:Math.round(state.eaten),protein:Math.round(state.protein),water:Number(state.water.toFixed(1))};
-  const history=Array.isArray(state.history)?state.history:[];
-  let summary=today;
+  const data=nutritionPeriodData();
+  let summary=data.today;
   if(foodPeriod==='yesterday'){
-    const h=history[0];
-    summary=h?{calories:Number(h.eaten)||0,protein:Number(h.protein)||0,water:Number(h.water)||0}:{calories:0,protein:0,water:0};
+    summary=data.yesterday?{
+      calories:Number(data.yesterday.eaten)||0,
+      protein:Number(data.yesterday.protein)||0,
+      water:Number(data.yesterday.water)||0
+    }:{calories:0,protein:0,water:0};
   }else if(foodPeriod==='week'){
-    const rows=history.slice(0,6);
-    summary={
-      calories:rows.reduce((s,h)=>s+(Number(h.eaten)||0),today.calories),
-      protein:rows.reduce((s,h)=>s+(Number(h.protein)||0),today.protein),
-      water:Number((rows.reduce((s,h)=>s+(Number(h.water)||0),today.water)).toFixed(1))
-    };
+    summary=data.average;
   }
   const set=(id,v)=>{const el=$(id);if(el)el.textContent=v};
   set('foodPageCalories',Math.round(summary.calories));
   set('foodPageProtein',Math.round(summary.protein));
   set('foodPageWater',Number(summary.water).toFixed(1));
-  const title=document.querySelector('.food-tabs');
-  if(title) title.setAttribute('data-period',foodPeriod);
+  const label=document.querySelector('.nutrition-period-label');
+  if(label)label.textContent=foodPeriod==='today'?'BUGÜNÜN BESLENMESİ':foodPeriod==='yesterday'?'DÜNÜN BESLENMESİ':'SON 7 GÜN ORTALAMASI';
 }
 function renderNutritionPage(){
-  const calories=Math.round(state.eaten);
-  const protein=Math.round(state.protein);
+  const data=nutritionPeriodData();
+  let summary=data.today;
+  let foods=Array.isArray(state.dailyFoods)?state.dailyFoods:[];
+  let eyebrow='BUGÜNÜN BESLENMESİ';
+  let countLabel=foods.length+' kayıt';
+  if(foodPeriod==='yesterday'){
+    summary=data.yesterday?{calories:Number(data.yesterday.eaten)||0,protein:Number(data.yesterday.protein)||0,water:Number(data.yesterday.water)||0}: {calories:0,protein:0,water:0};
+    foods=Array.isArray(data.yesterday?.foods)?data.yesterday.foods:[];
+    eyebrow='DÜNÜN BESLENMESİ';
+    countLabel=foods.length?foods.length+' kayıt':'Özet kayıt';
+  }else if(foodPeriod==='week'){
+    summary=data.average;
+    foods=[];
+    eyebrow='SON 7 GÜN ORTALAMASI';
+    countLabel=summary.days+' veri girilen gün';
+  }
   const calorieGoal=Math.max(1,Number(state.goals.calories)||1800);
   const proteinGoal=Math.max(1,Number(state.goals.protein)||165);
-  const caloriePct=Math.min(100,Math.round((calories/calorieGoal)*100));
-  const proteinPct=Math.min(100,Math.round((protein/proteinGoal)*100));
+  const caloriePct=Math.min(100,Math.round((summary.calories/calorieGoal)*100));
+  const proteinPct=Math.min(100,Math.round((summary.protein/proteinGoal)*100));
   const set=(id,value)=>{const el=$(id);if(el)el.textContent=value;};
-  set('nutritionRemainingCalories',Math.max(0,calorieGoal-calories));
+  set('nutritionRemainingCalories',Math.max(0,calorieGoal-summary.calories));
   set('nutritionCalorieGoal',calorieGoal);
   set('nutritionProteinGoal',proteinGoal);
   set('nutritionCaloriePct',caloriePct+'%');
   set('nutritionCalorieProgress',caloriePct+'%');
   set('nutritionProteinPct',proteinPct+'%');
+  const label=document.querySelector('.nutrition-period-label'); if(label)label.textContent=eyebrow;
   const calorieBar=$('nutritionCalorieBar'); if(calorieBar)calorieBar.style.width=caloriePct+'%';
   const proteinBar=$('nutritionProteinBar'); if(proteinBar)proteinBar.style.width=proteinPct+'%';
-  const count=$('nutritionFoodCount'); if(count)count.textContent=state.dailyFoods.length+' kayıt';
+  const count=$('nutritionFoodCount'); if(count)count.textContent=countLabel;
+  const title=$('nutritionFoodTitle'); if(title)title.textContent=foodPeriod==='week'?'Haftalık beslenme özeti':foodPeriod==='yesterday'?'Dünün besinleri':'Bugünün besinleri';
   const list=$('nutritionFoodList');
-  if(list) list.innerHTML=state.dailyFoods.length?state.dailyFoods.map((food,index)=>'<div class="nutrition-food-row"><div><strong>'+food.name+'</strong><small>'+food.amount+' '+food.unit+'</small></div><span>'+Math.round(food.calories)+' kcal<br><small>'+Math.round(food.protein)+' g protein</small></span><button type="button" data-remove-nutrition="'+index+'">×</button></div>').join(''):'<div class="empty-state">Bugün henüz öğün eklenmedi.</div>';
-  if(list) list.querySelectorAll('[data-remove-nutrition]').forEach(btn=>btn.onclick=()=>{const index=Number(btn.dataset.removeNutrition);const food=state.dailyFoods[index];if(!food)return;state.eaten=Math.max(0,state.eaten-safeNum(food.calories));state.protein=Math.max(0,state.protein-safeNum(food.protein));state.dailyFoods.splice(index,1);save();updateDashboard();renderNutritionPage();renderFoods();});
+  if(list){
+    list.innerHTML=foods.length?foods.map((food,index)=>'<div class="nutrition-food-row"><div><strong>'+food.name+'</strong><small>'+food.amount+' '+food.unit+'</small></div><span>'+Math.round(food.calories)+' kcal<br><small>'+Math.round(food.protein)+' g protein</small></span>'+(foodPeriod==='today'?'<button type="button" data-remove-nutrition="'+index+'">×</button>':'')+'</div>').join(''):'<div class="empty-state">'+(foodPeriod==='week'?'Haftalık ortalama, veri girilen günler üzerinden hesaplanıyor.':foodPeriod==='yesterday'?'Dün için ayrıntılı besin kaydı bulunmuyor.':'Bugün henüz öğün eklenmedi.')+'</div>';
+  }
+  if(list)list.querySelectorAll('[data-remove-nutrition]').forEach(btn=>btn.onclick=()=>{const index=Number(btn.dataset.removeNutrition);const food=state.dailyFoods[index];if(!food)return;state.eaten=Math.max(0,state.eaten-safeNum(food.calories));state.protein=Math.max(0,state.protein-safeNum(food.protein));state.dailyFoods.splice(index,1);save();updateDashboard();renderNutritionPage();renderFoods();});
 }
-
 function renderFoods(){
   const box = $('dailyFoods');
   if(!box) return;
@@ -637,7 +695,9 @@ function finishDay(){
     net: Math.round(netCalories()),
     protein: Math.round(state.protein),
     water: Number(state.water.toFixed(1)),
-    dayType: state.dayType
+    dayType: state.dayType,
+    at: Date.now(),
+    foods: Array.isArray(state.dailyFoods) ? state.dailyFoods.map(food=>({...food})) : []
   };
 
   state.history.unshift(record);
@@ -773,6 +833,7 @@ function setupEvents(){
     tab.addEventListener('click',()=>{
       foodPeriod=['today','yesterday','week'][index]||'today';
       updateFoodPeriod();
+      renderNutritionPage();
     });
   });
 
