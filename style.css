@@ -3504,3 +3504,88 @@ body:has(#workoutModal.open){overflow:hidden!important;}
 .workout-play{width:42px!important;height:42px!important;font-size:16px!important}
 #workoutDetail{overflow:visible!important}
 @media(max-width:430px){#workoutPage{padding-bottom:118px!important}.workout-screen-head{top:0}.workout-timer-icon{width:38px;height:38px}.workout-timer-icon span{font-size:17px}.workout-timer-icon small{font-size:7px}}
+
+
+/* Workout modal mobile scroll fix */
+#workoutModal{
+  z-index:200!important;
+  overflow:hidden!important;
+  touch-action:none;
+}
+#workoutModal .workout-modal-box{
+  max-height:calc(100dvh - 16px)!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  touch-action:pan-y;
+  padding-bottom:28px!important;
+}
+#workoutModal .modal-set-actions{
+  display:flex;
+  justify-content:flex-end;
+  margin:8px 0 2px;
+}
+#workoutModal .modal-add-set{
+  border:0;
+  border-radius:11px;
+  background:#eff6ff;
+  color:#2563eb;
+  padding:9px 12px;
+  font-weight:900;
+  cursor:pointer;
+}
+#workoutModal .modal-empty-sets{
+  padding:13px;
+  border-radius:12px;
+  background:#f8fafc;
+  color:#64748b;
+  font-size:11px;
+  text-align:center;
+}
+#workoutModal .modal-set-row{
+  display:grid;
+  grid-template-columns:52px minmax(0,1fr) minmax(0,1fr) 32px!important;
+  gap:7px!important;
+  align-items:center;
+  padding:8px 9px!important;
+}
+#workoutModal .modal-set-row input{
+  width:100%;
+  min-width:0;
+  box-sizing:border-box;
+  padding:9px 7px;
+  border:1px solid #dbe5f1;
+  border-radius:9px;
+  font-weight:800;
+}
+#workoutModal .modal-remove-set{
+  width:30px;
+  height:30px;
+  border:0;
+  border-radius:9px;
+  background:#fee2e2;
+  color:#dc2626;
+  font-weight:900;
+  cursor:pointer;
+}
+#finishWorkoutButton{
+  width:100%;
+  min-height:50px;
+  margin:14px 0 8px;
+  border:0;
+  border-radius:15px;
+  background:#16a34a;
+  color:#fff;
+  font-weight:900;
+  font-size:15px;
+}
+#finishWorkoutButton.completed{
+  background:#94a3b8;
+}
+@media(max-width:430px){
+  #workoutModal .workout-modal-box{
+    max-height:calc(100dvh - 8px)!important;
+    border-radius:24px 24px 12px 12px!important;
+  }
+}
