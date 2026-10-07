@@ -3911,3 +3911,60 @@ body:has(#workoutModal.open){overflow:hidden!important;}
 #workoutModal .modal-empty-sets b{color:#2563eb;}
 #workoutModal .modal-save-exercise{margin-bottom:4px;}
 .finish-workout-button{position:relative;z-index:1;}
+
+
+/* Workout controls: side-by-side start/pause and finish buttons */
+.workout-control-split{
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  gap:8px!important;
+  align-items:stretch!important;
+}
+.workout-control-split .workout-start-main,
+.workout-control-split .finish-workout-button{
+  min-width:0;
+  min-height:52px;
+  border-radius:15px;
+  font-family:inherit;
+  font-weight:900;
+}
+.workout-control-split .workout-start-main{
+  justify-content:center;
+  padding:8px 10px;
+  background:#2563eb;
+  color:#fff;
+}
+.workout-control-split .workout-start-main .workout-play{display:none}
+.workout-control-split .workout-start-copy strong{
+  color:#fff!important;
+  font-size:14px;
+}
+.workout-control-split .workout-start-copy small{display:none}
+.workout-control-split .workout-start-main.is-running{background:#f59e0b!important}
+.workout-control-split .workout-start-main.is-paused{background:#2563eb!important}
+.workout-control-split .workout-start-main.is-finished{background:#16a34a!important}
+.workout-control-split .finish-workout-button{
+  border:0;
+  background:#0f172a;
+  color:#fff;
+  cursor:pointer;
+}
+.workout-control-split .finish-workout-button:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+.workout-control-split .finish-workout-button.completed{
+  background:#16a34a;
+  opacity:1;
+}
+@media(max-width:430px){
+  .workout-control-split{
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+    gap:7px!important;
+  }
+  .workout-control-split .workout-start-main,
+  .workout-control-split .finish-workout-button{
+    min-height:50px;
+    padding:7px 5px;
+    font-size:13px;
+  }
+}
