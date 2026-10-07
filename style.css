@@ -247,3 +247,9 @@ input:focus,select:focus{border-color:#98b9ff;box-shadow:0 0 0 3px #eff6ff}
 .food-search-result>span:last-child{text-align:right;flex:none}
 .food-search-result b{display:block;font-size:9px;font-weight:900}
 .food-search-more,.food-search-empty{padding:6px 4px;color:var(--muted);font-size:8px;text-align:center}
+
+/* Scrollable food picker */
+#foodResults.food-results-open{max-height:300px;overflow-y:auto;padding:3px 2px 5px;margin:5px 0 9px;border:1px solid var(--line);border-radius:13px;background:#f8fafc;-webkit-overflow-scrolling:touch}
+#foodResults.food-results-open .food-search-result{margin:3px 2px;width:calc(100% - 4px)}
+#foodResults.food-results-open::-webkit-scrollbar{width:5px}
+#foodResults.food-results-open::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:10px}
