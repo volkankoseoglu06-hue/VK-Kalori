@@ -331,7 +331,11 @@ function finishSession(autoComplete=false){
   clearElapsedTicker();
 
   if(autoComplete){
-    W[day].ex.forEach(ex=>{S.done[key(ex[0])]=today()});
+    // Antrenmanı bitirmek yalnızca gerçekten set girilmiş hareketleri tamamlar.
+    W[day].ex.forEach(ex=>{
+      const hasSets=(S.logs||[]).some(log=>isCurrentWorkoutLog(log)&&log.exercise===ex[0]&&Number(log.sets)>0);
+      if(hasSets)S.done[key(ex[0])]=today();
+    });
   }
 
   if(sets>0 && typeof addWorkoutBurn==='function'){
