@@ -3038,3 +3038,19 @@ body:has(#homePage.active) .modern-header{
   .workout-screen-head h1{font-size:22px}
   .workout-modal-box{border-radius:24px 24px 12px 12px!important}
 }
+
+
+/* GYM FINAL MOBILE FIX 20261007 */
+#workoutModal{z-index:1000!important}
+#workoutModal.open{overflow:hidden!important}
+#workoutModal.open .workout-modal-box{
+  max-height:calc(100dvh - 16px)!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  -webkit-overflow-scrolling:touch!important;
+  overscroll-behavior:contain!important;
+  padding-bottom:28px!important;
+}
+#workoutModal.open .modal-set-list{padding-bottom:4px!important}
+#workoutPage #workoutDetail{position:relative!important;z-index:1!important}
+#workoutPage .reference-exercise-card{position:relative!important;z-index:1!important}
