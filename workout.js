@@ -158,6 +158,31 @@ function renderWorkout(){
   if(progress)progress.textContent=doneCount()+'/'+plan.exercises.length;
   updateStats();
 }
+
+const renderWorkoutBase=renderWorkout;
+function renderWorkout(){
+  renderWorkoutBase();
+  const plan=WORKOUTS[workoutDay];
+  document.querySelectorAll('#workoutDetail .workout-exercise').forEach((card,i)=>{
+    const ex=plan.exercises[i];
+    const rec=progressionRecommendation(ex);
+    const box=document.createElement('div');
+    box.className='exercise-performance';
+    if(!rec){
+      box.classList.add('empty');
+      box.textContent='İlk kaydın olacak. Sonraki antrenmanda geçmiş performansını göreceksin.';
+    }else{
+      const title=document.createElement('strong');
+      title.textContent='Son: '+rec.last.setDetails.map(s=>Number(s.weight||0)+' kg × '+Number(s.reps||0)).join('  •  ');
+      const tip=document.createElement('small');
+      tip.textContent='Öneri: '+rec.suggested+' kg — '+rec.reason;
+      box.append(title,tip);
+    }
+    const last=card.querySelector('.exercise-last');
+    last?.before(box);
+  });
+}
+
 function updateStats(){
   const set=(key,val)=>{const el=document.querySelector('[data-stat="'+key+'"]');if(el)el.textContent=val};
   set('moves',doneCount()+'/'+WORKOUTS[workoutDay].exercises.length);
