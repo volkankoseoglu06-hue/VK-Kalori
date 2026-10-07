@@ -4821,7 +4821,7 @@ body:has(#workoutModal.open) .bottom-nav{
   color:#fff!important;
   border-radius:15px!important;
 }
-.workout-start-main:not(.is-running):not(.is-paused):not(.is-finished) .workout-start-copy strong{color:#16a34a!important}
+.workout-start-main:not(.is-running):not(.is-paused):not(.is-finished) .workout-start-copy strong{color:#fff!important}.workout-start-main:not(.is-running):not(.is-paused):not(.is-finished) .workout-play{background:#15803d!important}
 .workout-start-main.is-running{
   background:#dc2626!important;
   color:#fff!important;
