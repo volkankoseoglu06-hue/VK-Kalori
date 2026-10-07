@@ -158,6 +158,15 @@ function initWorkout(){
     if(b)open(+b.dataset.open);
   };
 
+  const workoutHistory=document.getElementById('workoutHistory');
+  if(workoutHistory) workoutHistory.onclick=e=>{
+    const del=e.target.closest('[data-delete-history]');
+    if(del){
+      if(confirm('Bu antrenmanı geçmişten silmek istiyor musun?')) deleteHistory(del.dataset.deleteHistory);
+      return;
+    }
+  };
+
   document.getElementById('workoutModal').onclick=e=>{
     if(e.target.closest('[data-modal-save]')){saveExerciseFromModal();return}
     if(e.target.closest('[data-add-modal-set]')){addModalSetRow();return}
@@ -788,7 +797,6 @@ function resetWorkoutDay(){
   activeSessionSets=0;
   activeSessionId='';
   S.done={};
-  S.logs=(S.logs||[]).filter(log=>!(log.date===today() && !log.autoDone));
   // Gün sıfırlanınca bugünkü set kayıtlarını ve ağırlık antrenmanı yakımını sıfırla.
   S.logs=(S.logs||[]).filter(log=>!(log.date===today() && !log.autoDone));
   if(typeof state!=='undefined'){
