@@ -424,7 +424,9 @@ const MUSCLE_TARGETS={
   'Bench Destekli Rear-Delt Row':['Arka omuz','Üst sırt','Rhomboid'],
   'Lateral Raise':['Yan omuz','Deltoid'],
   'Dead Bug':['Karın','Core'],
-  'Bench Crunch':['Karın','Core']
+  'Bench Crunch':['Karın','Core'],
+  'Dambıl Overhead Triceps Extension':['Triceps'],
+  'Incline Dumbbell Curl':['Biceps']
 };
 function exerciseCardImage(name){
   const start=exerciseImage(name,'start');
