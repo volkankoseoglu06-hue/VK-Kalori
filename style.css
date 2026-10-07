@@ -3179,3 +3179,13 @@ body:has(#homePage.active) .modern-header{
 .history-summary-grid b{display:block;font-size:12px;color:#0f172a;}
 .history-summary-grid small{display:block;margin-top:2px;font-size:8px;color:#64748b;font-weight:700;}
 @media(max-width:430px){#workoutModal .workout-modal-box{max-height:calc(100dvh - 4px)!important;border-radius:24px 24px 0 0!important;padding:16px 14px 30px!important;}.history-summary-grid{grid-template-columns:repeat(2,1fr);}.workout-history-card{padding-bottom:105px;}}
+
+
+/* GYM FINAL MODAL SCROLL FIX */
+#workoutModal{z-index:1000!important;overflow:hidden!important;touch-action:none!important;}
+#workoutModal.open{display:flex!important;}
+#workoutModal .workout-modal-box{z-index:1001!important;max-height:calc(100dvh - 16px)!important;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior:contain!important;padding-bottom:28px!important;touch-action:pan-y!important;}
+body:has(#workoutModal.open){overflow:hidden!important;}
+.modal-set-actions{position:sticky;top:0;z-index:4;background:#fff;padding:4px 0 8px;}
+.finish-workout-button{width:100%;min-height:50px;margin:12px 0 8px;border:0;border-radius:15px;background:#16a34a;color:#fff;font:inherit;font-weight:900;box-shadow:0 7px 18px rgba(22,163,74,.16);cursor:pointer;}
+@media(max-width:430px){#workoutModal{padding:8px!important;}#workoutModal .workout-modal-box{max-height:calc(100dvh - 8px)!important;border-radius:24px 24px 12px 12px!important;}}
