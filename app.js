@@ -804,6 +804,15 @@ function addWater(amount=0.25){
   renderNutritionPage();
 }
 
+function normalizeNutritionPageDom(){
+  const foodPage=$('foodPage');
+  if(!foodPage)return;
+  ['toggleNewFoodButton','newFoodCard','nutritionFoodList'].forEach(id=>{
+    const el=$(id);
+    if(el && !foodPage.contains(el)) foodPage.appendChild(el.closest('.nutrition-food-log')||el);
+  });
+}
+
 function setupNavigation(){
   const buttons=document.querySelectorAll('[data-page]');
   buttons.forEach(button=>{
@@ -975,6 +984,7 @@ function refreshAll(){
   renderHistory();
 }
 
+normalizeNutritionPageDom();
 setupNavigation();
 setupEvents();
 setupDayButtons();
