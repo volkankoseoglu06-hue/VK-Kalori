@@ -133,10 +133,6 @@ function performanceMarkup(ex){
   return '<div class="exercise-performance"><div><small>Son antrenman</small><strong>'+new Date(rec.last.date+'T12:00:00').toLocaleDateString('tr-TR',{day:'2-digit',month:'short'})+'</strong></div><div class="performance-sets">'+sets+'</div><div class="performance-recommendation">'+suggestion+'<small>'+rec.reason+'</small></div></div>';
 }
 
-function exerciseHistory(name){return S.logs.filter(x=>x.exercise===name&&Number(x.day)===workoutDay&&x.date!==todayKey()).sort((a,b)=>(Number(b.at)||0)-(Number(a.at)||0));}
-function lastPerformance(name){const log=exerciseHistory(name)[0];return log?.setDetails?.length?log:null;}
-function progressionRecommendation(ex){const last=lastPerformance(ex.name);if(!last)return null;const sets=last.setDetails||[];const m=String(ex.reps).match(/(\d+)/);const max=m?Number(m[1]):12;const top=sets.length>0&&sets.every(s=>Number(s.reps)>=max);const avg=sets.reduce((n,s)=>n+Number(s.weight||0),0)/Math.max(1,sets.length);const step=avg>=10?2:1;return {last,suggested:Math.round((top?avg+step:avg)*10)/10,reason:top?'Tekrar hedefinin üst sınırına ulaştın.':'Önce geçen antrenmandaki ağırlıkla tekrarları tamamla.'};}
-function performanceMarkup(ex){const r=progressionRecommendation(ex);if(!r)return '<div class="exercise-performance empty">İlk kaydın olacak. Sonraki antrenmanda burada geçmiş performansını göreceksin.</div>';const sets=r.last.setDetails.map((s,n)=>'<span>'+(n+1)+'. '+Number(s.weight||0)+' kg × '+Number(s.reps||0)+'</span>').join('');return '<div class="exercise-performance"><div><small>Son antrenman</small><strong>'+new Date(r.last.date+'T12:00:00').toLocaleDateString('tr-TR',{day:'2-digit',month:'short'})+'</strong></div><div class="performance-sets">'+sets+'</div><div class="performance-recommendation"><b>Öneri: '+r.suggested+' kg</b><small>'+r.reason+'</small></div></div>';}
 function renderWorkout(){
   const host=document.getElementById('workoutDetail');if(!host)return;
   const plan=WORKOUTS[workoutDay];
@@ -157,30 +153,6 @@ function renderWorkout(){
   const progress=document.querySelector('.workout-list-head span');
   if(progress)progress.textContent=doneCount()+'/'+plan.exercises.length;
   updateStats();
-}
-
-const renderWorkoutBase=renderWorkout;
-function renderWorkout(){
-  renderWorkoutBase();
-  const plan=WORKOUTS[workoutDay];
-  document.querySelectorAll('#workoutDetail .workout-exercise').forEach((card,i)=>{
-    const ex=plan.exercises[i];
-    const rec=progressionRecommendation(ex);
-    const box=document.createElement('div');
-    box.className='exercise-performance';
-    if(!rec){
-      box.classList.add('empty');
-      box.textContent='İlk kaydın olacak. Sonraki antrenmanda geçmiş performansını göreceksin.';
-    }else{
-      const title=document.createElement('strong');
-      title.textContent='Son: '+rec.last.setDetails.map(s=>Number(s.weight||0)+' kg × '+Number(s.reps||0)).join('  •  ');
-      const tip=document.createElement('small');
-      tip.textContent='Öneri: '+rec.suggested+' kg — '+rec.reason;
-      box.append(title,tip);
-    }
-    const last=card.querySelector('.exercise-last');
-    last?.before(box);
-  });
 }
 
 function updateStats(){
@@ -243,6 +215,7 @@ function pauseWorkout(){
   saveWorkout();stopTicker();updateStats();
 }
 function finishWorkout(){
+  if(S.session?.status==='finished'){return;}
   if(!currentLogs().length){alert('Önce en az 1 set ekle.');return;}
   const duration=Math.max(1,sessionMinutes());
   const id=S.session?.id||'session_'+Date.now();
@@ -277,30 +250,18 @@ function openExercise(index){
   document.getElementById('workoutCues').innerHTML=ex.cues.map(c=>'<li>'+c+'</li>').join('');
   renderModalSets(existing);
   const rec=progressionRecommendation(ex);
-  const hint=document.getElementById('workoutProgressionHint');
-  if(hint)hint.innerHTML=rec
+  let hint=document.getElementById('workoutProgressionHint');
+  if(!hint){
+    hint=document.createElement('div');
+    hint.id='workoutProgressionHint';
+    hint.className='workout-progression-hint';
+    document.querySelector('.modal-set-actions')?.before(hint);
+  }
+  hint.innerHTML=rec
     ? '<strong>💡 Sonraki hedef: '+rec.suggested+' kg</strong><small>'+rec.reason+'</small>'
-    : '<strong>💡 İlk antrenman</strong><small>Setlerini kaydet; sonraki antrenmanda sana otomatik hedef çıkaracağım.</small>';
+    : '<strong>💡 İlk antrenman</strong><small>Setlerini kaydet; sonraki antrenmanda hedef önerilecek.</small>';
   document.getElementById('workoutSource').innerHTML='<a href="https://repdb.co" target="_blank" rel="noopener">Exercise data by RepDB ↗</a>';
   document.getElementById('workoutModal').classList.add('open');
-}
-
-const openExerciseBase=openExercise;
-function openExercise(index){
-  openExerciseBase(index);
-  const ex=WORKOUTS[workoutDay].exercises[index];
-  const rec=progressionRecommendation(ex);
-  let box=document.getElementById('workoutProgressionHint');
-  if(!box){
-    box=document.createElement('div');
-    box.id='workoutProgressionHint';
-    box.className='workout-progression-hint';
-    const actions=document.querySelector('.modal-set-actions');
-    actions?.before(box);
-  }
-  box.textContent=rec
-    ? '💡 Sonraki hedef: '+rec.suggested+' kg — '+rec.reason
-    : '💡 İlk antrenman: setlerini kaydet, sonraki antrenmanda hedef önereceğim.';
 }
 
 function renderModalSets(sets){
