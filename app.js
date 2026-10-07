@@ -348,9 +348,12 @@ function renderNutritionPage(){
   set('nutritionPeriodNote',periodNote);
   set('nutritionFoodTitle',foodPeriod==='week'?'Haftalık özet':foodPeriod==='yesterday'?'Dünün besinleri':'Bugünün besinleri');
   set('nutritionFoodCount',countLabel);
-  set('nutritionSummaryCalories',Math.round(summary.calories)+' / '+calorieGoal+' kcal');
-  set('nutritionSummaryProtein',Math.round(summary.protein)+' / '+proteinGoal+' g');
-  set('nutritionSummaryWater',Number(summary.water).toFixed(1)+' / '+waterGoal.toFixed(1)+' L');
+  const summaryCalories=safeNum(summary.calories);
+  const summaryProtein=safeNum(summary.protein);
+  const summaryWater=safeNum(summary.water);
+  set('nutritionSummaryCalories',Math.round(summaryCalories)+' / '+calorieGoal+' kcal');
+  set('nutritionSummaryProtein',Math.round(summaryProtein)+' / '+proteinGoal+' g');
+  set('nutritionSummaryWater',summaryWater.toFixed(1)+' / '+waterGoal.toFixed(1)+' L');
 
   const list=$('nutritionFoodList');
   if(list){
