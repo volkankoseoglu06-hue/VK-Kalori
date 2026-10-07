@@ -492,3 +492,24 @@ input:focus,select:focus{border-color:#98b9ff;box-shadow:0 0 0 3px #eff6ff}
     height:26px;
   }
 }
+
+
+/* Home metric readability */
+#homePage .home-four-metrics .goal-ring-top strong{
+  font-size:24px;
+  letter-spacing:-.8px;
+}
+#homePage .home-four-metrics .goal-ring-top>b{
+  font-size:9px;
+}
+#homePage .home-four-metrics .goal-ring-top em{
+  font-size:8px;
+}
+#homePage .home-four-metrics .goal-ring-top small{
+  font-size:9px;
+  font-weight:900;
+}
+#homePage .water-quick-add{
+  font-size:8.5px;
+  padding:6px 8px;
+}
