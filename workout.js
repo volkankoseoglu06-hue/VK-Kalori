@@ -114,7 +114,7 @@ function updateWorkoutControl(){
   button.classList.remove('is-running','is-paused','is-finished');
   if(active){
     button.classList.add('is-running');
-    button.innerHTML='<span class="workout-start-copy"><strong>Devam Et</strong></span>';
+    button.innerHTML='<span class="workout-start-copy"><strong>⏸ Durdur</strong></span>';
   }else if(status==='paused'){
     button.classList.add('is-paused');
     button.innerHTML='<span class="workout-start-copy"><strong>Devam Et</strong></span>';
@@ -230,7 +230,7 @@ function startGuided(){
   activeSessionSets=0;
   activeSessionId='session_'+Date.now();
   const finishButton=document.getElementById('finishWorkoutButton');
-  if(finishButton){finishButton.disabled=false;finishButton.classList.remove('completed');finishButton.textContent='✓ Antrenmanı Bitir ve Kaydet';}
+  if(finishButton){finishButton.disabled=false;finishButton.classList.remove('completed');finishButton.textContent='✓ Antrenmanı Bitir';}
   S.session={id:activeSessionId,day,status:'active',startedAt:activeStartedAt,elapsedMs:0,activeSet,activeExercise,sets:0};
   saveWorkoutState();
   render();
