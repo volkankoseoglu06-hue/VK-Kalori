@@ -219,11 +219,12 @@ function renderWorkout(){
     return '<article class="workout-exercise '+(done?'is-done':'')+'">'+
       '<button class="exercise-main" data-open-exercise="'+i+'" type="button">'+
         imageMarkup(ex)+
-        '<span class="exercise-info"><strong>'+ex.name+'</strong><span class="exercise-tags">'+ex.muscles.map(m=>'<em>'+m+'</em>').join('')+'</span></span>'+
+        '<span class="exercise-info"><strong>'+ex.name+'</strong><span class="exercise-tags">'+ex.muscles.map(m=>'<em>'+m+'</em>').join('')+'</span>'+
+          (sets.length?'<span class="exercise-last">'+sets.map((s,n)=>'<span>'+ (n+1)+'. '+Number(s.weight||0)+' kg × '+Number(s.reps||0)+'</span>').join('')+'</span>':'')+
+        '</span>'+
         '<span class="exercise-state">'+(done?'✓':'›')+'</span>'+
       '</button>'+
       performanceMarkup(ex,sets.length>0)+
-      (sets.length?'<div class="exercise-last">'+sets.map((s,n)=>'<span>'+ (n+1)+'. '+Number(s.weight||0)+' kg × '+Number(s.reps||0)+'</span>').join('')+'</div>':'')+
     '</article>';
   }).join('');
   const progress=document.querySelector('.workout-list-head span');
