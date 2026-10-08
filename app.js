@@ -671,6 +671,10 @@ function openSmartFoodModal(mode='barcode'){
   }
   modal.classList.add('open');
   modal.setAttribute('aria-hidden','false');
+
+  if(mode==='barcode'){
+    requestAnimationFrame(()=>startBarcodeScanner());
+  }
 }
 
 function addSmartProductToLog(product){
@@ -761,6 +765,7 @@ async function startBarcodeScanner(){
   if(!video)return;
 
   stopBarcodeCamera();
+  if(button)button.textContent='⏳ Kamera açılıyor...';
 
   try{
     if(window.ZXingBrowser?.BrowserMultiFormatReader){
@@ -788,7 +793,7 @@ async function startBarcodeScanner(){
       );
 
       if(button)button.textContent='⏹ Kamerayı Kapat';
-      if(status)status.textContent='Barkodu çerçeveye getir...';
+      if(status)status.textContent='Barkodu kameraya göster. Otomatik okunacak...';
       return;
     }
 
@@ -812,7 +817,7 @@ async function startBarcodeScanner(){
 
     if(button)button.textContent='⏹ Kamerayı Kapat';
     if(status)status.textContent=detector
-      ? 'Barkodu çerçeveye getir...'
+      ? 'Barkodu kameraya göster. Otomatik okunacak...'
       : 'Bu tarayıcı otomatik barkod okumayı desteklemiyor. Barkodu elle girebilirsin.';
 
     if(!detector)return;

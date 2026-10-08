@@ -804,3 +804,6 @@ input:focus,select:focus{border-color:#98b9ff;box-shadow:0 0 0 3px #eff6ff}
 .ai-food-remove{width:100%;margin-top:3px}
 .ai-food-total{display:flex;justify-content:space-between;background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:11px;margin-top:8px;font-size:10px}
 .ai-food-total strong{font-size:11px}.ai-food-disclaimer{display:block;color:var(--muted);font-size:8px;line-height:1.45;margin-top:8px;text-align:center}
+
+/* Barkod tarama: kamera modal acilir acilmaz otomatik baslar. */
+#barcodeScannerPanel #startBarcodeButton{display:none}
