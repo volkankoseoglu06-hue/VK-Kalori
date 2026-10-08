@@ -526,3 +526,19 @@ input:focus,select:focus{border-color:#98b9ff;box-shadow:0 0 0 3px #eff6ff}
 .profile-card>p:not(.profile-note):not(.repdb-credit){font-size:10px;line-height:1.45;margin:4px 0 11px;color:var(--muted)}
 .profile-card .primary,.profile-card .danger-outline{font-family:inherit;font-size:11px;line-height:1.2}
 .profile-note,.repdb-credit{font-size:9px!important;line-height:1.45!important}
+
+/* Workout completion action */
+#workoutModal .modal-complete-toggle{
+  width:100%;
+  min-height:40px;
+  border:0;
+  border-radius:9px;
+  background:#ecfdf3;
+  color:#16a34a;
+  padding:7px 10px;
+  font:800 11px/1 'Manrope',sans-serif;
+  cursor:pointer;
+  margin-top:8px;
+  box-sizing:border-box;
+}
+#workoutModal .modal-complete-toggle:hover{background:#dcfce7}
