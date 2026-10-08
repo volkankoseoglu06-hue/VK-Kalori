@@ -763,8 +763,10 @@ async function lookupBarcode(code){
     const useButton=$('useSmartProductButton');
     if(useButton)useButton.onclick=()=>addSmartProductToLog(lastSmartProduct);
     if(status)status.textContent='Ürün bulundu. Miktarı kontrol et; eklemek için Bu Ürünü Kullan butonuna bas.';
+    return true;
   }catch(e){
     if(status)status.textContent='Ürün bulunamadı. Barkodu kontrol edip tekrar dene.';
+    return false;
   }
 }
 
