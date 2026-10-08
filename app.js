@@ -759,8 +759,9 @@ async function lookupBarcode(code){
         (lastSmartProduct.servingSize?'<small>Porsiyon: '+lastSmartProduct.servingSize+'</small>':'')+
         '</div></div>';
     }
-    addSmartProductToLog(lastSmartProduct);
-    if(status)status.textContent='Ürün bulundu. Miktarı kontrol edip günlüğe ekleyebilirsin.';
+    const useButton=$('useSmartProductButton');
+    if(useButton)useButton.onclick=()=>addSmartProductToLog(lastSmartProduct);
+    if(status)status.textContent='Ürün bulundu. Miktarı kontrol et; eklemek için Bu Ürünü Kullan butonuna bas.';
   }catch(e){
     if(status)status.textContent='Ürün bulunamadı. Barkodu kontrol edip tekrar dene.';
   }
