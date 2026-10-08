@@ -514,7 +514,7 @@ function selectFood(food){
   const results=$('foodResults');
   const search=$('foodSearch');
   if(results){results.innerHTML='';results.classList.remove('food-results-open');}
-  if(search)search.value=food.name;
+  if(search){search.value='';search.setAttribute('aria-label','Besin ara');}
   $('foodCalcCard')?.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
