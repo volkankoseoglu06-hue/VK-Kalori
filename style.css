@@ -807,3 +807,12 @@ input:focus,select:focus{border-color:#98b9ff;box-shadow:0 0 0 3px #eff6ff}
 
 /* Barkod tarama: kamera modal acilir acilmaz otomatik baslar. */
 #barcodeScannerPanel #startBarcodeButton{display:none}
+
+/* Barkod urun karti: daha okunakli */
+.smart-product-card{align-items:flex-start;padding:15px;gap:14px}
+.smart-product-card img{width:96px;height:96px;flex:0 0 96px}
+.smart-product-card strong{font-size:15px;line-height:1.35}
+.smart-product-card small{font-size:10px}
+.smart-product-card p{font-size:12px;line-height:1.4}
+.smart-source-note{margin-top:7px!important;font-size:9px!important;line-height:1.35!important;color:#667085}
+#useSmartProductButton{min-height:50px!important;font-size:14px!important;font-weight:900!important}
