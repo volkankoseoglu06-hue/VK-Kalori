@@ -817,7 +817,7 @@ async function runNutritionOcr(file){
 
     if(!parsed.kcal && !parsed.protein && !parsed.carbs && !parsed.fat){
       result.innerHTML='<div class="smart-ocr-fail"><strong>Besin değerleri net okunamadı.</strong><small>Etiketi düz, yakın ve iyi ışıkta tekrar çek. Özellikle “100 g için” tablosu kadraja tamamen girsin.</small><button class="smart-secondary" id="ocrRetryButton" type="button">Tekrar Dene</button></div>';
-      $('ocrRetryButton').onclick=()=>{$('smartFoodInput')?.click();};
+      $('ocrRetryButton').onclick=()=>{$('smartPhotoInput')?.click();};
       return;
     }
 
