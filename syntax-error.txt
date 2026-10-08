@@ -1,12 +1,3 @@
 APP_STATUS=0
 
-FOOD_STATUS=1
-/home/runner/work/VK-Kalori/VK-Kalori/foods.js:309
-{name:"Hindi füme (1 dilim - 10 g)",kcal:11,protein:2,unit:"dilim"},
-^
-
-SyntaxError: Unexpected token '{'
-    at wrapSafe (node:internal/modules/cjs/loader:1713:18)
-    at checkSyntax (node:internal/main/check_syntax:78:3)
-
-Node.js v22.23.3
+FOOD_STATUS=0
