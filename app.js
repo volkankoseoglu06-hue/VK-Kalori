@@ -265,8 +265,10 @@ function hasNutritionData(item){
 }
 function nutritionPeriodData(){
   const todayFoods=Array.isArray(state.dailyFoods)?state.dailyFoods:[];
-  const todayFoodCalories=todayFoods.reduce((sum,food)=>sum+(Number(food.calories)||0),0);
-  const todayFoodProtein=todayFoods.reduce((sum,food)=>sum+(Number(food.protein)||0),0);
+  // Ana sayfadaki kayitlarla ayni kaynagi kullan: state.eaten/protein.
+  // Gunluk liste eski kayitlarda eksik olsa bile ozet sifira dusmesin.
+  const todayFoodCalories=safeNum(state.eaten);
+  const todayFoodProtein=safeNum(state.protein);
   const today={
     date:new Date().toLocaleDateString('tr-TR'),
     at:new Date().setHours(12,0,0,0),
