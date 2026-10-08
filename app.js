@@ -611,10 +611,14 @@ function addFood(){
 let barcodeStream=null;
 let barcodeTimer=null;
 let barcodeReaderControls=null;
+let barcodeOcrTimer=null;
+let barcodeOcrBusy=false;
 let lastSmartProduct=null;
 
 function stopBarcodeCamera(){
   if(barcodeTimer){clearTimeout(barcodeTimer);barcodeTimer=null;}
+  if(barcodeOcrTimer){clearTimeout(barcodeOcrTimer);barcodeOcrTimer=null;}
+  barcodeOcrBusy=false;
   if(barcodeReaderControls){
     try{barcodeReaderControls.stop();}catch(e){}
     barcodeReaderControls=null;
@@ -671,40 +675,32 @@ function openSmartFoodModal(mode='barcode'){
 }
 
 function addSmartProductToLog(product){
-  if(!product)return false;
-
-  const kcal100=safeNum(product.kcal100);
-  const protein100=safeNum(product.protein100);
-  if(kcal100<=0 && protein100<=0){
+  if(!product)return;
+  const kcal=safeNum(product.kcal100);
+  const protein=safeNum(product.protein100);
+  if(kcal<=0 && protein<=0){
     alert('Bu üründe kullanılabilir kalori/protein bilgisi bulunamadı.');
-    return false;
+    return;
   }
 
-  const rawSize=String(product.servingSize||product.quantity||'');
-  const gramMatch=rawSize.match(/(\\d+(?:[.,]\\d+)?)\\s*(?:g|gr|gram)\\b/i);
-  const mlMatch=rawSize.match(/(\\d+(?:[.,]\\d+)?)\\s*(?:ml|mL)\\b/i);
-  const amount=gramMatch
-    ? Math.max(1,Number(gramMatch[1].replace(',','.')))
-    : mlMatch
-      ? Math.max(1,Number(mlMatch[1].replace(',','.')))
-      : 100;
-  const unit=gramMatch?'gram':mlMatch?'ml':'gram';
-  const factor=amount/100;
-  const calories=Math.round(kcal100*factor);
-  const protein=Math.round(protein100*factor*10)/10;
+  const servingText=String(product.servingSize||'');
+  const servingMatch=servingText.match(/(\\d+(?:[.,]\\d+)?)\\s*(g|ml)/i);
+  const amount=servingMatch?Math.max(1,Number(servingMatch[1].replace(',','.'))):100;
+  const unit=servingMatch&&/ml/i.test(servingMatch[2])?'ml':'gram';
+  const multiplier=amount/100;
+  const calories=Math.round(kcal*multiplier);
+  const proteinValue=Number((protein*multiplier).toFixed(1));
   const meal=$('foodMeal')?.value||'Ara Öğün';
 
   state.eaten+=calories;
-  state.protein+=protein;
+  state.protein+=proteinValue;
   state.dailyFoods.push({
-    name:product.brand ? product.name+' - '+product.brand : product.name,
+    name:product.name,
     calories,
-    protein,
+    protein:proteinValue,
     amount,
     unit,
-    meal,
-    barcode:product.barcode,
-    source:'Open Food Facts'
+    meal
   });
 
   save();
@@ -712,15 +708,8 @@ function addSmartProductToLog(product){
   updateFoodPeriod();
   renderFoods();
   renderNutritionPage();
-
-  const status=$('barcodeStatus');
-  if(status){
-    status.textContent='✓ '+product.name+' otomatik olarak günlüğe eklendi.';
-  }
   closeSmartFoodModal();
-  return true;
 }
-
 async function lookupBarcode(code){
   const clean=String(code||'').replace(/\D/g,'');
   if(clean.length<8){
@@ -774,6 +763,39 @@ async function lookupBarcode(code){
   }
 }
 
+async function scanBarcodeDigitsWithOCR(){
+  const video=$('barcodeVideo');
+  const status=$('barcodeStatus');
+  if(!video || video.readyState<2 || barcodeOcrBusy)return;
+  barcodeOcrBusy=true;
+  try{
+    if(!window.Tesseract)throw new Error('ocr-missing');
+    const canvas=document.createElement('canvas');
+    const width=Math.min(1280,video.videoWidth||1280);
+    const height=Math.round(width*0.42);
+    canvas.width=width;
+    canvas.height=height;
+    const ctx=canvas.getContext('2d',{willReadFrequently:true});
+    ctx.drawImage(video,0,Math.max(0,(video.videoHeight-height)/2),video.videoWidth,height,0,0,width,height);
+    const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/jpeg',0.88));
+    if(!blob)throw new Error('frame');
+    const worker=smartOcrWorker||(smartOcrWorker=await Tesseract.createWorker('eng',1));
+    const ret=await worker.recognize(blob);
+    const digits=String(ret.data?.text||'').replace(/[^0-9]/g,'');
+    const candidates=digits.match(/(?:\d{13}|\d{12}|\d{8})/g)||[];
+    const code=candidates.find(x=>/^(?:[789]\d{12}|\d{12}|\d{8})$/.test(x));
+    if(code){
+      if(status)status.textContent='Barkod rakamları okundu: '+code;
+      stopBarcodeCamera();
+      await lookupBarcode(code);
+      return;
+    }
+  }catch(e){}finally{
+    barcodeOcrBusy=false;
+  }
+  if(barcodeStream)barcodeOcrTimer=setTimeout(scanBarcodeDigitsWithOCR,900);
+}
+
 async function startBarcodeScanner(){
   const video=$('barcodeVideo');
   const status=$('barcodeStatus');
@@ -825,6 +847,7 @@ async function startBarcodeScanner(){
         await video.play();
         if(button)button.textContent='⏹ Kamerayı Kapat';
         if(status)status.textContent='Barkodu çerçevenin ortasına getir. Otomatik okunacak...';
+        barcodeOcrTimer=setTimeout(scanBarcodeDigitsWithOCR,2500);
 
         const scanNative=async()=>{
           if(!barcodeStream)return;
@@ -864,6 +887,7 @@ async function startBarcodeScanner(){
 
       if(button)button.textContent='⏹ Kamerayı Kapat';
       if(status)status.textContent='Barkodu çerçevenin ortasına getir. Otomatik okunacak...';
+      barcodeOcrTimer=setTimeout(scanBarcodeDigitsWithOCR,1800);
       return;
     }
 
