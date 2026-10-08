@@ -19,7 +19,7 @@ const DEFAULTS = {
   }
 };
 
-const FRESH_START_VERSION='20261006-final20';\n
+const FRESH_START_VERSION='20261006-final20';
 if(localStorage.getItem('vk_fresh_start_version')!==FRESH_START_VERSION){
   localStorage.removeItem('vk_yasam_kocu');
   localStorage.removeItem('vk_workout_log_v2');
