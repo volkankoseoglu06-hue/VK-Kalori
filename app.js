@@ -19,13 +19,6 @@ const DEFAULTS = {
   }
 };
 
-const FRESH_START_VERSION='20261006-final20';
-if(localStorage.getItem('vk_fresh_start_version')!==FRESH_START_VERSION){
-  localStorage.removeItem('vk_yasam_kocu');
-  localStorage.removeItem('vk_workout_log_v2');
-  localStorage.setItem('vk_fresh_start_version',FRESH_START_VERSION);
-}
-
 let state = loadState();
 let selectedFood = null;
 let lastFoodCalc = null;
@@ -705,7 +698,7 @@ function addSmartProductToLog(product){
   $('foodCalcCard')?.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
-async function lookupBarcode(code){
+async async function lookupBarcode(code){
   const clean=String(code||'').replace(/\D/g,'');
   if(clean.length<8){
     alert('Geçerli bir barkod numarası gir.');
