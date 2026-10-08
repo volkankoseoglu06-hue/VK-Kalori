@@ -467,13 +467,18 @@ function normalizeFoodSearchText(value){
     .trim();
 }
 
+function getFoodCatalog(){
+  const baseFoods=(typeof foods!=='undefined' && Array.isArray(foods))?foods:[];
+  const customFoods=Array.isArray(state.customFoods)?state.customFoods:[];
+  return [...baseFoods,...customFoods];
+}
+
 function searchFood(text){
   const results=$('foodResults');
   if(!results)return;
 
   const query=normalizeFoodSearchText(text);
-  const baseFoods=(typeof foods!=='undefined' && Array.isArray(foods))?foods:[];
-  const list=[...baseFoods,...(Array.isArray(state.customFoods)?state.customFoods:[])];
+  const list=getFoodCatalog();
   const filtered=query
     ? list.filter(food=>{
         const haystack=normalizeFoodSearchText((food.name||'')+' '+(food.unit||''));
@@ -1375,6 +1380,24 @@ function setupNavigation(){
 function setupDayButtons(){
   // Gün tipi seçimi artık ana ekranda görünmüyor; hedefler profil üzerinden yönetiliyor.
 }
+function bindFoodSearch(){
+  const input=$('foodSearch');
+  if(!input)return;
+  if(input.dataset.foodSearchBound==='1')return;
+  input.dataset.foodSearchBound='1';
+
+  const refresh=()=>{
+    searchFood(input.value||'');
+    const results=$('foodResults');
+    if(results)results.classList.add('food-results-open');
+  };
+
+  input.addEventListener('focus',refresh);
+  input.addEventListener('click',refresh);
+  input.addEventListener('input',refresh);
+  input.addEventListener('keyup',refresh);
+}
+
 function setupEvents(){
   const editGoalsButton=$('editGoalsButton');
   if(editGoalsButton){
@@ -1418,17 +1441,7 @@ function setupEvents(){
     });
   });
 
-  const foodSearchInput=$('foodSearch');
-  if(foodSearchInput){
-    const openFoodSearch=()=>{
-      searchFood(foodSearchInput.value);
-      requestAnimationFrame(()=>foodSearchInput.scrollIntoView({block:'nearest',behavior:'smooth'}));
-    };
-    foodSearchInput.addEventListener('focus',openFoodSearch);
-    foodSearchInput.addEventListener('click',openFoodSearch);
-    foodSearchInput.addEventListener('touchstart',openFoodSearch,{passive:true});
-    foodSearchInput.addEventListener('input',event=>searchFood(event.target.value));
-  }
+  bindFoodSearch();
 
   $('foodAmount').addEventListener('input', calculateFood);
 
@@ -1544,6 +1557,7 @@ function refreshAll(){
 }
 
 normalizeNutritionPageDom();
+bindFoodSearch();
 setupNavigation();
 setupEvents();
 setupDayButtons();
