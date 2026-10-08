@@ -753,6 +753,104 @@ async function startBarcodeScanner(){
   }
 }
 
+
+let smartOcrWorker=null;
+
+function parseNutritionText(text){
+  const normalized=String(text||'')
+    .replace(/[|]/g,'1')
+    .replace(/,/g,'.')
+    .replace(/\s+/g,' ')
+    .trim();
+
+  const findValue=(patterns)=>{
+    for(const pattern of patterns){
+      const match=normalized.match(pattern);
+      if(match){
+        const value=Number(String(match[1]).replace(',','.'));
+        if(Number.isFinite(value))return value;
+      }
+    }
+    return 0;
+  };
+
+  const kcal=findValue([
+    /(?:energy|enerji)[^0-9]{0,30}(\d+(?:\.\d+)?)\s*(?:kcal|kcal)?/i,
+    /(\d+(?:\.\d+)?)\s*kcal/i
+  ]);
+  const protein=findValue([
+    /(?:protein|prote[iı]n)[^0-9]{0,30}(\d+(?:\.\d+)?)\s*g?/i
+  ]);
+  const carbs=findValue([
+    /(?:carbohydrate|karbonhidrat)[^0-9]{0,30}(\d+(?:\.\d+)?)\s*g?/i
+  ]);
+  const fat=findValue([
+    /(?:fat|ya[gğ] ?|yağ)[^0-9]{0,30}(\d+(?:\.\d+)?)\s*g?/i
+  ]);
+  const sugar=findValue([
+    /(?:sugars|[sş]eker)[^0-9]{0,30}(\d+(?:\.\d+)?)\s*g?/i
+  ]);
+
+  return {kcal,protein,carbs,fat,sugar,text:normalized};
+}
+
+async function runNutritionOcr(file){
+  const result=$('smartFoodResult');
+  if(!result)return;
+  result.hidden=false;
+  result.innerHTML='<div class="smart-ocr-progress"><strong>Etiket okunuyor...</strong><span id="ocrProgressText">Motor hazırlanıyor</span></div>';
+
+  try{
+    if(!window.Tesseract)throw new Error('OCR motoru yüklenemedi');
+    if(!smartOcrWorker){
+      smartOcrWorker=await Tesseract.createWorker('tur+eng',1,{
+        logger:message=>{
+          const pct=message.progress?Math.round(message.progress*100):0;
+          const el=$('ocrProgressText');
+          if(el)el.textContent=(message.status||'İşleniyor')+' '+pct+'%';
+        }
+      });
+    }
+    const ret=await smartOcrWorker.recognize(file);
+    const parsed=parseNutritionText(ret.data.text);
+    const confidence=Math.round(Number(ret.data.confidence)||0);
+
+    if(!parsed.kcal && !parsed.protein && !parsed.carbs && !parsed.fat){
+      result.innerHTML='<div class="smart-ocr-fail"><strong>Besin değerleri net okunamadı.</strong><small>Etiketi düz, yakın ve iyi ışıkta tekrar çek. Özellikle “100 g için” tablosu kadraja tamamen girsin.</small><button class="smart-secondary" id="ocrRetryButton" type="button">Tekrar Dene</button></div>';
+      $('ocrRetryButton').onclick=()=>{$('smartFoodInput')?.click();};
+      return;
+    }
+
+    lastSmartProduct={
+      name:'Fotoğraftan okunan ürün',
+      barcode:'',
+      kcal100:parsed.kcal,
+      protein100:parsed.protein,
+      carbs100:parsed.carbs,
+      fat100:parsed.fat,
+      sugar100:parsed.sugar,
+      servingSize:'',
+      quantity:'',
+      image:''
+    };
+
+    result.innerHTML='<div class="smart-ocr-result">'+
+      '<strong>Okunan değerler</strong>'+
+      '<small>OCR güveni: '+confidence+'%</small>'+
+      '<div class="ocr-macro-grid">'+
+      '<div><b>'+parsed.kcal+'</b><span>kcal</span></div>'+
+      '<div><b>'+parsed.protein+'</b><span>protein</span></div>'+
+      '<div><b>'+parsed.carbs+'</b><span>karb.</span></div>'+
+      '<div><b>'+parsed.fat+'</b><span>yağ</span></div>'+
+      '</div>'+
+      '<p>Değerler genellikle 100 g / 100 ml etiketi üzerinden okunur. Günlüğe eklemeden önce kontrol et.</p>'+
+      '<button class="primary" id="useOcrProductButton" type="button">Değerleri Kullan</button></div>';
+    $('useOcrProductButton').onclick=()=>addSmartProductToLog(lastSmartProduct);
+  }catch(e){
+    result.innerHTML='<div class="smart-ocr-fail"><strong>Etiket okunamadı.</strong><small>Fotoğrafı daha aydınlık ve düz çekip tekrar dene.</small></div>';
+  }
+}
+
 function handleSmartPhoto(file){
   if(!file)return;
   const preview=$('smartPhotoPreview');
@@ -760,6 +858,10 @@ function handleSmartPhoto(file){
   const url=URL.createObjectURL(file);
   preview.src=url;
   preview.hidden=false;
+  const modeTitle=$('smartFoodTitle')?.textContent||'';
+  if(modeTitle==='Etiket Fotoğrafı'){
+    runNutritionOcr(file);
+  }
 }
 
 function saveCustomFood(){
