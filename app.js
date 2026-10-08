@@ -698,7 +698,7 @@ function addSmartProductToLog(product){
   $('foodCalcCard')?.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
-async async function lookupBarcode(code){
+async function lookupBarcode(code){
   const clean=String(code||'').replace(/\D/g,'');
   if(clean.length<8){
     alert('Geçerli bir barkod numarası gir.');
