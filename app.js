@@ -267,8 +267,10 @@ function nutritionPeriodData(){
   const todayFoods=Array.isArray(state.dailyFoods)?state.dailyFoods:[];
   // Ana sayfadaki kayitlarla ayni kaynagi kullan: state.eaten/protein.
   // Gunluk liste eski kayitlarda eksik olsa bile ozet sifira dusmesin.
-  const todayFoodCalories=safeNum(state.eaten);
-  const todayFoodProtein=safeNum(state.protein);
+  const loggedCalories=todayFoods.reduce((sum,food)=>sum+safeNum(food.calories),0);
+  const loggedProtein=todayFoods.reduce((sum,food)=>sum+safeNum(food.protein),0);
+  const todayFoodCalories=Math.max(safeNum(state.eaten),loggedCalories);
+  const todayFoodProtein=Math.max(safeNum(state.protein),loggedProtein);
   const today={
     date:new Date().toLocaleDateString('tr-TR'),
     at:new Date().setHours(12,0,0,0),
@@ -755,7 +757,8 @@ async function lookupBarcode(code){
         '<small class="smart-source-note">Kaynak: Open Food Facts • Etiket üzerindeki değer farklıysa miktarı/hesabı kontrol edebilirsin.</small>'+
         '<p class="smart-product-macros">Karb. '+carbs+' g • Yağ '+fat+' g • Şeker '+sugar+' g</p>'+
         (lastSmartProduct.servingSize?'<small>Porsiyon: '+lastSmartProduct.servingSize+'</small>':'')+
-        '</div></div>';
+        '</div></div>'+
+        '<button class="primary smart-use-product" id="useSmartProductButton" type="button">Bu Ürünü Kullan</button>';
     }
     const useButton=$('useSmartProductButton');
     if(useButton)useButton.onclick=()=>addSmartProductToLog(lastSmartProduct);
