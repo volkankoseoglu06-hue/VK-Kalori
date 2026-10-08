@@ -295,11 +295,15 @@ const foods = [
 {name:"Türlü (250 g)",kcal:180,protein:6,unit:"porsiyon"},
 {name:"Bamya yemeği (250 g)",kcal:160,protein:5,unit:"porsiyon"},
 {name:"Karnabahar yemeği (250 g)",kcal:140,protein:6,unit:"porsiyon"},
-{name:"Yumurtalı unlu karnabahar kızartması",kcal:55,protein:2,unit:"adet"},
+{name:"Yumurtalı unlu karnabahar kızartması (yağda)",kcal:85,protein:2.5,unit:"adet"},
 {name:"Karnıyarık (1 adet)",kcal:300,protein:16,unit:"porsiyon"},
 {name:"Musakka (250 g)",kcal:280,protein:18,unit:"porsiyon"},
 {name:"Mantı (250 g)",kcal:350,protein:14,unit:"porsiyon"},
 {name:"Dolma (7 adet)",kcal:220,protein:8,unit:"porsiyon"},
+{name:"Biber dolması - çok küçük (40–55 g)",kcal:85,protein:3,unit:"adet"},
+{name:"Biber dolması - küçük (55–80 g)",kcal:130,protein:4,unit:"adet"},
+{name:"Biber dolması - orta (80–120 g)",kcal:185,protein:6,unit:"adet"},
+{name:"Biber dolması - büyük (120–170 g)",kcal:250,protein:8,unit:"adet"},
 {name:"Sarma (10 adet)",kcal:180,protein:6,unit:"porsiyon"},
 
 /* ŞARKÜTERİ */
