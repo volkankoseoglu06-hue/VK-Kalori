@@ -165,7 +165,10 @@ function updateDashboard(){
     .filter(s=>String(s.name||'').toLocaleLowerCase('tr-TR').includes('yürüy'))
     .reduce((sum,s)=>sum+(Number(s.duration)||0),0);
   const workout=getTodayWorkoutSummary();
-  const eaten=Math.round(state.eaten);
+  const loggedFoodCalories=(state.dailyFoods||[]).reduce((sum,food)=>sum+safeNum(food.calories),0);
+  const loggedFoodProtein=(state.dailyFoods||[]).reduce((sum,food)=>sum+safeNum(food.protein),0);
+  const eaten=Math.round(Math.max(safeNum(state.eaten),loggedFoodCalories));
+  const displayedProtein=Math.round(Math.max(safeNum(state.protein),loggedFoodProtein));
   const burned=Math.round(state.burned);
   const net=eaten-burned;
   const walkBurned=Math.round((state.dailySports||[])
@@ -180,7 +183,7 @@ function updateDashboard(){
   const homeDate=$('homeDateBox'); if(homeDate){homeDate.textContent=new Date().toLocaleDateString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric'});} 
   setText('currentCalories',eaten);
   setText('currentCaloriesGoal',Math.round(calorieGoal).toLocaleString('tr-TR'));
-  setText('currentProtein',Math.round(state.protein));
+  setText('currentProtein',displayedProtein);
   setText('currentProteinGoal',Math.round(proteinGoal).toLocaleString('tr-TR'));
   setText('currentWater',state.water.toFixed(1));
   setText('currentWaterGoal',waterGoal.toLocaleString('tr-TR',{minimumFractionDigits:1,maximumFractionDigits:1}));
@@ -199,12 +202,12 @@ function updateDashboard(){
   setText('summaryWorkoutCalories',workoutBurned+' kcal');
   setText('summaryNet',net);
   setText('summaryWater',state.water.toFixed(1));
-  setText('summaryProtein',Math.round(state.protein));
+  setText('summaryProtein',displayedProtein);
   setText('summaryFoodCount',eaten+' kcal');
   setText('homeRemainingCalories',Math.max(0,Math.round(calorieGoal-eaten)));
   const progressEl=$('homeCalorieProgress'); if(progressEl)progressEl.style.width=Math.max(0,Math.min(100,(eaten/calorieGoal)*100))+'%';
   setText('foodPageCalories',eaten);
-  setText('foodPageProtein',Math.round(state.protein));
+  setText('foodPageProtein',displayedProtein);
   setText('foodPageWater',state.water.toFixed(1));
   setText('summaryCalorieGoal',Math.round(calorieGoal));
   setText('summaryWaterGoal',waterGoal.toFixed(1));
