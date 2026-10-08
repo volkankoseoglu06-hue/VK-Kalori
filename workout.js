@@ -374,6 +374,7 @@ function openExercise(index){
     ? '<strong>💡 Sonraki hedef: '+rec.suggested+' kg</strong><small>'+rec.reason+'</small>'
     : '<strong>💡 Başlangıç hedefi: '+ex.sets+' set × '+ex.reps+' tekrar</strong><small>İlk sette kontrollü bir ağırlık seç; form bozulmadan hedef aralıkta çalış.</small>';
   document.getElementById('workoutSource').innerHTML='<a href="https://repdb.co" target="_blank" rel="noopener">Exercise data by RepDB ↗</a>';
+  updateExerciseDoneButton();
   document.getElementById('workoutModal').classList.add('open');
 }
 
@@ -400,15 +401,34 @@ function saveExerciseFromModal(){
   if(selectedExerciseIndex===null)return;
   const ex=WORKOUTS[workoutDay].exercises[selectedExerciseIndex];
   const sets=readModalSets();
-  if(!sets.length){alert('Önce en az 1 set ekle.');return;}
   const sessionId=S.session?.id||null;
   S.logs=S.logs.filter(x=>!(x.date===todayKey()&&x.day===workoutDay&&x.exercise===ex.name));
-  S.logs.unshift({date:todayKey(),at:Date.now(),sessionId,day:workoutDay,exercise:ex.name,sets:sets.length,reps:sets[0].reps,weight:sets[0].weight,setDetails:sets});
-  S.weights[exerciseKey(ex.name)]=sets[sets.length-1].weight;
-  S.done[exerciseKey(ex.name)]=todayKey();
+  if(sets.length){
+    S.logs.unshift({date:todayKey(),at:Date.now(),sessionId,day:workoutDay,exercise:ex.name,sets:sets.length,reps:sets[0].reps,weight:sets[0].weight,setDetails:sets});
+    S.weights[exerciseKey(ex.name)]=sets[sets.length-1].weight;
+    S.done[exerciseKey(ex.name)]=todayKey();
+  }
   if(S.session){S.session.sets=totalSets();if(S.session.status==='active')S.session.elapsedMs=elapsedMs();}
   saveWorkout();closeExercise();renderWorkout();
   if(typeof window.updateDashboard==='function')window.updateDashboard();
+}
+function toggleExerciseDone(){
+  if(selectedExerciseIndex===null)return;
+  const ex=WORKOUTS[workoutDay].exercises[selectedExerciseIndex];
+  const key=exerciseKey(ex.name);
+  if(S.done[key]===todayKey()) delete S.done[key];
+  else S.done[key]=todayKey();
+  saveWorkout();
+  updateExerciseDoneButton();
+  renderWorkout();
+}
+function updateExerciseDoneButton(){
+  const b=document.querySelector('[data-toggle-exercise-done]');
+  if(!b||selectedExerciseIndex===null)return;
+  const ex=WORKOUTS[workoutDay].exercises[selectedExerciseIndex];
+  const done=S.done[exerciseKey(ex.name)]===todayKey();
+  b.textContent=done?'↩ Tamamlamayı Geri Al':'✓ Hareketi Tamamladım';
+  b.classList.toggle('is-done',done);
 }
 function closeExercise(){document.getElementById('workoutModal')?.classList.remove('open');selectedExerciseIndex=null;}
 
@@ -509,6 +529,7 @@ function bindWorkout(){
   });
   document.getElementById('workoutModal')?.addEventListener('click',e=>{
     if(e.target.closest('[data-add-modal-set]'))addModalSet();
+    else if(e.target.closest('[data-toggle-exercise-done]'))toggleExerciseDone();
     else if(e.target.closest('[data-modal-save]'))saveExerciseFromModal();
     else if(e.target.closest('[data-remove-set]')){e.target.closest('.modal-set-row')?.remove();relabelModalSets();}
     else if(e.target.closest('[data-close]')||e.target.id==='workoutModal')closeExercise();
