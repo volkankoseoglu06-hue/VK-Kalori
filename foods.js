@@ -8,13 +8,13 @@ const foods = [
 {name:"Yarım yağlı süt (1 bardak - 200 ml)",kcal:94,protein:7,unit:"bardak"},
 {name:"Laktozsuz süt (1 bardak - 200 ml)",kcal:92,protein:6,unit:"bardak"},
   
-{name:"Beyaz peynir (1 kibrit kutusu - 30 g)",kcal:80,protein:4,unit:"adet"},
+{name:"Beyaz peynir (1 kibrit kutusu - 30 g)",kcal:80,protein:4,unit:"30 g"},
 {name:"Kaşar peyniri (1 dilim - 20 g)",kcal:81,protein:5,unit:"dilim"},
 {name:"Lor peyniri (1 yemek kaşığı - 30 g)",kcal:30,protein:5,unit:"kaşık"},
 {name:"Labne (1 yemek kaşığı - 20 g)",kcal:58,protein:1,unit:"kaşık"},
 {name:"Mozzarella (1 dilim - 30 g)",kcal:84,protein:7,unit:"dilim"},
 {name:"Tulum peyniri (1 dilim - 30 g)",kcal:109,protein:7,unit:"dilim"},
-{name:"Çeçil peyniri (1 porsiyon - 30 g)",kcal:87,protein:8,unit:"porsiyon"},
+{name:"Çeçil peyniri (1 porsiyon - 30 g)",kcal:87,protein:8,unit:"30 g"},
 
 {name:"Yoğurt (1 kase - 200 g)",kcal:122,protein:8,unit:"kase"},
 {name:"Süzme yoğurt (1 kase - 200 g)",kcal:194,protein:20,unit:"kase"},
@@ -31,8 +31,8 @@ const foods = [
 
 {name:"Menemen",kcal:160,protein:8,unit:"porsiyon"},
 {name:"Omlet (2 yumurta)",kcal:180,protein:12,unit:"porsiyon"},
-{name:"Tereyağı (1 çay kaşığı - 5 g)",kcal:36,protein:0,unit:"adet"},
-{name:"Zeytinyağı (1 yemek kaşığı - 10 ml)",kcal:80,protein:0,unit:"adet"},
+{name:"Tereyağı (1 çay kaşığı - 5 g)",kcal:36,protein:0,unit:"çay kaşığı"},
+{name:"Zeytinyağı (1 yemek kaşığı - 10 ml)",kcal:80,protein:0,unit:"yemek kaşığı"},
 
 {name:"Bal (1 yemek kaşığı - 21 g)",kcal:64,protein:0,unit:"kaşık"},
 {name:"Reçel (1 yemek kaşığı - 20 g)",kcal:56,protein:0,unit:"kaşık"},
@@ -48,7 +48,7 @@ const foods = [
 {name:"Ispanak (1 porsiyon - 180 g)",kcal:41,protein:5,unit:"porsiyon"},
 {name:"Kabak (1 orta boy - 200 g)",kcal:34,protein:2,unit:"adet"},
 {name:"Patlıcan (1 orta boy - 300 g)",kcal:75,protein:3,unit:"adet"},
-{name:"Avokado (1/2 adet - 75 g)",kcal:120,protein:2,unit:"adet"},
+{name:"Avokado (1/2 adet - 75 g)",kcal:120,protein:2,unit:"yarım adet"},
 {name:"Fıstık ezmesi (1 yemek kaşığı - 16 g)",kcal:95,protein:4,unit:"kaşık"},
 
 /* KÖFTECİ YUSUF */
@@ -138,7 +138,6 @@ const foods = [
 
 {name:"IKEA Kızarmış Patates (150 g)",kcal:470,protein:6,unit:"porsiyon"},
 
-{name:"IKEA Bulgur Pilavı (200 g)",kcal:240,protein:8,unit:"porsiyon"},
 
 {name:"IKEA Sarımsaklı Ekmek (100 g)",kcal:320,protein:8,unit:"porsiyon"},
 
@@ -196,15 +195,15 @@ const foods = [
 {name:"Kaşarlı makarna (200 g)",kcal:340,protein:12,unit:"porsiyon"},
 
 
-{name:"Et sote",kcal:320,protein:30,unit:"porsiyon"},
-{name:"Tas kebabı",kcal:340,protein:28,unit:"porsiyon"},
-{name:"Izgara köfte",kcal:300,protein:26,unit:"porsiyon"},
-{name:"Tavuk sote",kcal:280,protein:32,unit:"porsiyon"},
-{name:"Fırında tavuk",kcal:260,protein:34,unit:"porsiyon"},
+{name:"Et sote (250 g)",kcal:320,protein:30,unit:"porsiyon"},
+{name:"Tas kebabı (250 g)",kcal:340,protein:28,unit:"porsiyon"},
+{name:"Izgara köfte (250 g)",kcal:300,protein:26,unit:"porsiyon"},
+{name:"Tavuk sote (250 g)",kcal:280,protein:32,unit:"porsiyon"},
+{name:"Fırında tavuk (250 g)",kcal:260,protein:34,unit:"porsiyon"},
 {name:"Tavuk kanat",kcal:320,protein:24,unit:"100 g"},
-{name:"Patates salatası",kcal:220,protein:5,unit:"porsiyon"},
+{name:"Patates salatası (250 g)",kcal:220,protein:5,unit:"porsiyon"},
 {name:"Patates kroket",kcal:280,protein:6,unit:"100 g"},
-{name:"Kaşarlı patates",kcal:310,protein:8,unit:"porsiyon"},
+{name:"Kaşarlı patates (250 g)",kcal:310,protein:8,unit:"porsiyon"},
 
   /* İÇECEKLER */
 
@@ -217,12 +216,12 @@ const foods = [
 
 /* SOSLAR */
 
-{name:"Ketçap (1 yemek kaşığı)",kcal:20,protein:0,unit:"adet"},
-{name:"Mayonez (1 yemek kaşığı)",kcal:94,protein:0,unit:"adet"},
-{name:"Acı sos (1 yemek kaşığı)",kcal:10,protein:0,unit:"adet"},
-{name:"Barbekü sos (1 yemek kaşığı)",kcal:35,protein:0,unit:"adet"},
-{name:"Sarımsaklı mayonez (1 yemek kaşığı)",kcal:100,protein:0,unit:"adet"},
-{name:"Hardal (1 yemek kaşığı)",kcal:15,protein:1,unit:"adet"},
+{name:"Ketçap (1 yemek kaşığı)",kcal:20,protein:0,unit:"yemek kaşığı"},
+{name:"Mayonez (1 yemek kaşığı)",kcal:94,protein:0,unit:"yemek kaşığı"},
+{name:"Acı sos (1 yemek kaşığı)",kcal:10,protein:0,unit:"yemek kaşığı"},
+{name:"Barbekü sos (1 yemek kaşığı)",kcal:35,protein:0,unit:"yemek kaşığı"},
+{name:"Sarımsaklı mayonez (1 yemek kaşığı)",kcal:100,protein:0,unit:"yemek kaşığı"},
+{name:"Hardal (1 yemek kaşığı)",kcal:15,protein:1,unit:"yemek kaşığı"},
 
 /* ATIŞTIRMALIKLAR */
 
@@ -236,16 +235,16 @@ const foods = [
 
 /* TATLILAR */
 
-{name:"Baklava (1 dilim)",kcal:180,protein:3,unit:"adet"},
+{name:"Baklava (1 dilim)",kcal:180,protein:3,unit:"dilim"},
 {name:"Künefe (200 g)",kcal:520,protein:10,unit:"porsiyon"},
 {name:"Sütlaç (200 g)",kcal:260,protein:8,unit:"kase"},
 {name:"Kazandibi (200 g)",kcal:280,protein:7,unit:"kase"},
 {name:"Profiterol (200 g)",kcal:450,protein:8,unit:"porsiyon"},
-{name:"Cheesecake (1 dilim)",kcal:420,protein:8,unit:"adet"},
+{name:"Cheesecake (1 dilim)",kcal:420,protein:8,unit:"dilim"},
 {name:"Magnolia (250 g)",kcal:480,protein:7,unit:"porsiyon"},
-{name:"Dondurma (100 g)",kcal:210,protein:4,unit:"porsiyon"},
+{name:"Dondurma (100 g)",kcal:210,protein:4,unit:"100 g"},
 {name:"Çikolata (100 g)",kcal:540,protein:7,unit:"100 g"},
-{name:"Bisküvi (1 paket)",kcal:450,protein:7,unit:"adet"},
+{name:"Bisküvi (1 paket - 100 g)",kcal:450,protein:7,unit:"paket"},
 
 /* KOMAGENE */
 
@@ -263,8 +262,8 @@ const foods = [
 {name:"Komagene Lavaş (1 adet - 60 g)",kcal:160,protein:5,unit:"adet"},
 {name:"Komagene Mini Lavaş (1 adet - 30 g)",kcal:80,protein:2,unit:"adet"},
 
-{name:"Komagene Nar Ekşisi (1 yemek kaşığı)",kcal:45,protein:0,unit:"adet"},
-{name:"Komagene Acı Sos (1 yemek kaşığı)",kcal:10,protein:0,unit:"adet"},
+{name:"Komagene Nar Ekşisi (1 yemek kaşığı)",kcal:45,protein:0,unit:"yemek kaşığı"},
+{name:"Komagene Acı Sos (1 yemek kaşığı)",kcal:10,protein:0,unit:"yemek kaşığı"},
 
 {name:"Komagene Ayran (300 ml)",kcal:110,protein:6,unit:"şişe"},
 {name:"Komagene Şalgam (300 ml)",kcal:35,protein:1,unit:"şişe"},
@@ -295,16 +294,15 @@ const foods = [
 {name:"Türlü (250 g)",kcal:180,protein:6,unit:"porsiyon"},
 {name:"Bamya yemeği (250 g)",kcal:160,protein:5,unit:"porsiyon"},
 {name:"Karnabahar yemeği (250 g)",kcal:140,protein:6,unit:"porsiyon"},
-{name:"Yumurtalı unlu karnabahar kızartması (yağda)",kcal:85,protein:2.5,unit:"adet"},
+{name:"Yumurtalı unlu karnabahar kızartması (yağda) - 1 parça",kcal:85,protein:2.5,unit:"parça"},
 {name:"Karnıyarık (1 adet)",kcal:300,protein:16,unit:"porsiyon"},
 {name:"Musakka (250 g)",kcal:280,protein:18,unit:"porsiyon"},
 {name:"Mantı (250 g)",kcal:350,protein:14,unit:"porsiyon"},
-{name:"Dolma (7 adet)",kcal:220,protein:8,unit:"porsiyon"},
 {name:"Biber dolması - çok küçük (40–55 g)",kcal:85,protein:3,unit:"adet"},
 {name:"Biber dolması - küçük (55–80 g)",kcal:130,protein:4,unit:"adet"},
 {name:"Biber dolması - orta (80–120 g)",kcal:185,protein:6,unit:"adet"},
 {name:"Biber dolması - büyük (120–170 g)",kcal:250,protein:8,unit:"adet"},
-{name:"Sarma (10 adet)",kcal:180,protein:6,unit:"porsiyon"},
+{name:"Yaprak sarma (10 adet)",kcal:180,protein:6,unit:"10 adet"}
 
 /* ŞARKÜTERİ */
 
@@ -325,7 +323,6 @@ const foods = [
 
 /* SEK QUARK */
 
-{name:"Sek Quark sade (140 g)",kcal:120,protein:20,unit:"kutu"},
 {name:"Sek Quark çilekli (140 g)",kcal:135,protein:20,unit:"kutu"},
 {name:"Sek Quark vanilyalı (140 g)",kcal:140,protein:20,unit:"kutu"},
 {name:"Sek Quark limonlu cheesecake (140 g)",kcal:145,protein:20,unit:"kutu"},
@@ -354,12 +351,12 @@ const foods = [
 
 /* BAKLİYATLAR */
 
-{name:"Kuru fasulye",kcal:170,protein:10,unit:"porsiyon"},
-{name:"Nohut",kcal:180,protein:9,unit:"porsiyon"},
-{name:"Yeşil mercimek",kcal:190,protein:13,unit:"porsiyon"},
-{name:"Tavuklu pilav",kcal:420,protein:28,unit:"porsiyon"},
-{name:"Etli kuru fasulye",kcal:280,protein:18,unit:"porsiyon"},
-{name:"İmam bayıldı",kcal:210,protein:4,unit:"porsiyon"},
+{name:"Kuru fasulye (250 g)",kcal:170,protein:10,unit:"porsiyon"},
+{name:"Nohut (250 g)",kcal:180,protein:9,unit:"porsiyon"},
+{name:"Yeşil mercimek (250 g)",kcal:190,protein:13,unit:"porsiyon"},
+{name:"Tavuklu pilav (300 g)",kcal:420,protein:28,unit:"porsiyon"},
+{name:"Etli kuru fasulye (250 g)",kcal:280,protein:18,unit:"porsiyon"},
+{name:"İmam bayıldı (250 g)",kcal:210,protein:4,unit:"porsiyon"},
 
 /* KARBONHİDRATLAR */
 
@@ -417,11 +414,11 @@ const foods = [
 
 /* EKMEKLER */
 
-{name:"Domino's Sarımsaklı Ekmek (6 dilim)",kcal:520,protein:12,unit:"adet"},
+{name:"Domino's Sarımsaklı Ekmek (6 dilim)",kcal:520,protein:12,unit:"6 dilim"},
 
-{name:"Domino's Bol Peynirli Ekmek (6 dilim, cheddar + mozzarella + sarımsak sos)",kcal:920,protein:38,unit:"adet"},
+{name:"Domino's Bol Peynirli Ekmek (6 dilim, cheddar + mozzarella + sarımsak sos)",kcal:920,protein:38,unit:"6 dilim"},
 
-{name:"Domino's Sucuklu Bol Peynirli Ekmek (6 dilim, sucuk + cheddar + mozzarella + sarımsak sos)",kcal:1080,protein:48,unit:"adet"},
+{name:"Domino's Sucuklu Bol Peynirli Ekmek (6 dilim, sucuk + cheddar + mozzarella + sarımsak sos)",kcal:1080,protein:48,unit:"6 dilim"},
 
 /* DÜRÜMLER */
 
@@ -456,7 +453,7 @@ const foods = [
 /* PROTEİN ÜRÜNLERİ */
 
 {name:"Protein tozu",kcal:100,protein:20,unit:"25 g"},
-{name:"Proteinli puding",kcal:150,protein:20,unit:"adet"},
+{name:"Proteinli puding (1 kutu)",kcal:150,protein:20,unit:"kutu"},
 {name:"Kreatin",kcal:0,protein:0,unit:"5 g"},
 
 /* FELLAS PROTEIN BAR */
@@ -551,7 +548,7 @@ const foods = [
 {name:"Chicken Royale Menü",kcal:1140,protein:37,unit:"menü"},
 {name:"Big King",kcal:540,protein:27,unit:"adet"},
 {name:"Big King Menü",kcal:1020,protein:34,unit:"menü"},
-{name:"Patates kızartması (orta)",kcal:340,protein:4,unit:"adet"},
+{name:"Patates kızartması (orta)",kcal:340,protein:4,unit:"porsiyon"},
 {name:"Soğan halkası (8 adet)",kcal:280,protein:5,unit:"porsiyon"},
   
   /* TEXAS SMOKE HOUSE */
