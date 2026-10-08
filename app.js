@@ -810,7 +810,21 @@ function foodCatalogForAi(){
 function imageFileToDataUrl(file){
   return new Promise((resolve,reject)=>{
     const reader=new FileReader();
-    reader.onload=()=>resolve(String(reader.result||''));
+    reader.onload=()=>{
+      const source=new Image();
+      source.onload=()=>{
+        const maxSide=1600;
+        const scale=Math.min(1,maxSide/Math.max(source.naturalWidth,source.naturalHeight));
+        const canvas=document.createElement('canvas');
+        canvas.width=Math.max(1,Math.round(source.naturalWidth*scale));
+        canvas.height=Math.max(1,Math.round(source.naturalHeight*scale));
+        const ctx=canvas.getContext('2d');
+        ctx.drawImage(source,0,0,canvas.width,canvas.height);
+        resolve(canvas.toDataURL('image/jpeg',0.82));
+      };
+      source.onerror=()=>reject(new Error('Fotoğraf işlenemedi'));
+      source.src=String(reader.result||'');
+    };
     reader.onerror=()=>reject(reader.error||new Error('Fotoğraf okunamadı'));
     reader.readAsDataURL(file);
   });
@@ -857,7 +871,7 @@ function renderAiFoodResults(payload){
   result.innerHTML='<div class="ai-food-result">'+
     '<div class="ai-food-result-head"><strong>AI yemek analizi</strong><small>Değerler VK LIFE besin listesinden hesaplandı. Tahminleri kontrol et.</small></div>'+
     '<div class="ai-food-items">'+rows.map((row,i)=>
-      '<div class="ai-food-item" data-ai-index="'+i+'">'+
+      '<div class="ai-food-item" data-ai-row-id="'+row.index+'">'+
       '<div><strong>'+row.food.name+'</strong><small>'+row.confidence+'% güven • '+row.displayUnit+'</small></div>'+
       '<label>Miktar<input class="ai-food-amount" type="number" min="0.1" step="0.1" value="'+row.amount+'"></label>'+
       '<div class="ai-food-macros"><b class="ai-food-kcal">'+row.calories+' kcal</b><span class="ai-food-protein">'+row.protein+' g protein</span></div>'+
@@ -871,7 +885,7 @@ function renderAiFoodResults(payload){
   const refresh=()=>{
     const live=[];
     result.querySelectorAll('.ai-food-item').forEach((el,i)=>{
-      const row=window.__vkAiFoodRows[i];
+      const rowId=Number(el.dataset.aiRowId);\n      const row=window.__vkAiFoodRows.find(x=>x.index===rowId);
       if(!row)return;
       row.amount=Math.max(0.1,Number(el.querySelector('.ai-food-amount')?.value)||1);
       row.multiplier=(row.food.unit==='100 g'||row.food.unit==='100 ml')?row.amount/100:row.amount;
