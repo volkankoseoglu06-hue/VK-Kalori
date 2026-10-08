@@ -555,3 +555,238 @@ input:focus,select:focus{border-color:#98b9ff;box-shadow:0 0 0 3px #eff6ff}
 }
 #workoutModal .modal-save-exercise{padding:0;}
 #workoutModal .modal-complete-toggle{padding:0;margin-top:9px;}
+
+
+/* Smart food input */
+.nutrition-smart-add{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
+  margin:10px 0 7px;
+}
+.nutrition-smart-add button{
+  min-height:72px;
+  border:1px solid #e4e8ee;
+  border-radius:14px;
+  background:#fff;
+  box-shadow:0 3px 12px rgba(15,23,42,.035);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  font-family:inherit;
+  cursor:pointer;
+}
+.nutrition-smart-add button:active{transform:scale(.98)}
+.nutrition-smart-add span{font-size:19px;line-height:1}
+.nutrition-smart-add strong{font-size:9px;color:#17213d}
+.nutrition-smart-add small{font-size:7px;color:#98a2b3;font-weight:800}
+
+.smart-food-modal{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  background:rgba(15,23,42,.48);
+  padding:12px;
+}
+.smart-food-modal.open{display:flex}
+.smart-food-box{
+  position:relative;
+  width:min(100%,460px);
+  max-height:92vh;
+  overflow:auto;
+  background:#fff;
+  border-radius:22px 22px 15px 15px;
+  padding:20px 15px 16px;
+  box-shadow:0 -12px 40px rgba(15,23,42,.18);
+}
+.smart-food-close{
+  position:absolute;
+  right:12px;
+  top:10px;
+  width:32px;
+  height:32px;
+  border:0;
+  border-radius:50%;
+  background:#f2f4f7;
+  font-size:21px;
+  color:#475467;
+}
+.smart-food-eyebrow{
+  display:block;
+  color:#2563eb;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+.smart-food-box h2{
+  margin:4px 0 13px;
+  font-size:19px;
+  letter-spacing:-.3px;
+}
+.barcode-camera-wrap{
+  position:relative;
+  overflow:hidden;
+  border-radius:17px;
+  background:#111827;
+  aspect-ratio:16/10;
+}
+#barcodeVideo{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.barcode-frame{
+  position:absolute;
+  left:13%;
+  right:13%;
+  top:27%;
+  bottom:27%;
+  border:2px solid #fff;
+  border-radius:10px;
+  box-shadow:0 0 0 999px rgba(0,0,0,.14);
+}
+.smart-food-status{
+  margin:9px 2px;
+  color:#667085;
+  font-size:9px;
+  line-height:1.5;
+  font-weight:700;
+}
+.smart-manual-code{
+  display:block;
+  margin-top:12px;
+  font-size:9px;
+  font-weight:900;
+  color:#344054;
+}
+.smart-manual-code input{
+  display:block;
+  width:100%;
+  box-sizing:border-box;
+  height:42px;
+  margin-top:5px;
+  border:1px solid #d0d5dd;
+  border-radius:10px;
+  padding:0 11px;
+  font:600 12px/1 inherit;
+}
+.smart-food-box .primary{
+  width:100%;
+  min-height:44px;
+  margin-top:9px;
+  border-radius:11px;
+}
+.smart-secondary{
+  width:100%;
+  min-height:42px;
+  margin-top:7px;
+  border:1px solid #d0d5dd;
+  border-radius:11px;
+  background:#fff;
+  color:#344054;
+  font:800 11px/1 inherit;
+}
+.smart-product-card{
+  display:flex;
+  gap:11px;
+  align-items:center;
+  padding:11px;
+  border:1px solid #e4e8ee;
+  border-radius:14px;
+  background:#f8fafc;
+}
+.smart-product-card img{
+  width:64px;
+  height:64px;
+  object-fit:contain;
+  border-radius:10px;
+  background:#fff;
+}
+.smart-product-card strong{display:block;font-size:11px;line-height:1.3}
+.smart-product-card small{display:block;margin-top:3px;color:#667085;font-size:8px}
+.smart-product-card p{margin:5px 0 0;font-size:9px;color:#344054}
+.smart-product-card p b{color:#dc2626}
+.smart-product-macros{color:#667085!important}
+.smart-photo-drop{
+  min-height:130px;
+  border:1.5px dashed #b8c0cc;
+  border-radius:16px;
+  background:#f8fafc;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:7px;
+  text-align:center;
+  padding:15px;
+  box-sizing:border-box;
+}
+.smart-photo-drop input{display:none}
+.smart-photo-drop span{font-size:12px;font-weight:900;color:#344054}
+.smart-photo-drop small{font-size:8px;line-height:1.4;color:#98a2b3;max-width:260px}
+.smart-photo-preview{
+  width:100%;
+  max-height:260px;
+  object-fit:contain;
+  border-radius:14px;
+  margin-top:9px;
+  background:#f2f4f7;
+}
+@media(max-width:380px){
+  .nutrition-smart-add{gap:5px}
+  .nutrition-smart-add button{min-height:68px}
+  .nutrition-smart-add strong{font-size:8px}
+}
+
+
+/* Nutrition OCR result */
+.smart-ocr-progress,
+.smart-ocr-fail,
+.smart-ocr-result{
+  padding:13px;
+  border:1px solid #e4e8ee;
+  border-radius:14px;
+  background:#f8fafc;
+}
+.smart-ocr-progress strong,
+.smart-ocr-fail strong,
+.smart-ocr-result>strong{
+  display:block;
+  font-size:11px;
+}
+.smart-ocr-progress span,
+.smart-ocr-fail small,
+.smart-ocr-result>small{
+  display:block;
+  margin-top:5px;
+  color:#667085;
+  font-size:8px;
+  line-height:1.4;
+}
+.smart-ocr-fail small{margin-bottom:8px}
+.ocr-macro-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:5px;
+  margin:10px 0;
+}
+.ocr-macro-grid div{
+  padding:8px 3px;
+  border-radius:10px;
+  background:#fff;
+  text-align:center;
+}
+.ocr-macro-grid b{display:block;font-size:13px}
+.ocr-macro-grid span{display:block;margin-top:3px;color:#667085;font-size:7px;font-weight:800}
+.smart-ocr-result p{
+  margin:7px 0;
+  color:#667085;
+  font-size:8px;
+  line-height:1.45;
+}

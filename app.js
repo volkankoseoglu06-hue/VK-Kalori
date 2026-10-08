@@ -579,6 +579,291 @@ function addFood(){
   renderNutritionPage();
 }
 
+
+let barcodeStream=null;
+let barcodeTimer=null;
+let lastSmartProduct=null;
+
+function stopBarcodeCamera(){
+  if(barcodeTimer){clearTimeout(barcodeTimer);barcodeTimer=null;}
+  if(barcodeStream){
+    barcodeStream.getTracks().forEach(track=>track.stop());
+    barcodeStream=null;
+  }
+  const video=$('barcodeVideo');
+  if(video)video.srcObject=null;
+}
+
+function closeSmartFoodModal(){
+  stopBarcodeCamera();
+  const modal=$('smartFoodModal');
+  if(modal){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+  }
+  lastSmartProduct=null;
+}
+
+function openSmartFoodModal(mode='barcode'){
+  const modal=$('smartFoodModal');
+  if(!modal)return;
+  stopBarcodeCamera();
+  const barcode=$('barcodeScannerPanel');
+  const photo=$('smartPhotoPanel');
+  const result=$('smartFoodResult');
+  const title=$('smartFoodTitle');
+  const eyebrow=$('smartFoodEyebrow');
+  if(result){result.hidden=true;result.innerHTML='';}
+  if(mode==='barcode'){
+    eyebrow.textContent='AKILLI BESİN EKLE';
+    title.textContent='Barkod Tara';
+    barcode.hidden=false;
+    photo.hidden=true;
+  }else{
+    eyebrow.textContent=mode==='food'?'FOTOĞRAFTAN BESİN':'ETİKET FOTOĞRAFI';
+    title.textContent=mode==='food'?'Yemek Fotoğrafı':'Etiket Fotoğrafı';
+    barcode.hidden=true;
+    photo.hidden=false;
+    const input=$('smartPhotoInput');
+    if(input){input.value='';}
+    const preview=$('smartPhotoPreview');
+    if(preview){preview.hidden=true;preview.removeAttribute('src');}
+  }
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+}
+
+function addSmartProductToLog(product){
+  if(!product)return;
+  const kcal=safeNum(product.kcal100);
+  const protein=safeNum(product.protein100);
+  if(kcal<=0 && protein<=0){
+    alert('Bu üründe kullanılabilir kalori/protein bilgisi bulunamadı.');
+    return;
+  }
+  selectedFood={
+    name:product.name,
+    kcal,
+    protein,
+    unit:'100 g',
+    source:'Open Food Facts',
+    barcode:product.barcode,
+    carbs:product.carbs100,
+    fat:product.fat100,
+    sugar:product.sugar100
+  };
+  $('foodCalcCard').style.display='block';
+  $('selectedFoodName').textContent=product.name;
+  $('foodUnit').value='gram';
+  $('foodAmount').value=100;
+  calculateFood();
+  closeSmartFoodModal();
+  $('foodCalcCard')?.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+async function lookupBarcode(code){
+  const clean=String(code||'').replace(/\D/g,'');
+  if(clean.length<8){
+    alert('Geçerli bir barkod numarası gir.');
+    return;
+  }
+  const status=$('barcodeStatus');
+  if(status)status.textContent='Ürün aranıyor...';
+  try{
+    const response=await fetch('https://world.openfoodfacts.org/api/v2/product/'+encodeURIComponent(clean)+'.json?fields=product_name,brands,nutriments,serving_size,quantity,image_url,code');
+    if(!response.ok)throw new Error('network');
+    const data=await response.json();
+    if(Number(data.status)!==1 || !data.product)throw new Error('not-found');
+    const p=data.product;
+    const n=p.nutriments||{};
+    const kcal=safeNum(n['energy-kcal_100g'] ?? n['energy-kcal']);
+    const protein=safeNum(n.proteins_100g ?? n.proteins);
+    const carbs=safeNum(n.carbohydrates_100g ?? n.carbohydrates);
+    const fat=safeNum(n.fat_100g ?? n.fat);
+    const sugar=safeNum(n.sugars_100g ?? n.sugars);
+    const name=String(p.product_name||p.generic_name||'Barkodlu ürün').trim();
+    lastSmartProduct={
+      name,
+      brand:String(p.brands||'').trim(),
+      barcode:clean,
+      kcal100:kcal,
+      protein100:protein,
+      carbs100:carbs,
+      fat100:fat,
+      sugar100:sugar,
+      servingSize:String(p.serving_size||'').trim(),
+      quantity:String(p.quantity||'').trim(),
+      image:String(p.image_url||'').trim()
+    };
+    const result=$('smartFoodResult');
+    if(result){
+      result.hidden=false;
+      result.innerHTML='<div class="smart-product-card">'+
+        (lastSmartProduct.image?'<img src="'+lastSmartProduct.image+'" alt="">':'')+
+        '<div><strong>'+lastSmartProduct.name+'</strong>'+
+        (lastSmartProduct.brand?'<small>'+lastSmartProduct.brand+'</small>':'')+
+        '<p><b>'+Math.round(kcal)+' kcal</b> • '+protein+' g protein / 100 g</p>'+
+        '<p class="smart-product-macros">Karb. '+carbs+' g • Yağ '+fat+' g • Şeker '+sugar+' g</p>'+
+        (lastSmartProduct.servingSize?'<small>Porsiyon: '+lastSmartProduct.servingSize+'</small>':'')+
+        '</div></div><button class="primary" id="useSmartProductButton" type="button">Bu Ürünü Kullan</button>';
+      $('useSmartProductButton').onclick=()=>addSmartProductToLog(lastSmartProduct);
+    }
+    if(status)status.textContent='Ürün bulundu. Miktarı kontrol edip günlüğe ekleyebilirsin.';
+  }catch(e){
+    if(status)status.textContent='Ürün bulunamadı. Barkodu kontrol edip tekrar dene.';
+  }
+}
+
+async function startBarcodeScanner(){
+  const video=$('barcodeVideo');
+  const status=$('barcodeStatus');
+  const button=$('startBarcodeButton');
+  if(!video)return;
+  if(!('BarcodeDetector' in window)){
+    if(status)status.textContent='Bu tarayıcıda otomatik barkod tarama desteklenmiyor. Barkod numarasını aşağıdan gir.';
+    if(button)button.disabled=true;
+    return;
+  }
+  try{
+    const detector=new BarcodeDetector({formats:['ean_13','ean_8','upc_a','upc_e','code_128']});
+    barcodeStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}},audio:false});
+    video.srcObject=barcodeStream;
+    await video.play();
+    if(button)button.textContent='⏹ Kamerayı Kapat';
+    if(status)status.textContent='Barkodu çerçeveye getir...';
+    const scan=async()=>{
+      if(!barcodeStream)return;
+      try{
+        const codes=await detector.detect(video);
+        if(codes.length && codes[0].rawValue){
+          const code=codes[0].rawValue;
+          if(status)status.textContent='Barkod okundu: '+code;
+          stopBarcodeCamera();
+          if(button)button.textContent='📷 Kamerayı Aç';
+          await lookupBarcode(code);
+          return;
+        }
+      }catch(e){}
+      barcodeTimer=setTimeout(scan,350);
+    };
+    scan();
+  }catch(e){
+    stopBarcodeCamera();
+    if(status)status.textContent='Kamera açılamadı. Tarayıcı kamera iznini kontrol et veya barkodu elle gir.';
+  }
+}
+
+
+let smartOcrWorker=null;
+
+function parseNutritionText(text){
+  const normalized=String(text||'')
+    .replace(/[|]/g,'1')
+    .replace(/,/g,'.')
+    .replace(/\s+/g,' ')
+    .trim();
+
+  const findValue=(patterns)=>{
+    for(const pattern of patterns){
+      const match=normalized.match(pattern);
+      if(match){
+        const value=Number(String(match[1]).replace(',','.'));
+        if(Number.isFinite(value))return value;
+      }
+    }
+    return 0;
+  };
+
+  const kcal=findValue([
+    /(?:energy|enerji)[^0-9]{0,30}(\d+(?:\.\d+)?)\s*(?:kcal|kcal)?/i,
+    /(\d+(?:\.\d+)?)\s*kcal/i
+  ]);
+  const protein=findValue([
+    /(?:protein|prote[iı]n)[^0-9]{0,30}(\d+(?:\.\d+)?)\s*g?/i
+  ]);
+  const carbs=findValue([
+    /(?:carbohydrate|karbonhidrat)[^0-9]{0,30}(\d+(?:\.\d+)?)\s*g?/i
+  ]);
+  const fat=findValue([
+    /(?:fat|ya[gğ] ?|yağ)[^0-9]{0,30}(\d+(?:\.\d+)?)\s*g?/i
+  ]);
+  const sugar=findValue([
+    /(?:sugars|[sş]eker)[^0-9]{0,30}(\d+(?:\.\d+)?)\s*g?/i
+  ]);
+
+  return {kcal,protein,carbs,fat,sugar,text:normalized};
+}
+
+async function runNutritionOcr(file){
+  const result=$('smartFoodResult');
+  if(!result)return;
+  result.hidden=false;
+  result.innerHTML='<div class="smart-ocr-progress"><strong>Etiket okunuyor...</strong><span id="ocrProgressText">Motor hazırlanıyor</span></div>';
+
+  try{
+    if(!window.Tesseract)throw new Error('OCR motoru yüklenemedi');
+    if(!smartOcrWorker){
+      smartOcrWorker=await Tesseract.createWorker('tur+eng',1,{
+        logger:message=>{
+          const pct=message.progress?Math.round(message.progress*100):0;
+          const el=$('ocrProgressText');
+          if(el)el.textContent=(message.status||'İşleniyor')+' '+pct+'%';
+        }
+      });
+    }
+    const ret=await smartOcrWorker.recognize(file);
+    const parsed=parseNutritionText(ret.data.text);
+    const confidence=Math.round(Number(ret.data.confidence)||0);
+
+    if(!parsed.kcal && !parsed.protein && !parsed.carbs && !parsed.fat){
+      result.innerHTML='<div class="smart-ocr-fail"><strong>Besin değerleri net okunamadı.</strong><small>Etiketi düz, yakın ve iyi ışıkta tekrar çek. Özellikle “100 g için” tablosu kadraja tamamen girsin.</small><button class="smart-secondary" id="ocrRetryButton" type="button">Tekrar Dene</button></div>';
+      $('ocrRetryButton').onclick=()=>{$('smartPhotoInput')?.click();};
+      return;
+    }
+
+    lastSmartProduct={
+      name:'Fotoğraftan okunan ürün',
+      barcode:'',
+      kcal100:parsed.kcal,
+      protein100:parsed.protein,
+      carbs100:parsed.carbs,
+      fat100:parsed.fat,
+      sugar100:parsed.sugar,
+      servingSize:'',
+      quantity:'',
+      image:''
+    };
+
+    result.innerHTML='<div class="smart-ocr-result">'+
+      '<strong>Okunan değerler</strong>'+
+      '<small>OCR güveni: '+confidence+'%</small>'+
+      '<div class="ocr-macro-grid">'+
+      '<div><b>'+parsed.kcal+'</b><span>kcal</span></div>'+
+      '<div><b>'+parsed.protein+'</b><span>protein</span></div>'+
+      '<div><b>'+parsed.carbs+'</b><span>karb.</span></div>'+
+      '<div><b>'+parsed.fat+'</b><span>yağ</span></div>'+
+      '</div>'+
+      '<p>Değerler genellikle 100 g / 100 ml etiketi üzerinden okunur. Günlüğe eklemeden önce kontrol et.</p>'+
+      '<button class="primary" id="useOcrProductButton" type="button">Değerleri Kullan</button></div>';
+    $('useOcrProductButton').onclick=()=>addSmartProductToLog(lastSmartProduct);
+  }catch(e){
+    result.innerHTML='<div class="smart-ocr-fail"><strong>Etiket okunamadı.</strong><small>Fotoğrafı daha aydınlık ve düz çekip tekrar dene.</small></div>';
+  }
+}
+
+function handleSmartPhoto(file){
+  if(!file)return;
+  const preview=$('smartPhotoPreview');
+  if(!preview)return;
+  const url=URL.createObjectURL(file);
+  preview.src=url;
+  preview.hidden=false;
+  const modeTitle=$('smartFoodTitle')?.textContent||'';
+  if(modeTitle==='Etiket Fotoğrafı'){
+    runNutritionOcr(file);
+  }
+}
+
 function saveCustomFood(){
   const name = $('newFoodName').value.trim();
   const kcal = safeNum($('newFoodCalories').value);
@@ -862,6 +1147,20 @@ function setupEvents(){
 
 
 
+
+
+  $('openBarcodeButton')?.addEventListener('click',()=>openSmartFoodModal('barcode'));
+  $('openFoodPhotoButton')?.addEventListener('click',()=>openSmartFoodModal('food'));
+  $('openLabelPhotoButton')?.addEventListener('click',()=>openSmartFoodModal('label'));
+  document.querySelectorAll('[data-smart-close]').forEach(btn=>btn.addEventListener('click',closeSmartFoodModal));
+  $('smartFoodModal')?.addEventListener('click',e=>{if(e.target.id==='smartFoodModal')closeSmartFoodModal();});
+  $('startBarcodeButton')?.addEventListener('click',()=>{
+    if(barcodeStream){stopBarcodeCamera();$('startBarcodeButton').textContent='📷 Kamerayı Aç';return;}
+    startBarcodeScanner();
+  });
+  $('lookupBarcodeButton')?.addEventListener('click',()=>lookupBarcode($('manualBarcodeInput')?.value||''));
+  $('manualBarcodeInput')?.addEventListener('keydown',e=>{if(e.key==='Enter')lookupBarcode(e.target.value);});
+  $('smartPhotoInput')?.addEventListener('change',e=>handleSmartPhoto(e.target.files?.[0]));
 
   const historyTabs=document.querySelectorAll('#historyTabs [data-history-filter]');
   historyTabs.forEach(tab=>{

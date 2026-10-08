@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>VK LIFE</title>
-<link rel="stylesheet" href="style.css?v=20261008-v14">
+<link rel="stylesheet" href="style.css?v=20261008-v15">
 </head>
 <body>
 <div class="app">
@@ -59,6 +59,11 @@
     <div class="grid-2"><button class="primary" id="calculateFoodButton">Hesapla</button><button class="primary" id="addFoodButton">Günlüğe Ekle</button></div>
   </div>
   
+  <div class="nutrition-smart-add">
+    <button type="button" id="openBarcodeButton"><span>▣</span><strong>Barkod Tara</strong><small>Hazır ürün</small></button>
+    <button type="button" id="openFoodPhotoButton"><span>📷</span><strong>Yemek Fotoğrafı</strong><small>AI analiz</small></button>
+    <button type="button" id="openLabelPhotoButton"><span>🏷️</span><strong>Etiket Fotoğrafı</strong><small>Besin bilgisi</small></button>
+  </div>
   <div class="nutrition-add-food-row"><button type="button" id="toggleNewFoodButton">＋ Yeni Besin</button></div>
   <div class="card modern-card new-food-form" id="newFoodCard" style="display:none"><h3>Yeni Besin</h3><input id="newFoodName" placeholder="Besin adı"><div class="grid-2"><input id="newFoodCalories" type="number" placeholder="Kalori"><input id="newFoodProtein" type="number" placeholder="Protein (g)"></div><select id="newFoodUnit"><option>Gram</option><option>ml</option><option>Adet</option><option>Dilim</option><option>Porsiyon</option><option>Kase</option><option>25 g</option></select><button class="primary" id="saveFoodButton">Besini Kaydet</button></div>
   <div class="nutrition-food-log">
@@ -93,7 +98,39 @@
 <section id="historyPage" class="page"><div class="history-tabs" id="historyTabs"><button class="active" type="button" data-history-filter="daily">Günlük</button><button type="button" data-history-filter="workout">Antrenman</button><button type="button" data-history-filter="cardio">Kardiyo</button><button type="button" data-history-filter="weight">Ağırlık</button><button type="button" data-history-filter="progress">İlerleme</button></div><div id="historyList" class="history-modern-list"></div></section>
 <section id="profilePage" class="page"><div class="profile-page-head"><button class="profile-back-button" type="button" data-page="homePage">‹</button><div><small>VK LIFE</small><h1>Profil & Ayarlar</h1></div></div><div class="card modern-card profile-card"><div class="profile-avatar">VK</div><label>Adın<input id="profileName" type="text" maxlength="30" placeholder="Adını yaz"></label><p>Hedef: yağ kaybı + kas gelişimi</p><label>Vücut ağırlığı (kg)<input id="profileWeight" type="number" min="30" max="300" step="0.1" placeholder="Örn. 109"></label><div class="grid-2"><label>Kalori<input id="profileCalories" type="number" placeholder="1800"></label><label>Protein<input id="profileProtein" type="number" placeholder="165"></label></div><label>Su hedefi (L)<input id="profileWater" type="number" placeholder="3"></label><button class="primary" id="saveProfileButton">Kaydet</button><button class="danger-outline" id="resetAllButton" type="button">↺ Tüm Verileri Sıfırla</button><p class="profile-note">Ağırlık antrenmanı kalorisi vücut ağırlığı ve antrenman yoğunluğuna göre hesaplanır.</p><p class="repdb-credit">Egzersiz görselleri: <a href="https://repdb.co" target="_blank" rel="noopener">Exercise data by RepDB</a></p></div></section>
 </div>
+<div id="smartFoodModal" class="smart-food-modal" aria-hidden="true">
+  <div class="smart-food-box">
+    <button class="smart-food-close" type="button" data-smart-close>×</button>
+    <small class="smart-food-eyebrow" id="smartFoodEyebrow">AKILLI BESİN EKLE</small>
+    <h2 id="smartFoodTitle">Barkod Tara</h2>
+
+    <div id="barcodeScannerPanel">
+      <div class="barcode-camera-wrap">
+        <video id="barcodeVideo" playsinline muted></video>
+        <div class="barcode-frame"></div>
+      </div>
+      <p id="barcodeStatus" class="smart-food-status">Kamerayı açmak için izin ver. Barkodu çerçeveye getir.</p>
+      <button class="primary" id="startBarcodeButton" type="button">📷 Kamerayı Aç</button>
+      <label class="smart-manual-code">Barkod numarası
+        <input id="manualBarcodeInput" inputmode="numeric" autocomplete="off" placeholder="Örn. 8690...">
+      </label>
+      <button class="smart-secondary" id="lookupBarcodeButton" type="button">Ürünü Bul</button>
+    </div>
+
+    <div id="smartFoodResult" class="smart-food-result" hidden></div>
+
+    <div id="smartPhotoPanel" hidden>
+      <label class="smart-photo-drop">
+        <input id="smartPhotoInput" type="file" accept="image/*" capture="environment">
+        <span>📷 Fotoğraf seç / çek</span>
+        <small>Bu sürümde fotoğrafı hazırlar; otomatik AI analizi sonraki bağlantı katmanında çalışacak.</small>
+      </label>
+      <img id="smartPhotoPreview" class="smart-photo-preview" alt="Fotoğraf önizleme" hidden>
+      <p class="smart-food-status">Fotoğraf analizi yaklaşık değer üretir; kesin gramaj için kullanıcı onayı gerekir.</p>
+    </div>
+  </div>
+</div>
 <div id="workoutSummaryModal" class="workout-summary-modal"><div class="workout-summary-box"><button class="summary-close" data-summary-close type="button">×</button><div class="summary-success">✓</div><small class="summary-eyebrow">ANTRENMAN TAMAMLANDI</small><h2 id="summaryWorkoutTitle">Full Body 1 tamamlandı</h2><div id="summaryWorkoutStats" class="summary-stats-grid"></div><div id="summaryWorkoutCompare"></div><button class="modal-save-exercise summary-close-button" type="button" data-summary-close>Harika, kapat</button></div></div><div id="workoutModal" class="workout-modal"><div class="workout-modal-box"><button class="modal-close" data-close>×</button><h2 id="workoutModalTitle"></h2><div id="workoutModalMuscle" class="modal-muscle-tags"></div><div id="workoutAnimation"></div><div class="modal-cues"><ul id="workoutCues"></ul></div><div class="modal-set-actions"><button type="button" class="modal-add-set" data-add-modal-set>+ Set ekle</button></div><div class="modal-set-list" id="modalSetList"><div class="modal-empty-sets">Henüz set eklenmedi. Her seti aşağıdaki <b>+ Set ekle</b> ile kendin gir.</div></div><button class="modal-save-exercise" type="button" data-modal-save>Setleri Kaydet</button><button class="modal-complete-toggle" type="button" data-toggle-exercise-done>✓ Hareketi Tamamladım</button><div class="source-line">Kaynak: <span id="workoutSource"></span></div></div></div>
-<script src="foods.js?v=20261008-v4"></script><script src="app.js?v=21"></script><script src="workout.js?v=20261008-v30"></script>
+<script src="foods.js?v=20261008-v4"></script><script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script><script src="app.js?v=23"></script><script src="workout.js?v=20261008-v30"></script>
 </body>
 </html>
