@@ -25,6 +25,10 @@ export default {
       return new Response(null, { status: 204, headers: corsHeaders(origin) });
     }
 
+    if (origin && origin !== ALLOWED_ORIGIN) {
+      return json({ error: "Origin not allowed" }, 403, origin);
+    }
+
     if (request.method !== "POST") {
       return json({ error: "Method not allowed" }, 405, origin);
     }
@@ -38,8 +42,8 @@ export default {
       const image = String(body.image || "");
       const catalog = String(body.catalog || "");
 
-      if (!image.startsWith("data:image/")) {
-        return json({ error: "Invalid image" }, 400, origin);
+      if (!image.startsWith("data:image/") || image.length > 16000000) {
+        return json({ error: "Invalid or oversized image" }, 400, origin);
       }
 
       if (!catalog || catalog.length > 60000) {
