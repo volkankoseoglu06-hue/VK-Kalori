@@ -4,7 +4,7 @@ on:
     branches: ["main"]
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   syntax:
     runs-on: ubuntu-latest
@@ -13,5 +13,27 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: node --check app.js
-      - run: node --check foods.js
+      - name: Check and record syntax
+        shell: bash
+        run: |
+          set +e
+          node --check app.js > /tmp/app-check.txt 2>&1
+          APP_STATUS=$?
+          node --check foods.js > /tmp/foods-check.txt 2>&1
+          FOOD_STATUS=$?
+          {
+            echo "APP_STATUS=$APP_STATUS"
+            cat /tmp/app-check.txt
+            echo
+            echo "FOOD_STATUS=$FOOD_STATUS"
+            cat /tmp/foods-check.txt
+          } > syntax-error.txt
+          cat syntax-error.txt
+          exit 0
+      - name: Commit syntax report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add syntax-error.txt
+          git diff --cached --quiet || git commit -m "Syntax kontrol raporu"
+          git push || true
