@@ -1341,7 +1341,6 @@ function setupEvents(){
 
 
   $('openBarcodeButton')?.addEventListener('click',()=>openSmartFoodModal('barcode'));
-  $('openFoodPhotoButton')?.addEventListener('click',()=>openSmartFoodModal('food'));
   $('openLabelPhotoButton')?.addEventListener('click',()=>openSmartFoodModal('label'));
   document.querySelectorAll('[data-smart-close]').forEach(btn=>btn.addEventListener('click',closeSmartFoodModal));
   $('smartFoodModal')?.addEventListener('click',e=>{if(e.target.id==='smartFoodModal')closeSmartFoodModal();});
