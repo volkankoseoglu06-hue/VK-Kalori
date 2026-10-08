@@ -270,8 +270,8 @@ function nutritionPeriodData(){
   const today={
     date:new Date().toLocaleDateString('tr-TR'),
     at:new Date().setHours(12,0,0,0),
-    eaten:Math.round(Number(state.eaten)||todayFoodCalories),
-    protein:Math.round((Number(state.protein)||todayFoodProtein)*10)/10,
+    eaten:Math.round(todayFoodCalories),
+    protein:Math.round(todayFoodProtein*10)/10,
     water:Number(state.water.toFixed(1)),
     foods:todayFoods
   };
@@ -755,6 +755,7 @@ async function lookupBarcode(code){
         '<div><strong>'+lastSmartProduct.name+'</strong>'+
         (lastSmartProduct.brand?'<small>'+lastSmartProduct.brand+'</small>':'')+
         '<p><b>'+Math.round(kcal)+' kcal</b> • '+protein+' g protein / 100 g</p>'+
+        '<small class="smart-source-note">Kaynak: Open Food Facts • Etiket üzerindeki değer farklıysa miktarı/hesabı kontrol edebilirsin.</small>'+
         '<p class="smart-product-macros">Karb. '+carbs+' g • Yağ '+fat+' g • Şeker '+sugar+' g</p>'+
         (lastSmartProduct.servingSize?'<small>Porsiyon: '+lastSmartProduct.servingSize+'</small>':'')+
         '</div></div>';
