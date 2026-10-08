@@ -719,13 +719,10 @@ async function startBarcodeScanner(){
   const status=$('barcodeStatus');
   const button=$('startBarcodeButton');
   if(!video)return;
-  if(!('BarcodeDetector' in window)){
-    if(status)status.textContent='Bu tarayıcıda otomatik barkod tarama desteklenmiyor. Barkod numarasını aşağıdan gir.';
-    if(button)button.disabled=true;
-    return;
-  }
   try{
-    const detector=new BarcodeDetector({formats:['ean_13','ean_8','upc_a','upc_e','code_128']});
+    const detector=('BarcodeDetector' in window)
+      ? new BarcodeDetector({formats:['ean_13','ean_8','upc_a','upc_e','code_128']})
+      : null;
     barcodeStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}},audio:false});
     video.srcObject=barcodeStream;
     await video.play();
@@ -734,6 +731,10 @@ async function startBarcodeScanner(){
     const scan=async()=>{
       if(!barcodeStream)return;
       try{
+        if(!detector){
+          if(status)status.textContent='Kamera açık. Bu tarayıcı otomatik barkod tanımayı desteklemiyor; barkod numarasını aşağıya yazıp Ürünü Bul seçeneğini kullan.';
+          return;
+        }
         const codes=await detector.detect(video);
         if(codes.length && codes[0].rawValue){
           const code=codes[0].rawValue;
@@ -792,6 +793,13 @@ function parseNutritionText(text){
   ]);
 
   return {kcal,protein,carbs,fat,sugar,text:normalized};
+}
+
+async function runFoodPhotoAnalysis(file){
+  const result=$('smartFoodResult');
+  if(!result)return;
+  result.hidden=false;
+  result.innerHTML='<div class="smart-ocr-fail"><strong>Yemek fotoğrafı hazır.</strong><small>Bu sürümde fotoğraftan yemek tanıma için güvenli bir AI sunucu bağlantısı henüz eklenmedi. Fotoğraf çekimi çalışıyor; AI analiz katmanını ayrıca bağlayacağız.</small></div>';
 }
 
 async function runNutritionOcr(file){
@@ -859,8 +867,14 @@ function handleSmartPhoto(file){
   preview.src=url;
   preview.hidden=false;
   const modeTitle=$('smartFoodTitle')?.textContent||'';
-  if(modeTitle==='Etiket Fotoğrafı'){
-    runNutritionOcr(file);
+  const result=$('smartFoodResult');
+  if(result){
+    result.hidden=false;
+    result.innerHTML='<div class="smart-photo-ready"><strong>Fotoğraf hazır.</strong><small>'+ (modeTitle==='Etiket Fotoğrafı' ? 'Etiketteki besin değerlerini okumak için analizi başlat.' : 'Yemek fotoğrafı AI analizi için analizi başlat.') +'</small><button class="primary" id="analyzeSmartPhotoButton" type="button">🔎 Analiz Et</button></div>';
+    $('analyzeSmartPhotoButton').onclick=()=>{
+      if(modeTitle==='Etiket Fotoğrafı') runNutritionOcr(file);
+      else runFoodPhotoAnalysis(file);
+    };
   }
 }
 
