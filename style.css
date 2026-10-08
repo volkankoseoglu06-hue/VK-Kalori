@@ -542,3 +542,16 @@ input:focus,select:focus{border-color:#98b9ff;box-shadow:0 0 0 3px #eff6ff}
   box-sizing:border-box;
 }
 #workoutModal .modal-complete-toggle:hover{background:#dcfce7}
+
+/* Match workout action button sizes */
+#workoutModal .modal-save-exercise,
+#workoutModal .modal-complete-toggle{
+  width:100%;
+  height:48px;
+  min-height:48px;
+  box-sizing:border-box;
+  border-radius:13px;
+  font:900 14px/1 'Manrope',sans-serif;
+}
+#workoutModal .modal-save-exercise{padding:0;}
+#workoutModal .modal-complete-toggle{padding:0;margin-top:9px;}
