@@ -692,7 +692,8 @@ input:focus,select:focus{border-color:#98b9ff;box-shadow:0 0 0 3px #eff6ff}
   color:#344054;
   font:800 11px/1 inherit;
 }
-.smart-product-card{
+#smartFoodResult{margin-top:12px}
+#smartFoodResult .smart-product-card{
   display:flex;
   gap:11px;
   align-items:center;
@@ -701,16 +702,19 @@ input:focus,select:focus{border-color:#98b9ff;box-shadow:0 0 0 3px #eff6ff}
   border-radius:14px;
   background:#f8fafc;
 }
-.smart-product-card img{
-  width:64px;
-  height:64px;
+#smartFoodResult .smart-product-card img{
+  width:88px;
+  height:88px;
   object-fit:contain;
   border-radius:10px;
   background:#fff;
 }
-.smart-product-card strong{display:block;font-size:11px;line-height:1.3}
-.smart-product-card small{display:block;margin-top:3px;color:#667085;font-size:8px}
-.smart-product-card p{margin:5px 0 0;font-size:9px;color:#344054}
+#smartFoodResult .smart-product-card strong{display:block;font-size:15px;line-height:1.3}
+#smartFoodResult .smart-product-card small{display:block;margin-top:4px;color:#667085;font-size:10px}
+#smartFoodResult .smart-product-card p{margin:7px 0 0;font-size:12px;color:#344054}
+#smartFoodResult .smart-product-card p b{font-size:15px}
+#smartFoodResult .smart-product-macros{font-size:10px}
+#smartFoodResult #useSmartProductButton{width:100%;margin-top:10px;min-height:48px;font-size:14px;font-weight:900;display:block;}
 .smart-product-card p b{color:#dc2626}
 .smart-product-macros{color:#667085!important}
 .smart-photo-drop{
