@@ -781,82 +781,97 @@ async function startBarcodeScanner(){
   if(!video)return;
 
   stopBarcodeCamera();
+  video.setAttribute('playsinline','true');
+  video.setAttribute('autoplay','true');
+  video.muted=true;
   if(button)button.textContent='⏳ Kamera açılıyor...';
+  if(status)status.textContent='Kamera açılıyor...';
+
+  const handleCode=async(code)=>{
+    const clean=String(code||'').replace(/[^0-9]/g,'');
+    if(clean.length<8)return false;
+    if(status)status.textContent='Barkod okundu: '+clean;
+    stopBarcodeCamera();
+    if(button)button.textContent='📷 Kamerayı Aç';
+    await lookupBarcode(clean);
+    return true;
+  };
 
   try{
+    // Önce tarayıcının kendi BarcodeDetector motorunu dene.
+    // Chrome/Android tarafında EAN-13/EAN-8 gibi hazır ürün barkodlarında daha hızlıdır.
+    if('BarcodeDetector' in window){
+      let detector=null;
+      try{
+        const supported=typeof BarcodeDetector.getSupportedFormats==='function'
+          ? await BarcodeDetector.getSupportedFormats()
+          : [];
+        const wanted=['ean_13','ean_8','upc_a','upc_e','code_128'];
+        const formats=supported.length?wanted.filter(x=>supported.includes(x)):wanted;
+        detector=new BarcodeDetector({formats:formats.length?formats:undefined});
+      }catch(e){detector=null;}
+
+      if(detector){
+        barcodeStream=await navigator.mediaDevices.getUserMedia({
+          video:{
+            facingMode:{ideal:'environment'},
+            width:{ideal:1920},
+            height:{ideal:1080},
+            focusMode:{ideal:'continuous'}
+          },
+          audio:false
+        });
+        video.srcObject=barcodeStream;
+        await video.play();
+        if(button)button.textContent='⏹ Kamerayı Kapat';
+        if(status)status.textContent='Barkodu çerçevenin ortasına getir. Otomatik okunacak...';
+
+        const scanNative=async()=>{
+          if(!barcodeStream)return;
+          try{
+            const codes=await detector.detect(video);
+            for(const item of codes){
+              if(item?.rawValue && await handleCode(item.rawValue))return;
+            }
+          }catch(e){}
+          if(barcodeStream)barcodeTimer=setTimeout(scanNative,120);
+        };
+        scanNative();
+        return;
+      }
+    }
+
+    // Native motor yoksa ZXing ile sürekli tarama.
     if(window.ZXingBrowser?.BrowserMultiFormatReader){
       const reader=new ZXingBrowser.BrowserMultiFormatReader();
-      if(status)status.textContent='Kamera açılıyor, barkod bekleniyor...';
+      if(status)status.textContent='ZXing barkod motoru hazırlanıyor...';
 
-      barcodeReaderControls=await reader.decodeFromVideoDevice(
-        undefined,
+      barcodeReaderControls=await reader.decodeFromConstraints(
+        {
+          video:{
+            facingMode:{ideal:'environment'},
+            width:{ideal:1920},
+            height:{ideal:1080},
+            focusMode:{ideal:'continuous'}
+          },
+          audio:false
+        },
         video,
-        async (result)=>{
-          if(!result || !result.getText)return;
-          const code=String(result.getText()).trim();
-          if(!code)return;
-          if(status)status.textContent='Barkod okundu: '+code;
-          if(button)button.textContent='📷 Kamerayı Aç';
-          const controls=barcodeReaderControls;
-          barcodeReaderControls=null;
-          try{controls?.stop();}catch(e){}
-          if(barcodeStream){
-            barcodeStream.getTracks().forEach(track=>track.stop());
-            barcodeStream=null;
-          }
-          await lookupBarcode(code);
+        async(result)=>{
+          if(result?.getText)await handleCode(result.getText());
         }
       );
 
       if(button)button.textContent='⏹ Kamerayı Kapat';
-      if(status)status.textContent='Barkodu kameraya göster. Otomatik okunacak...';
+      if(status)status.textContent='Barkodu çerçevenin ortasına getir. Otomatik okunacak...';
       return;
     }
 
-    const detector=('BarcodeDetector' in window)
-      ? new BarcodeDetector({
-          formats:['ean_13','ean_8','upc_a','upc_e','code_128']
-        })
-      : null;
-
-    barcodeStream=await navigator.mediaDevices.getUserMedia({
-      video:{
-        facingMode:{ideal:'environment'},
-        width:{ideal:1280},
-        height:{ideal:720}
-      },
-      audio:false
-    });
-
-    video.srcObject=barcodeStream;
-    await video.play();
-
-    if(button)button.textContent='⏹ Kamerayı Kapat';
-    if(status)status.textContent=detector
-      ? 'Barkodu kameraya göster. Otomatik okunacak...'
-      : 'Bu tarayıcı otomatik barkod okumayı desteklemiyor. Barkodu elle girebilirsin.';
-
-    if(!detector)return;
-
-    const scan=async()=>{
-      if(!barcodeStream)return;
-      try{
-        const codes=await detector.detect(video);
-        if(codes.length && codes[0].rawValue){
-          const code=codes[0].rawValue;
-          if(status)status.textContent='Barkod okundu: '+code;
-          stopBarcodeCamera();
-          if(button)button.textContent='📷 Kamerayı Aç';
-          await lookupBarcode(code);
-          return;
-        }
-      }catch(e){}
-      barcodeTimer=setTimeout(scan,250);
-    };
-    scan();
+    throw new Error('barcode-engine-missing');
   }catch(e){
     stopBarcodeCamera();
-    if(status)status.textContent='Kamera açılamadı. Kamera iznini kontrol et veya barkodu elle gir.';
+    if(button)button.textContent='📷 Kamerayı Aç';
+    if(status)status.textContent='Otomatik barkod motoru başlatılamadı. Barkod numarasını elle girebilirsin.';
   }
 }
 
