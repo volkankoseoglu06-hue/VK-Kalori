@@ -451,33 +451,62 @@ function renderSports(){
   });
 }
 
+function normalizeFoodSearchText(value){
+  return String(value||'')
+    .toLocaleLowerCase('tr-TR')
+    .normalize('NFD')
+    .replace(/[\\u0300-\\u036f]/g,'')
+    .replace(/ı/g,'i')
+    .replace(/ğ/g,'g')
+    .replace(/ü/g,'u')
+    .replace(/ş/g,'s')
+    .replace(/ö/g,'o')
+    .replace(/ç/g,'c')
+    .replace(/[^a-z0-9\\s]/g,' ')
+    .replace(/\\s+/g,' ')
+    .trim();
+}
+
 function searchFood(text){
   const results=$('foodResults');
   if(!results)return;
-  results.innerHTML='';
-  const query=text.trim().toLocaleLowerCase('tr-TR');
-  const list=[...foods,...state.customFoods];
-  const filtered=query.length>=1
-    ? list.filter(food=>String(food.name).toLocaleLowerCase('tr-TR').includes(query))
+
+  const query=normalizeFoodSearchText(text);
+  const list=[...foods,...(Array.isArray(state.customFoods)?state.customFoods:[])];
+  const filtered=query
+    ? list.filter(food=>{
+        const haystack=normalizeFoodSearchText((food.name||'')+' '+(food.unit||''));
+        return haystack.includes(query);
+      })
     : list;
 
+  results.innerHTML='';
+
   if(!filtered.length){
-    results.innerHTML='<div class="food-search-empty">Besin bulunamadı. Yeni Besin bölümünden ekleyebilirsin.</div>';
-    results.classList.remove('food-results-open');
+    results.innerHTML='<div class="food-search-empty">Bu isimle besin bulunamadı. Farklı bir kelime deneyebilirsin.</div>';
+    results.classList.add('food-results-open');
     return;
   }
 
   results.classList.add('food-results-open');
-  filtered.forEach(food=>{
+
+  const fragment=document.createDocumentFragment();
+  filtered.slice(0,80).forEach(food=>{
     const item=document.createElement('button');
     item.type='button';
     item.className='food-search-result';
     item.innerHTML='<span><strong>'+food.name+'</strong><small>'+ (food.unit||'100 g') +'</small></span><span><b>'+food.kcal+' kcal</b><small>'+food.protein+' g protein</small></span>';
     item.onclick=()=>selectFood(food);
-    results.appendChild(item);
+    fragment.appendChild(item);
   });
+  results.appendChild(fragment);
+  if(filtered.length>80){
+    const more=document.createElement('div');
+    more.className='food-search-empty';
+    more.textContent='İlk 80 sonuç gösteriliyor. Daha net arama yapabilirsin.';
+    results.appendChild(more);
+  }
 }
-
 
 function detectUnit(unit){
   const normalized = String(unit || '').toLocaleLowerCase('tr-TR');
