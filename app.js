@@ -264,13 +264,16 @@ function hasNutritionData(item){
   );
 }
 function nutritionPeriodData(){
+  const todayFoods=Array.isArray(state.dailyFoods)?state.dailyFoods:[];
+  const todayFoodCalories=todayFoods.reduce((sum,food)=>sum+(Number(food.calories)||0),0);
+  const todayFoodProtein=todayFoods.reduce((sum,food)=>sum+(Number(food.protein)||0),0);
   const today={
     date:new Date().toLocaleDateString('tr-TR'),
     at:new Date().setHours(12,0,0,0),
-    eaten:Math.round(state.eaten),
-    protein:Math.round(state.protein),
+    eaten:Math.round(todayFoodCalories),
+    protein:Math.round(todayFoodProtein*10)/10,
     water:Number(state.water.toFixed(1)),
-    foods:Array.isArray(state.dailyFoods)?state.dailyFoods:[]
+    foods:todayFoods
   };
   const history=Array.isArray(state.history)?state.history:[];
   const yesterday=history
