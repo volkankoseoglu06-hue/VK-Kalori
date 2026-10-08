@@ -270,8 +270,8 @@ function nutritionPeriodData(){
   const today={
     date:new Date().toLocaleDateString('tr-TR'),
     at:new Date().setHours(12,0,0,0),
-    eaten:Math.round(todayFoodCalories),
-    protein:Math.round(todayFoodProtein*10)/10,
+    eaten:Math.round(Number(state.eaten)||todayFoodCalories),
+    protein:Math.round((Number(state.protein)||todayFoodProtein)*10)/10,
     water:Number(state.water.toFixed(1)),
     foods:todayFoods
   };
@@ -717,7 +717,7 @@ async function lookupBarcode(code){
   const clean=String(code||'').replace(/\D/g,'');
   if(clean.length<8){
     alert('Geçerli bir barkod numarası gir.');
-    return;
+    return false;
   }
   const status=$('barcodeStatus');
   if(status)status.textContent='Ürün aranıyor...';
@@ -790,8 +790,8 @@ async function scanBarcodeDigitsWithOCR(){
     const code=candidates.find(x=>/^(?:[789]\d{12}|\d{12}|\d{8})$/.test(x));
     if(code){
       if(status)status.textContent='Barkod rakamları okundu: '+code;
-      stopBarcodeCamera();
-      await lookupBarcode(code);
+      const found=await lookupBarcode(code);
+      if(found)stopBarcodeCamera();
       return;
     }
   }catch(e){}finally{
@@ -817,10 +817,14 @@ async function startBarcodeScanner(){
     const clean=String(code||'').replace(/[^0-9]/g,'');
     if(clean.length<8)return false;
     if(status)status.textContent='Barkod okundu: '+clean;
-    stopBarcodeCamera();
-    if(button)button.textContent='📷 Kamerayı Aç';
-    await lookupBarcode(clean);
-    return true;
+    const found=await lookupBarcode(clean);
+    if(found){
+      stopBarcodeCamera();
+      if(button)button.textContent='📷 Kamerayı Aç';
+    }else if(status){
+      status.textContent='Ürün bulunamadı. Barkodu tekrar kameraya göster...';
+    }
+    return found;
   };
 
   try{
