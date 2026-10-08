@@ -371,7 +371,7 @@ function openExercise(index){
   }
   hint.innerHTML=rec
     ? '<strong>💡 Sonraki hedef: '+rec.suggested+' kg</strong><small>'+rec.reason+'</small>'
-    : '<strong>💡 İlk antrenman</strong><small>Setlerini kaydet; sonraki antrenmanda hedef önerilecek.</small>';
+    : '<strong>💡 Başlangıç hedefi: '+ex.sets+' set × '+ex.reps+' tekrar</strong><small>İlk sette kontrollü bir ağırlık seç; form bozulmadan hedef aralıkta çalış.</small>';
   document.getElementById('workoutSource').innerHTML='<a href="https://repdb.co" target="_blank" rel="noopener">Exercise data by RepDB ↗</a>';
   document.getElementById('workoutModal').classList.add('open');
 }
