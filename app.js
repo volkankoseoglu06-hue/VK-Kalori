@@ -688,33 +688,28 @@ function addSmartProductToLog(product){
     return;
   }
 
-  const servingText=String(product.servingSize||'');
-  const servingMatch=servingText.match(/(\\d+(?:[.,]\\d+)?)\\s*(g|ml)/i);
-  const amount=servingMatch?Math.max(1,Number(servingMatch[1].replace(',','.'))):100;
-  const unit=servingMatch&&/ml/i.test(servingMatch[2])?'ml':'gram';
-  const multiplier=amount/100;
-  const calories=Math.round(kcal*multiplier);
-  const proteinValue=Number((protein*multiplier).toFixed(1));
-  const meal=$('foodMeal')?.value||'Ara Öğün';
-
-  state.eaten+=calories;
-  state.protein+=proteinValue;
-  state.dailyFoods.push({
+  selectedFood={
     name:product.name,
-    calories,
-    protein:proteinValue,
-    amount,
-    unit,
-    meal
-  });
+    kcal,
+    protein,
+    unit:'100 g',
+    source:'Open Food Facts',
+    barcode:product.barcode,
+    carbs:product.carbs100,
+    fat:product.fat100,
+    sugar:product.sugar100
+  };
 
-  save();
-  updateDashboard();
-  updateFoodPeriod();
-  renderFoods();
-  renderNutritionPage();
+  const card=$('foodCalcCard');
+  if(card)card.style.display='block';
+  if($('selectedFoodName'))$('selectedFoodName').textContent=product.name;
+  if($('foodUnit'))$('foodUnit').value='gram';
+  if($('foodAmount'))$('foodAmount').value=100;
+  calculateFood();
   closeSmartFoodModal();
+  $('foodCalcCard')?.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
+
 async function lookupBarcode(code){
   const clean=String(code||'').replace(/\D/g,'');
   if(clean.length<8){
