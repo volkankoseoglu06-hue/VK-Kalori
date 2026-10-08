@@ -885,7 +885,8 @@ function renderAiFoodResults(payload){
   const refresh=()=>{
     const live=[];
     result.querySelectorAll('.ai-food-item').forEach((el,i)=>{
-      const rowId=Number(el.dataset.aiRowId);\n      const row=window.__vkAiFoodRows.find(x=>x.index===rowId);
+      const rowId=Number(el.dataset.aiRowId);
+      const row=window.__vkAiFoodRows.find(x=>x.index===rowId);
       if(!row)return;
       row.amount=Math.max(0.1,Number(el.querySelector('.ai-food-amount')?.value)||1);
       row.multiplier=(row.food.unit==='100 g'||row.food.unit==='100 ml')?row.amount/100:row.amount;
