@@ -743,3 +743,50 @@ input:focus,select:focus{border-color:#98b9ff;box-shadow:0 0 0 3px #eff6ff}
   .nutrition-smart-add button{min-height:68px}
   .nutrition-smart-add strong{font-size:8px}
 }
+
+
+/* Nutrition OCR result */
+.smart-ocr-progress,
+.smart-ocr-fail,
+.smart-ocr-result{
+  padding:13px;
+  border:1px solid #e4e8ee;
+  border-radius:14px;
+  background:#f8fafc;
+}
+.smart-ocr-progress strong,
+.smart-ocr-fail strong,
+.smart-ocr-result>strong{
+  display:block;
+  font-size:11px;
+}
+.smart-ocr-progress span,
+.smart-ocr-fail small,
+.smart-ocr-result>small{
+  display:block;
+  margin-top:5px;
+  color:#667085;
+  font-size:8px;
+  line-height:1.4;
+}
+.smart-ocr-fail small{margin-bottom:8px}
+.ocr-macro-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:5px;
+  margin:10px 0;
+}
+.ocr-macro-grid div{
+  padding:8px 3px;
+  border-radius:10px;
+  background:#fff;
+  text-align:center;
+}
+.ocr-macro-grid b{display:block;font-size:13px}
+.ocr-macro-grid span{display:block;margin-top:3px;color:#667085;font-size:7px;font-weight:800}
+.smart-ocr-result p{
+  margin:7px 0;
+  color:#667085;
+  font-size:8px;
+  line-height:1.45;
+}
