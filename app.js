@@ -472,7 +472,8 @@ function searchFood(text){
   if(!results)return;
 
   const query=normalizeFoodSearchText(text);
-  const list=[...foods,...(Array.isArray(state.customFoods)?state.customFoods:[])];
+  const baseFoods=(typeof foods!=='undefined' && Array.isArray(foods))?foods:[];
+  const list=[...baseFoods,...(Array.isArray(state.customFoods)?state.customFoods:[])];
   const filtered=query
     ? list.filter(food=>{
         const haystack=normalizeFoodSearchText((food.name||'')+' '+(food.unit||''));
@@ -1419,7 +1420,10 @@ function setupEvents(){
 
   const foodSearchInput=$('foodSearch');
   if(foodSearchInput){
-    const openFoodSearch=()=>searchFood(foodSearchInput.value);
+    const openFoodSearch=()=>{
+      searchFood(foodSearchInput.value);
+      requestAnimationFrame(()=>foodSearchInput.scrollIntoView({block:'nearest',behavior:'smooth'}));
+    };
     foodSearchInput.addEventListener('focus',openFoodSearch);
     foodSearchInput.addEventListener('click',openFoodSearch);
     foodSearchInput.addEventListener('touchstart',openFoodSearch,{passive:true});
