@@ -795,11 +795,159 @@ function parseNutritionText(text){
   return {kcal,protein,carbs,fat,sugar,text:normalized};
 }
 
+const VK_AI_ENDPOINT=String(window.VK_AI_ENDPOINT||'').trim();
+
+function foodCatalogForAi(){
+  return [...foods,...(state.customFoods||[])].map((food,index)=>({
+    id:index,
+    name:String(food.name||''),
+    unit:String(food.unit||''),
+    kcal:safeNum(food.kcal),
+    protein:safeNum(food.protein)
+  })).filter(x=>x.name);
+}
+
+function imageFileToDataUrl(file){
+  return new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onload=()=>{
+      const source=new Image();
+      source.onload=()=>{
+        const maxSide=1600;
+        const scale=Math.min(1,maxSide/Math.max(source.naturalWidth,source.naturalHeight));
+        const canvas=document.createElement('canvas');
+        canvas.width=Math.max(1,Math.round(source.naturalWidth*scale));
+        canvas.height=Math.max(1,Math.round(source.naturalHeight*scale));
+        const ctx=canvas.getContext('2d');
+        ctx.drawImage(source,0,0,canvas.width,canvas.height);
+        resolve(canvas.toDataURL('image/jpeg',0.82));
+      };
+      source.onerror=()=>reject(new Error('Fotoğraf işlenemedi'));
+      source.src=String(reader.result||'');
+    };
+    reader.onerror=()=>reject(reader.error||new Error('Fotoğraf okunamadı'));
+    reader.readAsDataURL(file);
+  });
+}
+
+function aiFoodCatalogText(){
+  return foodCatalogForAi().map(x=>x.name+' | birim: '+x.unit).join('\n');
+}
+
+function renderAiFoodResults(payload){
+  const result=$('smartFoodResult');
+  if(!result)return;
+  const items=Array.isArray(payload?.items)?payload.items:[];
+  if(!items.length){
+    result.innerHTML='<div class="smart-ocr-fail"><strong>Yemek bulunamadı.</strong><small>Fotoğrafı biraz daha uzaktan ve tabağın tamamı görünecek şekilde tekrar çek.</small><button class="smart-secondary" id="aiFoodRetryButton" type="button">Tekrar Dene</button></div>';
+    $('aiFoodRetryButton').onclick=()=>runFoodPhotoAnalysis(window.__vkSmartPhotoFile);
+    return;
+  }
+
+  const catalog=foodCatalogForAi();
+  const rows=items.map((item,index)=>{
+    const food=catalog.find(x=>x.name===String(item.foodName||'').trim())||catalog.find(x=>x.name.toLocaleLowerCase('tr-TR')===String(item.foodName||'').trim().toLocaleLowerCase('tr-TR'));
+    if(!food)return null;
+    const amount=Math.max(0.1,Number(item.amount)||1);
+    const multiplier=food.unit==='100 g'||food.unit==='100 ml' ? amount/100 : amount;
+    return {
+      index,
+      food,
+      amount,
+      displayUnit:String(item.displayUnit||food.unit),
+      multiplier,
+      calories:Math.round(food.kcal*multiplier),
+      protein:Number((food.protein*multiplier).toFixed(1)),
+      confidence:Math.max(0,Math.min(100,Number(item.confidence)||0))
+    };
+  }).filter(Boolean);
+
+  if(!rows.length){
+    result.innerHTML='<div class="smart-ocr-fail"><strong>Yemekler eşleştirilemedi.</strong><small>Fotoğrafı tekrar çek veya Besin Ara bölümünden elle ekle.</small></div>';
+    return;
+  }
+
+  window.__vkAiFoodRows=rows;
+  result.innerHTML='<div class="ai-food-result">'+
+    '<div class="ai-food-result-head"><strong>AI yemek analizi</strong><small>Değerler VK LIFE besin listesinden hesaplandı. Tahminleri kontrol et.</small></div>'+
+    '<div class="ai-food-items">'+rows.map((row,i)=>
+      '<div class="ai-food-item" data-ai-row-id="'+row.index+'">'+
+      '<div><strong>'+row.food.name+'</strong><small>'+row.confidence+'% güven • '+row.displayUnit+'</small></div>'+
+      '<label>Miktar<input class="ai-food-amount" type="number" min="0.1" step="0.1" value="'+row.amount+'"></label>'+
+      '<div class="ai-food-macros"><b class="ai-food-kcal">'+row.calories+' kcal</b><span class="ai-food-protein">'+row.protein+' g protein</span></div>'+
+      '<button class="smart-secondary ai-food-remove" type="button">Kaldır</button>'+
+      '</div>'
+    ).join('')+'</div>'+
+    '<div class="ai-food-total" id="aiFoodTotal"></div>'+
+    '<button class="primary" id="addAiFoodsButton" type="button">✓ Günlüğe Ekle</button>'+
+    '<small class="ai-food-disclaimer">Fotoğraftan porsiyon tahmini yapılır; sonuçlar kesin ölçüm değildir.</small></div>';
+
+  const refresh=()=>{
+    const live=[];
+    result.querySelectorAll('.ai-food-item').forEach((el,i)=>{
+      const rowId=Number(el.dataset.aiRowId);
+      const row=window.__vkAiFoodRows.find(x=>x.index===rowId);
+      if(!row)return;
+      row.amount=Math.max(0.1,Number(el.querySelector('.ai-food-amount')?.value)||1);
+      row.multiplier=(row.food.unit==='100 g'||row.food.unit==='100 ml')?row.amount/100:row.amount;
+      row.calories=Math.round(row.food.kcal*row.multiplier);
+      row.protein=Number((row.food.protein*row.multiplier).toFixed(1));
+      el.querySelector('.ai-food-kcal').textContent=row.calories+' kcal';
+      el.querySelector('.ai-food-protein').textContent=row.protein+' g protein';
+      live.push(row);
+    });
+    window.__vkAiFoodRows=live;
+    const kcal=live.reduce((s,x)=>s+x.calories,0);
+    const protein=live.reduce((s,x)=>s+x.protein,0);
+    const total=$('aiFoodTotal');
+    if(total)total.innerHTML='<strong>Toplam</strong><span>'+Math.round(kcal)+' kcal • '+Math.round(protein)+' g protein</span>';
+  };
+  result.querySelectorAll('.ai-food-amount').forEach(input=>input.addEventListener('input',refresh));
+  result.querySelectorAll('.ai-food-remove').forEach(btn=>btn.addEventListener('click',()=>{btn.closest('.ai-food-item')?.remove();refresh();}));
+  $('addAiFoodsButton').onclick=()=>{
+    refresh();
+    const meal=$('foodMeal')?.value||'Ara Öğün';
+    (window.__vkAiFoodRows||[]).forEach(row=>{
+      state.dailyFoods.push({
+        name:row.food.name,
+        amount:row.amount,
+        unit:row.displayUnit,
+        calories:row.calories,
+        protein:row.protein,
+        meal
+      });
+      state.eaten+=row.calories;
+      state.protein+=row.protein;
+    });
+    save();updateDashboard();renderNutritionPage();renderFoods();closeSmartFoodModal();
+  };
+  refresh();
+}
+
 async function runFoodPhotoAnalysis(file){
   const result=$('smartFoodResult');
   if(!result)return;
+  window.__vkSmartPhotoFile=file;
   result.hidden=false;
-  result.innerHTML='<div class="smart-ocr-fail"><strong>Yemek fotoğrafı hazır.</strong><small>Bu sürümde fotoğraftan yemek tanıma için güvenli bir AI sunucu bağlantısı henüz eklenmedi. Fotoğraf çekimi çalışıyor; AI analiz katmanını ayrıca bağlayacağız.</small></div>';
+  if(!VK_AI_ENDPOINT){
+    result.innerHTML='<div class="smart-ocr-fail"><strong>AI bağlantısı hazır değil.</strong><small>Fotoğraf analizi için güvenli AI sunucu adresi henüz tanımlanmadı. API anahtarını uygulamaya koymadan sunucu tarafında bağlayacağız.</small></div>';
+    return;
+  }
+  result.innerHTML='<div class="smart-ocr-progress"><strong>Yemek analiz ediliyor...</strong><span>Fotoğraftaki yemekler ve porsiyonlar okunuyor.</span></div>';
+  try{
+    const image=await imageFileToDataUrl(file);
+    const response=await fetch(VK_AI_ENDPOINT,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({image,catalog:aiFoodCatalogText()})
+    });
+    if(!response.ok)throw new Error('AI sunucu hatası');
+    const payload=await response.json();
+    renderAiFoodResults(payload);
+  }catch(e){
+    result.innerHTML='<div class="smart-ocr-fail"><strong>AI analizi başarısız.</strong><small>Bağlantıyı kontrol edip fotoğrafı tekrar analiz et.</small><button class="smart-secondary" id="aiFoodRetryButton" type="button">Tekrar Dene</button></div>';
+    $('aiFoodRetryButton').onclick=()=>runFoodPhotoAnalysis(window.__vkSmartPhotoFile);
+  }
 }
 
 async function runNutritionOcr(file){
