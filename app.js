@@ -671,31 +671,54 @@ function openSmartFoodModal(mode='barcode'){
 }
 
 function addSmartProductToLog(product){
-  if(!product)return;
-  const kcal=safeNum(product.kcal100);
-  const protein=safeNum(product.protein100);
-  if(kcal<=0 && protein<=0){
+  if(!product)return false;
+
+  const kcal100=safeNum(product.kcal100);
+  const protein100=safeNum(product.protein100);
+  if(kcal100<=0 && protein100<=0){
     alert('Bu üründe kullanılabilir kalori/protein bilgisi bulunamadı.');
-    return;
+    return false;
   }
-  selectedFood={
-    name:product.name,
-    kcal,
+
+  const rawSize=String(product.servingSize||product.quantity||'');
+  const gramMatch=rawSize.match(/(\\d+(?:[.,]\\d+)?)\\s*(?:g|gr|gram)\\b/i);
+  const mlMatch=rawSize.match(/(\\d+(?:[.,]\\d+)?)\\s*(?:ml|mL)\\b/i);
+  const amount=gramMatch
+    ? Math.max(1,Number(gramMatch[1].replace(',','.')))
+    : mlMatch
+      ? Math.max(1,Number(mlMatch[1].replace(',','.')))
+      : 100;
+  const unit=gramMatch?'gram':mlMatch?'ml':'gram';
+  const factor=amount/100;
+  const calories=Math.round(kcal100*factor);
+  const protein=Math.round(protein100*factor*10)/10;
+  const meal=$('foodMeal')?.value||'Ara Öğün';
+
+  state.eaten+=calories;
+  state.protein+=protein;
+  state.dailyFoods.push({
+    name:product.brand ? product.name+' - '+product.brand : product.name,
+    calories,
     protein,
-    unit:'100 g',
-    source:'Open Food Facts',
+    amount,
+    unit,
+    meal,
     barcode:product.barcode,
-    carbs:product.carbs100,
-    fat:product.fat100,
-    sugar:product.sugar100
-  };
-  $('foodCalcCard').style.display='block';
-  $('selectedFoodName').textContent=product.name;
-  $('foodUnit').value='gram';
-  $('foodAmount').value=100;
-  calculateFood();
+    source:'Open Food Facts'
+  });
+
+  save();
+  updateDashboard();
+  updateFoodPeriod();
+  renderFoods();
+  renderNutritionPage();
+
+  const status=$('barcodeStatus');
+  if(status){
+    status.textContent='✓ '+product.name+' otomatik olarak günlüğe eklendi.';
+  }
   closeSmartFoodModal();
-  $('foodCalcCard')?.scrollIntoView({behavior:'smooth',block:'nearest'});
+  return true;
 }
 
 async function lookupBarcode(code){
@@ -742,9 +765,9 @@ async function lookupBarcode(code){
         '<p><b>'+Math.round(kcal)+' kcal</b> • '+protein+' g protein / 100 g</p>'+
         '<p class="smart-product-macros">Karb. '+carbs+' g • Yağ '+fat+' g • Şeker '+sugar+' g</p>'+
         (lastSmartProduct.servingSize?'<small>Porsiyon: '+lastSmartProduct.servingSize+'</small>':'')+
-        '</div></div><button class="primary" id="useSmartProductButton" type="button">Bu Ürünü Kullan</button>';
-      $('useSmartProductButton').onclick=()=>addSmartProductToLog(lastSmartProduct);
+        '</div></div>';
     }
+    addSmartProductToLog(lastSmartProduct);
     if(status)status.textContent='Ürün bulundu. Miktarı kontrol edip günlüğe ekleyebilirsin.';
   }catch(e){
     if(status)status.textContent='Ürün bulunamadı. Barkodu kontrol edip tekrar dene.';
