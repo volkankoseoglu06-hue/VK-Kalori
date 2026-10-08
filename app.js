@@ -1417,12 +1417,14 @@ function setupEvents(){
     });
   });
 
-  $('foodSearch').addEventListener('focus', event=>{
-    searchFood(event.target.value);
-  });
-  $('foodSearch').addEventListener('input', event=>{
-    searchFood(event.target.value);
-  });
+  const foodSearchInput=$('foodSearch');
+  if(foodSearchInput){
+    const openFoodSearch=()=>searchFood(foodSearchInput.value);
+    foodSearchInput.addEventListener('focus',openFoodSearch);
+    foodSearchInput.addEventListener('click',openFoodSearch);
+    foodSearchInput.addEventListener('touchstart',openFoodSearch,{passive:true});
+    foodSearchInput.addEventListener('input',event=>searchFood(event.target.value));
+  }
 
   $('foodAmount').addEventListener('input', calculateFood);
 

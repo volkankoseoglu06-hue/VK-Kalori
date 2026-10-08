@@ -560,7 +560,7 @@ input:focus,select:focus{border-color:#98b9ff;box-shadow:0 0 0 3px #eff6ff}
 /* Smart food input */
 .nutrition-smart-add{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:repeat(2,minmax(0,1fr));
   gap:7px;
   margin:10px 0 7px;
 }
