@@ -715,6 +715,11 @@ input:focus,select:focus{border-color:#98b9ff;box-shadow:0 0 0 3px #eff6ff}
 #smartFoodResult .smart-product-card p b{font-size:17px}
 #smartFoodResult .smart-product-macros{font-size:10px}
 #smartFoodResult #useSmartProductButton{width:100%;margin-top:10px;min-height:48px;font-size:14px;font-weight:900;display:block;}
+#smartFoodResult .smart-product-card{padding:16px;gap:16px;min-height:132px;}
+#smartFoodResult .smart-product-card img{width:132px;height:132px;}
+#smartFoodResult .smart-product-card strong{font-size:19px;}
+#smartFoodResult .smart-product-card p b{font-size:20px;}
+#smartFoodResult #useSmartProductButton{min-height:52px;font-size:15px;margin-top:12px;}
 .smart-product-card p b{color:#dc2626}
 .smart-product-macros{color:#667085!important}
 .smart-photo-drop{
