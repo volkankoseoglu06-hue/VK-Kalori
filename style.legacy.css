@@ -5080,3 +5080,18 @@ body:has(#workoutModal.open) .bottom-nav{
   .reference-exercise-tags em{font-size:7px;padding:3px 5px}
   .modal-set-row{grid-template-columns:43px minmax(0,1fr) minmax(0,1fr) 32px!important}
 }
+
+/* Workout completion action */
+.modal-complete-toggle{
+  width:100%;
+  border:0;
+  background:#ecfdf3;
+  color:#16a34a;
+  border-radius:9px;
+  padding:7px 10px;
+  min-height:40px;
+  font:800 11px/1 'Manrope',sans-serif;
+  cursor:pointer;
+  margin-top:8px;
+}
+.modal-complete-toggle:hover{background:#dcfce7}
