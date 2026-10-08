@@ -302,7 +302,7 @@ const foods = [
 {name:"Biber dolması - küçük (55–80 g)",kcal:130,protein:4,unit:"adet"},
 {name:"Biber dolması - orta (80–120 g)",kcal:185,protein:6,unit:"adet"},
 {name:"Biber dolması - büyük (120–170 g)",kcal:250,protein:8,unit:"adet"},
-{name:"Yaprak sarma (10 adet)",kcal:180,protein:6,unit:"10 adet"}
+{name:"Yaprak sarma (10 adet)",kcal:180,protein:6,unit:"10 adet"},
 
 /* ŞARKÜTERİ */
 
