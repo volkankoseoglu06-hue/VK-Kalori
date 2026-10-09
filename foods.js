@@ -370,6 +370,7 @@ const foods = [
 {name:"Hamburger",kcal:295,protein:17,unit:"adet"},
 {name:"Tost",kcal:350,protein:16,unit:"adet"},
 {name:"Simit",kcal:272,protein:9,unit:"adet"},
+{name:"Tahıllı simit (çekirdekli)",kcal:310,protein:10,unit:"adet"},
 {name:"Pide",kcal:450,protein:20,unit:"adet"},
 
 /* DOMINO'S PİZZALARI */
