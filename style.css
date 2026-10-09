@@ -850,3 +850,14 @@ input:focus,select:focus{border-color:#98b9ff;box-shadow:0 0 0 3px #eff6ff}
  #smartFoodResult .smart-product-card strong{font-size:16px}
  #smartFoodResult .smart-product-card p{font-size:12px}
 }
+
+/* Barkod etiketi deger duzeltme alanlari */
+#smartFoodResult .barcode-label-note{font-size:12px;line-height:1.45;color:#475467;margin:0 0 10px}
+#smartFoodResult .barcode-macro-edit{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+#smartFoodResult .barcode-macro-edit label{min-width:0}
+#smartFoodResult .barcode-add-panel{font-size:14px}
+#smartFoodResult .smart-use-product{width:100%;min-height:48px;font-size:15px;margin-top:5px}
+#smartFoodResult .smart-product-card{align-items:flex-start;gap:16px;padding:16px;min-height:160px}
+#smartFoodResult .smart-product-card img,#smartFoodResult .smart-product-no-image{width:132px;height:132px;flex:0 0 132px;object-fit:contain;border-radius:12px;background:#f2f4f7}
+#smartFoodResult .smart-product-details{min-width:0;flex:1}
+@media(max-width:430px){#smartFoodResult .smart-product-card{gap:10px;padding:12px}#smartFoodResult .smart-product-card img,#smartFoodResult .smart-product-no-image{width:96px;height:96px;flex-basis:96px}}
