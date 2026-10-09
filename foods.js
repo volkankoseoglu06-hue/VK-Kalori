@@ -297,6 +297,7 @@ const foods = [
 {name:"Karnabahar (haşlanmış, 100 g)",kcal:23,protein:1.8,unit:"100 g"},
 {name:"Karnabahar yemeği (250 g)",kcal:140,protein:6,unit:"porsiyon"},
 {name:"Yumurtalı unlu karnabahar kızartması (1 parça, yaklaşık 5 cm)",kcal:85,protein:2.5,unit:"parça"},
+{name:"Karnabahar kızartması (1 dilim, yaklaşık 5 cm)",kcal:70,protein:2.2,unit:"adet"},
 {name:"Karnıyarık (1 adet)",kcal:300,protein:16,unit:"porsiyon"},
 {name:"Musakka (250 g)",kcal:280,protein:18,unit:"porsiyon"},
 {name:"Mantı (250 g)",kcal:350,protein:14,unit:"porsiyon"},
