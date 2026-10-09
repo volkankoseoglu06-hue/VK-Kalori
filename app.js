@@ -765,31 +765,42 @@ async function lookupBarcode(code){
         '<small class="smart-source-note">Kaynak: Open Food Facts. Paket etiketi farklıysa etiketteki değerleri esas al.</small>'+
         '</div></div>'+
         '<div class="barcode-add-panel">'+
-        '<label>Miktar (gram)<input id="barcodeFoodAmount" type="number" min="1" max="5000" step="1" value="'+(Number.parseFloat(lastSmartProduct.quantity)||100)+'"></label>'+
+        '<div class="barcode-label-note">Değerler ürün veri tabanından gelir; ambalaj etiketi farklıysa aşağıdan etiketteki 100 g değerlerini gir.</div>'+
+        '<div class="barcode-macro-edit">'+
+        '<label>Kalori / 100 g<input id="barcodeFoodKcal" type="number" min="0" max="1000" step="1" value="'+Math.round(kcal)+'"></label>'+
+        '<label>Protein / 100 g<input id="barcodeFoodProtein" type="number" min="0" max="100" step="0.1" value="'+protein+'"></label>'+
+        '</div>'+
+        '<label>Miktar (gram)<input id="barcodeFoodAmount" type="number" min="1" max="5000" step="1" value="100"></label>'+
         '<label>Öğün<select id="barcodeFoodMeal"><option>Kahvaltı</option><option>Öğle</option><option>Akşam</option><option selected>Ara Öğün</option></select></label>'+
         '<div id="barcodeFoodCalc" class="barcode-food-calc"></div>'+
         '<button class="primary smart-use-product" id="useSmartProductButton" type="button">＋ Günlüğe Ekle</button>'+
         '</div>';
     }
     const amountInput=$('barcodeFoodAmount');
+    const kcalInput=$('barcodeFoodKcal');
+    const proteinInput=$('barcodeFoodProtein');
     const updateBarcodeCalc=()=>{
       if(!amountInput || !lastSmartProduct)return;
       const amount=Math.max(1,Number(amountInput.value)||100);
       const factor=amount/100;
+      const kcal100=Math.max(0,Number(kcalInput?.value)||0);
+      const protein100=Math.max(0,Number(proteinInput?.value)||0);
       const calc=$('barcodeFoodCalc');
-      if(calc)calc.textContent=Math.round(safeNum(lastSmartProduct.kcal100)*factor)+' kcal • '+Math.round(safeNum(lastSmartProduct.protein100)*factor*10)/10+' g protein';
+      if(calc)calc.textContent=Math.round(kcal100*factor)+' kcal • '+Math.round(protein100*factor*10)/10+' g protein';
     };
-    amountInput?.addEventListener('input',updateBarcodeCalc);
+    [amountInput,kcalInput,proteinInput].forEach(input=>input?.addEventListener('input',updateBarcodeCalc));
     updateBarcodeCalc();
     const useButton=$('useSmartProductButton');
     if(useButton)useButton.onclick=()=>{
       if(!lastSmartProduct)return;
       const amount=Math.max(1,Number($('barcodeFoodAmount')?.value)||100);
       const factor=amount/100;
+      const kcal100=Math.max(0,Number($('barcodeFoodKcal')?.value)||0);
+      const protein100=Math.max(0,Number($('barcodeFoodProtein')?.value)||0);
       const productFood={
         name:lastSmartProduct.name,
-        calories:Math.round(safeNum(lastSmartProduct.kcal100)*factor),
-        protein:Math.round(safeNum(lastSmartProduct.protein100)*factor*10)/10,
+        calories:Math.round(kcal100*factor),
+        protein:Math.round(protein100*factor*10)/10,
         amount,
         unit:'gram',
         meal:$('barcodeFoodMeal')?.value||'Ara Öğün',
