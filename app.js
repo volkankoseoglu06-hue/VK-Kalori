@@ -524,6 +524,7 @@ function detectUnit(unit){
 
   if(normalized.includes('ml')) return 'ml';
   if(normalized.includes('adet')) return 'adet';
+  if(normalized.includes('parça') || normalized.includes('parca')) return 'parca';
   if(normalized.includes('dilim')) return 'dilim';
   if(normalized.includes('porsiyon')) return 'porsiyon';
   if(normalized.includes('kase')) return 'kase';
