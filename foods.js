@@ -552,6 +552,7 @@ const foods = [
 {name:"Big King",kcal:540,protein:27,unit:"adet"},
 {name:"Big King Menü",kcal:1020,protein:34,unit:"menü"},
 {name:"Patates kızartması (orta)",kcal:340,protein:4,unit:"porsiyon"},
+{name:"Karışık sebze kızartması (100 g)",kcal:180,protein:2.5,unit:"100 g"},
 {name:"Soğan halkası (8 adet)",kcal:280,protein:5,unit:"porsiyon"},
   
   /* TEXAS SMOKE HOUSE */
