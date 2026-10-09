@@ -9,6 +9,7 @@ const foods = [
 {name:"Laktozsuz süt (1 bardak - 200 ml)",kcal:92,protein:6,unit:"bardak"},
   
 {name:"Beyaz peynir (1 kibrit kutusu - 30 g)",kcal:80,protein:4,unit:"30 g"},
+{name:"Üçgen peynir (1 adet - yaklaşık 17 g)",kcal:45,protein:2.2,unit:"adet"},
 {name:"Kaşar peyniri (1 dilim - 20 g)",kcal:81,protein:5,unit:"dilim"},
 {name:"Lor peyniri (1 yemek kaşığı - 30 g)",kcal:30,protein:5,unit:"kaşık"},
 {name:"Labne (1 yemek kaşığı - 20 g)",kcal:58,protein:1,unit:"kaşık"},
