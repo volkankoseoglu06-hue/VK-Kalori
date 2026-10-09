@@ -278,6 +278,7 @@ function nutritionPeriodData(){
     date:new Date().toLocaleDateString('tr-TR'),
     at:new Date().setHours(12,0,0,0),
     eaten:Math.round(todayFoodCalories),
+    calories:Math.round(todayFoodCalories),
     protein:Math.round(todayFoodProtein*10)/10,
     water:Number(state.water.toFixed(1)),
     foods:todayFoods
@@ -781,12 +782,14 @@ async function scanBarcodeDigitsWithOCR(){
   try{
     if(!window.Tesseract)throw new Error('ocr-missing');
     const canvas=document.createElement('canvas');
-    const width=Math.min(1280,video.videoWidth||1280);
-    const height=Math.round(width*0.42);
+    const width=Math.min(1600,video.videoWidth||1280);
+    const sourceHeight=video.videoHeight||720;
+    const height=Math.min(1000,Math.round(sourceHeight*width/(video.videoWidth||width)));
     canvas.width=width;
     canvas.height=height;
     const ctx=canvas.getContext('2d',{willReadFrequently:true});
-    ctx.drawImage(video,0,Math.max(0,(video.videoHeight-height)/2),video.videoWidth,height,0,0,width,height);
+    // Tam görüntüyü OCR'a ver: ürünün rakamları barkodun alt kısmında olabiliyor.
+    ctx.drawImage(video,0,0,video.videoWidth||width,sourceHeight,0,0,width,height);
     const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/jpeg',0.88));
     if(!blob)throw new Error('frame');
     const worker=smartOcrWorker||(smartOcrWorker=await Tesseract.createWorker('eng',1));
