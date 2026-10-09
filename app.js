@@ -277,6 +277,7 @@ function nutritionPeriodData(){
   const today={
     date:new Date().toLocaleDateString('tr-TR'),
     at:new Date().setHours(12,0,0,0),
+    calories:Math.round(todayFoodCalories),
     eaten:Math.round(todayFoodCalories),
     calories:Math.round(todayFoodCalories),
     protein:Math.round(todayFoodProtein*10)/10,
