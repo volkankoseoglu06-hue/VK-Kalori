@@ -62,6 +62,7 @@ const foods = [
 {name:"Köfteci Yusuf Tavuk Şiş (220 g)",kcal:460,protein:65,unit:"porsiyon"},
 {name:"Köfteci Yusuf Piyaz (200 g)",kcal:320,protein:14,unit:"porsiyon"},
 {name:"Köfteci Yusuf Patates Kızartması (150 g)",kcal:470,protein:6,unit:"porsiyon"},
+{name:"Köfteci Yusuf İçli Köfte (1 adet - yaklaşık 80 g)",kcal:190,protein:6,unit:"adet"},
 
 /* HD İSKENDER */
 
