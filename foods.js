@@ -294,6 +294,7 @@ const foods = [
 {name:"Bezelye yemeği (250 g)",kcal:220,protein:8,unit:"porsiyon"},
 {name:"Türlü (250 g)",kcal:180,protein:6,unit:"porsiyon"},
 {name:"Bamya yemeği (250 g)",kcal:160,protein:5,unit:"porsiyon"},
+{name:"Karnabahar (haşlanmış, 100 g)",kcal:23,protein:1.8,unit:"100 g"},
 {name:"Karnabahar yemeği (250 g)",kcal:140,protein:6,unit:"porsiyon"},
 {name:"Yumurtalı unlu karnabahar kızartması (1 parça, yaklaşık 5 cm)",kcal:85,protein:2.5,unit:"parça"},
 {name:"Karnıyarık (1 adet)",kcal:300,protein:16,unit:"porsiyon"},
