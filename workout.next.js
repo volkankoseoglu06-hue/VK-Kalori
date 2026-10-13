@@ -197,7 +197,7 @@ function imageMarkup(ex){
   const fallback=ex.name.toLocaleLowerCase('tr-TR').includes('glute bridge')?'🍑':'🏋️';
   const safeName=ex.name.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
   if(workoutDay>=4){
-    return '<span class="exercise-visual"><img src="'+start+'" alt="'+safeName+' hareket gösterimi" loading="lazy" onerror="this.style.display=\'none\';this.parentNode.classList.add(\'exercise-fallback\');this.parentNode.insertAdjacentText(\'beforeend\',\''+fallback+'\');"><img src="'+(femaleExerciseSvg(ex)||'')+'" alt="" class="exercise-peak" loading="lazy" onerror="this.remove()"></span>';
+    return '<span class="exercise-visual"><img src="'+start+'" alt="'+safeName+' hareket gösterimi" loading="lazy" onerror="this.style.display=\'none\';this.parentNode.classList.add(\'exercise-fallback\');this.parentNode.insertAdjacentText(\'beforeend\',\''+fallback+'\');"><img src="'+(peak||'')+'" alt="" class="exercise-peak" loading="lazy" onerror="this.remove()"></span>';
   }
   return '<span class="exercise-visual"><img src="'+start+'" alt="'+safeName+'" loading="lazy" onerror="this.style.display=\'none\';this.parentNode.classList.add(\'exercise-fallback\');this.parentNode.insertAdjacentText(\'beforeend\',\''+fallback+'\');"><img src="'+peak+'" alt="" class="exercise-peak" loading="lazy" onerror="this.remove()"></span>';
 }
