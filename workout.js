@@ -30,6 +30,31 @@ const WORKOUTS={
     {name:'Incline Dumbbell Curl',muscles:['Biceps'],sets:2,reps:'10–12',image:'incline-db-curl',cues:['Bench sırtlığını yaklaşık 45–60° açıya getir ve sırtını tamamen destekle.','Kolların aşağı doğru serbestçe sarkmasına izin ver; dirsekleri geriye kaçırmadan sabit tut.','Dambılları kontrollü kıvır, üstte bicepsleri sık.','Aşağı inerken 2–3 saniyede kontrollü uzat; omuzdan momentum alma.']},
     {name:'Dambıl Pullover',muscles:['Sırt','Göğüs'],sets:2,reps:'10–15',image:'db-pullover',cues:['Bench üzerine sırt üstü uzan, ayakları yere sağlam bas ve tek dambılı iki elinle göğüs üzerinde tut.','Dirsekleri hafif bükülü ve sabit tutarak dambılı başın arkasına doğru kontrollü indir.','Omuzları rahatsız etmeyen hareket açıklığında dur; belini aşırı yaylandırma.','Dambılı göğüs üzerine kontrollü geri getir ve hareketi momentumla yapma.']},
     {name:'Dambıl Baldır Kaldırma',muscles:['Baldır'],sets:2,reps:'12–20',image:'dumbbell-calf-raise',cues:['Dik dur ve dambılları yanlarında tut.','Topuklarını kontrollü şekilde kaldır.','Yukarıda kısa sıkıştırıp yavaşça in.']}
+  ]},
+  4:{name:'Kadın Body 1',focus:'Kalça • bacak • göğüs • sırt • core',exercises:[
+    {name:'Sandalyeye Otur-Kalk',muscles:['Ön bacak','Kalça'],sets:2,reps:'10–12',image:'',cues:['Sağlam bir sandalyeyi duvara dayayarak sabitle.','Ayaklarını kalça genişliğinde aç; kontrollü şekilde oturup kalk.','Dizlerin ayak parmakları yönünde ilerlesin; ellerinden destek alabilirsin.','Ağrı olursa hareketi bırak; başlangıçta dambıl kullanma.']},
+    {name:'Direnç Bandı Glute Bridge',muscles:['Kalça','Arka bacak'],sets:3,reps:'12–15',image:'glute-bridge',cues:['Sırt üstü yat, dizlerini bük ve bandı dizlerinin hemen üstüne yerleştir.','Ayaklarını kalça genişliğinde tutup kalçanı sık.','Kalçanı kaldırırken belini aşırı çukurlaştırma; dizlerini hafifçe dışarı it.','Yavaşça indir ve tekrar et.']},
+    {name:'Direnç Bandı Oturarak Row',muscles:['Sırt','Biceps'],sets:3,reps:'10–15',image:'seated-cable-row',cues:['Yere oturup bandı ayaklarının orta kısmına güvenli şekilde yerleştir.','Gövdeni dik tut ve bandı göbek hizana doğru çek.','Dirsekleri gövdene yakın tut; omuzlarını kulaklarına çekme.','Kollarını kontrollü uzat.']},
+    {name:'Dambıl Göğüs Press (Yerde)',muscles:['Göğüs','Triceps'],sets:2,reps:'10–12',image:'db-bench-press',cues:['Yere sırt üstü yat, dizlerini bük ve dambılları göğüs yanında tut.','Dirseklerini gövdenden yaklaşık 45 derece uzakta tut.','Dambılları yukarı it; kontrollü biçimde indir.','Önce 1 kg dambıllarla tekniği öğren, sonra uygun ağırlığa geç.']},
+    {name:'Dambıl Biceps Curl',muscles:['Ön kol','Biceps'],sets:2,reps:'12–15',image:'bicep-curl',cues:['Dik dur veya sandalyeye otur; dambılları yanlarda tut.','Dirseklerini gövdene yakın sabit tut.','Dambılları kontrollü kaldır ve yavaşça indir.','Gövdeni sallama.']},
+    {name:'Dead Bug',muscles:['Karın','Core'],sets:2,reps:'8–10 / taraf',image:'',cues:['Sırt üstü yat, kollarını tavana kaldır ve dizlerini 90 derece bük.','Belini rahatça yere yakın tut.','Karşı kol ve bacağını yavaşça uzat, sonra başlangıca dön.','Belin yerden kalkıyorsa hareket mesafesini küçült.']}
+  ]},
+  5:{name:'Kadın Body 2',focus:'Omuz • sırt • kalça • bacak • göğüs • core',exercises:[
+    {name:'Direnç Bandı Yana Adım',muscles:['Kalça yan kasları'],sets:2,reps:'10–12 / yön',image:'',cues:['Bandı dizlerinin hemen üstüne tak; ayaklarını kalça genişliğinde aç.','Dizlerini hafif bük ve küçük kontrollü adımlarla yana ilerle.','Gövdeni dik, dizlerini ayak yönünde tut.','Her iki yöne eşit adım at; dizde ağrı olursa bırak.']},
+    {name:'Dambıl Romanian Deadlift',muscles:['Arka bacak','Kalça'],sets:3,reps:'10–12',image:'dumbbell-romanian-deadlift',cues:['Ayaklarını kalça genişliğinde aç, dizlerini hafifçe bük.','Kalçanı geriye gönder ve dambılları bacaklarına yakın indir.','Sırtını nötr tut; hareketi belden eğilerek değil kalçadan yap.','Hafif dambıllarla başla, gerilme hissettiğin noktada kontrollü kalk.']},
+    {name:'Dambıl Yana Omuz Açış',muscles:['Yan omuz'],sets:2,reps:'12–15',image:'lateral-raise',cues:['Dik dur, hafif dambılları yanlarında tut ve dirseklerini az bük.','Kollarını omuz hizasına kadar kontrollü yana kaldır.','Omuzlarını kulaklarına çekme ve gövdeni sallama.','1 kg dambıllar uygundur; daha ağır ağırlıkla form bozulmasın.']},
+    {name:'Bench Destekli Dambıl Row',muscles:['Sırt','Arka omuz','Biceps'],sets:3,reps:'10–12',image:'single-arm-db-row',cues:['Bir elini sağlam bench üzerine koyarak gövdeni destekle.','Sırtını nötr tut ve dambılı kalçana doğru çek.','Dirseğini gövdene yakın tut, omzunu yukarı çekme.','İki tarafı da aynı tekrar sayısıyla yap.']},
+    {name:'Dambıl Göğüs Press (Yerde)',muscles:['Göğüs','Triceps'],sets:2,reps:'10–12',image:'db-bench-press',cues:['Yere sırt üstü yat, dizlerini bük ve dambılları göğüs yanında tut.','Dambılları kontrollü yukarı it, yavaşça indir.','Bileklerini düz tut ve dirseklerini çok yana açma.']},
+    {name:'Bird Dog',muscles:['Core','Sırt'],sets:2,reps:'8–10 / taraf',image:'',cues:['Dört ayak pozisyonunda sırtını nötr tut.','Karşı kolunu ve bacağını gövdeyi döndürmeden uzat.','Kısa süre bekle ve kontrollü başlangıca dön.','Her iki tarafı eşit uygula.']}
+  ]},
+  6:{name:'Kadın Body 3',focus:'Kalça • göğüs • sırt • omuz • kol • core',exercises:[
+    {name:'Direnç Bandı Clamshell',muscles:['Kalça yan kasları'],sets:2,reps:'12–15 / taraf',image:'',cues:['Yan yat, dizlerini bük ve bandı dizlerinin üstüne yerleştir.','Ayaklarını bir arada tutarak üst dizini kontrollü aç.','Kalçanı geriye yuvarlama; hareketi kalçanın yan tarafında hisset.','İki tarafı da eşit uygula.']},
+    {name:'Dambıl Glute Bridge',muscles:['Kalça','Arka bacak'],sets:3,reps:'12–15',image:'glute-bridge',cues:['Sırt üstü yat, dizlerini bük ve dambılı kalçanın üzerine güvenli şekilde yerleştir.','Kalçanı sıkıp yukarı kaldır; kaburgalarını aşağıda tut.','Üstte kısa bekle, sonra kontrollü indir.','Önce ağırlıksız öğren; dambıl rahatsız ederse kullanma.']},
+    {name:'Dambıl Shoulder Press (Oturarak)',muscles:['Omuz','Triceps'],sets:2,reps:'10–12',image:'seated-db-press',cues:['Sağlam sandalyede veya bench üzerinde sırtını destekleyerek otur.','Dambılları omuz hizasında tut, bileklerini düz tut.','Belini aşırı çukurlaştırmadan yukarı it ve kontrollü indir.']},
+    {name:'Dambıl Eğilerek Row',muscles:['Sırt','Biceps'],sets:3,reps:'10–12',image:'single-arm-db-row',cues:['Dizlerini hafif bük, kalçanı geriye gönder ve sırtını nötr tut.','Dambılları bel hizasına doğru çek.','Omuzlarını yukarı kaldırma; ağırlığı yavaşça indir.','Belini rahat tutmak için gerekirse tek kol bench destekli row yap.']},
+    {name:'Dambıl Biceps Curl',muscles:['Biceps'],sets:2,reps:'12–15',image:'bicep-curl',cues:['Dik dur veya otur; dirseklerini gövdene yakın tut.','Dambılları kontrollü kaldır ve 2 saniyede indir.','Gövdeni sallama; 1 kg ile başlayıp uygun ağırlığı seç.']},
+    {name:'Dambıl Triceps Extension',muscles:['Triceps'],sets:2,reps:'10–12',image:'overhead-tricep-extension',cues:['Otururken tek dambılı iki elinle güvenli şekilde tut.','Dirseklerini başının yanında tutarak dambılı baş arkası yönünde kontrollü indir.','Dirsek veya omuz rahatsız olursa hareket açıklığını azalt ya da bırak.']},
+    {name:'Bench Mekik (Kısa Crunch)',muscles:['Karın','Core'],sets:2,reps:'10–15',image:'decline-crunch',cues:['Yere sırt üstü yat, dizlerini bük ve ellerini göğsünde çaprazla.','Boynunu çekmeden kürek kemiklerini hafifçe yerden kaldır.','Nefes vererek karın kaslarını sık, kontrollü geri dön.']}
   ]}
 };
 
@@ -175,7 +200,7 @@ function doneCount(){return WORKOUTS[workoutDay].exercises.filter(e=>S.done[exer
 
 function renderDayTabs(){
   const host=document.getElementById('workoutDayTabs');if(!host)return;
-  host.innerHTML=[1,2,3].map(d=>'<button class="workout-day '+(d===workoutDay?'active':'')+'" data-day="'+d+'">'+WORKOUTS[d].name+'</button>').join('');
+  host.innerHTML=[1,2,3,4,5,6].map(d=>'<button class="workout-day '+(d===workoutDay?'active':'')+'" data-day="'+d+'">'+WORKOUTS[d].name+'</button>').join('');
 }
 function exerciseHistory(name){
   return S.logs
@@ -483,7 +508,7 @@ function renderWorkoutProgress(){
   const badgeHtml=badges.length?badges.map(x=>'<div class="achievement-badge"><span>'+x.icon+'</span><div><strong>'+x.title+'</strong><small>'+x.text+'</small></div></div>').join(''):'<div class="empty-state">İlk antrenmanını tamamladığında rozetlerin burada açılacak.</div>';
   const recentPrHtml=prRows.slice(0,5).map(x=>'<div class="progress-pr-row"><span><b>'+x.name+'</b><small>'+new Date(x.date+'T12:00:00').toLocaleDateString('tr-TR',{day:'2-digit',month:'short'})+'</small></span><strong>'+x.weight+' kg</strong></div>').join('')||'<div class="empty-state">Yeni kişisel rekorların burada görünecek.</div>';
   const lastDate=new Date(last.date+'T12:00:00').toLocaleDateString('tr-TR',{day:'2-digit',month:'long'});
-  const lastDay='Full Body '+(last.day||'');
+  const lastDay=WORKOUTS[Number(last.day)]?.name||('Full Body '+(last.day||''));
   const changeHtml=change!==null?'<div class="progress-change '+(change>=0?'up':'down')+'"><strong>'+(change>=0?'↗':'↘')+' '+Math.abs(change)+'%</strong><span>Son antrenmana göre hacim değişimi</span></div>':'';
   box.innerHTML='<div class="progress-hero"><div><small>ANTRENMAN PERFORMANSI</small><h2>Gücünü takip et</h2><p>Hacim, devamlılık ve kişisel rekorlarını tek ekranda gör.</p></div><span>📈</span></div>'+
     '<div class="progress-kpi-grid"><div><strong>'+rows.length+'</strong><span>Antrenman</span></div><div><strong>'+Math.round(totalVolume)+'</strong><span>Toplam kg</span></div><div><strong>'+totalSets+'</strong><span>Toplam set</span></div><div><strong>'+maxWeight+'</strong><span>En yüksek kg</span></div></div>'+
