@@ -93,7 +93,7 @@ function renderWorkoutProfileSwitcher(){
   if(subtitle)subtitle.textContent=WORKOUTS[workoutDay]?.name||'Antrenman';
 }
 let S=loadWorkout();
-let workoutDay=1;
+let workoutDay=workoutProfile==='fatma'?4:1;
 let selectedExerciseIndex=null;
 let sessionTimer=null;
 let sessionStartedAt=0;
@@ -127,7 +127,7 @@ function normalizeWorkout(v){
   s.done=v.done&&typeof v.done==='object'?v.done:{};
   s.sessions=v.sessions&&typeof v.sessions==='object'?v.sessions:{};
   if(v.session && v.session.day && !s.sessions[v.session.day]) s.sessions[v.session.day]=v.session;
-  s.session=s.sessions[1]||null;
+  s.session=s.sessions[workoutProfile==='fatma'?4:1]||null;
   s.history=Array.isArray(v.history)?v.history:[];
   return s;
 }
