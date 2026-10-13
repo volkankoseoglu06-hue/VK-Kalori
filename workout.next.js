@@ -445,7 +445,7 @@ function readModalSets(){
 }
 function saveExerciseFromModal(){
   if(selectedExerciseIndex===null)return;
-  const ex=WORKOUTS[workoutDay].exercises[selectedExerciseIndex];
+  const ex=getExercises()[selectedExerciseIndex];
   const sets=readModalSets();
   const sessionId=S.session?.id||null;
   S.logs=S.logs.filter(x=>!(x.date===todayKey()&&x.day===workoutDay&&x.exercise===ex.name));
@@ -460,7 +460,7 @@ function saveExerciseFromModal(){
 }
 function toggleExerciseDone(){
   if(selectedExerciseIndex===null)return;
-  const ex=WORKOUTS[workoutDay].exercises[selectedExerciseIndex];
+  const ex=getExercises()[selectedExerciseIndex];
   const key=exerciseKey(ex.name);
   if(S.done[key]===todayKey()) delete S.done[key];
   else S.done[key]=todayKey();
@@ -471,7 +471,7 @@ function toggleExerciseDone(){
 function updateExerciseDoneButton(){
   const b=document.querySelector('[data-toggle-exercise-done]');
   if(!b||selectedExerciseIndex===null)return;
-  const ex=WORKOUTS[workoutDay].exercises[selectedExerciseIndex];
+  const ex=getExercises()[selectedExerciseIndex];
   const done=S.done[exerciseKey(ex.name)]===todayKey();
   b.textContent=done?'↩ Tamamlamayı Geri Al':'✓ Hareketi Tamamladım';
   b.classList.toggle('is-done',done);
