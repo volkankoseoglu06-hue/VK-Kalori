@@ -225,13 +225,15 @@ function femaleExerciseSvg(ex){
     [/glute bridge|kalça köprüsü|köprü/, 'band-glute-bridge.webp'],
     [/clamshell/, 'band-clamshell.webp'],
     [/biceps curl|biceps|hammer curl/, 'dumbbell-biceps-curl.webp'],
-    [/göğüs press|floor press|bench press|duvar şınav/, 'dumbbell-floor-press.webp'],
-    [/yana açış|lateral raise|shoulder press/, 'dumbbell-lateral-raise.webp'],
-    [/row|çekiş|pull-apart|dış rotasyon/, 'dumbbell-bent-row.webp'],
-    [/topuk kaydırma|dead bug|core/, 'band-glute-bridge.webp']
+    [/göğüs press|floor press|bench press/, 'dumbbell-floor-press.webp'],
+    [/yana açış|lateral raise/, 'dumbbell-lateral-raise.webp'],
+    [/oturarak row|seated row|row|çekiş|pull-apart/, 'dumbbell-bent-row.webp'],
+    [/dış rotasyon|external rotation/, 'dumbbell-lateral-raise.webp'],
+    [/duvar şınav|wall push/, 'dumbbell-floor-press.webp'],
+    [/topuk kaydırma|heel slide|core/, 'band-glute-bridge.webp']
   ];
   const match=map.find(([pattern])=>pattern.test(n));
-  return match ? 'assets/women/'+match[1] : 'assets/women/chair-squat.webp';
+  return match ? 'assets/women/'+match[1] : femaleExerciseSvgFallback(ex);
 }
 function imageMarkup(ex){
   if(workoutDay>=4){
