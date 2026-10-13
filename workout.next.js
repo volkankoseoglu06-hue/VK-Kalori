@@ -1,12 +1,8 @@
-/* VK LIFE — Workout Engine v2
- * Separate workout profiles with separate, persistent logs.
- */
+/* VK LIFE — Workout Engine v2: six shared programs, one workout history. */
 const WORKOUT_KEY='vk_workout_log_v2';
-const FATMA_WORKOUT_KEY='vk_fatma_workout_log_v1';
-const PROFILE_KEY='vk_workout_profile_v1';
 
-const VOLKAN_WORKOUTS={
-  1:{name:'Full Body 1',focus:'Göğüs • sırt • arka bacak • kol • core',exercises:[
+const WORKOUTS={
+  1:{name:'💪 Erkek 1',focus:'Göğüs • sırt • arka bacak • kol • core',exercises:[
     {name:'Dambıl Bench Press',muscles:['Göğüs','Ön omuz','Triceps'],sets:3,reps:'8–12',image:'db-bench-press',cues:['Bench’i düz (0°) konuma al ve kürek kemiklerini geriye-aşağı sabitle.','Ayak tabanlarını yere sağlam bas; belini gereksiz yere aşırı kavislendirme.','Dambılları göğsün yanına kontrollü indir; dirsekleri gövdeye yaklaşık 45° açıyla tut.','Yukarı iterken dambılları kontrollü bir hatta yaklaştır.']},
     {name:'Tek Kol Dambıl Row',muscles:['Sırt','Arka omuz','Biceps'],sets:3,reps:'8–12 / kol',image:'single-arm-db-row',cues:['Bir el ve aynı taraftaki dizini düz bench üzerine destekle; sırtını nötr tut.','Dambılı kalçaya doğru, dirseği gövdeye yakın çek.','Omuzunu kulağa doğru kaldırma ve gövdeyi döndürme.','Alternatif: Direnç bandını sağlam bir noktaya sabitleyerek yatay çekiş yapabilirsin.']},
     {name:'Dambıl Romanian Deadlift',muscles:['Arka bacak','Kalça'],sets:3,reps:'8–12',image:'dumbbell-romanian-deadlift',cues:['Ayakları kalça genişliğinde aç, dizleri sadece hafif bük.','Kalçayı geriye göndererek gövdeyi kontrollü öne eğ; hareket dizden çok kalçadan gelsin.','Dambılları bacaklara yakın indir ve sırtı nötr tut.','Arka bacakta gerilmeyi hissettiğin noktada yön değiştir; ağırlığı yere bırakma.','Alternatif: Direnç bandının üzerine basıp uçlarını tutarak aynı kalça menteşesi hareketini yapabilirsin.']},
@@ -14,7 +10,7 @@ const VOLKAN_WORKOUTS={
     {name:'Hammer Curl',muscles:['Biceps','Ön kol'],sets:2,reps:'10–12',image:'hammer-curl',cues:['Ayakta veya bench ucunda dik oturarak yap; avuçlar birbirine baksın.','Dirsekleri gövdeye yakın ve mümkün olduğunca sabit tut.','Dambılı omuza doğru kontrollü kaldır, aşağıda dirseği tamamen kilitlemeden yavaşça indir.','Alternatif: Direnç bandıyla da aynı nötr tutuşta uygulanabilir.']},
     {name:'Bench Mekik',muscles:['Karın','Core'],sets:2,reps:'10–15',image:'decline-crunch',cues:['Bench’i hafif negatif açıya, yaklaşık 15–30° eğime al ve ayaklarını sabitle.','Kolları göğüste çapraz tut; boyundan çekmeden kaburgaları leğen kemiğine doğru yaklaştır.','Tam oturmak yerine üst sırtı kontrollü kaldır; karın kasını sıkıp yavaşça geri dön.','Açı zor gelirse bench’i daha az düşür veya düz konuma getir.']}
   ]},
-  2:{name:'Full Body 2',focus:'Üst göğüs • sırt • omuz • kalça • triceps • baldır',exercises:[
+  2:{name:'💪 Erkek 2',focus:'Üst göğüs • sırt • omuz • kalça • triceps • baldır',exercises:[
     {name:'Dambıl Fly',muscles:['Göğüs'],sets:2,reps:'10–15',image:'db-fly',cues:['Bench’i düz veya çok hafif eğimli konuma al; omuzları rahat tut.','Dambılları göğüs üzerinde, dirsekleri hafif bükülü ve sabit olacak şekilde başlat.','Kolları kontrollü şekilde yana aç; göğüste rahat bir gerilme hissedince dur.','Göğüs kaslarını sıkarak dambılları tekrar yukarı getir; hareket boyunca dirsek açısını koru.']},
     {name:'Bench Destekli Dambıl Row',muscles:['Sırt','Rhomboid','Arka omuz'],sets:3,reps:'10–12',image:'single-arm-chest-supported-dumbbell-row',cues:['Bench’i yaklaşık 30–45° açıya getir ve göğsünü ped üzerine tamamen destekle.','Ayakları yere sağlam bas; belden momentum alma.','Dambılları alt kaburgalara doğru çek, dirsekleri gövdeye yakın tut.','Üst noktada 1 saniye sıkıştırıp ağırlığı kontrollü indir.']},
     {name:'Dambıl Biceps Curl',muscles:['Biceps','Ön kol'],sets:2,reps:'10–12',image:'bicep-curl',cues:['Ayakta dik dur veya bench ucuna otur; gövdeyi sallama.','Dirsekleri gövdenin yanında sabit tut ve omuzu öne düşürme.','Dambılları kontrollü kıvır; üstte kısa sıkıştır.','Aşağı inerken 2–3 saniyede kontrollü bırak.','Alternatif: Direnç bandıyla ayakta curl yapabilirsin.']},
@@ -23,7 +19,7 @@ const VOLKAN_WORKOUTS={
     {name:'Dambıl Glute Bridge',muscles:['Kalça','Arka bacak'],sets:2,reps:'10–15',image:'glute-bridge',cues:['Sırt üstü yere yat, dizleri bük ve ayak tabanlarını kalça genişliğinde yere bas.','Dambılı kalçanın üzerine güvenli şekilde yerleştirip ellerinle sabitle.','Topuklardan kuvvet alarak kalçayı yukarı kaldır; belden aşırı geriye açılma.','Üstte kalçayı 1 saniye sık, ardından kontrollü şekilde indir.','Dizleri içeri düşürmeden ayakların yönünü koru.']},
     {name:'Dambıl Baldır Kaldırma',muscles:['Baldır'],sets:2,reps:'12–20',image:'dumbbell-calf-raise',cues:['Dik dur, dambılları yanlarda tut ve ayakları kalça genişliğinde konumlandır.','İstersen denge için bir elini bench’e hafifçe koy.','Topukları mümkün olan kontrollü aralıkta yükselt, üstte 1 saniye sıkıştır.','Topukları yavaşça indir; zıplama ve momentum kullanma.','Daha fazla hareket açıklığı için ön ayakları alçak ve sağlam bir yükseltiye koyabilirsin.']}
   ]},
-  3:{name:'Full Body 3',focus:'Göğüs • sırt • arka bacak • omuz • kalça • kol • baldır',exercises:[
+  3:{name:'💪 Erkek 3',focus:'Göğüs • sırt • arka bacak • omuz • kalça • kol • baldır',exercises:[
     {name:'Eğimli Dambıl Press',muscles:['Üst göğüs','Ön omuz','Triceps'],sets:3,reps:'8–12',image:'incline-db-press',cues:['Bench sırtlığını yaklaşık 30–45° açıya ayarla; çok dik açı omuz yükünü artırabilir.','Kürek kemiklerini geriye-aşağı sabitle ve ayakları yere sağlam bas.','Dambılları üst göğüs hizasına kontrollü indir; dirsekleri yaklaşık 45° açıyla tut.','Yukarı iterken omuzları öne düşürmeden göğsü sık.']},
     {name:'Direnç Bandı Oturarak Row',muscles:['Sırt','Rhomboid','Biceps'],sets:3,reps:'10–15',image:'seated-cable-row',cues:['Yere otur, bacakları rahatça uzat ve direnç bandını ayakların sağlam bir noktasına dolayarak iki ucunu tut.','Gövdeyi dik ve belini nötr tut; bandı göbeğe doğru çek.','Dirsekleri gövdeye yakın ilerlet ve kürek kemiklerini geriye doğru sıkıştır.','Kolları kontrollü uzatırken bandın seni öne çekmesine izin verme.']},
     {name:'Direnç Bandı Oturarak Hamstring Curl',muscles:['Arka bacak'],sets:2,reps:'10–15',image:'seated-leg-curl',cues:['Bench’in ucuna dik şekilde otur ve gövdeni sabit tut.','Direnç bandını bench’in arkasındaki sağlam bir noktaya bağla ve diğer ucunu ayak bileğine güvenli şekilde geçir.','Bacağını öne doğru kontrollü şekilde uzat.','Topuğu geriye doğru çekerek dizi bük; hareketi hamstring ile kontrol et.','Geri dönüşte bandın bacağını hızla çekmesine izin verme; her tekrarı kontrollü yap.']},
@@ -33,7 +29,7 @@ const VOLKAN_WORKOUTS={
     {name:'Dambıl Baldır Kaldırma',muscles:['Baldır'],sets:2,reps:'12–20',image:'dumbbell-calf-raise',cues:['Dik dur ve dambılları yanlarında tut.','Topuklarını kontrollü şekilde kaldır.','Yukarıda kısa sıkıştırıp yavaşça in.']}
   ]},
 };
-const FATMA_WORKOUTS={  4:{name:'Kadın Body 1',focus:'Kalça • bacak • göğüs • sırt • core',exercises:[
+Object.assign(WORKOUTS,{  4:{name:'👩 Kadın 1',focus:'Kalça • bacak • göğüs • sırt • core',exercises:[
     {name:'Sandalyeye Otur-Kalk',muscles:['Ön bacak','Kalça'],sets:2,reps:'10–12',image:'',cues:['Sağlam bir sandalyeyi duvara dayayarak sabitle.','Ayaklarını kalça genişliğinde aç; kontrollü şekilde oturup kalk.','Dizlerin ayak parmakları yönünde ilerlesin; ellerinden destek alabilirsin.','Ağrı olursa hareketi bırak; başlangıçta dambıl kullanma.']},
     {name:'Direnç Bandı Glute Bridge',muscles:['Kalça','Arka bacak'],sets:3,reps:'12–15',image:'glute-bridge',cues:['Sırt üstü yat, dizlerini bük ve bandı dizlerinin hemen üstüne yerleştir.','Ayaklarını kalça genişliğinde tutup kalçanı sık.','Kalçanı kaldırırken belini aşırı çukurlaştırma; dizlerini hafifçe dışarı it.','Yavaşça indir ve tekrar et.']},
     {name:'Direnç Bandı Oturarak Row',muscles:['Sırt','Biceps'],sets:3,reps:'10–15',image:'seated-cable-row',cues:['Yere oturup bandı ayaklarının orta kısmına güvenli şekilde yerleştir.','Gövdeni dik tut ve bandı göbek hizana doğru çek.','Dirsekleri gövdene yakın tut; omuzlarını kulaklarına çekme.','Kollarını kontrollü uzat.']},
@@ -41,7 +37,7 @@ const FATMA_WORKOUTS={  4:{name:'Kadın Body 1',focus:'Kalça • bacak • gö�
     {name:'Dambıl Biceps Curl',muscles:['Ön kol','Biceps'],sets:2,reps:'12–15',image:'bicep-curl',cues:['Dik dur veya sandalyeye otur; dambılları yanlarda tut.','Dirseklerini gövdene yakın sabit tut.','Dambılları kontrollü kaldır ve yavaşça indir.','Gövdeni sallama.']},
     {name:'Dead Bug',muscles:['Karın','Core'],sets:2,reps:'8–10 / taraf',image:'',cues:['Sırt üstü yat, kollarını tavana kaldır ve dizlerini 90 derece bük.','Belini rahatça yere yakın tut.','Karşı kol ve bacağını yavaşça uzat, sonra başlangıca dön.','Belin yerden kalkıyorsa hareket mesafesini küçült.']}
   ]},
-  5:{name:'Kadın Body 2',focus:'Omuz • sırt • kalça • bacak • göğüs • core',exercises:[
+  5:{name:'👩 Kadın 2',focus:'Omuz • sırt • kalça • bacak • göğüs • core',exercises:[
     {name:'Direnç Bandı Yana Adım',muscles:['Kalça yan kasları'],sets:2,reps:'10–12 / yön',image:'',cues:['Bandı dizlerinin hemen üstüne tak; ayaklarını kalça genişliğinde aç.','Dizlerini hafif bük ve küçük kontrollü adımlarla yana ilerle.','Gövdeni dik, dizlerini ayak yönünde tut.','Her iki yöne eşit adım at; dizde ağrı olursa bırak.']},
     {name:'Dambıl Romanian Deadlift',muscles:['Arka bacak','Kalça'],sets:3,reps:'10–12',image:'dumbbell-romanian-deadlift',cues:['Ayaklarını kalça genişliğinde aç, dizlerini hafifçe bük.','Kalçanı geriye gönder ve dambılları bacaklarına yakın indir.','Sırtını nötr tut; hareketi belden eğilerek değil kalçadan yap.','Hafif dambıllarla başla, gerilme hissettiğin noktada kontrollü kalk.']},
     {name:'Dambıl Yana Omuz Açış',muscles:['Yan omuz'],sets:2,reps:'12–15',image:'lateral-raise',cues:['Dik dur, hafif dambılları yanlarında tut ve dirseklerini az bük.','Kollarını omuz hizasına kadar kontrollü yana kaldır.','Omuzlarını kulaklarına çekme ve gövdeni sallama.','1 kg dambıllar uygundur; daha ağır ağırlıkla form bozulmasın.']},
@@ -49,7 +45,7 @@ const FATMA_WORKOUTS={  4:{name:'Kadın Body 1',focus:'Kalça • bacak • gö�
     {name:'Dambıl Göğüs Press (Yerde)',muscles:['Göğüs','Triceps'],sets:2,reps:'10–12',image:'db-bench-press',cues:['Yere sırt üstü yat, dizlerini bük ve dambılları göğüs yanında tut.','Dambılları kontrollü yukarı it, yavaşça indir.','Bileklerini düz tut ve dirseklerini çok yana açma.']},
     {name:'Bird Dog',muscles:['Core','Sırt'],sets:2,reps:'8–10 / taraf',image:'',cues:['Dört ayak pozisyonunda sırtını nötr tut.','Karşı kolunu ve bacağını gövdeyi döndürmeden uzat.','Kısa süre bekle ve kontrollü başlangıca dön.','Her iki tarafı eşit uygula.']}
   ]},
-  6:{name:'Kadın Body 3',focus:'Kalça • göğüs • sırt • omuz • kol • core',exercises:[
+  6:{name:'👩 Kadın 3',focus:'Kalça • göğüs • sırt • omuz • kol • core',exercises:[
     {name:'Direnç Bandı Clamshell',muscles:['Kalça yan kasları'],sets:2,reps:'12–15 / taraf',image:'',cues:['Yan yat, dizlerini bük ve bandı dizlerinin üstüne yerleştir.','Ayaklarını bir arada tutarak üst dizini kontrollü aç.','Kalçanı geriye yuvarlama; hareketi kalçanın yan tarafında hisset.','İki tarafı da eşit uygula.']},
     {name:'Dambıl Glute Bridge',muscles:['Kalça','Arka bacak'],sets:3,reps:'12–15',image:'glute-bridge',cues:['Sırt üstü yat, dizlerini bük ve dambılı kalçanın üzerine güvenli şekilde yerleştir.','Kalçanı sıkıp yukarı kaldır; kaburgalarını aşağıda tut.','Üstte kısa bekle, sonra kontrollü indir.','Önce ağırlıksız öğren; dambıl rahatsız ederse kullanma.']},
     {name:'Dambıl Shoulder Press (Oturarak)',muscles:['Omuz','Triceps'],sets:2,reps:'10–12',image:'seated-db-press',cues:['Sağlam sandalyede veya bench üzerinde sırtını destekleyerek otur.','Dambılları omuz hizasında tut, bileklerini düz tut.','Belini aşırı çukurlaştırmadan yukarı it ve kontrollü indir.']},
@@ -58,51 +54,19 @@ const FATMA_WORKOUTS={  4:{name:'Kadın Body 1',focus:'Kalça • bacak • gö�
     {name:'Dambıl Triceps Extension',muscles:['Triceps'],sets:2,reps:'10–12',image:'overhead-tricep-extension',cues:['Otururken tek dambılı iki elinle güvenli şekilde tut.','Dirseklerini başının yanında tutarak dambılı baş arkası yönünde kontrollü indir.','Dirsek veya omuz rahatsız olursa hareket açıklığını azalt ya da bırak.']},
     {name:'Bench Mekik (Kısa Crunch)',muscles:['Karın','Core'],sets:2,reps:'10–15',image:'decline-crunch',cues:['Yere sırt üstü yat, dizlerini bük ve ellerini göğsünde çaprazla.','Boynunu çekmeden kürek kemiklerini hafifçe yerden kaldır.','Nefes vererek karın kaslarını sık, kontrollü geri dön.']}
   ]}
-};
-let workoutProfile=localStorage.getItem(PROFILE_KEY)==='fatma'?'fatma':'volkan';
-let WORKOUTS=workoutProfile==='fatma'?FATMA_WORKOUTS:VOLKAN_WORKOUTS;
-let activeWorkoutKey=workoutProfile==='fatma'?FATMA_WORKOUT_KEY:WORKOUT_KEY;
-
+});
 const EXERCISE_IDS=Object.fromEntries(Object.values(WORKOUTS).flatMap(w=>w.exercises).map(e=>[e.name,e.image]));
-function setWorkoutProfile(profile){
-  const next=profile==='fatma'?'fatma':'volkan';
-  if(next===workoutProfile)return;
-  if(S.session?.status==='active')pauseWorkout();
-  workoutProfile=next;
-  localStorage.setItem(PROFILE_KEY,workoutProfile);
-  WORKOUTS=workoutProfile==='fatma'?FATMA_WORKOUTS:VOLKAN_WORKOUTS;
-  activeWorkoutKey=workoutProfile==='fatma'?FATMA_WORKOUT_KEY:WORKOUT_KEY;
-  S=loadWorkout();
-  workoutDay=workoutProfile==='fatma'?4:1;
-  selectedExerciseIndex=null;
-  loadSelectedSession();
-  renderWorkoutProfileSwitcher();
-  renderDayTabs();
-  renderWorkout();
-  updateStats();
-}
-function renderWorkoutProfileSwitcher(){
-  document.querySelectorAll('[data-workout-profile]').forEach(button=>{
-    const active=button.dataset.workoutProfile===workoutProfile;
-    button.classList.toggle('active',active);
-    button.setAttribute('aria-pressed',active?'true':'false');
-  });
-  const label=document.querySelector('.workout-list-head strong');
-  if(label)label.textContent=workoutProfile==='fatma'?'Fatma’nın Programı':'Volkan’ın Programı';
-  const subtitle=document.getElementById('workoutSubtitle');
-  if(subtitle)subtitle.textContent=WORKOUTS[workoutDay]?.name||'Antrenman';
-}
-let S=loadWorkout();
-let workoutDay=workoutProfile==='fatma'?4:1;
+let workoutDay=1;
 let selectedExerciseIndex=null;
 let sessionTimer=null;
 let sessionStartedAt=0;
 let sessionElapsedBeforeStart=0;
+let S=loadWorkout();
 
-function emptyState(){return {logs:[],weights:{},done:{},session:null,sessions:{},history:[]};}
+function emptyState(){return {logs:[],weights:{},done:{},session:null,sessions:{},history:[],customExercises:{}};}
 function loadWorkout(){
   try{
-    const v2=JSON.parse(localStorage.getItem(activeWorkoutKey));
+    const v2=JSON.parse(localStorage.getItem(WORKOUT_KEY));
     if(v2)return normalizeWorkout(v2);
     // One-time migration from the previous engine.
     const oldRaw=localStorage.getItem('vk_workout_log_v1');
@@ -114,7 +78,7 @@ function loadWorkout(){
         exercise:x.exercise,sets:Number(x.sets)||0,reps:Number(x.reps)||10,weight:Number(x.weight)||0,
         setDetails:Array.isArray(x.setDetails)?x.setDetails:[]
       }));
-      localStorage.setItem(activeWorkoutKey,JSON.stringify(migrated));
+      localStorage.setItem(WORKOUT_KEY,JSON.stringify(migrated));
       return migrated;
     }
   }catch(e){}
@@ -127,15 +91,16 @@ function normalizeWorkout(v){
   s.done=v.done&&typeof v.done==='object'?v.done:{};
   s.sessions=v.sessions&&typeof v.sessions==='object'?v.sessions:{};
   if(v.session && v.session.day && !s.sessions[v.session.day]) s.sessions[v.session.day]=v.session;
-  s.session=s.sessions[workoutProfile==='fatma'?4:1]||null;
+
   s.history=Array.isArray(v.history)?v.history:[];
+  s.customExercises=v.customExercises&&typeof v.customExercises==='object'?v.customExercises:{};
   return s;
 }
 function saveWorkout(){
   if(!S.sessions||typeof S.sessions!=='object')S.sessions={};
   if(S.session?.day)S.sessions[S.session.day]=S.session;
   const payload={...S,session:S.sessions[workoutDay]||null,sessions:S.sessions};
-  localStorage.setItem(activeWorkoutKey,JSON.stringify(payload));
+  localStorage.setItem(WORKOUT_KEY,JSON.stringify(payload));
 }
 function loadSelectedSession(){
   S.session=S.sessions?.[workoutDay]||null;
@@ -150,6 +115,29 @@ function loadSelectedSession(){
 }
 function todayKey(){const d=new Date();const y=d.getFullYear();const m=String(d.getMonth()+1).padStart(2,'0');const day=String(d.getDate()).padStart(2,'0');return y+'-'+m+'-'+day;}
 function exerciseKey(name){return workoutDay+'_'+name;}
+function getExercises(day=workoutDay){return [...(WORKOUTS[day]?.exercises||[]),...(S.customExercises?.[day]||[])];}
+function addWorkoutExercise(){
+  const input=document.getElementById('workoutExerciseSearch');
+  const name=(input?.value||'').trim();
+  if(!name){input?.focus();return;}
+  const existing=getExercises().find(e=>e.name.toLocaleLowerCase('tr-TR')===name.toLocaleLowerCase('tr-TR'));
+  if(existing){
+    const message=document.getElementById('workoutAddStatus');
+    if(message)message.textContent='Bu hareket zaten listede.';
+    const idx=getExercises().findIndex(e=>e.name===existing.name);
+    document.querySelector('[data-open-exercise="'+idx+'"]')?.scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+  const all=[...new Map(Object.values(WORKOUTS).flatMap(w=>w.exercises).map(e=>[e.name,e])).values()];
+  const known=all.find(e=>e.name.toLocaleLowerCase('tr-TR')===name.toLocaleLowerCase('tr-TR'));
+  const exercise=known?{...known,muscles:[...known.muscles],cues:[...known.cues]}:{name,muscles:['Serbest hareket'],sets:0,reps:'8–12',image:'',cues:['Hareketi kontrollü ve doğru teknikle uygula.','Ağırlık ve tekrarları kendin belirle.','Ağrı hissedersen hareketi durdur.']};
+  if(!S.customExercises[workoutDay])S.customExercises[workoutDay]=[];
+  S.customExercises[workoutDay].push(exercise);
+  if(input)input.value='';
+  const message=document.getElementById('workoutAddStatus');
+  if(message)message.textContent='✓ '+name+' antrenmana eklendi.';
+  saveWorkout();renderWorkout();
+}
 function currentLogs(){return S.logs.filter(x=>x.date===todayKey()&&Number(x.day)===workoutDay);}
 function sessionLogs(){return S.logs.filter(x=>x.sessionId&&x.sessionId===S.session?.id);}
 function formatTime(ms){const s=Math.max(0,Math.floor(ms/1000));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
@@ -169,7 +157,7 @@ function elapsedMs(){return sessionElapsedBeforeStart+(sessionStartedAt?Date.now
 function sessionMinutes(){return Math.round(elapsedMs()/60000);}
 
 function getExerciseLog(index){
-  const ex=WORKOUTS[workoutDay].exercises[index];
+  const ex=getExercises()[index];
   return currentLogs().find(x=>x.exercise===ex.name);
 }
 function getSets(index){return getExerciseLog(index)?.setDetails||[];}
@@ -229,11 +217,11 @@ function workoutComparison(){
   if(!previousVolume)return null;
   return {previous,volumeDiff:Math.round((currentVolume-previousVolume)*10)/10,volumePct:Math.round(((currentVolume-previousVolume)/previousVolume)*100)};
 }
-function doneCount(){return WORKOUTS[workoutDay].exercises.filter(e=>S.done[exerciseKey(e.name)]===todayKey()).length;}
+function doneCount(){return getExercises().filter(e=>S.done[exerciseKey(e.name)]===todayKey()).length;}
 
 function renderDayTabs(){
   const host=document.getElementById('workoutDayTabs');if(!host)return;
-  host.innerHTML=(workoutProfile==='fatma'?[4,5,6]:[1,2,3]).map(d=>'<button class="workout-day '+(d===workoutDay?'active':'')+'" data-day="'+d+'">'+WORKOUTS[d].name+'</button>').join('');
+  host.innerHTML=[1,2,3,4,5,6].map(d=>'<button class="workout-day '+(d===workoutDay?'active':'')+'" data-day="'+d+'" aria-pressed="'+(d===workoutDay?'true':'false')+'">'+WORKOUTS[d].name+'</button>').join('');
 }
 function exerciseHistory(name){
   return S.logs
@@ -274,7 +262,7 @@ function renderWorkout(){
   const plan=WORKOUTS[workoutDay];
   const subtitle=document.getElementById('workoutSubtitle');
   if(subtitle)subtitle.textContent=plan.name;
-  host.innerHTML=plan.exercises.map((ex,i)=>{
+  host.innerHTML=getExercises().map((ex,i)=>{
     const sets=getSets(i), done=S.done[exerciseKey(ex.name)]===todayKey();
     return '<article class="workout-exercise '+(done?'is-done':'')+'">'+
       '<button class="exercise-main" data-open-exercise="'+i+'" type="button">'+
@@ -288,13 +276,13 @@ function renderWorkout(){
     '</article>';
   }).join('');
   const progress=document.querySelector('.workout-list-head span');
-  if(progress)progress.textContent=doneCount()+'/'+plan.exercises.length;
+  if(progress)progress.textContent=doneCount()+'/'+getExercises().length;
   updateStats();
 }
 
 function updateStats(){
   const set=(key,val)=>{const el=document.querySelector('[data-stat="'+key+'"]');if(el)el.textContent=val};
-  set('moves',doneCount()+'/'+WORKOUTS[workoutDay].exercises.length);
+  set('moves',doneCount()+'/'+getExercises().length);
   set('sets',totalSets());
   set('time',sessionMinutes()+' dk');
   set('kcal',workoutCalories());
@@ -412,7 +400,7 @@ function resetWorkoutDay(day=workoutDay){
 
 function openExercise(index){
   selectedExerciseIndex=index;
-  const ex=WORKOUTS[workoutDay].exercises[index];
+  const ex=getExercises()[index];
   const existing=getSets(index);
   document.getElementById('workoutModalTitle').textContent=ex.name;
   document.getElementById('workoutModalMuscle').innerHTML=ex.muscles.map(m=>'<span class="modal-muscle-tag">'+m+'</span>').join('');
@@ -556,9 +544,11 @@ function renderWorkoutProgress(){
 
 function bindWorkout(){
   const page=document.getElementById('workoutPage');if(!page)return;
-  document.querySelectorAll('[data-workout-profile]').forEach(button=>button.addEventListener('click',()=>setWorkoutProfile(button.dataset.workoutProfile)));
-  renderWorkoutProfileSwitcher();
   renderDayTabs();renderWorkout();
+  const options=document.getElementById('workoutExerciseOptions');
+  if(options)options.innerHTML=[...new Set(Object.values(WORKOUTS).flatMap(w=>w.exercises.map(ex=>ex.name)))].sort((a,b)=>a.localeCompare(b,'tr')).map(name=>'<option value="'+name.replace(/&/g,'&amp;').replace(/"/g,'&quot;')+'">').join('');
+  document.getElementById('addWorkoutExerciseButton')?.addEventListener('click',addWorkoutExercise);
+  document.getElementById('workoutExerciseSearch')?.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addWorkoutExercise();}});
   document.getElementById('startWorkoutButton')?.addEventListener('click',startWorkout);
   document.querySelector('.workout-timer-icon')?.addEventListener('click',startWorkout);
   document.getElementById('finishWorkoutButton')?.addEventListener('click',finishWorkout);
