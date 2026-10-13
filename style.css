@@ -906,3 +906,12 @@ body{padding-bottom:150px}
 .female-exercise-modal img{display:block;width:100%;height:100%;min-height:250px;max-height:340px;object-fit:contain;image-rendering:auto;filter:none;transform:translateZ(0);padding:3px}
 #workoutAnimation:has(.female-exercise-modal){height:280px;background:#fff}
 @media(max-width:430px){#workoutAnimation:has(.female-exercise-modal){height:275px}.female-exercise-modal img{min-height:260px;max-height:290px}}
+
+/* Kadın hareket kartı ve detay görselleri: net, kesilmeden, büyük. */
+.female-exercise-visual{display:flex;align-items:center;justify-content:center;background:#fff;overflow:hidden}
+.female-exercise-visual img{display:block;width:100%;height:100%;object-fit:contain;image-rendering:auto;filter:none}
+.female-exercise-modal{width:100%;height:100%;min-height:250px;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:16px;overflow:hidden}
+.female-exercise-modal img{width:100%;height:100%;min-height:250px;max-height:340px;object-fit:contain;image-rendering:auto;filter:none;padding:4px}
+.female-exercise-fallback svg{max-width:100%;max-height:100%;width:100%;height:100%}
+#workoutAnimation:has(.female-exercise-modal){height:280px;background:#fff}
+@media(max-width:430px){#workoutAnimation:has(.female-exercise-modal){height:275px}.female-exercise-modal img{min-height:250px;max-height:290px}}

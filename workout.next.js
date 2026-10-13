@@ -177,26 +177,23 @@ function femaleExerciseSvg(ex){
   const n=(ex.name||'').toLocaleLowerCase('tr-TR');
   const maps=[
     [/squat|sandalyeye/, 'chair-squat.webp'],
-    [/oturarak row|resistance.*row|seated.*row|\brow\b|çekiş/, 'dumbbell-bent-row.webp'],
     [/glute bridge|kalça köprüsü|köprü/, 'band-glute-bridge.webp'],
     [/yana adım|side step|lateral walk/, 'band-side-step.webp'],
     [/clamshell/, 'band-clamshell.webp'],
-    [/biceps curl|biceps|hammer curl|dirsek bükme/, 'dumbbell-biceps-curl.webp'],
-    [/göğüs press|floor press|bench press|dumbbell chest press/, 'dumbbell-floor-press.webp'],
-    [/yana açış|lateral raise|yan omuz/, 'dumbbell-lateral-raise.webp'],
-    [/dış rotasyon|external rotation|omuz dış rotasyon/, 'band-external-rotation.webp'],
-    [/pull-apart|göğüs açma|band pull apart/, 'band-pull-apart.webp'],
-    [/hamstring curl|arka bacak curl/, 'band-hamstring-curl.webp'],
-    [/topuk kaydırma|heel slide/, 'heel-slide.webp'],
-    [/duvar şınav|wall push/, 'wall-push-up.webp'],
-    [/shoulder press|omuz press/, 'dumbbell-lateral-raise.webp']
+    [/biceps curl|biceps|hammer curl/, 'dumbbell-biceps-curl.webp'],
+    [/göğüs press|floor press|bench press/, 'dumbbell-floor-press.webp'],
+    [/yana açış|lateral raise/, 'dumbbell-lateral-raise.webp'],
+    [/oturarak row|bent over row|bent-over row|seated row|bent row/, 'dumbbell-bent-row.webp']
   ];
   const found=maps.find(([pattern])=>pattern.test(n));
-  return 'assets/women/'+(found?found[1]:'chair-squat.webp');
+  // Bilerek yanlış bir egzersiz görseli göstermiyoruz. Görseli olmayan hareketler için kendi hareket çizimi kullanılır.
+  return found ? 'assets/women/'+found[1] : null;
 }
 function imageMarkup(ex){
   if(workoutDay>=4){
-    return '<span class="exercise-visual female-exercise-visual"><img src="'+femaleExerciseSvg(ex)+'" alt="'+ex.name+' hareket gösterimi" loading="eager" decoding="async" onerror="this.onerror=null;this.src=\'assets/women/chair-squat.webp\'"></span>';
+    const src=femaleExerciseSvg(ex);
+    if(src) return '<span class="exercise-visual female-exercise-visual"><img src="'+src+'" alt="'+ex.name+' hareket gösterimi" loading="eager" decoding="async"></span>';
+    return '<span class="exercise-visual female-exercise-visual female-exercise-fallback">'+femaleExerciseSvgFallback(ex)+'</span>';
   }
   const start=exerciseImage(ex.name,'start');
   const peak=exerciseImage(ex.name,'peak');
@@ -456,8 +453,9 @@ function openExercise(index){
   document.getElementById('workoutModalTitle').textContent=ex.name;
   document.getElementById('workoutModalMuscle').innerHTML=ex.muscles.map(m=>'<span class="modal-muscle-tag">'+m+'</span>').join('');
   const start=exerciseImage(ex.name,'start'),peak=exerciseImage(ex.name,'peak');
+  const femaleSrc=workoutDay>=4?femaleExerciseSvg(ex):null;
   document.getElementById('workoutAnimation').innerHTML=workoutDay>=4
-    ? '<div class="exercise-modal-visual female-exercise-modal"><img src="'+femaleExerciseSvg(ex)+'" alt="'+ex.name+' hareket görseli" loading="eager" decoding="async" onerror="this.onerror=null;this.src=\'assets/women/chair-squat.webp\'"></div>'
+    ? (femaleSrc?'<div class="exercise-modal-visual female-exercise-modal"><img src="'+femaleSrc+'" alt="'+ex.name+' hareket görseli" loading="eager" decoding="async"></div>':'<div class="exercise-modal-visual female-exercise-modal female-exercise-fallback">'+femaleExerciseSvgFallback(ex)+'</div>')
     : start?'<div class="exercise-modal-visual"><img src="'+start+'" alt="'+ex.name+'"><img src="'+peak+'" alt="" class="exercise-peak"></div>':'<div class="exercise-modal-fallback">🏋️</div>';
   document.getElementById('workoutCues').innerHTML=ex.cues.map(c=>'<li>'+c+'</li>').join('');
   renderModalSets(existing);
