@@ -170,18 +170,21 @@ function exerciseImage(name,pose='start'){
 function femaleExerciseSvgFallback(ex){
   return '<span class="female-exercise-fallback-icon" aria-hidden="true">🏋️</span>';
 }
-// Kadın programları da erkek programlarında kullanılan, bilinen RepDB görsellerini kullanır.
+// Kadın programlarında da aynı RepDB çizim seti kullanılır; her hareket mümkün olduğunca doğru görsele eşlenir.
 function femaleExerciseSvg(ex,pose='start'){
   const n=(ex.name||'').toLocaleLowerCase('tr-TR').normalize('NFC');
-  // Bu kimlikler erkek programındaki çalışan görsellerle aynıdır; yeni/kırılgan URL üretmeyiz.
   const maps=[
-    {test:/sandalyeye otur-kalk|squat/,id:'dumbbell-romanian-deadlift'},
+    {test:/sandalyeye otur-kalk|squat/,id:'box-squat'},
     {test:/oturarak.*row|row/,id:'seated-cable-row'},
-    {test:/glute bridge|kalça köprüsü|köprü|clamshell/,id:'glute-bridge'},
-    {test:/göğüs press|floor press|bench press|duvar şınavı|wall push/,id:'dumbbell-floor-press'},
-    {test:/pull-apart|göğüs açma|dış rotasyon|external rotation|yana açış|lateral raise/,id:'lateral-raise'},
+    {test:/direnç bandı glute bridge/,id:'banded-glute-bridge'},
+    {test:/glute bridge|kalça köprüsü|köprü/,id:'glute-bridge'},
+    {test:/göğüs press|floor press|bench press/,id:'dumbbell-floor-press'},
+    {test:/pull-apart|göğüs açma/,id:'band-pull-apart'},
+    {test:/clamshell/,id:'banded-clamshell'},
+    {test:/duvar şınavı?|wall push/,id:'wall-push-ups'},
+    {test:/dış rotasyon|external rotation/,id:'cable-external-rotation'},
     {test:/biceps curl|biceps|hammer curl/,id:'bicep-curl'},
-    {test:/dead bug|core|karın/,id:'decline-crunch'}
+    {test:/dead bug|core|karın/,id:'dead-bug'}
   ];
   const found=maps.find(item=>item.test.test(n));
   const id=found?found.id:(ex.image||EXERCISE_IDS[ex.name]);
