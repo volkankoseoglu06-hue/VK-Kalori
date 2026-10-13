@@ -861,3 +861,12 @@ input:focus,select:focus{border-color:#98b9ff;box-shadow:0 0 0 3px #eff6ff}
 #smartFoodResult .smart-product-card img,#smartFoodResult .smart-product-no-image{width:132px;height:132px;flex:0 0 132px;object-fit:contain;border-radius:12px;background:#f2f4f7}
 #smartFoodResult .smart-product-details{min-width:0;flex:1}
 @media(max-width:430px){#smartFoodResult .smart-product-card{gap:10px;padding:12px}#smartFoodResult .smart-product-card img,#smartFoodResult .smart-product-no-image{width:96px;height:96px;flex-basis:96px}}
+
+/* Separate profiles for Volkan and Fatma */
+.workout-profile-switcher{position:fixed;z-index:51;left:50%;bottom:77px;transform:translateX(-50%);width:min(390px,calc(100% - 20px));padding:9px 12px 10px;border:1px solid var(--line);border-radius:17px;background:rgba(255,255,255,.97);box-shadow:0 8px 24px rgba(16,24,40,.12);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.workout-profile-label{font-size:9px;font-weight:900;letter-spacing:.08em;color:var(--muted)}
+.workout-profile-buttons{display:flex;gap:5px}
+.workout-profile-buttons button{border:1px solid #d0d5dd;background:#f8fafc;color:#344054;border-radius:10px;padding:9px 12px;font-size:11px;font-weight:900;min-width:76px}
+.workout-profile-buttons button.active{background:#2563eb;border-color:#2563eb;color:#fff;box-shadow:0 3px 9px rgba(37,99,235,.2)}
+body{padding-bottom:150px}
+@media(max-width:390px){.workout-profile-switcher{bottom:74px;padding:8px 9px}.workout-profile-label{font-size:8px}.workout-profile-buttons button{min-width:66px;padding:8px 10px}}
