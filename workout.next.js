@@ -176,46 +176,45 @@ function exerciseImage(name,pose='start'){
 function femaleExerciseSvg(ex){
   const n=ex.name.toLocaleLowerCase('tr-TR');
   const band=n.includes('band')||n.includes('direnç');
-  let pose='standing';
-  if(n.includes('squat'))pose='squat';
-  else if(n.includes('bridge')||n.includes('köprü'))pose='bridge';
-  else if(n.includes('row'))pose='row';
-  else if(n.includes('press'))pose='press';
-  else if(n.includes('yana adım'))pose='side';
-  else if(n.includes('curl'))pose='curl';
-  else if(n.includes('rotasyon'))pose='rotation';
-  else if(n.includes('clamshell'))pose='clam';
-  else if(n.includes('topuk kaydırma')||n.includes('dead bug'))pose='core';
-  else if(n.includes('duvar şınav'))pose='wall';
-  else if(n.includes('yana açış'))pose='raise';
-  else if(n.includes('face pull'))pose='row';
-  else if(n.includes('bird dog'))pose='bird';
-  const body={
-    standing:'<path d="M90 54 Q75 72 78 94 L72 126 M90 54 Q108 72 105 94 L112 126"/>',
-    squat:'<path d="M90 54 Q74 70 80 84 L102 100 L124 112 M90 54 Q105 69 103 83 L88 99 L68 111"/>',
-    bridge:'<path d="M40 112 L72 103 L100 77 L127 102 L148 112"/>',
-    row:'<path d="M90 55 L83 85 L70 102 M90 55 L103 84 L117 98"/>',
-    press:'<path d="M90 55 L78 78 L77 102 M90 55 L103 78 L104 102"/>',
-    side:'<path d="M90 55 L83 83 L64 111 M90 55 L103 83 L123 111"/>',
-    curl:'<path d="M90 55 L78 78 L88 88 M90 55 L103 78 L94 88"/>',
-    rotation:'<path d="M90 55 L78 78 L65 82 M90 55 L103 78 L116 82"/>',
-    clam:'<path d="M40 106 L76 96 L101 105 L125 96"/>',
-    core:'<path d="M45 105 L80 105 L108 105 L136 105"/>',
-    wall:'<path d="M90 55 L78 78 L60 66 M90 55 L103 78 L120 66"/>',
-    raise:'<path d="M90 55 L75 72 L59 73 M90 55 L106 72 L122 73"/>',
-    bird:'<path d="M70 90 L93 90 L115 75 M93 90 L76 108 L57 108"/>'
+  let pose='standing',label='DURUŞ';
+  if(n.includes('squat')){pose='squat';label='OTUR-KALK';}
+  else if(n.includes('bridge')||n.includes('köprü')){pose='bridge';label='KALÇA KÖPRÜSÜ';}
+  else if(n.includes('row')){pose='row';label='ÇEKİŞ';}
+  else if(n.includes('press')){pose='press';label='GÖĞÜS PRESS';}
+  else if(n.includes('yana adım')){pose='side';label='YANA ADIM';}
+  else if(n.includes('curl')){pose='curl';label='BİCEPS CURL';}
+  else if(n.includes('rotasyon')){pose='rotation';label='DIŞ ROTASYON';}
+  else if(n.includes('clamshell')){pose='clam';label='CLAMSHELL';}
+  else if(n.includes('topuk kaydırma')||n.includes('dead bug')){pose='core';label='CORE';}
+  else if(n.includes('duvar şınav')){pose='wall';label='DUVAR ŞINAVI';}
+  else if(n.includes('yana açış')){pose='raise';label='YANA AÇIŞ';}
+  else if(n.includes('face pull')){pose='row';label='FACE PULL';}
+  else if(n.includes('bird dog')){pose='bird';label='BIRD DOG';}
+  const person={
+    standing:'<path d="M90 53 L83 79 L75 106 L71 119 M90 53 L101 79 L108 106 L113 119"/>',
+    squat:'<path d="M90 53 L80 75 L98 88 L120 98 L135 112 M90 53 L101 75 L88 90 L68 100 L58 112"/>',
+    bridge:'<path d="M30 108 L58 108 L83 96 L103 77 L124 94 L148 108"/>',
+    row:'<path d="M90 53 L82 76 L68 91 L53 96 M90 53 L102 76 L117 91 L135 96"/>',
+    press:'<path d="M90 53 L78 73 L77 95 M90 53 L103 73 L104 95"/>',
+    side:'<path d="M90 53 L80 76 L62 100 L56 116 M90 53 L103 76 L120 100 L130 116"/>',
+    curl:'<path d="M90 53 L78 74 L88 83 M90 53 L103 74 L94 83 L95 91"/>',
+    rotation:'<path d="M90 53 L78 73 L65 76 M90 53 L103 73 L116 76"/>',
+    clam:'<path d="M35 106 L66 98 L91 104 L120 97 L145 106"/>',
+    core:'<path d="M35 106 L67 106 L96 106 L127 106 L147 106"/>',
+    wall:'<path d="M90 53 L78 73 L60 64 M90 53 L103 73 L122 64"/>',
+    raise:'<path d="M90 53 L75 70 L59 70 M90 53 L106 70 L122 70"/>',
+    bird:'<path d="M60 92 L90 92 L115 77 M90 92 L77 111 L58 111"/>'
   }[pose];
-  const bandShape=band?({
-    squat:'<path d="M79 83 Q91 91 103 83" stroke="#ef4f8b" stroke-width="5" fill="none"/>',
-    bridge:'<path d="M92 82 Q103 88 115 82" stroke="#ef4f8b" stroke-width="5" fill="none"/>',
-    row:'<path d="M47 115 Q65 107 82 113 Q101 119 121 111" stroke="#ef4f8b" stroke-width="4" fill="none"/><path d="M71 100 L48 115 M118 98 L121 111" stroke="#ef4f8b" stroke-width="3" fill="none"/>',
-    side:'<path d="M80 82 Q91 87 103 82" stroke="#ef4f8b" stroke-width="5" fill="none"/>',
-    clam:'<path d="M89 99 Q101 103 112 98" stroke="#ef4f8b" stroke-width="5" fill="none"/>',
-    rotation:'<path d="M76 76 L104 76" stroke="#ef4f8b" stroke-width="4" fill="none"/>',
-    raise:'<path d="M59 73 L122 73" stroke="#ef4f8b" stroke-width="4" fill="none"/>'
-  }[pose]||'<path d="M78 76 L103 76" stroke="#ef4f8b" stroke-width="4" fill="none"/>'):'';
-  const bandLabel=band?(pose==='row'?'BANT: AYAKLARDA':(pose==='rotation'?'BANT: DİRSEK YANINDA':(pose==='raise'?'BANT: GÖĞÜS HİZASI':(pose==='bridge'||pose==='squat'||pose==='side'||pose==='clam'?'BANT: DİZ ÜSTÜ':'BANT: HAREKETİNE GÖRE')))):'KADIN MODEL';
-  const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 140"><rect width="180" height="140" rx="18" fill="#eaf6ff"/><ellipse cx="91" cy="124" rx="54" ry="5" fill="#c9d9e8"/><g stroke="#253b55" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none">'+body+'</g><path d="M78 44 Q78 30 91 30 Q105 30 105 44 L102 59 Q91 66 80 59Z" fill="#ec8c69"/><path d="M78 43 Q74 25 91 23 Q110 24 107 45 L102 39 L81 39Z" fill="#4c2f2a"/><path d="M80 50 Q91 58 102 50 L106 74 Q91 83 76 74Z" fill="#f05a96"/><path d="M80 57 L71 79 M102 57 L111 79" stroke="#ec8c69" stroke-width="8" stroke-linecap="round"/><g>'+bandShape+'</g><rect x="4" y="112" width="172" height="24" rx="8" fill="#ffffff" opacity=".92"/><text x="90" y="127" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="700" fill="#b4235b">'+bandLabel+'</text></svg>';
+  const bandPlacement=band?({
+    squat:'<path d="M79 75 Q91 81 102 75" stroke="#ed4d91" stroke-width="5" fill="none"/>',
+    bridge:'<path d="M91 81 Q103 87 115 81" stroke="#ed4d91" stroke-width="5" fill="none"/>',
+    row:'<path d="M50 96 Q90 114 136 96" stroke="#ed4d91" stroke-width="4" fill="none"/>',
+    side:'<path d="M79 75 Q91 81 103 75" stroke="#ed4d91" stroke-width="5" fill="none"/>',
+    clam:'<path d="M88 98 Q103 103 119 97" stroke="#ed4d91" stroke-width="5" fill="none"/>',
+    rotation:'<path d="M77 72 L103 72" stroke="#ed4d91" stroke-width="4" fill="none"/>'
+  }[pose]||'<path d="M78 72 L103 72" stroke="#ed4d91" stroke-width="4" fill="none"/>'):'';
+  const bandNote=band?(pose==='row'?'BANT AYAKLARDA':(pose==='rotation'?'BANT DİRSEK YANINDA':(pose==='bridge'||pose==='squat'||pose==='side'||pose==='clam'?'BANT DİZ ÜSTÜ':'BANT YERLEŞİMİ'))):'KADIN MODEL';
+  const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 140"><rect width="180" height="140" rx="14" fill="#edf7ff"/><ellipse cx="90" cy="120" rx="52" ry="5" fill="#c9d9e8"/><g stroke="#243b53" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none">'+person+'</g><path d="M78 42 Q78 29 91 29 Q105 29 105 42 L102 56 Q91 63 80 56Z" fill="#e8a080"/><path d="M78 41 Q75 24 91 22 Q109 23 107 42 L102 37 L81 37Z" fill="#3d2928"/><path d="M80 49 Q91 57 102 49 L105 70 Q91 78 77 70Z" fill="#e95b97"/><path d="M80 55 L71 75 M102 55 L111 75" stroke="#e8a080" stroke-width="8" stroke-linecap="round"/>'+bandPlacement+'<rect x="5" y="112" width="170" height="23" rx="7" fill="#fff" opacity=".95"/><text x="90" y="122" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" font-weight="700" fill="#29354b">'+label+'</text><text x="90" y="131" text-anchor="middle" font-family="Arial,sans-serif" font-size="6" fill="#b4235b">'+bandNote+'</text></svg>';
   return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
 }
 function imageMarkup(ex){
