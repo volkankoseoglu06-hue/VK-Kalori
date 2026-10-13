@@ -173,71 +173,30 @@ function exerciseImage(name,pose='start'){
   if(!id)return '';
   return 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+id+'-'+pose+'.webp';
 }
-function femaleExerciseSvgFallback(ex){
-  const n=ex.name.toLocaleLowerCase('tr-TR');
-  const band=n.includes('band')||n.includes('direnç');
-  let pose='standing',label='DURUŞ';
-  if(n.includes('squat')){pose='squat';label='OTUR-KALK';}
-  else if(n.includes('bridge')||n.includes('köprü')){pose='bridge';label='KALÇA KÖPRÜSÜ';}
-  else if(n.includes('row')){pose='row';label='ÇEKİŞ';}
-  else if(n.includes('press')){pose='press';label='GÖĞÜS PRESS';}
-  else if(n.includes('yana adım')){pose='side';label='YANA ADIM';}
-  else if(n.includes('curl')){pose='curl';label='BİCEPS CURL';}
-  else if(n.includes('rotasyon')){pose='rotation';label='DIŞ ROTASYON';}
-  else if(n.includes('clamshell')){pose='clam';label='CLAMSHELL';}
-  else if(n.includes('topuk kaydırma')||n.includes('dead bug')){pose='core';label='CORE';}
-  else if(n.includes('duvar şınav')){pose='wall';label='DUVAR ŞINAVI';}
-  else if(n.includes('yana açış')){pose='raise';label='YANA AÇIŞ';}
-  else if(n.includes('face pull')){pose='row';label='FACE PULL';}
-  else if(n.includes('bird dog')){pose='bird';label='BIRD DOG';}
-  const person={
-    standing:'<path d="M90 53 L83 79 L75 106 L71 119 M90 53 L101 79 L108 106 L113 119"/>',
-    squat:'<path d="M90 53 L80 75 L98 88 L120 98 L135 112 M90 53 L101 75 L88 90 L68 100 L58 112"/>',
-    bridge:'<path d="M30 108 L58 108 L83 96 L103 77 L124 94 L148 108"/>',
-    row:'<path d="M90 53 L82 76 L68 91 L53 96 M90 53 L102 76 L117 91 L135 96"/>',
-    press:'<path d="M90 53 L78 73 L77 95 M90 53 L103 73 L104 95"/>',
-    side:'<path d="M90 53 L80 76 L62 100 L56 116 M90 53 L103 76 L120 100 L130 116"/>',
-    curl:'<path d="M90 53 L78 74 L88 83 M90 53 L103 74 L94 83 L95 91"/>',
-    rotation:'<path d="M90 53 L78 73 L65 76 M90 53 L103 73 L116 76"/>',
-    clam:'<path d="M35 106 L66 98 L91 104 L120 97 L145 106"/>',
-    core:'<path d="M35 106 L67 106 L96 106 L127 106 L147 106"/>',
-    wall:'<path d="M90 53 L78 73 L60 64 M90 53 L103 73 L122 64"/>',
-    raise:'<path d="M90 53 L75 70 L59 70 M90 53 L106 70 L122 70"/>',
-    bird:'<path d="M60 92 L90 92 L115 77 M90 92 L77 111 L58 111"/>'
-  }[pose];
-  const bandPlacement=band?({
-    squat:'<path d="M79 75 Q91 81 102 75" stroke="#ed4d91" stroke-width="5" fill="none"/>',
-    bridge:'<path d="M91 81 Q103 87 115 81" stroke="#ed4d91" stroke-width="5" fill="none"/>',
-    row:'<path d="M50 96 Q90 114 136 96" stroke="#ed4d91" stroke-width="4" fill="none"/>',
-    side:'<path d="M79 75 Q91 81 103 75" stroke="#ed4d91" stroke-width="5" fill="none"/>',
-    clam:'<path d="M88 98 Q103 103 119 97" stroke="#ed4d91" stroke-width="5" fill="none"/>',
-    rotation:'<path d="M77 72 L103 72" stroke="#ed4d91" stroke-width="4" fill="none"/>'
-  }[pose]||'<path d="M78 72 L103 72" stroke="#ed4d91" stroke-width="4" fill="none"/>'):'';
-  const bandNote=band?(pose==='row'?'BANT AYAKLARDA':(pose==='rotation'?'BANT DİRSEK YANINDA':(pose==='bridge'||pose==='squat'||pose==='side'||pose==='clam'?'BANT DİZ ÜSTÜ':'BANT YERLEŞİMİ'))):'KADIN MODEL';
-  const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 140"><rect width="180" height="140" rx="14" fill="#edf7ff"/><ellipse cx="90" cy="120" rx="52" ry="5" fill="#c9d9e8"/><g stroke="#243b53" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none">'+person+'</g><path d="M78 42 Q78 29 91 29 Q105 29 105 42 L102 56 Q91 63 80 56Z" fill="#e8a080"/><path d="M78 41 Q75 24 91 22 Q109 23 107 42 L102 37 L81 37Z" fill="#3d2928"/><path d="M80 49 Q91 57 102 49 L105 70 Q91 78 77 70Z" fill="#e95b97"/><path d="M80 55 L71 75 M102 55 L111 75" stroke="#e8a080" stroke-width="8" stroke-linecap="round"/>'+bandPlacement+'<rect x="5" y="112" width="170" height="23" rx="7" fill="#fff" opacity=".95"/><text x="90" y="122" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" font-weight="700" fill="#29354b">'+label+'</text><text x="90" y="131" text-anchor="middle" font-family="Arial,sans-serif" font-size="6" fill="#b4235b">'+bandNote+'</text></svg>';
-  return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
-}
 function femaleExerciseSvg(ex){
-  const n=ex.name.toLocaleLowerCase('tr-TR');
-  const map=[
+  const n=(ex.name||'').toLocaleLowerCase('tr-TR');
+  const maps=[
     [/squat|sandalyeye/, 'chair-squat.webp'],
-    [/yana adım/, 'band-side-step.webp'],
+    [/oturarak row|resistance.*row|seated.*row|\brow\b|çekiş/, 'dumbbell-bent-row.webp'],
     [/glute bridge|kalça köprüsü|köprü/, 'band-glute-bridge.webp'],
+    [/yana adım|side step|lateral walk/, 'band-side-step.webp'],
     [/clamshell/, 'band-clamshell.webp'],
-    [/biceps curl|biceps|hammer curl/, 'dumbbell-biceps-curl.webp'],
-    [/göğüs press|floor press|bench press/, 'dumbbell-floor-press.webp'],
-    [/yana açış|lateral raise/, 'dumbbell-lateral-raise.webp'],
-    [/oturarak row|seated row|row|çekiş|pull-apart/, 'dumbbell-bent-row.webp'],
-    [/dış rotasyon|external rotation/, 'dumbbell-lateral-raise.webp'],
-    [/duvar şınav|wall push/, 'dumbbell-floor-press.webp'],
-    [/topuk kaydırma|heel slide|core/, 'band-glute-bridge.webp']
+    [/biceps curl|biceps|hammer curl|dirsek bükme/, 'dumbbell-biceps-curl.webp'],
+    [/göğüs press|floor press|bench press|dumbbell chest press/, 'dumbbell-floor-press.webp'],
+    [/yana açış|lateral raise|yan omuz/, 'dumbbell-lateral-raise.webp'],
+    [/dış rotasyon|external rotation|omuz dış rotasyon/, 'band-external-rotation.webp'],
+    [/pull-apart|göğüs açma|band pull apart/, 'band-pull-apart.webp'],
+    [/hamstring curl|arka bacak curl/, 'band-hamstring-curl.webp'],
+    [/topuk kaydırma|heel slide/, 'heel-slide.webp'],
+    [/duvar şınav|wall push/, 'wall-push-up.webp'],
+    [/shoulder press|omuz press/, 'dumbbell-lateral-raise.webp']
   ];
-  const match=map.find(([pattern])=>pattern.test(n));
-  return match ? 'assets/women/'+match[1] : femaleExerciseSvgFallback(ex);
+  const found=maps.find(([pattern])=>pattern.test(n));
+  return 'assets/women/'+(found?found[1]:'chair-squat.webp');
 }
 function imageMarkup(ex){
   if(workoutDay>=4){
-    return '<span class="exercise-visual female-exercise-visual"><img src="'+femaleExerciseSvg(ex)+'" alt="'+ex.name+' kadın model hareket gösterimi" loading="lazy"></span>';
+    return '<span class="exercise-visual female-exercise-visual"><img src="'+femaleExerciseSvg(ex)+'" alt="'+ex.name+' hareket gösterimi" loading="eager" decoding="async" onerror="this.onerror=null;this.src=\'assets/women/chair-squat.webp\'"></span>';
   }
   const start=exerciseImage(ex.name,'start');
   const peak=exerciseImage(ex.name,'peak');
@@ -498,7 +457,7 @@ function openExercise(index){
   document.getElementById('workoutModalMuscle').innerHTML=ex.muscles.map(m=>'<span class="modal-muscle-tag">'+m+'</span>').join('');
   const start=exerciseImage(ex.name,'start'),peak=exerciseImage(ex.name,'peak');
   document.getElementById('workoutAnimation').innerHTML=workoutDay>=4
-    ? '<div class="exercise-modal-visual female-exercise-modal"><img src="'+femaleExerciseSvg(ex)+'" alt="'+ex.name+' hareket görseli" loading="eager"></div>'
+    ? '<div class="exercise-modal-visual female-exercise-modal"><img src="'+femaleExerciseSvg(ex)+'" alt="'+ex.name+' hareket görseli" loading="eager" decoding="async" onerror="this.onerror=null;this.src=\'assets/women/chair-squat.webp\'"></div>'
     : start?'<div class="exercise-modal-visual"><img src="'+start+'" alt="'+ex.name+'"><img src="'+peak+'" alt="" class="exercise-peak"></div>':'<div class="exercise-modal-fallback">🏋️</div>';
   document.getElementById('workoutCues').innerHTML=ex.cues.map(c=>'<li>'+c+'</li>').join('');
   renderModalSets(existing);
