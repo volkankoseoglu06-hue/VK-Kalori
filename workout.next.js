@@ -179,18 +179,18 @@ function femaleExerciseSvgFallback(ex){
 function femaleExerciseSvg(ex){
   const n=(ex.name||'').toLocaleLowerCase('tr-TR').normalize('NFC');
   const maps=[
-    {test:/sandalyeye squat|squat/,file:'chair-squat.webp'},
-    {test:/oturarak row|seated.*row|\brow\b/,file:'dumbbell-bent-row.webp'},
-    {test:/glute bridge|kalça köprüsü|köprü/,file:'band-glute-bridge.webp'},
-    {test:/göğüs press|floor press|bench press/,file:'dumbbell-floor-press.webp'},
-    {test:/yana adım|side step|lateral walk/,file:'band-side-step.webp'},
-    {test:/biceps curl|biceps|hammer curl/,file:'dumbbell-biceps-curl.webp'},
+    {test:/sandalyeye squat|squat/,file:'chair-squat.svg'},
+    {test:/oturarak row|seated.*row|\brow\b/,file:'seated-band-row.svg'},
+    {test:/glute bridge|kalça köprüsü|köprü/,file:'glute-bridge.svg'},
+    {test:/göğüs press|floor press|bench press/,file:'floor-chest-press.svg'},
+    {test:/yana adım|side step|lateral walk/,file:'band-side-step.svg'},
+    {test:/biceps curl|biceps|hammer curl/,file:'seated-biceps-curl.svg'},
     {test:/dış rotasyon|external rotation/,file:'band-external-rotation.svg'},
     {test:/topuk kaydırma|heel slide/,file:'heel-slide.svg'},
     {test:/pull-apart|göğüs açma/,file:'band-pull-apart.svg'},
-    {test:/clamshell/,file:'band-clamshell.webp'},
+    {test:/clamshell/,file:'clamshell.svg'},
     {test:/duvar şınavı?|wall push/,file:'wall-pushup.svg'},
-    {test:/yana açış|lateral raise/,file:'dumbbell-lateral-raise.webp'}
+    {test:/yana açış|lateral raise/,file:'seated-lateral-raise.svg'}
   ];
   const found=maps.find(item=>item.test.test(n));
   return found ? 'assets/women/'+found.file : null;
