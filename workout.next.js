@@ -170,37 +170,36 @@ function exerciseImage(name,pose='start'){
 function femaleExerciseSvgFallback(ex){
   return '<span class="female-exercise-fallback-icon" aria-hidden="true">🏋️</span>';
 }
+// Kadın programlarında da aynı RepDB erkek hareket animasyonları kullanılır.
 function femaleExerciseSvg(ex){
+  const id=EXERCISE_IDS[ex.name];
+  if(id) return exerciseImage(ex.name,'start');
   const n=(ex.name||'').toLocaleLowerCase('tr-TR').normalize('NFC');
-  const slug=ex.repdbImage||ex.image||'';
-  const known=slug && /^(band-external-rotation|band-pull-apart|band-side-step|chair-squat|clamshell|floor-chest-press|glute-bridge|heel-slide|seated-band-row|seated-biceps-curl|seated-lateral-raise|wall-pushup)$/.test(slug);
-  if(known) return 'assets/women/'+slug+'.svg';
   const maps=[
-    {test:/sandalyeye otur-kalk|squat/,id:'chair-squat'},
-    {test:/oturarak.*row|row/,id:'seated-band-row'},
-    {test:/glute bridge|kalça köprüsü|köprü/,id:'glute-bridge'},
-    {test:/göğüs press|floor press|bench press/,id:'floor-chest-press'},
+    {test:/sandalyeye otur-kalk|squat/,id:'box-squat'},
+    {test:/oturarak.*row|row/,id:'single-arm-db-row'},
+    {test:/glute bridge|kalça köprüsü|köprü/,id:'banded-glute-bridge'},
+    {test:/göğüs press|floor press|bench press/,id:'dumbbell-floor-press'},
     {test:/pull-apart|göğüs açma/,id:'band-pull-apart'},
-    {test:/biceps curl|biceps|hammer curl/,id:'seated-biceps-curl'},
-    {test:/clamshell/,id:'clamshell'},
-    {test:/duvar şınavı?|wall push/,id:'wall-pushup'},
-    {test:/yana açış|lateral raise/,id:'seated-lateral-raise'},
-    {test:/dead bug|core|karın/,id:'heel-slide'}
+    {test:/biceps curl|biceps|hammer curl/,id:'bicep-curl'},
+    {test:/clamshell/,id:'banded-clamshell'},
+    {test:/duvar şınavı?|wall push/,id:'wall-push-ups'},
+    {test:/yana açış|lateral raise/,id:'seated-dumbbell-lateral-raise'},
+    {test:/dead bug|core|karın/,id:'dead-bug'}
   ];
   const found=maps.find(item=>item.test.test(n));
-  return found ? 'assets/women/'+found.id+'.svg' : null;
+  return found ? 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+found.id+'-start.webp' : null;
 }
 function imageMarkup(ex){
-  if(workoutDay>=4){
-    const src=femaleExerciseSvg(ex);
-    if(src) return '<span class="exercise-visual female-exercise-visual female-motion"><img src="'+src+'" alt="'+ex.name+' hareket gösterimi" loading="eager" decoding="async"></span>';
-    return '<span class="exercise-visual female-exercise-visual female-exercise-fallback">'+femaleExerciseSvgFallback(ex)+'</span>';
-  }
-  const start=exerciseImage(ex.name,'start');
-  const peak=exerciseImage(ex.name,'peak');
+  const start=workoutDay>=4?femaleExerciseSvg(ex):exerciseImage(ex.name,'start');
+  const peak=workoutDay>=4?null:exerciseImage(ex.name,'peak');
   if(!start)return '<span class="exercise-visual exercise-fallback">🏋️</span>';
-  const fallback=ex.name.includes('Glute Bridge')?'🍑':'🏋️';
-  return '<span class="exercise-visual"><img src="'+start+'" alt="'+ex.name+'" loading="lazy" onerror="this.style.display=\'none\';this.parentNode.classList.add(\'exercise-fallback\');this.parentNode.insertAdjacentText(\'beforeend\',\''+fallback+'\');"><img src="'+peak+'" alt="" class="exercise-peak" loading="lazy" onerror="this.remove()"></span>';
+  const fallback=ex.name.toLocaleLowerCase('tr-TR').includes('glute bridge')?'🍑':'🏋️';
+  const safeName=ex.name.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+  if(workoutDay>=4){
+    return '<span class="exercise-visual"><img src="'+start+'" alt="'+safeName+' hareket gösterimi" loading="lazy" onerror="this.style.display=\'none\';this.parentNode.classList.add(\'exercise-fallback\');this.parentNode.insertAdjacentText(\'beforeend\',\''+fallback+'\');"><img src="'+(femaleExerciseSvg(ex)||'')+'" alt="" class="exercise-peak" loading="lazy" onerror="this.remove()"></span>';
+  }
+  return '<span class="exercise-visual"><img src="'+start+'" alt="'+safeName+'" loading="lazy" onerror="this.style.display=\'none\';this.parentNode.classList.add(\'exercise-fallback\');this.parentNode.insertAdjacentText(\'beforeend\',\''+fallback+'\');"><img src="'+peak+'" alt="" class="exercise-peak" loading="lazy" onerror="this.remove()"></span>';
 }
 function elapsedMs(){return sessionElapsedBeforeStart+(sessionStartedAt?Date.now()-sessionStartedAt:0);}
 function sessionMinutes(){return Math.round(elapsedMs()/60000);}
@@ -456,7 +455,7 @@ function openExercise(index){
   const start=exerciseImage(ex.name,'start'),peak=exerciseImage(ex.name,'peak');
   const femaleSrc=workoutDay>=4?femaleExerciseSvg(ex):null;
   document.getElementById('workoutAnimation').innerHTML=workoutDay>=4
-    ? (femaleSrc?'<div class="exercise-modal-visual female-exercise-modal female-motion"><img src="'+femaleSrc+'" alt="'+ex.name+' hareket görseli" loading="eager" decoding="async"></div>':'<div class="exercise-modal-visual female-exercise-modal female-exercise-fallback">'+femaleExerciseSvgFallback(ex)+'</div>')
+    ? (femaleSrc?'<div class="exercise-modal-visual"><img src="'+femaleSrc+'" alt="'+ex.name+' hareket görseli" loading="eager" decoding="async"><img src="'+femaleSrc.replace(/-start\.webp$/,'-peak.webp')+'" alt="" class="exercise-peak" loading="eager" onerror="this.remove()"></div>':'<div class="exercise-modal-fallback">🏋️</div>')
     : start?'<div class="exercise-modal-visual"><img src="'+start+'" alt="'+ex.name+'"><img src="'+peak+'" alt="" class="exercise-peak"></div>':'<div class="exercise-modal-fallback">🏋️</div>';
   document.getElementById('workoutCues').innerHTML=ex.cues.map(c=>'<li>'+c+'</li>').join('');
   renderModalSets(existing);
