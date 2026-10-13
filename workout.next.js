@@ -480,7 +480,9 @@ function openExercise(index){
   document.getElementById('workoutModalTitle').textContent=ex.name;
   document.getElementById('workoutModalMuscle').innerHTML=ex.muscles.map(m=>'<span class="modal-muscle-tag">'+m+'</span>').join('');
   const start=exerciseImage(ex.name,'start'),peak=exerciseImage(ex.name,'peak');
-  document.getElementById('workoutAnimation').innerHTML=start?'<div class="exercise-modal-visual"><img src="'+start+'" alt="'+ex.name+'"><img src="'+peak+'" alt="" class="exercise-peak"></div>':'<div class="exercise-modal-fallback">🏋️</div>';
+  document.getElementById('workoutAnimation').innerHTML=workoutDay>=4
+    ? '<div class="exercise-modal-visual female-exercise-modal">'+imageMarkup(ex)+'</div>'
+    : start?'<div class="exercise-modal-visual"><img src="'+start+'" alt="'+ex.name+'"><img src="'+peak+'" alt="" class="exercise-peak"></div>':'<div class="exercise-modal-fallback">🏋️</div>';
   document.getElementById('workoutCues').innerHTML=ex.cues.map(c=>'<li>'+c+'</li>').join('');
   renderModalSets(existing);
   const rec=progressionRecommendation(ex);
