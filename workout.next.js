@@ -225,7 +225,7 @@ function femaleExerciseSvg(ex,pose='start'){
   return id ? 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+id+'-'+pose+'.webp' : null;
 }
 function imageMarkup(ex){
-  if(isSeatedBandRow(ex)) return '<span class="exercise-visual seated-band-row-visual"><img src="'+seatedBandRowIllustration()+'" alt="Oturarak direnç bandı row: başlangıç ve çekiş pozisyonları" loading="lazy"></span>';
+  if(isSeatedBandRow(ex)) return '<span class="exercise-visual"><img src="'+exerciseImage('Direnç Bandı Oturarak Row','start')+'" alt="Oturarak direnç bandı row hareket görseli" loading="lazy"><img src="'+exerciseImage('Direnç Bandı Oturarak Row','peak')+'" alt="" class="exercise-peak" loading="lazy" onerror="this.remove()"></span>';
   const start=workoutDay>=4?femaleExerciseSvg(ex,'start'):exerciseImage(ex.name,'start');
   const peak=workoutDay>=4?femaleExerciseSvg(ex,'peak'):exerciseImage(ex.name,'peak');
   if(!start)return '<span class="exercise-visual exercise-fallback">🏋️</span>';
@@ -490,7 +490,7 @@ function openExercise(index){
   const start=exerciseImage(ex.name,'start'),peak=exerciseImage(ex.name,'peak');
   const femaleSrc=workoutDay>=4?femaleExerciseSvg(ex,'start'):null;
   document.getElementById('workoutAnimation').innerHTML=isSeatedBandRow(ex)
-    ? '<div class="exercise-modal-visual seated-band-row-modal"><img src="'+seatedBandRowIllustration()+'" alt="Oturarak direnç bandı row başlangıç ve çekiş pozisyonları" loading="eager" decoding="async"></div>'
+    ? '<div class="exercise-modal-visual"><img src="'+exerciseImage('Direnç Bandı Oturarak Row','start')+'" alt="'+ex.name+' hareket görseli" loading="eager"><img src="'+exerciseImage('Direnç Bandı Oturarak Row','peak')+'" alt="" class="exercise-peak" loading="eager" onerror="this.remove()"></div>'
     : workoutDay>=4
       ? (femaleSrc?'<div class="exercise-modal-visual"><img src="'+femaleSrc+'" alt="'+ex.name+' hareket görseli" loading="eager" decoding="async"><img src="'+femaleExerciseSvg(ex,'peak')+'" alt="" class="exercise-peak" loading="eager" onerror="this.remove()"></div>':'<div class="exercise-modal-fallback">🏋️</div>')
       : start?'<div class="exercise-modal-visual"><img src="'+start+'" alt="'+ex.name+'"><img src="'+peak+'" alt="" class="exercise-peak"></div>':'<div class="exercise-modal-fallback">🏋️</div>';
