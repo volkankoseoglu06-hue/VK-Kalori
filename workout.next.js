@@ -178,23 +178,23 @@ function femaleExerciseSvgFallback(ex){
   return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-label="'+label+' görseli hazırlanıyor"><rect width="320" height="240" rx="18" fill="#fff"/><circle cx="160" cy="46" r="20" fill="#d9a184"/><path d="M140 68 Q160 60 180 68 L194 124 L181 159 L139 159 L126 124Z" fill="#202a3a"/><path d="M140 78 L108 116 L84 130" fill="none" stroke="#d9a184" stroke-width="13" stroke-linecap="round"/><path d="M180 78 L211 112 L236 125" fill="none" stroke="#d9a184" stroke-width="13" stroke-linecap="round"/><path d="M143 155 L132 203 L119 221 M177 155 L188 203 L201 221" fill="none" stroke="#202a3a" stroke-width="18" stroke-linecap="round"/><text x="160" y="235" text-anchor="middle" font-size="11" fill="#4b5563">'+label+'</text></svg>';
 }
 function femaleExerciseSvg(ex){
-  const n=(ex.name||'').toLocaleLowerCase('tr-TR');
+  const n=(ex.name||'').toLocaleLowerCase('tr-TR').normalize('NFC');
   const maps=[
-    [/squat|sandalyeye/, 'chair-squat.svg'],
-    [/oturarak row|row/, 'seated-band-row.svg'],
-    [/glute bridge|kalça köprüsü|köprü/, 'glute-bridge.svg'],
-    [/göğüs press|floor press|bench press/, 'floor-chest-press.svg'],
-    [/yana adım|side step|lateral walk/, 'band-side-step.svg'],
-    [/biceps curl|biceps|hammer curl/, 'seated-biceps-curl.svg'],
-    [/dış rotasyon|external rotation/, 'band-external-rotation.svg'],
-    [/topuk kaydırma|heel slide/, 'heel-slide.svg'],
-    [/pull-apart|göğüs açma/, 'band-pull-apart.svg'],
-    [/clamshell/, 'clamshell.svg'],
-    [/duvar şınav|wall push/, 'wall-pushup.svg'],
-    [/yana açış|lateral raise/, 'seated-lateral-raise.svg']
+    {test:/sandalyeye squat|squat/,file:'chair-squat.svg'},
+    {test:/oturarak row|direnç bandı oturarak row|seated.*row|\brow\b/,file:'seated-band-row.svg'},
+    {test:/glute bridge|kalça köprüsü|köprü/,file:'glute-bridge.svg'},
+    {test:/göğüs press|floor press|bench press/,file:'floor-chest-press.svg'},
+    {test:/yana adım|side step|lateral walk/,file:'band-side-step.svg'},
+    {test:/biceps curl|biceps|hammer curl/,file:'seated-biceps-curl.svg'},
+    {test:/dış rotasyon|external rotation/,file:'band-external-rotation.svg'},
+    {test:/topuk kaydırma|heel slide/,file:'heel-slide.svg'},
+    {test:/pull-apart|göğüs açma/,file:'band-pull-apart.svg'},
+    {test:/clamshell/,file:'clamshell.svg'},
+    {test:/duvar şınavı?|wall push/,file:'wall-pushup.svg'},
+    {test:/yana açış|lateral raise/,file:'seated-lateral-raise.svg'}
   ];
-  const found=maps.find(([pattern])=>pattern.test(n));
-  return found ? 'assets/women/'+found[1] : null;
+  const found=maps.find(item=>item.test.test(n));
+  return found ? 'assets/women/'+found.file : null;
 }
 function imageMarkup(ex){
   if(workoutDay>=4){
