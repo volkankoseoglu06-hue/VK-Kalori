@@ -167,6 +167,40 @@ function exerciseImage(name,pose='start'){
   if(!id)return '';
   return 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+id+'-'+pose+'.webp';
 }
+
+function seatedBandRowIllustration(){
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" role="img" aria-label="Oturarak direnç bandı row başlangıç ve çekiş pozisyonları">
+    <rect width="760" height="340" rx="22" fill="#f5f8fb"/>
+    <rect x="12" y="12" width="362" height="316" rx="16" fill="#fff" stroke="#dce5ed"/>
+    <rect x="386" y="12" width="362" height="316" rx="16" fill="#fff" stroke="#dce5ed"/>
+    <text x="193" y="42" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#24445a">1. BAŞLANGIÇ</text>
+    <text x="567" y="42" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#24445a">2. BANDI ÇEK</text>
+    <g stroke="#304b5e" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <circle cx="104" cy="99" r="19" fill="#f1c9a7" stroke-width="5"/>
+      <path d="M115 123 L144 180 L199 202 M144 180 L126 235 L89 260 M199 202 L249 214 L292 214 M126 235 L187 250 L239 250"/>
+      <path d="M89 260 L239 260" stroke-width="4" stroke="#9aa9b5"/>
+      <path d="M292 214 L316 214" stroke-width="4" stroke="#9aa9b5"/>
+    </g>
+    <path d="M316 214 L292 214 Q252 210 216 207 Q180 204 160 184" fill="none" stroke="#18a7a1" stroke-width="5" stroke-linecap="round"/>
+    <g stroke="#304b5e" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <circle cx="478" cy="99" r="19" fill="#f1c9a7" stroke-width="5"/>
+      <path d="M489 123 L518 180 L573 202 M518 180 L500 235 L463 260 M573 202 L602 202 M500 235 L561 250 L613 250"/>
+      <path d="M463 260 L613 260" stroke-width="4" stroke="#9aa9b5"/>
+      <path d="M613 250 L635 250" stroke-width="4" stroke="#9aa9b5"/>
+      <path d="M573 202 L588 181 L612 185" stroke="#304b5e"/>
+    </g>
+    <path d="M635 250 L635 202 Q605 200 580 202 Q552 202 534 181" fill="none" stroke="#18a7a1" stroke-width="5" stroke-linecap="round"/>
+    <path d="M612 185 L618 188 L615 179" fill="none" stroke="#18a7a1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="193" y="300" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" fill="#506575">Kollar önde, band hafif gergin</text>
+    <text x="567" y="300" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" fill="#506575">Dirsekler geriye, gövde sabit</text>
+    <text x="380" y="326" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" fill="#60798a">Boyun rahat • Omuzlar aşağıda • Bandı yavaşça geri bırak</text>
+  </svg>`;
+  return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+}
+function isSeatedBandRow(ex){
+  return /oturarak.*row|direnç bandı.*row/i.test(ex.name||'');
+}
+
 function femaleExerciseSvgFallback(ex){
   return '<span class="female-exercise-fallback-icon" aria-hidden="true">🏋️</span>';
 }
@@ -191,6 +225,7 @@ function femaleExerciseSvg(ex,pose='start'){
   return id ? 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+id+'-'+pose+'.webp' : null;
 }
 function imageMarkup(ex){
+  if(isSeatedBandRow(ex)) return '<span class="exercise-visual seated-band-row-visual"><img src="'+seatedBandRowIllustration()+'" alt="Oturarak direnç bandı row: başlangıç ve çekiş pozisyonları" loading="lazy"></span>';
   const start=workoutDay>=4?femaleExerciseSvg(ex,'start'):exerciseImage(ex.name,'start');
   const peak=workoutDay>=4?femaleExerciseSvg(ex,'peak'):exerciseImage(ex.name,'peak');
   if(!start)return '<span class="exercise-visual exercise-fallback">🏋️</span>';
@@ -454,9 +489,11 @@ function openExercise(index){
   document.getElementById('workoutModalMuscle').innerHTML=ex.muscles.map(m=>'<span class="modal-muscle-tag">'+m+'</span>').join('');
   const start=exerciseImage(ex.name,'start'),peak=exerciseImage(ex.name,'peak');
   const femaleSrc=workoutDay>=4?femaleExerciseSvg(ex,'start'):null;
-  document.getElementById('workoutAnimation').innerHTML=workoutDay>=4
-    ? (femaleSrc?'<div class="exercise-modal-visual"><img src="'+femaleSrc+'" alt="'+ex.name+' hareket görseli" loading="eager" decoding="async"><img src="'+femaleExerciseSvg(ex,'peak')+'" alt="" class="exercise-peak" loading="eager" onerror="this.remove()"></div>':'<div class="exercise-modal-fallback">🏋️</div>')
-    : start?'<div class="exercise-modal-visual"><img src="'+start+'" alt="'+ex.name+'"><img src="'+peak+'" alt="" class="exercise-peak"></div>':'<div class="exercise-modal-fallback">🏋️</div>';
+  document.getElementById('workoutAnimation').innerHTML=isSeatedBandRow(ex)
+    ? '<div class="exercise-modal-visual seated-band-row-modal"><img src="'+seatedBandRowIllustration()+'" alt="Oturarak direnç bandı row başlangıç ve çekiş pozisyonları" loading="eager" decoding="async"></div>'
+    : workoutDay>=4
+      ? (femaleSrc?'<div class="exercise-modal-visual"><img src="'+femaleSrc+'" alt="'+ex.name+' hareket görseli" loading="eager" decoding="async"><img src="'+femaleExerciseSvg(ex,'peak')+'" alt="" class="exercise-peak" loading="eager" onerror="this.remove()"></div>':'<div class="exercise-modal-fallback">🏋️</div>')
+      : start?'<div class="exercise-modal-visual"><img src="'+start+'" alt="'+ex.name+'"><img src="'+peak+'" alt="" class="exercise-peak"></div>':'<div class="exercise-modal-fallback">🏋️</div>';
   document.getElementById('workoutCues').innerHTML=ex.cues.map(c=>'<li>'+c+'</li>').join('');
   renderModalSets(existing);
   const rec=progressionRecommendation(ex);
