@@ -32,26 +32,26 @@ const WORKOUTS={
 Object.assign(WORKOUTS,{
   4:{name:'👩 Kadın 1',focus:'Tüm vücut • başlangıç • dambıl ve direnç bandı',exercises:[
     {name:'Sandalyeye Squat',muscles:['Ön bacak','Kalça'],sets:2,reps:'8–12',image:'',cues:['Sandalyeyi duvara dayayıp sabitle; ayaklarını kalça-omuz genişliğinde aç.','Kalçanı geriye gönderip sandalyeye kontrollü dokun ve kalk.','Dizlerin ayak parmaklarınla aynı yönde kalsın; gerekirse ellerinle destek al.','Boynunu nötr tut. Ağrı veya belirtilerde artış olursa dur.']},
-    {name:'Direnç Bandı Oturarak Row',muscles:['Sırt','Kürek kemikleri','Biceps'],sets:2,reps:'10–12',image:'seated-cable-row',cues:['Yere oturup bandı ayaklarının orta kısmına güvenli yerleştir.','Dik otur, omuzlarını aşağıda tut ve bandı göbek hizana çek.','Dirsekleri gövdene yakın götür; yavaşça başlangıca dön.','Boynunu öne uzatma ve gövdeni geriye savurma.']},
-    {name:'Direnç Bandı Glute Bridge',muscles:['Kalça','Arka bacak'],sets:2,reps:'10–12',image:'glute-bridge',cues:['Sırt üstü yat, dizlerini bük; bandı dizlerinin hemen üstüne yerleştir.','Başını ve boynunu yerde rahat tut.','Kalçanı sıkıp kaldır; belini aşırı çukurlaştırma.','Kontrollü indir ve nefes almaya devam et.']},
-    {name:'Dambıl Göğüs Press (Yerde)',muscles:['Göğüs','Triceps'],sets:2,reps:'10–12',image:'db-bench-press',cues:['Yere sırt üstü yat; başını ve boynunu rahat tut.','Hafif dambılları göğsünün yanında tut, dirsekleri gövdene çok açma.','Dambılları yukarı itip kontrollü indir.','Başını kaldırma; boyun veya omuz belirtileri artarsa dur.']},
+    {name:'Tek Kol Dambıl Row (Bench Destekli)',muscles:['Sırt','Arka omuz','Biceps'],sets:2,reps:'10–12',image:'single-arm-db-row',cues:['Yere oturup bandı ayaklarının orta kısmına güvenli yerleştir.','Dik otur, omuzlarını aşağıda tut ve bandı göbek hizana çek.','Dirsekleri gövdene yakın götür; yavaşça başlangıca dön.','Boynunu öne uzatma ve gövdeni geriye savurma.']},
+    {name:'Direnç Bandı Glute Bridge',muscles:['Kalça','Arka bacak'],sets:2,reps:'10–12',image:'banded-glute-bridge',cues:['Sırt üstü yat, dizlerini bük; bandı dizlerinin hemen üstüne yerleştir.','Başını ve boynunu yerde rahat tut.','Kalçanı sıkıp kaldır; belini aşırı çukurlaştırma.','Kontrollü indir ve nefes almaya devam et.']},
+    {name:'Dambıl Göğüs Press (Yerde)',muscles:['Göğüs','Triceps'],sets:2,reps:'10–12',image:'dumbbell-floor-press',cues:['Yere sırt üstü yat; başını ve boynunu rahat tut.','Hafif dambılları göğsünün yanında tut, dirsekleri gövdene çok açma.','Dambılları yukarı itip kontrollü indir.','Başını kaldırma; boyun veya omuz belirtileri artarsa dur.']},
     {name:'Oturarak Dambıl Biceps Curl',muscles:['Biceps','Ön kol'],sets:2,reps:'10–12',image:'bicep-curl',cues:['Sırtı destekli sandalyeye otur; hafif dambılları yanlarında tut.','Dirseklerini gövdene yakın sabitle, dambılları kontrollü kaldır.','Omuzlarını yukarı çekme ve gövdeni sallama.','Ağırlığı yavaşça indir.']},
-    {name:'Sırt Üstü Topuk Kaydırma',muscles:['Karın','Core'],sets:2,reps:'8–10 / taraf',image:'',cues:['Sırt üstü yat, dizlerini bük; başın yerde rahat kalsın.','Karnını hafifçe sıkıp bir topuğunu ileri kaydır ve geri getir.','Belini rahat konumda tut, nefesini tutma.','Boynunu kaldırma; rahatsızlık olursa bırak.']}
+    {name:'Dead Bug (Kontrollü Karın)',muscles:['Karın','Core'],sets:2,reps:'8–10 / taraf',image:'dead-bug',cues:['Sırt üstü yat, dizlerini bük; başın yerde rahat kalsın.','Karnını hafifçe sıkıp bir topuğunu ileri kaydır ve geri getir.','Belini rahat konumda tut, nefesini tutma.','Boynunu kaldırma; rahatsızlık olursa bırak.']}
   ]},
   5:{name:'👩 Kadın 2',focus:'Tüm vücut • duruş desteği • hafif direnç',exercises:[
     {name:'Sandalyeye Squat (Destekli)',muscles:['Ön bacak','Kalça'],sets:2,reps:'8–12',image:'',cues:['Sandalyeyi duvara sabitle; gerekirse sağlam bir yere tutun.','Kalçanı geriye göndererek yavaşça oturup kalk.','Dizlerini ayak yönünde tut; boynunu nötr koru.','Ağrısız aralıkta çalış; ağrı artarsa dur.']},
     {name:'Direnç Bandı Göğüs Açma (Hafif Pull-Apart)',muscles:['Üst sırt','Arka omuz'],sets:2,reps:'8–12',image:'',cues:['Bandı göğüs hizasında, kollarını önde ve omuzlarını rahat tutarak kavra.','Dirsekleri kilitlemeden bandı hafifçe iki yana aç.','Kürek kemiklerini nazikçe yaklaştır; omuzlarını kulaklarına çekme.','Bandı yüz hizasına veya baş üstüne kaldırma; ağrı olursa bırak.']},
     {name:'Direnç Bandı Clamshell',muscles:['Kalça yan kasları'],sets:2,reps:'10–12 / taraf',image:'',cues:['Yan yat, dizlerini bük; başını yastık veya katlı havluyla nötr hizada destekle.','Bandı dizlerinin üstüne yerleştir ve ayaklarını bir arada tut.','Üst dizini kontrollü aç, sonra yavaşça kapat.','Kalçanı geriye yuvarlama; iki tarafı da uygula.']},
-    {name:'Direnç Bandı Oturarak Row',muscles:['Sırt','Biceps'],sets:2,reps:'10–12',image:'seated-cable-row',cues:['Bandı ayaklarının orta kısmına güvenli yerleştir ve dik otur.','Boynunu nötr tutup bandı gövdene doğru çek.','Dirsekleri gövdeye yakın götür; omuzlarını aşağıda tut.','Kontrollü şekilde başlangıca dön.']},
+    {name:'Tek Kol Dambıl Row (Bench Destekli)',muscles:['Sırt','Biceps'],sets:2,reps:'10–12',image:'single-arm-db-row',cues:['Bandı ayaklarının orta kısmına güvenli yerleştir ve dik otur.','Boynunu nötr tutup bandı gövdene doğru çek.','Dirsekleri gövdeye yakın götür; omuzlarını aşağıda tut.','Kontrollü şekilde başlangıca dön.']},
     {name:'Dambıl Göğüs Press (Yerde)',muscles:['Göğüs','Triceps'],sets:2,reps:'10–12',image:'db-bench-press',cues:['Sırt üstü yat; başın ve boynun rahat olsun.','Hafif dambılları göğüs yanından yukarı it.','Dirseklerini çok yana açmadan ağırlığı yavaşça indir.','Başını kaldırma; belirtiler artarsa bırak.']},
     {name:'Direnç Bandı Dış Rotasyon',muscles:['Omuz çevresi','Rotator cuff'],sets:2,reps:'10–12',image:'',cues:['Dirseklerini gövdene yakın ve 90 derece bükülü tut.','Hafif bandı kullanarak ellerini küçük bir aralıkta dışa aç.','Omuzlarını aşağıda ve boynunu nötr tut.','Ağrı, karıncalanma veya kola yayılan belirti olursa dur.']}
   ]},
   6:{name:'👩 Kadın 3',focus:'Tüm vücut • kontrollü güç • hafif dambıl ve band',exercises:[
     {name:'Sandalyeye Squat (Kontrollü)',muscles:['Ön bacak','Kalça'],sets:2,reps:'8–12',image:'',cues:['Sağlam sandalyeyi duvara dayayarak sabitle; ayaklarını rahat genişlikte aç.','Kalçanı geriye gönderip sandalyeye kontrollü dokun ve kalk.','Gerekirse ellerinle destek al; dizlerin ayak yönünde kalsın.','Boynunu nötr tut ve ağrısız aralıkta çalış.']},
-    {name:'Direnç Bandı Oturarak Row',muscles:['Sırt','Kürek kemikleri','Biceps'],sets:2,reps:'10–12',image:'seated-cable-row',cues:['Bandı ayaklarının orta kısmına güvenli yerleştir ve dik otur.','Dirseklerini gövdene doğru çekerek bandı göbek hizana getir.','Omuzlarını kulaklarından uzak ve boynunu nötr tut.','Bandı yavaşça bırak; gövdeni savurma.']},
+    {name:'Tek Kol Dambıl Row (Bench Destekli)',muscles:['Sırt','Kürek kemikleri','Biceps'],sets:2,reps:'10–12',image:'single-arm-db-row',cues:['Bandı ayaklarının orta kısmına güvenli yerleştir ve dik otur.','Dirseklerini gövdene doğru çekerek bandı göbek hizana getir.','Omuzlarını kulaklarından uzak ve boynunu nötr tut.','Bandı yavaşça bırak; gövdeni savurma.']},
     {name:'Dambılsız Kalça Köprüsü',muscles:['Kalça','Arka bacak'],sets:2,reps:'10–15',image:'glute-bridge',cues:['Sırt üstü yat, dizlerini bük ve ayaklarını yere bas.','Başını ve boynunu yerde rahat bırak.','Kalçanı sıkıp kontrollü kaldır; belini aşırı çukurlaştırma.','Yavaşça indir; boynundan güç alma.']},
     {name:'Duvar Şınavı',muscles:['Göğüs','Triceps'],sets:2,reps:'8–12',image:'',cues:['Duvara dönük dur; ellerini göğüs hizasında duvara koy.','Vücudunu düz tutup başını öne uzatma.','Dirseklerini kontrollü bükerek yaklaş, sonra iterek uzaklaş.','Ağrısız aralıkta çalış; belirtiler artarsa bırak.']},
-    {name:'Oturarak Dambıl Yana Açış (Kısa Aralık)',muscles:['Yan omuz'],sets:2,reps:'8–10',image:'lateral-raise',cues:['Sırtı destekli otur; çok hafif dambıllarla başla.','Kollarını rahat bir kısa aralıkta yana kaldır; omuz hizasını geçme.','Omuzlarını kulaklarına çekme, boynunu nötr tut.','Boyun/omuz ağrısı, uyuşma veya kola yayılan belirti olursa dur.']},
+    {name:'Oturarak Dambıl Yana Açış (Kısa Aralık)',muscles:['Yan omuz'],sets:2,reps:'8–10',image:'seated-dumbbell-lateral-raise',cues:['Sırtı destekli otur; çok hafif dambıllarla başla.','Kollarını rahat bir kısa aralıkta yana kaldır; omuz hizasını geçme.','Omuzlarını kulaklarına çekme, boynunu nötr tut.','Boyun/omuz ağrısı, uyuşma veya kola yayılan belirti olursa dur.']},
     {name:'Sırt Üstü Topuk Kaydırma',muscles:['Karın','Core'],sets:2,reps:'8–10 / taraf',image:'',cues:['Sırt üstü yat; başını ve boynunu rahat tut.','Karnını hafifçe sıkıp topuğunu ileri kaydır, sonra geri getir.','Belini rahat konumda tut ve nefes almayı sürdür.','Boynunu kaldırma; rahatsızlık olursa bırak.']}
   ]}
 });
@@ -172,22 +172,23 @@ function femaleExerciseSvgFallback(ex){
 }
 function femaleExerciseSvg(ex){
   const n=(ex.name||'').toLocaleLowerCase('tr-TR').normalize('NFC');
+  const slug=ex.repdbImage||ex.image||'';
+  if(slug) return 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+slug+'-start.webp';
   const maps=[
-    {test:/sandalyeye squat|squat/,file:'chair-squat.svg'},
-    {test:/oturarak row|seated.*row|\brow\b/,file:'seated-band-row.svg'},
-    {test:/glute bridge|kalça köprüsü|köprü/,file:'glute-bridge.svg'},
-    {test:/göğüs press|floor press|bench press/,file:'floor-chest-press.svg'},
-    {test:/yana adım|side step|lateral walk/,file:'band-side-step.svg'},
-    {test:/biceps curl|biceps|hammer curl/,file:'seated-biceps-curl.svg'},
-    {test:/dış rotasyon|external rotation/,file:'band-external-rotation.svg'},
-    {test:/topuk kaydırma|heel slide/,file:'heel-slide.svg'},
-    {test:/pull-apart|göğüs açma/,file:'band-pull-apart.svg'},
-    {test:/clamshell/,file:'clamshell.svg'},
-    {test:/duvar şınavı?|wall push/,file:'wall-pushup.svg'},
-    {test:/yana açış|lateral raise/,file:'seated-lateral-raise.svg'}
+    {test:/sandalyeye squat|squat/,id:'box-squat'},
+    {test:/row/,id:'single-arm-db-row'},
+    {test:/glute bridge|kalça köprüsü|köprü/,id:'banded-glute-bridge'},
+    {test:/göğüs press|floor press|bench press/,id:'dumbbell-floor-press'},
+    {test:/yana adım|side step|lateral walk/,id:'band-pull-apart'},
+    {test:/biceps curl|biceps|hammer curl/,id:'bicep-curl'},
+    {test:/dış rotasyon|external rotation|göğüs açma|pull-apart/,id:'band-pull-apart'},
+    {test:/topuk kaydırma|heel slide|core|dead bug/,id:'dead-bug'},
+    {test:/clamshell/,id:'banded-clamshell'},
+    {test:/duvar şınavı?|wall push/,id:'wall-push-ups'},
+    {test:/yana açış|lateral raise/,id:'seated-dumbbell-lateral-raise'}
   ];
   const found=maps.find(item=>item.test.test(n));
-  return found ? 'assets/women/'+found.file : null;
+  return found ? 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+found.id+'-start.webp' : null;
 }
 function imageMarkup(ex){
   if(workoutDay>=4){
