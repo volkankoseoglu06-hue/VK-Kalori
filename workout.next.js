@@ -633,10 +633,6 @@ function renderWorkoutProgress(){
 function bindWorkout(){
   const page=document.getElementById('workoutPage');if(!page)return;
   renderDayTabs();renderWorkout();
-  const options=document.getElementById('workoutExerciseOptions');
-  if(options)options.innerHTML=[...new Set(Object.values(WORKOUTS).flatMap(w=>w.exercises.map(ex=>ex.name)))].sort((a,b)=>a.localeCompare(b,'tr')).map(name=>'<option value="'+name.replace(/&/g,'&amp;').replace(/"/g,'&quot;')+'">').join('');
-  document.getElementById('addWorkoutExerciseButton')?.addEventListener('click',addWorkoutExercise);
-  document.getElementById('workoutExerciseSearch')?.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addWorkoutExercise();}});
   document.getElementById('startWorkoutButton')?.addEventListener('click',startWorkout);
   document.querySelector('.workout-timer-icon')?.addEventListener('click',startWorkout);
   document.getElementById('finishWorkoutButton')?.addEventListener('click',finishWorkout);
