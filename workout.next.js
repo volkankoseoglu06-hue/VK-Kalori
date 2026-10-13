@@ -31,26 +31,26 @@ const WORKOUTS={
 };
 Object.assign(WORKOUTS,{
   4:{name:'👩 Kadın 1',focus:'Tüm vücut • başlangıç • dambıl ve direnç bandı',exercises:[
-    {name:'Sandalyeye Squat',muscles:['Ön bacak','Kalça'],sets:2,reps:'8–12',image:'',cues:['Sandalyeyi duvara dayayıp sabitle; ayaklarını kalça-omuz genişliğinde aç.','Kalçanı geriye gönderip sandalyeye kontrollü dokun ve kalk.','Dizlerin ayak parmaklarınla aynı yönde kalsın; gerekirse ellerinle destek al.','Boynunu nötr tut. Ağrı veya belirtilerde artış olursa dur.']},
-    {name:'Tek Kol Dambıl Row (Bench Destekli)',muscles:['Sırt','Arka omuz','Biceps'],sets:2,reps:'10–12',image:'single-arm-db-row',cues:['Bench’in yanında dur; bir elini ve aynı taraftaki dizini bench üzerine destekle.','Diğer elinle dambılı tut; sırtını düz ve boynunu nötr konumda tut.','Dirseğini gövdene yakın tutarak dambılı kalçana doğru çek.','Dambılı yavaşça indir; gövdeni döndürme.']},
+    {name:'Sandalyeye Otur-Kalk (Ağrısız Aralıkta)',muscles:['Ön bacak','Kalça'],sets:2,reps:'6–10',image:'chair-squat',cues:['Bu hareket yalnızca diz için hekim/fizyoterapist tarafından uygun bulunduysa yapılmalı.','Sandalyeyi duvara sabitle; gerekirse iki elinle sağlam bir desteğe tutun.','Küçük ve ağrısız aralıkta otur-kalk; dizini zorlayarak derinleşme.','Diz ağrısı, şişlik, boşalma hissi veya ertesi gün belirgin artış olursa bırak.']},
+    {name:'Oturarak Direnç Bandı Row',muscles:['Sırt','Arka omuz','Biceps'],sets:2,reps:'10–12',image:'seated-band-row',cues:['Sağlam sandalyeye sırtını dik ve boynunu rahat tutarak otur.','Bandı ayaklarının çevresine güvenli şekilde yerleştir; kaymayacağından emin ol.','Dirseklerini gövdene yakın tutup bandı gövdene doğru çek.','Gövdeni geriye savurma; bandı yüzüne doğru çekme.']},
     {name:'Direnç Bandı Glute Bridge',muscles:['Kalça','Arka bacak'],sets:2,reps:'10–12',image:'banded-glute-bridge',cues:['Sırt üstü yat, dizlerini bük; bandı dizlerinin hemen üstüne yerleştir.','Başını ve boynunu yerde rahat tut.','Kalçanı sıkıp kaldır; belini aşırı çukurlaştırma.','Kontrollü indir ve nefes almaya devam et.']},
     {name:'Dambıl Göğüs Press (Yerde)',muscles:['Göğüs','Triceps'],sets:2,reps:'10–12',image:'dumbbell-floor-press',cues:['Yere sırt üstü yat; başını ve boynunu rahat tut.','Hafif dambılları göğsünün yanında tut, dirsekleri gövdene çok açma.','Dambılları yukarı itip kontrollü indir.','Başını kaldırma; boyun veya omuz belirtileri artarsa dur.']},
     {name:'Oturarak Dambıl Biceps Curl',muscles:['Biceps','Ön kol'],sets:2,reps:'10–12',image:'bicep-curl',cues:['Sırtı destekli sandalyeye otur; hafif dambılları yanlarında tut.','Dirseklerini gövdene yakın sabitle, dambılları kontrollü kaldır.','Omuzlarını yukarı çekme ve gövdeni sallama.','Ağırlığı yavaşça indir.']},
     {name:'Dead Bug (Kontrollü Karın)',muscles:['Karın','Core'],sets:2,reps:'8–10 / taraf',image:'dead-bug',cues:['Sırt üstü yat, dizlerini bük; başın yerde rahat kalsın.','Karnını hafifçe sık; karşı kolunu ve bacağını kontrollü uzatıp geri getir.','Belini rahat konumda tut, nefesini tutma.','Boynunu kaldırma; rahatsızlık olursa bırak.']}
   ]},
   5:{name:'👩 Kadın 2',focus:'Tüm vücut • duruş desteği • hafif direnç',exercises:[
-    {name:'Sandalyeye Squat (Destekli)',muscles:['Ön bacak','Kalça'],sets:2,reps:'8–12',image:'',cues:['Sandalyeyi duvara sabitle; gerekirse sağlam bir yere tutun.','Kalçanı geriye göndererek yavaşça oturup kalk.','Dizlerini ayak yönünde tut; boynunu nötr koru.','Ağrısız aralıkta çalış; ağrı artarsa dur.']},
-    {name:'Direnç Bandı Göğüs Açma (Hafif Pull-Apart)',muscles:['Üst sırt','Arka omuz'],sets:2,reps:'8–12',image:'',cues:['Bandı göğüs hizasında, kollarını önde ve omuzlarını rahat tutarak kavra.','Dirsekleri kilitlemeden bandı hafifçe iki yana aç.','Kürek kemiklerini nazikçe yaklaştır; omuzlarını kulaklarına çekme.','Bandı yüz hizasına veya baş üstüne kaldırma; ağrı olursa bırak.']},
-    {name:'Direnç Bandı Clamshell',muscles:['Kalça yan kasları'],sets:2,reps:'10–12 / taraf',image:'',cues:['Yan yat, dizlerini bük; başını yastık veya katlı havluyla nötr hizada destekle.','Bandı dizlerinin üstüne yerleştir ve ayaklarını bir arada tut.','Üst dizini kontrollü aç, sonra yavaşça kapat.','Kalçanı geriye yuvarlama; iki tarafı da uygula.']},
-    {name:'Tek Kol Dambıl Row (Bench Destekli)',muscles:['Sırt','Biceps'],sets:2,reps:'10–12',image:'single-arm-db-row',cues:['Bench’in yanında dur; bir elini ve aynı taraftaki dizini bench üzerine destekle.','Diğer elinle dambılı tut ve sırtını nötr konumda tut.','Dirseğini gövdene yakın tutarak dambılı kalçana doğru çek.','Dambılı kontrollü indir; gövdeni döndürme.']},
+    {name:'Sandalyeye Otur-Kalk (Opsiyonel)',muscles:['Ön bacak','Kalça'],sets:2,reps:'6–10',image:'chair-squat',cues:['Diz ağrısı/ameliyat öyküsü varsa yalnızca hekim veya fizyoterapistin onayıyla dene.','Sandalyeyi sabitle ve gerekirse ellerinle destek al.','Ağrısız, sığ hareket aralığında yavaşça oturup kalk.','Ağrı, şişlik veya dizde boşalma hissinde hareketi bırak.']},
+    {name:'Direnç Bandı Göğüs Açma (Hafif Pull-Apart)',muscles:['Üst sırt','Arka omuz'],sets:2,reps:'8–12',image:'band-pull-apart',cues:['Bandı göğüs hizasında, kollarını önde ve omuzlarını rahat tutarak kavra.','Dirsekleri kilitlemeden bandı hafifçe iki yana aç.','Kürek kemiklerini nazikçe yaklaştır; boynunu nötr ve omuzlarını düşük tut.','Bandı yüz hizasına veya baş üstüne kaldırma; boyun/kol belirtisi artarsa bırak.']},
+    {name:'Direnç Bandı Clamshell',muscles:['Kalça yan kasları'],sets:2,reps:'10–12 / taraf',image:'clamshell',cues:['Yan yat, dizlerini bük; başını yastık veya katlı havluyla nötr hizada destekle.','Bandı dizlerinin üstüne yerleştir ve ayaklarını bir arada tut.','Üst dizini kontrollü aç, sonra yavaşça kapat.','Kalçanı geriye yuvarlama; rahatsızlık olursa bandı çıkar veya hareketi bırak.']},
+    {name:'Oturarak Direnç Bandı Row',muscles:['Sırt','Biceps'],sets:2,reps:'10–12',image:'seated-band-row',cues:['Sırtı destekli sandalyeye otur ve boynunu rahat tut.','Bandı ayaklarının çevresine güvenli şekilde yerleştir; kaymadığından emin ol.','Dirseklerini gövdene yakın tutarak bandı gövdene doğru çek.','Gövdeni sallama; bandı yüzüne doğru çekme.']},
     {name:'Dambıl Göğüs Press (Yerde)',muscles:['Göğüs','Triceps'],sets:2,reps:'10–12',image:'dumbbell-floor-press',cues:['Sırt üstü yat; başın ve boynun rahat olsun.','Hafif dambılları göğüs yanından yukarı it.','Dirseklerini çok yana açmadan ağırlığı yavaşça indir.','Başını kaldırma; belirtiler artarsa bırak.']},
     {name:'Oturarak Dambıl Öne Kaldırış (Kısa Aralık)',muscles:['Ön omuz'],sets:2,reps:'8–10',image:'dumbbell-front-raise',cues:['Sırtı destekli sandalyeye otur; çok hafif dambılları uyluklarının önünde tut.','Dirseklerini hafif bükülü tutarak dambılları öne doğru kaldır.','Omuz hizasına gelmeden, rahat ve ağrısız aralıkta dur.','Gövdeni sallama; dambılları kontrollü indir. Ağrı veya kola yayılan belirti olursa dur.']}
   ]},
   6:{name:'👩 Kadın 3',focus:'Tüm vücut • kontrollü güç • hafif dambıl ve band',exercises:[
-    {name:'Sandalyeye Squat (Kontrollü)',muscles:['Ön bacak','Kalça'],sets:2,reps:'8–12',image:'',cues:['Sağlam sandalyeyi duvara dayayarak sabitle; ayaklarını rahat genişlikte aç.','Kalçanı geriye gönderip sandalyeye kontrollü dokun ve kalk.','Gerekirse ellerinle destek al; dizlerin ayak yönünde kalsın.','Boynunu nötr tut ve ağrısız aralıkta çalış.']},
-    {name:'Tek Kol Dambıl Row (Bench Destekli)',muscles:['Sırt','Kürek kemikleri','Biceps'],sets:2,reps:'10–12',image:'single-arm-db-row',cues:['Bir elini ve aynı taraftaki dizini bench üzerine destekle; diğer elinle dambılı tut.','Sırtını nötr tutarak dambılı kalçana doğru çek.','Dirseğini gövdene yakın tut; omzunu kulağına kaldırma.','Dambılı yavaşça indir; gövdeni sabit tut.']},
+    {name:'Sandalyeye Otur-Kalk (Opsiyonel)',muscles:['Ön bacak','Kalça'],sets:2,reps:'6–10',image:'chair-squat',cues:['Yalnızca diz için hekim/fizyoterapist onayı varsa uygula.','Sandalyeyi sabitle ve gerekirse iki elinle destek al.','Ağrısız aralıkta, yavaşça oturup kalk; dizini zorlayarak derinleşme.','Ağrı, şişlik veya boşalma hissinde dur.']},
+    {name:'Oturarak Direnç Bandı Row',muscles:['Sırt','Kürek kemikleri','Biceps'],sets:2,reps:'10–12',image:'seated-band-row',cues:['Sırtı destekli sandalyeye otur; başını öne uzatma.','Bandı ayaklarına güvenli şekilde yerleştir; kaymadığını kontrol et.','Dirseklerini gövdene yakın tutarak bandı gövdene doğru çek.','Gövdeni sallama; boyun/kol belirtisi olursa bırak.']},
     {name:'Dambılsız Kalça Köprüsü',muscles:['Kalça','Arka bacak'],sets:2,reps:'10–15',image:'glute-bridge',cues:['Sırt üstü yat, dizlerini bük ve ayaklarını yere bas.','Başını ve boynunu yerde rahat bırak.','Kalçanı sıkıp kontrollü kaldır; belini aşırı çukurlaştırma.','Yavaşça indir; boynundan güç alma.']},
-    {name:'Duvar Şınavı',muscles:['Göğüs','Triceps'],sets:2,reps:'8–12',image:'',cues:['Duvara dönük dur; ellerini göğüs hizasında duvara koy.','Vücudunu düz tutup başını öne uzatma.','Dirseklerini kontrollü bükerek yaklaş, sonra iterek uzaklaş.','Ağrısız aralıkta çalış; belirtiler artarsa bırak.']},
+    {name:'Duvar Şınavı',muscles:['Göğüs','Triceps'],sets:2,reps:'8–12',image:'wall-pushup',cues:['Duvara dönük dur; ellerini göğüs hizasında duvara koy.','Vücudunu düz tut ve başını öne uzatma.','Dirseklerini kontrollü bükerek yaklaş, sonra iterek uzaklaş.','Boyun/omuz ağrısı veya kola yayılan belirti olursa bırak.']},
     {name:'Oturarak Dambıl Yana Açış (Kısa Aralık)',muscles:['Yan omuz'],sets:2,reps:'8–10',image:'seated-dumbbell-lateral-raise',cues:['Sırtı destekli sandalyeye otur; çok hafif dambılları yanlarında tut.','Dirseklerini hafif bükülü tutarak kollarını iki yana kaldır.','Omuz hizasına yaklaşınca dur; omuzlarını kulaklarına çekme.','Dambılları kontrollü indir; ağrı, uyuşma veya kola yayılan belirti olursa dur.']},
     {name:'Dead Bug (Kontrollü Karın)',muscles:['Karın','Core'],sets:2,reps:'8–10 / taraf',image:'dead-bug',cues:['Sırt üstü yat; başını ve boynunu rahat tut.','Karnını hafifçe sık; karşı kolunu ve bacağını kontrollü uzatıp geri getir.','Belini rahat konumda tut ve nefes almayı sürdür.','Boynunu kaldırma; rahatsızlık olursa bırak.']}
   ]}
@@ -168,32 +168,32 @@ function exerciseImage(name,pose='start'){
   return 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+id+'-'+pose+'.webp';
 }
 function femaleExerciseSvgFallback(ex){
-  return '<span class="female-exercise-fallback-icon">🏋️</span>';
+  return '<span class="female-exercise-fallback-icon" aria-hidden="true">🏋️</span>';
 }
 function femaleExerciseSvg(ex){
   const n=(ex.name||'').toLocaleLowerCase('tr-TR').normalize('NFC');
   const slug=ex.repdbImage||ex.image||'';
-  if(slug) return 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+slug+'-start.webp';
+  const known=slug && /^(band-external-rotation|band-pull-apart|band-side-step|chair-squat|clamshell|floor-chest-press|glute-bridge|heel-slide|seated-band-row|seated-biceps-curl|seated-lateral-raise|wall-pushup)$/.test(slug);
+  if(known) return 'assets/women/'+slug+'.svg';
   const maps=[
-    {test:/sandalyeye squat|squat/,id:'box-squat'},
-    {test:/row/,id:'single-arm-db-row'},
-    {test:/glute bridge|kalça köprüsü|köprü/,id:'banded-glute-bridge'},
-    {test:/göğüs press|floor press|bench press/,id:'dumbbell-floor-press'},
-    {test:/yana adım|side step|lateral walk/,id:'band-pull-apart'},
-    {test:/biceps curl|biceps|hammer curl/,id:'bicep-curl'},
-    {test:/dış rotasyon|external rotation|göğüs açma|pull-apart/,id:'band-pull-apart'},
-    {test:/topuk kaydırma|heel slide|core|dead bug/,id:'dead-bug'},
-    {test:/clamshell/,id:'banded-clamshell'},
-    {test:/duvar şınavı?|wall push/,id:'wall-push-ups'},
-    {test:/yana açış|lateral raise/,id:'seated-dumbbell-lateral-raise'}
+    {test:/sandalyeye otur-kalk|squat/,id:'chair-squat'},
+    {test:/oturarak.*row|row/,id:'seated-band-row'},
+    {test:/glute bridge|kalça köprüsü|köprü/,id:'glute-bridge'},
+    {test:/göğüs press|floor press|bench press/,id:'floor-chest-press'},
+    {test:/pull-apart|göğüs açma/,id:'band-pull-apart'},
+    {test:/biceps curl|biceps|hammer curl/,id:'seated-biceps-curl'},
+    {test:/clamshell/,id:'clamshell'},
+    {test:/duvar şınavı?|wall push/,id:'wall-pushup'},
+    {test:/yana açış|lateral raise/,id:'seated-lateral-raise'},
+    {test:/dead bug|core|karın/,id:'heel-slide'}
   ];
   const found=maps.find(item=>item.test.test(n));
-  return found ? 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+found.id+'-start.webp' : null;
+  return found ? 'assets/women/'+found.id+'.svg' : null;
 }
 function imageMarkup(ex){
   if(workoutDay>=4){
     const src=femaleExerciseSvg(ex);
-    if(src) return '<span class="exercise-visual female-exercise-visual"><img src="'+src+'" alt="'+ex.name+' hareket gösterimi" loading="eager" decoding="async"></span>';
+    if(src) return '<span class="exercise-visual female-exercise-visual female-motion"><img src="'+src+'" alt="'+ex.name+' hareket gösterimi" loading="eager" decoding="async"></span>';
     return '<span class="exercise-visual female-exercise-visual female-exercise-fallback">'+femaleExerciseSvgFallback(ex)+'</span>';
   }
   const start=exerciseImage(ex.name,'start');
@@ -456,7 +456,7 @@ function openExercise(index){
   const start=exerciseImage(ex.name,'start'),peak=exerciseImage(ex.name,'peak');
   const femaleSrc=workoutDay>=4?femaleExerciseSvg(ex):null;
   document.getElementById('workoutAnimation').innerHTML=workoutDay>=4
-    ? (femaleSrc?'<div class="exercise-modal-visual female-exercise-modal"><img src="'+femaleSrc+'" alt="'+ex.name+' hareket görseli" loading="eager" decoding="async"></div>':'<div class="exercise-modal-visual female-exercise-modal female-exercise-fallback">'+femaleExerciseSvgFallback(ex)+'</div>')
+    ? (femaleSrc?'<div class="exercise-modal-visual female-exercise-modal female-motion"><img src="'+femaleSrc+'" alt="'+ex.name+' hareket görseli" loading="eager" decoding="async"></div>':'<div class="exercise-modal-visual female-exercise-modal female-exercise-fallback">'+femaleExerciseSvgFallback(ex)+'</div>')
     : start?'<div class="exercise-modal-visual"><img src="'+start+'" alt="'+ex.name+'"><img src="'+peak+'" alt="" class="exercise-peak"></div>':'<div class="exercise-modal-fallback">🏋️</div>';
   document.getElementById('workoutCues').innerHTML=ex.cues.map(c=>'<li>'+c+'</li>').join('');
   renderModalSets(existing);
