@@ -225,12 +225,13 @@ function femaleExerciseSvg(ex){
     [/glute bridge|kalça köprüsü|köprü/, 'band-glute-bridge.webp'],
     [/clamshell/, 'band-clamshell.webp'],
     [/biceps curl|biceps|hammer curl/, 'dumbbell-biceps-curl.webp'],
-    [/göğüs press|floor press|bench press/, 'dumbbell-floor-press.webp'],
+    [/göğüs press|floor press|bench press|duvar şınav/, 'dumbbell-floor-press.webp'],
     [/yana açış|lateral raise|shoulder press/, 'dumbbell-lateral-raise.webp'],
-    [/row|çekiş/, 'dumbbell-bent-row.webp']
+    [/row|çekiş|pull-apart|dış rotasyon/, 'dumbbell-bent-row.webp'],
+    [/topuk kaydırma|dead bug|core/, 'band-glute-bridge.webp']
   ];
   const match=map.find(([pattern])=>pattern.test(n));
-  return match ? 'assets/women/'+match[1] : femaleExerciseSvgFallback(ex);
+  return match ? 'assets/women/'+match[1] : 'assets/women/chair-squat.webp';
 }
 function imageMarkup(ex){
   if(workoutDay>=4){
@@ -495,7 +496,7 @@ function openExercise(index){
   document.getElementById('workoutModalMuscle').innerHTML=ex.muscles.map(m=>'<span class="modal-muscle-tag">'+m+'</span>').join('');
   const start=exerciseImage(ex.name,'start'),peak=exerciseImage(ex.name,'peak');
   document.getElementById('workoutAnimation').innerHTML=workoutDay>=4
-    ? '<div class="exercise-modal-visual female-exercise-modal">'+imageMarkup(ex)+'</div>'
+    ? '<div class="exercise-modal-visual female-exercise-modal"><img src="'+femaleExerciseSvg(ex)+'" alt="'+ex.name+' hareket görseli" loading="eager"></div>'
     : start?'<div class="exercise-modal-visual"><img src="'+start+'" alt="'+ex.name+'"><img src="'+peak+'" alt="" class="exercise-peak"></div>':'<div class="exercise-modal-fallback">🏋️</div>';
   document.getElementById('workoutCues').innerHTML=ex.cues.map(c=>'<li>'+c+'</li>').join('');
   renderModalSets(existing);
