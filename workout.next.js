@@ -208,13 +208,14 @@ function femaleExerciseSvg(ex){
   const bandShape=band?({
     squat:'<path d="M79 83 Q91 91 103 83" stroke="#ef4f8b" stroke-width="5" fill="none"/>',
     bridge:'<path d="M92 82 Q103 88 115 82" stroke="#ef4f8b" stroke-width="5" fill="none"/>',
-    row:'<path d="M71 100 Q91 116 118 98" stroke="#ef4f8b" stroke-width="4" fill="none"/><path d="M71 100 L48 116 M118 98 L145 113" stroke="#ef4f8b" stroke-width="3" fill="none"/>',
+    row:'<path d="M47 115 Q65 107 82 113 Q101 119 121 111" stroke="#ef4f8b" stroke-width="4" fill="none"/><path d="M71 100 L48 115 M118 98 L121 111" stroke="#ef4f8b" stroke-width="3" fill="none"/>',
     side:'<path d="M80 82 Q91 87 103 82" stroke="#ef4f8b" stroke-width="5" fill="none"/>',
     clam:'<path d="M89 99 Q101 103 112 98" stroke="#ef4f8b" stroke-width="5" fill="none"/>',
     rotation:'<path d="M76 76 L104 76" stroke="#ef4f8b" stroke-width="4" fill="none"/>',
     raise:'<path d="M59 73 L122 73" stroke="#ef4f8b" stroke-width="4" fill="none"/>'
   }[pose]||'<path d="M78 76 L103 76" stroke="#ef4f8b" stroke-width="4" fill="none"/>'):'';
-  const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 140"><rect width="180" height="140" rx="18" fill="#eaf6ff"/><ellipse cx="91" cy="124" rx="54" ry="5" fill="#c9d9e8"/><g stroke="#253b55" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none">'+body+'</g><path d="M78 44 Q78 30 91 30 Q105 30 105 44 L102 59 Q91 66 80 59Z" fill="#ec8c69"/><path d="M78 43 Q74 25 91 23 Q110 24 107 45 L102 39 L81 39Z" fill="#4c2f2a"/><path d="M80 50 Q91 58 102 50 L106 74 Q91 83 76 74Z" fill="#f05a96"/><path d="M80 57 L71 79 M102 57 L111 79" stroke="#ec8c69" stroke-width="8" stroke-linecap="round"/><g>'+bandShape+'</g><text x="90" y="135" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" fill="#334155">'+(band?'BANT YERLEŞİMİ':'KADIN MODEL')+'</text></svg>';
+  const bandLabel=band?(pose==='row'?'BANT: AYAKLARDA':(pose==='rotation'?'BANT: DİRSEK YANINDA':(pose==='raise'?'BANT: GÖĞÜS HİZASI':(pose==='bridge'||pose==='squat'||pose==='side'||pose==='clam'?'BANT: DİZ ÜSTÜ':'BANT: HAREKETİNE GÖRE')))):'KADIN MODEL';
+  const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 140"><rect width="180" height="140" rx="18" fill="#eaf6ff"/><ellipse cx="91" cy="124" rx="54" ry="5" fill="#c9d9e8"/><g stroke="#253b55" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none">'+body+'</g><path d="M78 44 Q78 30 91 30 Q105 30 105 44 L102 59 Q91 66 80 59Z" fill="#ec8c69"/><path d="M78 43 Q74 25 91 23 Q110 24 107 45 L102 39 L81 39Z" fill="#4c2f2a"/><path d="M80 50 Q91 58 102 50 L106 74 Q91 83 76 74Z" fill="#f05a96"/><path d="M80 57 L71 79 M102 57 L111 79" stroke="#ec8c69" stroke-width="8" stroke-linecap="round"/><g>'+bandShape+'</g><rect x="4" y="112" width="172" height="24" rx="8" fill="#ffffff" opacity=".92"/><text x="90" y="127" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="700" fill="#b4235b">'+bandLabel+'</text></svg>';
   return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
 }
 function imageMarkup(ex){
