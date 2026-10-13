@@ -173,7 +173,54 @@ function exerciseImage(name,pose='start'){
   if(!id)return '';
   return 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+id+'-'+pose+'.webp';
 }
+function femaleExerciseSvg(ex){
+  const n=ex.name.toLocaleLowerCase('tr-TR');
+  const band=n.includes('band')||n.includes('direnç');
+  let pose='standing';
+  if(n.includes('squat'))pose='squat';
+  else if(n.includes('bridge')||n.includes('köprü'))pose='bridge';
+  else if(n.includes('row'))pose='row';
+  else if(n.includes('press'))pose='press';
+  else if(n.includes('yana adım'))pose='side';
+  else if(n.includes('curl'))pose='curl';
+  else if(n.includes('rotasyon'))pose='rotation';
+  else if(n.includes('clamshell'))pose='clam';
+  else if(n.includes('topuk kaydırma')||n.includes('dead bug'))pose='core';
+  else if(n.includes('duvar şınav'))pose='wall';
+  else if(n.includes('yana açış'))pose='raise';
+  else if(n.includes('face pull'))pose='row';
+  else if(n.includes('bird dog'))pose='bird';
+  const body={
+    standing:'<path d="M90 54 Q75 72 78 94 L72 126 M90 54 Q108 72 105 94 L112 126"/>',
+    squat:'<path d="M90 54 Q74 70 80 84 L102 100 L124 112 M90 54 Q105 69 103 83 L88 99 L68 111"/>',
+    bridge:'<path d="M40 112 L72 103 L100 77 L127 102 L148 112"/>',
+    row:'<path d="M90 55 L83 85 L70 102 M90 55 L103 84 L117 98"/>',
+    press:'<path d="M90 55 L78 78 L77 102 M90 55 L103 78 L104 102"/>',
+    side:'<path d="M90 55 L83 83 L64 111 M90 55 L103 83 L123 111"/>',
+    curl:'<path d="M90 55 L78 78 L88 88 M90 55 L103 78 L94 88"/>',
+    rotation:'<path d="M90 55 L78 78 L65 82 M90 55 L103 78 L116 82"/>',
+    clam:'<path d="M40 106 L76 96 L101 105 L125 96"/>',
+    core:'<path d="M45 105 L80 105 L108 105 L136 105"/>',
+    wall:'<path d="M90 55 L78 78 L60 66 M90 55 L103 78 L120 66"/>',
+    raise:'<path d="M90 55 L75 72 L59 73 M90 55 L106 72 L122 73"/>',
+    bird:'<path d="M70 90 L93 90 L115 75 M93 90 L76 108 L57 108"/>'
+  }[pose];
+  const bandShape=band?({
+    squat:'<path d="M79 83 Q91 91 103 83" stroke="#ef4f8b" stroke-width="5" fill="none"/>',
+    bridge:'<path d="M92 82 Q103 88 115 82" stroke="#ef4f8b" stroke-width="5" fill="none"/>',
+    row:'<path d="M71 100 Q91 116 118 98" stroke="#ef4f8b" stroke-width="4" fill="none"/><path d="M71 100 L48 116 M118 98 L145 113" stroke="#ef4f8b" stroke-width="3" fill="none"/>',
+    side:'<path d="M80 82 Q91 87 103 82" stroke="#ef4f8b" stroke-width="5" fill="none"/>',
+    clam:'<path d="M89 99 Q101 103 112 98" stroke="#ef4f8b" stroke-width="5" fill="none"/>',
+    rotation:'<path d="M76 76 L104 76" stroke="#ef4f8b" stroke-width="4" fill="none"/>',
+    raise:'<path d="M59 73 L122 73" stroke="#ef4f8b" stroke-width="4" fill="none"/>'
+  }[pose]||'<path d="M78 76 L103 76" stroke="#ef4f8b" stroke-width="4" fill="none"/>'):'';
+  const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 140"><rect width="180" height="140" rx="18" fill="#eaf6ff"/><ellipse cx="91" cy="124" rx="54" ry="5" fill="#c9d9e8"/><g stroke="#253b55" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none">'+body+'</g><path d="M78 44 Q78 30 91 30 Q105 30 105 44 L102 59 Q91 66 80 59Z" fill="#ec8c69"/><path d="M78 43 Q74 25 91 23 Q110 24 107 45 L102 39 L81 39Z" fill="#4c2f2a"/><path d="M80 50 Q91 58 102 50 L106 74 Q91 83 76 74Z" fill="#f05a96"/><path d="M80 57 L71 79 M102 57 L111 79" stroke="#ec8c69" stroke-width="8" stroke-linecap="round"/><g>'+bandShape+'</g><text x="90" y="135" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" fill="#334155">'+(band?'BANT YERLEŞİMİ':'KADIN MODEL')+'</text></svg>';
+  return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
+}
 function imageMarkup(ex){
+  if(workoutDay>=4){
+    return '<span class="exercise-visual female-exercise-visual"><img src="'+femaleExerciseSvg(ex)+'" alt="'+ex.name+' kadın model hareket gösterimi" loading="lazy"></span>';
+  }
   const start=exerciseImage(ex.name,'start');
   const peak=exerciseImage(ex.name,'peak');
   if(!start)return '<span class="exercise-visual exercise-fallback">🏋️</span>';
