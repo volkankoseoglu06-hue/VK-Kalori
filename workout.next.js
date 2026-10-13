@@ -173,6 +173,10 @@ function exerciseImage(name,pose='start'){
   if(!id)return '';
   return 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+id+'-'+pose+'.webp';
 }
+function femaleExerciseSvgFallback(ex){
+  const label=(ex.name||'Hareket').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-label="'+label+' görseli hazırlanıyor"><rect width="320" height="240" rx="18" fill="#fff"/><circle cx="160" cy="46" r="20" fill="#d9a184"/><path d="M140 68 Q160 60 180 68 L194 124 L181 159 L139 159 L126 124Z" fill="#202a3a"/><path d="M140 78 L108 116 L84 130" fill="none" stroke="#d9a184" stroke-width="13" stroke-linecap="round"/><path d="M180 78 L211 112 L236 125" fill="none" stroke="#d9a184" stroke-width="13" stroke-linecap="round"/><path d="M143 155 L132 203 L119 221 M177 155 L188 203 L201 221" fill="none" stroke="#202a3a" stroke-width="18" stroke-linecap="round"/><text x="160" y="235" text-anchor="middle" font-size="11" fill="#4b5563">'+label+'</text></svg>';
+}
 function femaleExerciseSvg(ex){
   const n=(ex.name||'').toLocaleLowerCase('tr-TR');
   const maps=[
