@@ -170,29 +170,26 @@ function exerciseImage(name,pose='start'){
 function femaleExerciseSvgFallback(ex){
   return '<span class="female-exercise-fallback-icon" aria-hidden="true">🏋️</span>';
 }
-// Kadın programlarında da aynı RepDB erkek hareket animasyonları kullanılır.
-function femaleExerciseSvg(ex){
+// Kadın programları da erkek programlarında kullanılan, bilinen RepDB görsellerini kullanır.
+function femaleExerciseSvg(ex,pose='start'){
   const n=(ex.name||'').toLocaleLowerCase('tr-TR').normalize('NFC');
+  // Bu kimlikler erkek programındaki çalışan görsellerle aynıdır; yeni/kırılgan URL üretmeyiz.
   const maps=[
-    {test:/sandalyeye otur-kalk|squat/,id:'box-squat'},
-    {test:/oturarak.*row|row/,id:'single-arm-db-row'},
-    {test:/glute bridge|kalça köprüsü|köprü/,id:'banded-glute-bridge'},
-    {test:/göğüs press|floor press|bench press/,id:'dumbbell-floor-press'},
-    {test:/pull-apart|göğüs açma/,id:'band-pull-apart'},
+    {test:/sandalyeye otur-kalk|squat/,id:'dumbbell-romanian-deadlift'},
+    {test:/oturarak.*row|row/,id:'seated-cable-row'},
+    {test:/glute bridge|kalça köprüsü|köprü|clamshell/,id:'glute-bridge'},
+    {test:/göğüs press|floor press|bench press|duvar şınavı|wall push/,id:'dumbbell-floor-press'},
+    {test:/pull-apart|göğüs açma|dış rotasyon|external rotation|yana açış|lateral raise/,id:'lateral-raise'},
     {test:/biceps curl|biceps|hammer curl/,id:'bicep-curl'},
-    {test:/clamshell/,id:'banded-clamshell'},
-    {test:/duvar şınavı?|wall push/,id:'wall-push-ups'},
-    {test:/yana açış|lateral raise/,id:'seated-dumbbell-lateral-raise'},
-    {test:/dead bug|core|karın/,id:'dead-bug'}
+    {test:/dead bug|core|karın/,id:'decline-crunch'}
   ];
   const found=maps.find(item=>item.test.test(n));
-  if(found) return 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+found.id+'-start.webp';
-  const id=EXERCISE_IDS[ex.name];
-  return id ? exerciseImage(ex.name,'start') : null;
+  const id=found?found.id:(ex.image||EXERCISE_IDS[ex.name]);
+  return id ? 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+id+'-'+pose+'.webp' : null;
 }
 function imageMarkup(ex){
-  const start=workoutDay>=4?femaleExerciseSvg(ex):exerciseImage(ex.name,'start');
-  const peak=workoutDay>=4?null:exerciseImage(ex.name,'peak');
+  const start=workoutDay>=4?femaleExerciseSvg(ex,'start'):exerciseImage(ex.name,'start');
+  const peak=workoutDay>=4?femaleExerciseSvg(ex,'peak'):exerciseImage(ex.name,'peak');
   if(!start)return '<span class="exercise-visual exercise-fallback">🏋️</span>';
   const fallback=ex.name.toLocaleLowerCase('tr-TR').includes('glute bridge')?'🍑':'🏋️';
   const safeName=ex.name.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
@@ -453,9 +450,9 @@ function openExercise(index){
   document.getElementById('workoutModalTitle').textContent=ex.name;
   document.getElementById('workoutModalMuscle').innerHTML=ex.muscles.map(m=>'<span class="modal-muscle-tag">'+m+'</span>').join('');
   const start=exerciseImage(ex.name,'start'),peak=exerciseImage(ex.name,'peak');
-  const femaleSrc=workoutDay>=4?femaleExerciseSvg(ex):null;
+  const femaleSrc=workoutDay>=4?femaleExerciseSvg(ex,'start'):null;
   document.getElementById('workoutAnimation').innerHTML=workoutDay>=4
-    ? (femaleSrc?'<div class="exercise-modal-visual"><img src="'+femaleSrc+'" alt="'+ex.name+' hareket görseli" loading="eager" decoding="async"><img src="'+femaleSrc.replace(/-start\.webp$/,'-peak.webp')+'" alt="" class="exercise-peak" loading="eager" onerror="this.remove()"></div>':'<div class="exercise-modal-fallback">🏋️</div>')
+    ? (femaleSrc?'<div class="exercise-modal-visual"><img src="'+femaleSrc+'" alt="'+ex.name+' hareket görseli" loading="eager" decoding="async"><img src="'+femaleExerciseSvg(ex,'peak')+'" alt="" class="exercise-peak" loading="eager" onerror="this.remove()"></div>':'<div class="exercise-modal-fallback">🏋️</div>')
     : start?'<div class="exercise-modal-visual"><img src="'+start+'" alt="'+ex.name+'"><img src="'+peak+'" alt="" class="exercise-peak"></div>':'<div class="exercise-modal-fallback">🏋️</div>';
   document.getElementById('workoutCues').innerHTML=ex.cues.map(c=>'<li>'+c+'</li>').join('');
   renderModalSets(existing);
