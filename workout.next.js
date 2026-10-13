@@ -172,8 +172,6 @@ function femaleExerciseSvgFallback(ex){
 }
 // Kadın programlarında da aynı RepDB erkek hareket animasyonları kullanılır.
 function femaleExerciseSvg(ex){
-  const id=EXERCISE_IDS[ex.name];
-  if(id) return exerciseImage(ex.name,'start');
   const n=(ex.name||'').toLocaleLowerCase('tr-TR').normalize('NFC');
   const maps=[
     {test:/sandalyeye otur-kalk|squat/,id:'box-squat'},
@@ -188,7 +186,9 @@ function femaleExerciseSvg(ex){
     {test:/dead bug|core|karın/,id:'dead-bug'}
   ];
   const found=maps.find(item=>item.test.test(n));
-  return found ? 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+found.id+'-start.webp' : null;
+  if(found) return 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+found.id+'-start.webp';
+  const id=EXERCISE_IDS[ex.name];
+  return id ? exerciseImage(ex.name,'start') : null;
 }
 function imageMarkup(ex){
   const start=workoutDay>=4?femaleExerciseSvg(ex):exerciseImage(ex.name,'start');
