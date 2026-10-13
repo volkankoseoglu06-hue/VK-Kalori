@@ -67,7 +67,7 @@ function emptyState(){return {logs:[],weights:{},done:{},session:null,sessions:{
 function loadWorkout(){
   try{
     const v2=JSON.parse(localStorage.getItem(WORKOUT_KEY));
-    if(v2)return normalizeWorkout(v2);
+    if(v2)return mergeLegacyFatmaData(normalizeWorkout(v2));
     // One-time migration from the previous engine.
     const oldRaw=localStorage.getItem('vk_workout_log_v1');
     if(oldRaw){
@@ -79,10 +79,10 @@ function loadWorkout(){
         setDetails:Array.isArray(x.setDetails)?x.setDetails:[]
       }));
       localStorage.setItem(WORKOUT_KEY,JSON.stringify(migrated));
-      return migrated;
+      return mergeLegacyFatmaData(migrated);
     }
   }catch(e){}
-  return emptyState();
+  return mergeLegacyFatmaData(emptyState());
 }
 function normalizeWorkout(v){
   const s=emptyState();
@@ -94,6 +94,27 @@ function normalizeWorkout(v){
 
   s.history=Array.isArray(v.history)?v.history:[];
   s.customExercises=v.customExercises&&typeof v.customExercises==='object'?v.customExercises:{};
+  return s;
+}
+function mergeLegacyFatmaData(s){
+  const marker='vk_workout_merge_fatma_v1';
+  if(localStorage.getItem(marker)==='1')return s;
+  try{
+    const old=JSON.parse(localStorage.getItem('vk_fatma_workout_log_v1')||'null');
+    if(old){
+      const signature=x=>[x.date,Number(x.at)||0,Number(x.day)||4,x.exercise].join('|');
+      const seen=new Set(s.logs.map(signature));
+      (old.logs||[]).forEach(x=>{const key=signature(x);if(!seen.has(key)){s.logs.push({...x,day:Number(x.day)||4});seen.add(key);}});
+      const historySeen=new Set(s.history.map(x=>x.id||[x.date,x.day,x.at].join('|')));
+      (old.history||[]).forEach(x=>{const key=x.id||[x.date,x.day,x.at].join('|');if(!historySeen.has(key)){s.history.push({...x,day:Number(x.day)||4});historySeen.add(key);}});
+      s.weights={...(old.weights||{}),...(s.weights||{})};
+      s.done={...(old.done||{}),...(s.done||{})};
+      s.sessions={...(old.sessions||{}),...(s.sessions||{})};
+      s.customExercises={...(old.customExercises||{}),...(s.customExercises||{})};
+    }
+    localStorage.setItem(WORKOUT_KEY,JSON.stringify(s));
+    localStorage.setItem(marker,'1');
+  }catch(e){}
   return s;
 }
 function saveWorkout(){
