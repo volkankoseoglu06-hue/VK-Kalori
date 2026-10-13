@@ -881,3 +881,9 @@ body{padding-bottom:150px}
 .workout-add-row input{min-width:0;padding:11px;font-size:12px}
 .workout-add-row button{border:0;border-radius:11px;background:var(--primary);color:#fff;padding:11px 13px;font-size:12px;font-weight:800;white-space:nowrap}
 .workout-add-exercise>small{display:block;color:var(--muted);font-size:10px;line-height:1.45;margin-top:8px}
+
+/* Kadın programları: sabit, net egzersiz çizimleri; detay penceresinde büyük gösterim. */
+.female-exercise-visual{background:#fff;border:1px solid #f0e5eb}
+.female-exercise-visual img{object-fit:contain;padding:2px}
+.female-exercise-modal .female-exercise-visual{width:100%;height:100%;min-height:220px;border-radius:16px;background:#fff}
+.female-exercise-modal .female-exercise-visual img{object-fit:contain;padding:4px}

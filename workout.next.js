@@ -173,7 +173,7 @@ function exerciseImage(name,pose='start'){
   if(!id)return '';
   return 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+id+'-'+pose+'.webp';
 }
-function femaleExerciseSvg(ex){
+function femaleExerciseSvgFallback(ex){
   const n=ex.name.toLocaleLowerCase('tr-TR');
   const band=n.includes('band')||n.includes('direnç');
   let pose='standing',label='DURUŞ';
@@ -216,6 +216,21 @@ function femaleExerciseSvg(ex){
   const bandNote=band?(pose==='row'?'BANT AYAKLARDA':(pose==='rotation'?'BANT DİRSEK YANINDA':(pose==='bridge'||pose==='squat'||pose==='side'||pose==='clam'?'BANT DİZ ÜSTÜ':'BANT YERLEŞİMİ'))):'KADIN MODEL';
   const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 140"><rect width="180" height="140" rx="14" fill="#edf7ff"/><ellipse cx="90" cy="120" rx="52" ry="5" fill="#c9d9e8"/><g stroke="#243b53" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none">'+person+'</g><path d="M78 42 Q78 29 91 29 Q105 29 105 42 L102 56 Q91 63 80 56Z" fill="#e8a080"/><path d="M78 41 Q75 24 91 22 Q109 23 107 42 L102 37 L81 37Z" fill="#3d2928"/><path d="M80 49 Q91 57 102 49 L105 70 Q91 78 77 70Z" fill="#e95b97"/><path d="M80 55 L71 75 M102 55 L111 75" stroke="#e8a080" stroke-width="8" stroke-linecap="round"/>'+bandPlacement+'<rect x="5" y="112" width="170" height="23" rx="7" fill="#fff" opacity=".95"/><text x="90" y="122" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" font-weight="700" fill="#29354b">'+label+'</text><text x="90" y="131" text-anchor="middle" font-family="Arial,sans-serif" font-size="6" fill="#b4235b">'+bandNote+'</text></svg>';
   return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
+}
+function femaleExerciseSvg(ex){
+  const n=ex.name.toLocaleLowerCase('tr-TR');
+  const map=[
+    [/squat|sandalyeye/, 'chair-squat.webp'],
+    [/yana adım/, 'band-side-step.webp'],
+    [/glute bridge|kalça köprüsü|köprü/, 'band-glute-bridge.webp'],
+    [/clamshell/, 'band-clamshell.webp'],
+    [/biceps curl|biceps|hammer curl/, 'dumbbell-biceps-curl.webp'],
+    [/göğüs press|floor press|bench press/, 'dumbbell-floor-press.webp'],
+    [/yana açış|lateral raise|shoulder press/, 'dumbbell-lateral-raise.webp'],
+    [/row|çekiş/, 'dumbbell-bent-row.webp']
+  ];
+  const match=map.find(([pattern])=>pattern.test(n));
+  return match ? 'assets/women/'+match[1] : femaleExerciseSvgFallback(ex);
 }
 function imageMarkup(ex){
   if(workoutDay>=4){
