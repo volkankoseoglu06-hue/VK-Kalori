@@ -3,7 +3,7 @@ const foods = [
 /* KAHVALTILIKLAR */
 /* WASA VE EV YAPIMI PİLAV */
 {name:"Wasa gevrek ekmek (1 adet)",kcal:35,protein:1,unit:"adet"},
-{name:"Zerdeçallı zeytinyağlı baldo pirinç pilavı (1 porsiyon)",kcal:200,protein:3,unit:"porsiyon"},
+{name:"Zerdeçallı zeytinyağlı baldo pirinç pilavı (1 porsiyon - yarım su bardağı çiğ pirinç + 1 yemek kaşığı zeytinyağı)",kcal:430,protein:6.5,unit:"porsiyon"},
 
 
 {name:"Yumurta",kcal:78,protein:6,unit:"adet"},
