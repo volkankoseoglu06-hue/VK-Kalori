@@ -34,6 +34,8 @@ const foods = [
 
 {name:"Ekşi mayalı ekmek (1 dilim - 35 g)",kcal:85,protein:3,unit:"dilim"},
 {name:"Tam buğday ekmeği (1 dilim - 30 g)",kcal:70,protein:3,unit:"dilim"},
+{name:"Kepekli ekmek (1 dilim - 30 g)",kcal:65,protein:2.5,unit:"dilim"},
+{name:"Kepekli ekmek (100 g)",kcal:250,protein:9,unit:"100 g"},
 
 {name:"Menemen",kcal:160,protein:8,unit:"porsiyon"},
 {name:"Omlet (2 yumurta)",kcal:180,protein:12,unit:"porsiyon"},
