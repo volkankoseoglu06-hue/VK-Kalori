@@ -219,12 +219,11 @@ function femaleExerciseSvg(ex,pose='start'){
     {test:/clamshell/,id:'banded-clamshell'},
     {test:/duvar şınavı?|wall push/,id:'wall-push-ups'},
     {test:/dış rotasyon|external rotation/,id:'cable-external-rotation'},
-    {test:/bench destekli sırt|kürek kemiği duruş/,id:null},
+    {test:/bench destekli sırt|kürek kemiği duruş/,id:'bench-supported-scapular-retraction'},
     {test:/biceps curl|biceps|hammer curl/,id:'bicep-curl'},
     {test:/dead bug|core|karın/,id:'dead-bug'}
   ];
   const found=maps.find(item=>item.test.test(n));
-  if(/bench destekli sırt|kürek kemiği duruş/i.test(n))return null;
   const id=found?found.id:(ex.image||EXERCISE_IDS[ex.name]);
   return id ? 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/'+id+'-'+pose+'.webp' : null;
 }
