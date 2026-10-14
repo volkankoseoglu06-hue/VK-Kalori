@@ -347,11 +347,11 @@ const foods = [
 {name:"Karnıyarık (1 adet)",kcal:300,protein:16,unit:"porsiyon"},
 {name:"Musakka (250 g)",kcal:280,protein:18,unit:"porsiyon"},
 {name:"Mantı (250 g)",kcal:350,protein:14,unit:"porsiyon"},
-{name:"Biber dolması - çok küçük (40–55 g)",kcal:85,protein:3,unit:"adet"},
-{name:"Pirinç ağırlıklı kıymalı mini dolma (3 × 4 cm; %90 pirinç, %10 kıyma)",kcal:35,protein:1.2,unit:"adet"},
-{name:"Biber dolması - küçük (55–80 g)",kcal:130,protein:4,unit:"adet"},
-{name:"Biber dolması - orta (80–120 g)",kcal:185,protein:6,unit:"adet"},
-{name:"Biber dolması - büyük (120–170 g)",kcal:250,protein:8,unit:"adet"},
+{name:"Biber dolması - çok küçük (40–55 g)",kcal:75,protein:2.5,unit:"adet"},
+{name:"Pirinç ağırlıklı kıymalı mini dolma (fotoğraftaki küçük boy; %90 pirinç, %10 kıyma)",kcal:45,protein:1.5,unit:"adet"},
+{name:"Biber dolması - küçük (55–80 g)",kcal:110,protein:3.5,unit:"adet"},
+{name:"Biber dolması - orta (80–120 g)",kcal:160,protein:5,unit:"adet"},
+{name:"Biber dolması - büyük (120–170 g)",kcal:220,protein:7,unit:"adet"},
 {name:"Yaprak sarma (10 adet)",kcal:180,protein:6,unit:"10 adet"},
 
 /* ŞARKÜTERİ */
