@@ -7,6 +7,7 @@ const foods = [
 
 
 {name:"Yumurta",kcal:78,protein:6,unit:"adet"},
+{name:"Dana kıyma (çiğ, 100 g)",kcal:215,protein:18,unit:"100 g"},
 {name:"Yumurta beyazı",kcal:17,protein:4,unit:"adet"},
 {name:"Süt (1 bardak - 200 ml)",kcal:122,protein:6,unit:"bardak"},
 {name:"Yarım yağlı süt (1 bardak - 200 ml)",kcal:94,protein:7,unit:"bardak"},
