@@ -206,19 +206,10 @@ function isSeatedBandRow(ex){
 function femaleExerciseSvgFallback(ex){
   return '<span class="female-exercise-fallback-icon" aria-hidden="true">🏋️</span>';
 }
-// Bench destekli duruş hareketi için kütüphanede birebir çizim olmadığı için erkek figürlü SVG pozları uygulama içinde çizilir.
-function benchPostureSvg(pose='start'){
-  const pulled = pose==='peak';
-  const arms = pulled
-    ? '<path d="M130 91 L151 109 L170 104" fill="none" stroke="#e5b98b" stroke-width="9" stroke-linecap="round"/><path d="M170 104 L180 109" fill="none" stroke="#e5b98b" stroke-width="8" stroke-linecap="round"/>'
-    : '<path d="M130 91 L154 108 L177 108" fill="none" stroke="#e5b98b" stroke-width="9" stroke-linecap="round"/>';
-  const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200"><rect width="300" height="200" rx="14" fill="#d9effb"/><path d="M22 154 H278" stroke="#d8dee8" stroke-width="3"/><path d="M48 126 H133 L144 136 H48 Z" fill="#7c8ba1"/><path d="M56 136 V155 M130 136 V155" stroke="#66758b" stroke-width="5" stroke-linecap="round"/><path d="M111 85 L130 91 L148 116 L165 116" fill="none" stroke="#2563eb" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/><path d="M111 85 L130 91" fill="none" stroke="#e5b98b" stroke-width="10" stroke-linecap="round"/>'+arms+'<path d="M111 85 L91 111 L80 111" fill="none" stroke="#2563eb" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/><circle cx="96" cy="61" r="15" fill="#e5b98b"/><path d="M82 59 Q82 43 97 44 Q111 45 111 58 L106 52 L88 53 Z" fill="#263244"/><path d="M165 116 L193 124 L218 124" fill="none" stroke="#263244" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/><path d="M193 124 L220 139" fill="none" stroke="#263244" stroke-width="12" stroke-linecap="round"/><path d="M165 116 L178 135 L205 139" fill="none" stroke="#263244" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/><path d="M76 112 L64 121" fill="none" stroke="#e5b98b" stroke-width="8" stroke-linecap="round"/><path d="M113 82 Q123 82 130 91" fill="none" stroke="#1d4ed8" stroke-width="5" stroke-linecap="round"/><path d="M119 91 L128 99" fill="none" stroke="'+(pulled?'#16a34a':'#2563eb')+'" stroke-width="4" stroke-linecap="round"/><text x="150" y="183" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#64748b">'+(pulled?'KÜREK KEMİKLERİNİ GERİ ÇEK':'BAŞLANGIÇ POZU')+'</text></svg>';
-  return 'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
-}
 // Kadın programlarında da aynı RepDB çizim seti kullanılır; her hareket mümkün olduğunca doğru görsele eşlenir.
 function femaleExerciseSvg(ex,pose='start'){
   const n=(ex.name||'').toLocaleLowerCase('tr-TR').normalize('NFC');
-  if(/bench destekli sırt|kürek kemiği duruş/i.test(n)) return benchPostureSvg(pose);
+  if(/bench destekli sırt|kürek kemiği duruş/i.test(n)) return 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/seated-cable-row-'+pose+'.webp';
   const maps=[
     {test:/sandalyeye otur-kalk|squat/,id:'box-squat'},
     {test:/oturarak.*row|row/,id:'seated-cable-row'},
