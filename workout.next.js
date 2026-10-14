@@ -209,7 +209,7 @@ function femaleExerciseSvgFallback(ex){
 // Kadın programlarında da aynı RepDB çizim seti kullanılır; her hareket mümkün olduğunca doğru görsele eşlenir.
 function femaleExerciseSvg(ex,pose='start'){
   const n=(ex.name||'').toLocaleLowerCase('tr-TR').normalize('NFC');
-  if(/bench destekli sırt|kürek kemiği duruş/i.test(n)) return 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/seated-cable-row-'+pose+'.webp';
+  if(/bench destekli sırt|kürek kemiği duruş/i.test(n)) return 'https://raw.githubusercontent.com/RepDB/exercise-dataset/main/images/flat/wall-push-ups-'+pose+'.webp';
   const maps=[
     {test:/sandalyeye otur-kalk|squat/,id:'box-squat'},
     {test:/oturarak.*row|row/,id:'seated-cable-row'},
