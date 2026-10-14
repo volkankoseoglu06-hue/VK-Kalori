@@ -211,7 +211,49 @@ const foods = [
 {name:"Patates kroket",kcal:280,protein:6,unit:"100 g"},
 {name:"Kaşarlı patates (250 g)",kcal:310,protein:8,unit:"porsiyon"},
 
-  /* İÇECEKLER */
+  /* SÜTLÜCE KADAYIF MENÜSÜ — kalori/protein değerleri tahminidir; ürün gramajına göre değişebilir. */
+/* Soğuk kadayıflar */
+{name:"Sütlüce Fıstıklı Soğuk Kadayıf (1 dilim)",kcal:430,protein:7,unit:"dilim"},
+{name:"Sütlüce Çikolatalı Soğuk Kadayıf (1 dilim)",kcal:450,protein:6,unit:"dilim"},
+{name:"Sütlüce Fındıklı Soğuk Kadayıf (1 dilim)",kcal:430,protein:6,unit:"dilim"},
+{name:"Sütlüce Cevizli Soğuk Kadayıf (1 dilim)",kcal:420,protein:6,unit:"dilim"},
+{name:"Sütlüce Frambuazlı Soğuk Kadayıf (1 dilim)",kcal:440,protein:5,unit:"dilim"},
+{name:"Sütlüce Yabanmersinli Soğuk Kadayıf (1 dilim)",kcal:440,protein:5,unit:"dilim"},
+{name:"Sütlüce Portakallı Soğuk Kadayıf (1 dilim)",kcal:430,protein:5,unit:"dilim"},
+/* Soğuk baklavalar: 1 adet; Sütlüce menüsündeki porsiyon 3 adet olarak listelenir */
+{name:"Sütlüce Fıstıklı Soğuk Baklava (1 adet)",kcal:250,protein:4,unit:"adet"},
+{name:"Sütlüce Fıstıklı Soğuk Baklava (3 adet porsiyon)",kcal:750,protein:12,unit:"porsiyon"},
+{name:"Sütlüce Cevizli Soğuk Baklava (1 adet)",kcal:230,protein:3,unit:"adet"},
+{name:"Sütlüce Fındıklı Soğuk Baklava (1 adet)",kcal:240,protein:3,unit:"adet"},
+{name:"Sütlüce Çikolatalı Fıstıklı Soğuk Baklava (1 adet)",kcal:260,protein:4,unit:"adet"},
+{name:"Sütlüce Bitter Çikolatalı Kahveli Soğuk Baklava (1 adet)",kcal:250,protein:3,unit:"adet"},
+/* Şerbetli baklavalar */
+{name:"Sütlüce Fıstık Sarma (1 adet)",kcal:180,protein:3,unit:"adet"},
+{name:"Sütlüce Firuze (1 adet)",kcal:230,protein:4,unit:"adet"},
+{name:"Sütlüce Cevizli Bülbül (1 adet)",kcal:170,protein:3,unit:"adet"},
+{name:"Sütlüce Şöbiyet (1 adet)",kcal:220,protein:4,unit:"adet"},
+{name:"Sütlüce Havuç Dilimi (1 dilim)",kcal:520,protein:8,unit:"dilim"},
+{name:"Sütlüce Fıstıklı Dürüm (1 adet)",kcal:300,protein:6,unit:"adet"},
+{name:"Sütlüce Midye Baklava (1 adet)",kcal:200,protein:4,unit:"adet"},
+{name:"Sütlüce Kuru Baklava (1 adet)",kcal:190,protein:4,unit:"adet"},
+{name:"Sütlüce Klasik Fıstıklı Baklava (1 adet)",kcal:180,protein:3,unit:"adet"},
+{name:"Sütlüce Klasik Cevizli Baklava (1 adet)",kcal:170,protein:3,unit:"adet"},
+{name:"Sütlüce Fıstıklı Özel Baklava (1 adet)",kcal:190,protein:4,unit:"adet"},
+{name:"Sütlüce Cevizli Özel Baklava (1 adet)",kcal:170,protein:3,unit:"adet"},
+{name:"Sütlüce Fıstıkzade Baklava (1 adet)",kcal:190,protein:4,unit:"adet"},
+{name:"Sütlüce Ankara Baklava (1 adet)",kcal:180,protein:3,unit:"adet"},
+{name:"Sütlüce Bıçak Sarma (1 adet)",kcal:210,protein:4,unit:"adet"},
+/* Şerbetli kadayıflar */
+{name:"Sütlüce Fıstıklı Basma Kadayıf (1 adet)",kcal:230,protein:4,unit:"adet"},
+{name:"Sütlüce Cevizli Basma Kadayıf (1 adet)",kcal:210,protein:3,unit:"adet"},
+{name:"Sütlüce Fıstıklı Burma Kadayıf (1 adet)",kcal:250,protein:4,unit:"adet"},
+{name:"Sütlüce Cevizli Burma Kadayıf (1 adet)",kcal:210,protein:3,unit:"adet"},
+{name:"Sütlüce Fıstıklı Sarma Kadayıf (1 adet)",kcal:240,protein:4,unit:"adet"},
+{name:"Sütlüce Cevizli Sarma Kadayıf (1 adet)",kcal:210,protein:3,unit:"adet"},
+/* Çikolata */
+{name:"Sütlüce Dubai Çikolatası (1 adet)",kcal:600,protein:9,unit:"adet"},
+
+/* İÇECEKLER */
 
 {name:"Kola (330 ml)",kcal:139,protein:0,unit:"kutu"},
 {name:"Zero kola (330 ml)",kcal:1,protein:0,unit:"kutu"},
