@@ -233,7 +233,8 @@ function imageMarkup(ex){
   const start=workoutDay>=4?femaleExerciseSvg(ex,'start'):exerciseImage(ex.name,'start');
   const peak=workoutDay>=4?femaleExerciseSvg(ex,'peak'):exerciseImage(ex.name,'peak');
   if(!start)return '<span class="exercise-visual exercise-fallback">🏋️</span>';
-  const fallback=ex.name.toLocaleLowerCase('tr-TR').includes('glute bridge')?'🍑':'🏋️';
+  const lowerName=ex.name.toLocaleLowerCase('tr-TR');
+  const fallback=/duruş|postür|kürek kemiği/.test(lowerName)?'🧍':(/kalça köprüsü|glute bridge|köprü/.test(lowerName)?'🍑':'🏋️');
   const safeName=ex.name.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
   if(workoutDay>=4){
     return '<span class="exercise-visual"><img src="'+start+'" alt="'+safeName+' hareket gösterimi" loading="lazy" onerror="this.style.display=\'none\';this.parentNode.classList.add(\'exercise-fallback\');this.parentNode.insertAdjacentText(\'beforeend\',\''+fallback+'\');"><img src="'+(peak||'')+'" alt="" class="exercise-peak" loading="lazy" onerror="this.remove()"></span>';
