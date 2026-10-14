@@ -348,6 +348,7 @@ const foods = [
 {name:"Musakka (250 g)",kcal:280,protein:18,unit:"porsiyon"},
 {name:"Mantı (250 g)",kcal:350,protein:14,unit:"porsiyon"},
 {name:"Biber dolması - çok küçük (40–55 g)",kcal:85,protein:3,unit:"adet"},
+{name:"Pirinç ağırlıklı kıymalı mini dolma (3 × 4 cm; %90 pirinç, %10 kıyma)",kcal:35,protein:1.2,unit:"adet"},
 {name:"Biber dolması - küçük (55–80 g)",kcal:130,protein:4,unit:"adet"},
 {name:"Biber dolması - orta (80–120 g)",kcal:185,protein:6,unit:"adet"},
 {name:"Biber dolması - büyük (120–170 g)",kcal:250,protein:8,unit:"adet"},
