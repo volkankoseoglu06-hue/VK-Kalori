@@ -341,7 +341,7 @@ const foods = [
 {name:"Tavuk şiş",kcal:180,protein:30,unit:"100 g"},
 {name:"Tavuk döner",kcal:215,protein:22,unit:"100 g"},
 {name:"Biftek",kcal:220,protein:28,unit:"100 g"},
-{name:"Köfte",kcal:250,protein:20,unit:"100 g"},
+{name:"Köfte (1 adet - yaklaşık 4–4,5 cm çapında)",kcal:75,protein:6,unit:"adet"},
 {name:"Et döner",kcal:290,protein:23,unit:"100 g"},
 {name:"Kavurma",kcal:300,protein:24,unit:"100 g"},
 {name:"Çıtır tavuk (100 g)",kcal:290,protein:20,unit:"100 g"},
