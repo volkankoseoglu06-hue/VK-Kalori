@@ -156,6 +156,8 @@ const foods = [
 
 /* TATLILAR */
 
+{name:"Ferrero Rocher (1 adet - yaklaşık 12,5 g)",kcal:75,protein:1,unit:"adet"},
+
 {name:"IKEA Cheesecake (120 g)",kcal:430,protein:7,unit:"porsiyon"},
 
 {name:"IKEA Tiramisu (120 g)",kcal:450,protein:7,unit:"porsiyon"},
