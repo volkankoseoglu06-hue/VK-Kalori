@@ -155,6 +155,7 @@ const foods = [
 {name:"IKEA Çorba (300 ml)",kcal:180,protein:8,unit:"kase"},
 
 /* TATLILAR */
+{name:"Muzlu çikolata soslu waffle (yaklaşık 10 cm parça)",kcal:300,protein:5,unit:"parça"},
 
 {name:"Ferrero Rocher (1 adet - yaklaşık 12,5 g)",kcal:75,protein:1,unit:"adet"},
 
