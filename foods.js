@@ -510,6 +510,17 @@ const foods = [
 {name:"Mandalina",kcal:47,protein:1,unit:"adet"},
 {name:"Çilek",kcal:32,protein:1,unit:"100 g"},
 {name:"Karpuz",kcal:30,protein:1,unit:"100 g"},
+{name:"Kayısı (1 adet)",kcal:17,protein:0.5,unit:"adet"},
+{name:"Erik (1 adet)",kcal:30,protein:0.5,unit:"adet"},
+{name:"Yaban mersini (100 g)",kcal:57,protein:0.7,unit:"100 g"},
+{name:"Nar (100 g tane)",kcal:83,protein:1.7,unit:"100 g"},
+{name:"Mango (100 g)",kcal:60,protein:0.8,unit:"100 g"},
+{name:"Ananas (100 g)",kcal:50,protein:0.5,unit:"100 g"},
+{name:"Kiraz (100 g)",kcal:63,protein:1.1,unit:"100 g"},
+{name:"Şeftali (1 orta boy)",kcal:60,protein:1.4,unit:"adet"},
+{name:"Kivi (1 adet)",kcal:45,protein:0.8,unit:"adet"},
+{name:"Armut (1 orta boy)",kcal:100,protein:0.6,unit:"adet"},
+{name:"Üzüm (100 g)",kcal:69,protein:0.7,unit:"100 g"},
 
 /* PROTEİN ÜRÜNLERİ */
 
