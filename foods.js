@@ -330,6 +330,7 @@ const foods = [
 {name:"Mercimek çorbası (250 ml)",kcal:150,protein:8,unit:"kase"},
 {name:"Ezogelin çorbası (250 ml)",kcal:140,protein:6,unit:"kase"},
 {name:"Yayla çorbası (250 ml)",kcal:120,protein:5,unit:"kase"},
+{name:"Kıymalı börek (1 porsiyon - yaklaşık 150 g)",kcal:450,protein:16,unit:"porsiyon"},
 {name:"Tarhana çorbası (250 ml)",kcal:130,protein:4,unit:"kase"},
 {name:"Domates çorbası (250 ml)",kcal:110,protein:3,unit:"kase"},
 {name:"Tavuk suyu çorba (250 ml)",kcal:100,protein:8,unit:"kase"},
