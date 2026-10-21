@@ -1,6 +1,10 @@
 const foods = [
 
 /* KAHVALTILIKLAR */
+{name:"Fırında tavuk şinitzel (1 adet - yaklaşık 150 g)",kcal:300,protein:27,unit:"adet"},
+{name:"Fırında patates (100 g)",kcal:150,protein:2.5,unit:"100 g"},
+{name:"Hamburger ekmeği (1 adet - yaklaşık 70 g)",kcal:190,protein:6,unit:"adet"},
+
 /* WASA VE EV YAPIMI PİLAV */
 {name:"Wasa gevrek ekmek (1 adet)",kcal:35,protein:1,unit:"adet"},
 {name:"Zerdeçallı zeytinyağlı baldo pirinç pilavı (1 porsiyon - yarım su bardağı çiğ pirinç + 1 yemek kaşığı zeytinyağı)",kcal:430,protein:6.5,unit:"porsiyon"},
