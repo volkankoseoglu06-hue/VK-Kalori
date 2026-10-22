@@ -1,6 +1,7 @@
 const foods = [
 
 /* KAHVALTILIKLAR */
+{name:"Adana şiş (1 adet - yaklaşık 200 g pişmiş)",kcal:450,protein:32,unit:"adet"},
 {name:"Fırında tavuk şinitzel (1 adet - yaklaşık 150 g)",kcal:300,protein:27,unit:"adet"},
 {name:"Fırında patates (100 g)",kcal:150,protein:2.5,unit:"100 g"},
 {name:"Hamburger ekmeği (1 adet - yaklaşık 70 g)",kcal:190,protein:6,unit:"adet"},
