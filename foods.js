@@ -693,4 +693,6 @@ const foods = [
 {name:"Soya Soslu",kcal:910,protein:45,unit:"tabak"},
 {name:"Izgara Tavuk Dünyası",kcal:800,protein:52,unit:"tabak"},
 {name:"Wafflecı Mini Pankek (3 cm, hafif çikolatalı, 1 adet)",kcal:35,protein:0.7,unit:"adet"},
+{name:"Etli Ekmek (yarım porsiyon, tahmini)",kcal:400,protein:22,unit:"yarım porsiyon"},
+{name:"Etli Ekmek (1 tam porsiyon, tahmini)",kcal:800,protein:40,unit:"porsiyon"},
 ];
