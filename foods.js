@@ -418,7 +418,7 @@ const foods = [
 /* BAKLİYATLAR */
 
 {name:"Kuru fasulye (250 g)",kcal:170,protein:10,unit:"porsiyon"},
-{name:"Nohut (250 g)",kcal:180,protein:9,unit:"porsiyon"},
+{name:"Nohut yemeği (1 porsiyon - 250 g)",kcal:350,protein:16,unit:"porsiyon"},
 {name:"Yeşil mercimek (250 g)",kcal:190,protein:13,unit:"porsiyon"},
 {name:"Tavuklu pilav (300 g)",kcal:420,protein:28,unit:"porsiyon"},
 {name:"Etli kuru fasulye (250 g)",kcal:280,protein:18,unit:"porsiyon"},
