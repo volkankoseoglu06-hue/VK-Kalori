@@ -695,4 +695,6 @@ const foods = [
 {name:"Wafflecı Mini Pankek (3 cm, hafif çikolatalı, 1 adet)",kcal:35,protein:0.7,unit:"adet"},
 {name:"Etli Ekmek (yarım porsiyon, tahmini)",kcal:400,protein:22,unit:"yarım porsiyon"},
 {name:"Etli Ekmek (1 tam porsiyon, tahmini)",kcal:800,protein:40,unit:"porsiyon"},
+{name:"Kıymalı patates patlıcan oturtma (100 g, zeytinyağlı)",kcal:160,protein:7,unit:"100 g"},
+{name:"Kıymalı patates patlıcan oturtma (1 porsiyon, yaklaşık 250 g)",kcal:400,protein:18,unit:"porsiyon"},
 ];
