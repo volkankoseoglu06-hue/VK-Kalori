@@ -548,7 +548,7 @@ const foods = [
   
 /* PROTEİNLİ SÜTLER */
 
-{name:"İçim Fit Protein Kakaolu Süt (1 şişe - 500 ml)",kcal:185,protein:26,unit:"şişe"},
+{name:"İçim Fit Protein Kakaolu Süt (1 şişe - 400 ml)",kcal:188,protein:26,unit:"şişe"},
 
 {name:"Pınar Proteinli Süt (500 ml)",kcal:220,protein:30,unit:"şişe"},
 
