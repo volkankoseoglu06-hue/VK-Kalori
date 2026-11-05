@@ -697,4 +697,5 @@ const foods = [
 {name:"Etli Ekmek (1 tam porsiyon, tahmini)",kcal:800,protein:40,unit:"porsiyon"},
 {name:"Kıymalı patates patlıcan oturtma (100 g, zeytinyağlı)",kcal:160,protein:7,unit:"100 g"},
 {name:"Kıymalı patates patlıcan oturtma (1 porsiyon - 250 g)",kcal:400,protein:18,unit:"porsiyon"},
+{name:"Activia Sade Laktozsuz Probiyotik Yoğurt (1 kase - 100 g)",kcal:63,protein:3.7,unit:"kase"},
 ];
